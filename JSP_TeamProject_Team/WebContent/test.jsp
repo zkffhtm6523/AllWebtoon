@@ -14,4 +14,6 @@
 branch 테스트
 
 branch 테스트2
+
+로컬 브랜치 병합 테스트
 </html>
