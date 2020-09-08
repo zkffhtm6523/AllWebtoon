@@ -24,7 +24,10 @@ public class WebtoonDetailSer extends HttpServlet {
       // 웹툰 정보 뿌리기 - 시작
       int w_no = MyUtils.getIntParameter(request, "w_no");
       
+      System.out.println(w_no);
       WebtoonVO data = WebtoonListDAO.webtoonDetail(w_no);
+      
+     System.out.println(data.getW_title());
       data.setW_no(w_no);
       request.setAttribute("data", data);
       // 웹툰 정보 뿌리기 - 끝

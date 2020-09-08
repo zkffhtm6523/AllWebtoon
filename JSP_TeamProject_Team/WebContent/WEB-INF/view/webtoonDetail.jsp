@@ -84,6 +84,7 @@
          <div id="writer">${data.w_writer }</div>
          <div id="story">${data.w_story}</div>
          <div id="platform">${data.w_plat_nm }</div>
+         <div id="tosite"><a href="${data.w_link }" target="_blank">보러가기</a></div>
       </div>
       <!-- 댓글 부분 -->
       <div class="comment">

@@ -52,7 +52,7 @@ public class UserDAO {
 				ps.setNString(2, param.getUser_password());
 				ps.setNString(3, param.getName());
 				ps.setNString(4, param.getBirth());
-				if(param.getGender().equals("girl")) {
+				if(param.getGender().equals("female")) {
 					ps.setInt(5, 1);
 				} else {
 					ps.setInt(5, 2);

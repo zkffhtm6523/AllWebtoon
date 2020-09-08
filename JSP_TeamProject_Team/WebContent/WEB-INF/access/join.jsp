@@ -46,8 +46,8 @@
                 <input type="text" name="name" id="name" placeholder="이름" ><br>
                 <input type="email" name="email" id="email" placeholder="메일"><br>
               	  생년월일 <input type="date" name="birth" id="birth"><br>
-                <label><input type="radio" class="gender" name="gender" value="man">남자</label>
-                <label><input type="radio" class="gender" name="gender" value="girl">여자</label><br>
+                <label><input type="radio" class="gender" name="gender" value="male">남자</label>
+                <label><input type="radio" class="gender" name="gender" value="female">여자</label><br>
                 <div><input type="submit" value="회원가입"></div>
             </form>
         </div>

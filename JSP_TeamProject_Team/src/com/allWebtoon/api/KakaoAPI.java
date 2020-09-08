@@ -114,7 +114,7 @@ public class KakaoAPI {
 	        param.setName(nickname);
 	        birthday = "1990/"+birthday.substring(0,2)+"/"+birthday.substring(2, birthday.length());
 	        param.setBirth(birthday);
-	        gender = (gender == "female" ? "1" : "2");
+	       // gender = (gender.equals("female") ? "" : "man");
 	        param.setGender(gender);
 	        param.setEmail(email);
 	        param.setProfile(profile_image);
