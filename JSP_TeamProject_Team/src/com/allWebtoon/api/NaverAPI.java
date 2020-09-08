@@ -120,7 +120,7 @@ public class NaverAPI extends HttpServlet {
 				userInfo.setBirth("1990/"+birthday.replace("-", "/"));
 				userInfo.setProfile(profile_img);
 				userInfo.setEmail(email);
-				userInfo.setGender(gender.equals("M") ? "2" : "1");
+				userInfo.setGender(gender.equals("M") ? "male" : "female");
 				
 				int db_result = UserDAO.selNaverUser(userInfo);
 				
