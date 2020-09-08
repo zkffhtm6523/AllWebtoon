@@ -80,10 +80,10 @@
          <div id="thumbnail">
             <img src="${data.w_thumbnail }">
          </div>
-         <div id="title">${data.w_title }</div>
-         <div id="writer">${data.w_writer }</div>
+         <div id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></div>
+         <div id="writer"><a href="/searchResult?result=${data.w_writer }">${data.w_writer }</a></div>
          <div id="story">${data.w_story}</div>
-         <div id="platform">${data.w_plat_nm }</div>
+         <div id="platform"><a href="/searchResult?result=${data.w_plat_nm }">${data.w_plat_nm }</a></div>
          <div id="tosite"><a href="${data.w_link }" target="_blank">보러가기</a></div>
       </div>
       <!-- 댓글 부분 -->
