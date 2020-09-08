@@ -110,7 +110,8 @@
    <script>
       if(cmtFrm.point.value != '0.0'){
          document.cmtFrm.star[Number(cmtFrm.point.value*2-1)].checked = true
-      }
+      } // 남긴 별점 표시하기
+      
       if(cmtFrm.cmt_btn.value == '수정하기'){
          console.log('누르기 전 ' + cmtFrm.cmtChk.value)
          cmtFrm.cmtChk.value = 1
@@ -126,16 +127,12 @@
    
       function chk() {
          if(cmtFrm.u_no.value == '') {
-            alert('먼저 로그인 해주세요')
+            alert('먼저 로그인 해주세요') // 로그인 체크
             return false
          }else if (point.value <= 0) { // 별점 체크
             alert('별점을 입력해 주세요')
             return false
-         } else if (cmtFrm.cmt.value <= 0) { // 댓글 체크
-            alert('댓글을 작성해 주세요')
-            cmtFrm.cmt.focus()
-            return false
-         }
+         } 
          alert('댓글이 등록되었습니다')
       }
       
