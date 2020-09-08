@@ -31,7 +31,7 @@ public class UserDAO {
 					sqlResult.setProfile(rs.getNString("u_profile"));
 					sqlResult.setEmail(rs.getNString("u_email"));
 					sqlResult.setName(rs.getNString("u_name"));
-					sqlResult.setGender(rs.getInt("gender_no") == 1 ? "여성" : "남성");
+					sqlResult.setGender(rs.getInt("gender_no") == 1 ? "female" : "male");
 				}
 				return 1;
 			}
