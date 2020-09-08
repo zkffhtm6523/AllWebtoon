@@ -46,7 +46,7 @@ public class GoogleAPI extends HttpServlet {
 		Token token = gson.fromJson(tokenJson, Token.class);
 		//매개변수 1개 메소드 사용
 		String ret = getHttpConnection(
-				"https://www.googleapis.com/oauth2/v3/userinfo&access_token=" + token.getAccess_token());
+				"https://www.googleapis.com/oauth2/v3/userinfo?alt=json&access_token=" + token.getAccess_token());
 		//test 1
 		System.out.println("ret : "+ret);
 	}
