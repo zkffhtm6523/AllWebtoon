@@ -65,14 +65,14 @@
 						+'&state='+state
 	}
 	function goGoogle() {
-		location.href = 'https://accounts.google.com/o/oauth2/v2/auth?'
-			 + 'scope=https%3A//www.googleapis.com/auth/contacts'
+		location.href = 'https://accounts.google.com/o/oauth2/auth?'
+			 + 'scope=https://www.googleapis.com/auth/userinfo.profile'
+			 + '&approval_prompt=force'
 			 + '&access_type=offline'
-			 + '&include_granted_scopes=true'
 			 + '&response_type=code'
-			 + '&state=state_parameter_passthrough_value'
-			 + '&redirect_uri=http://localhost:8089/googleAPI'
 			 + '&client_id=659641044041-d8d9d26ubldu5veldv2g3cqaqedv6htq.apps.googleusercontent.com'
+			 + '&redirect_uri=http://localhost:8089/googleAPI'
+			 //scope=https://www.googleapis.com/auth/userinfo.email'
 	}
 </script>
 </html>
