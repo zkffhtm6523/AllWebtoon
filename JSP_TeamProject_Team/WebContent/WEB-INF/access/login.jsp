@@ -29,6 +29,7 @@
         .snsimg:hover{cursor: pointer;}
         #login_btn {background-color: #ccb2e5;}
         a {text-decoration: none; color: white;}
+        .gotojoin a{color: black;}
     </style>
 </head>
 <body>
@@ -44,8 +45,9 @@
             </form>
             <div class="snsbtn"><img class="snsimg" src="/images/login_logo/kakao_btn.PNG" id="kakao" onclick="goKakao()"></div>
             <div class="snsbtn"><img class="snsimg" src="/images/login_logo/naver_btn.PNG" id="naver" onclick="goNaver('${state}')"></div>
-            <div class="snsbtn"><img class="snsimg" src="/images/login_logo/google_btn.PNG" id="google" onclick="goGoogle()"></div>
+            <div class="snsbtn"><img class="snsimg" src="/images/login_logo/google_btn.PNG" id="google" onclick="goGoogle()"></div>  	
         </div>
+        <div class="gotojoin"><a href="/join">회원가입</a></div>
     </div>
 		
 </body>
