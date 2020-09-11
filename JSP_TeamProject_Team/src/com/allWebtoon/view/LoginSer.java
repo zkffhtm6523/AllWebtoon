@@ -39,7 +39,7 @@ public class LoginSer extends HttpServlet {
 			int result = UserDAO.selKakaoUser(userInfo);
 			if(result == 0) {
 				UserDAO.insUser(userInfo);
-				response.sendRedirect("/choGenre?user_id="+userInfo.getUser_id());
+				response.sendRedirect("/webtoon/cmt?user_id="+userInfo.getUser_id());
 				return;
 			}
 			

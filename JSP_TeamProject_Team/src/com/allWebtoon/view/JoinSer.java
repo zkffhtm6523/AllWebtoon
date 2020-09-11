@@ -19,6 +19,7 @@ public class JoinSer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ViewResolver.accessForward("join", request, response);
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user_id = request.getParameter("id");
 		String user_pw = request.getParameter("pw");
@@ -48,7 +49,7 @@ public class JoinSer extends HttpServlet {
 			return;
 		}
 		
-		response.sendRedirect("/choGenre?user_id="+ param.getUser_id());
+		response.sendRedirect("/webtoon/cmt?user_id="+ param.getUser_id());
 		
 	}
 }
