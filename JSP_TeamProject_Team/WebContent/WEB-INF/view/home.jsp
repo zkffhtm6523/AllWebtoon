@@ -68,7 +68,7 @@
 	  	makeImage(lezhinList, "레진코믹스 추천",'레진')
 	  	
 	    function makeImage(list, title, result){
-			//컨테이너 안 섹션 태그 만들기
+			//컨테이너 안 섹션 태그 받아오기   
 		    let section = document.querySelector('section')
 		    container.append(section)
 		    //추천별 블록 만들기

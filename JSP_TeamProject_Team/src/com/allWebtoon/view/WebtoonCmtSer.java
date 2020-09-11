@@ -1,6 +1,7 @@
 package com.allWebtoon.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,16 +10,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.allWebtoon.dao.WebtoonCmtDAO;
+import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.util.MyUtils;
+import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
 import com.allWebtoon.vo.WebtoonCmtVO;
+import com.allWebtoon.vo.WebtoonVO;
 
 @WebServlet("/webtoon/cmt")
 public class WebtoonCmtSer extends HttpServlet {
    private static final long serialVersionUID = 1L;
        
    // 댓글 삭제
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	   
+		ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
+		
+		list = WebtoonListDAO.selRandomWebtoonList(list, 20);
+	
+		request.setAttribute("list", list);
+	   
+		ViewResolver.viewForward("starRating", request, response);
+   }
+   
 
    // 댓글 ( 작성 / 수정 )
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

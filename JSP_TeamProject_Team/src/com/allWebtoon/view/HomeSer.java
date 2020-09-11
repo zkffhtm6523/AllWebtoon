@@ -23,7 +23,7 @@ public class HomeSer extends HttpServlet {
 		UserVO loginUser = MyUtils.getLoginUser(request);
 		
 		ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
-		System.out.println("로그인 유저 없음");
+		//System.out.println("로그인 유저 없음");
 		//네이버 정보 출력
 		list = WebtoonListDAO.selRandomWebtoonList(list, 1, 15);
 		//카카오 정보 출력
