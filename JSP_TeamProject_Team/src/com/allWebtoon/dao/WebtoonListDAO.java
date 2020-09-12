@@ -43,6 +43,40 @@ public class WebtoonListDAO {
 		
 		return list;
 	}
+	
+	
+	public static ArrayList<WebtoonVO> selRandomWebtoonList(ArrayList<WebtoonVO> list, int randomLength){
+		String sql = " select w_no, w_title, w_writer, w_story, w_thumbnail, w_link, plat_no "
+					+ " from t_webtoon "
+					+ " order by rand() limit ? ";
+		
+		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+			@Override
+			//물음표 넣을 때
+			public void prepared(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, randomLength);
+			}
+			@Override
+			//while문으로 값 가져올 때
+			public int executeQuery(ResultSet rs) throws SQLException {
+				while(rs.next()) {
+					WebtoonVO vo = new WebtoonVO();
+					vo.setW_no(rs.getInt("w_no"));
+					vo.setW_title(rs.getNString("w_title"));
+					vo.setW_writer(rs.getNString("w_writer"));
+					vo.setW_story(rs.getNString("w_story"));
+					vo.setW_thumbnail(rs.getNString("w_thumbnail"));
+					vo.setW_plat_no(rs.getInt("plat_no"));
+					list.add(vo);
+				}
+				return 1;
+			}
+		});
+		
+		return list;
+	}
+	
+	
 	// 검색 결과
 	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo, int randomLength){
 		ArrayList<SearchWebtoonVO> list = new ArrayList<SearchWebtoonVO>();
