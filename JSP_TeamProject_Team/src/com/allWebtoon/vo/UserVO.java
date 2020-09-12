@@ -12,8 +12,21 @@ public class UserVO {
 	private String[] u_genre;
 	private String r_dt;
 	private String m_dt;
-
+	private int u_joinPath;
+	private String chkProfile;
 	
+	public String getChkProfile() {
+		return chkProfile;
+	}
+	public void setChkProfile(String chkProfile) {
+		this.chkProfile = chkProfile;
+	}
+	public int getU_joinPath() {
+		return u_joinPath;
+	}
+	public void setU_joinPath(int u_joinPath) {
+		this.u_joinPath = u_joinPath;
+	}
 	public String[] getU_genre() {
 		return u_genre;
 	}

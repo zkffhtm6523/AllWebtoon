@@ -23,13 +23,11 @@
 <title>모두의 웹툰</title>
 </head>
 <body>
-	<div id="container">
-	<jsp:include page="../header/header.jsp"></jsp:include>
-	<section></section>
-	</div>
-	${loginUser.profile}
-	${loginUser.m_dt}
-	${loginUser.r_dt}
+<div id="container">
+		<jsp:include page="../template/header.jsp"/>
+		<section></section>
+		<jsp:include page="../template/footer.jsp"/>
+</div>
 	<script>
 		function ToonVO(w_no, w_title, w_thumbnail, w_plat_no){
 			this.w_no = w_no;
@@ -64,16 +62,13 @@
     			</c:when>
  			</c:choose>
     	</c:forEach>
-    	
     	//함수 사용으로 인한 간단한 호출...이거만 있으면 됨!!!
 	  	makeImage(naverList, "네이버 웹툰 추천",'네이버')
 	  	makeImage(kakaoList, "카카오페이지 추천",'카카오')
 	  	makeImage(lezhinList, "레진코믹스 추천",'레진')
-	  	
 	    function makeImage(list, title, result){
 			//컨테이너 안 섹션 태그 받아오기   
 		    let section = document.querySelector('section')
-		    container.append(section)
 		    //추천별 블록 만들기
 		    let indexBlock = document.createElement('div')
 		    indexBlock.classList.add('indexBlock')

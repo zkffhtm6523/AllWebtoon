@@ -46,7 +46,7 @@ public class WebtoonListDAO {
 	
 	
 	public static ArrayList<WebtoonVO> selRandomWebtoonList(ArrayList<WebtoonVO> list, int randomLength){
-		String sql = " select w_no, w_title, w_writer, w_story, w_thumbnail, w_link, plat_no "
+		String sql = " select w_no, w_title, w_story, w_thumbnail, w_link, plat_no "
 					+ " from t_webtoon "
 					+ " order by rand() limit ? ";
 		
@@ -63,7 +63,6 @@ public class WebtoonListDAO {
 					WebtoonVO vo = new WebtoonVO();
 					vo.setW_no(rs.getInt("w_no"));
 					vo.setW_title(rs.getNString("w_title"));
-					vo.setW_writer(rs.getNString("w_writer"));
 					vo.setW_story(rs.getNString("w_story"));
 					vo.setW_thumbnail(rs.getNString("w_thumbnail"));
 					vo.setW_plat_no(rs.getInt("plat_no"));

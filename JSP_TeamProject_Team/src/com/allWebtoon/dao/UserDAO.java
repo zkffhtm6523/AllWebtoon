@@ -29,7 +29,6 @@ public class UserDAO {
 					sqlResult.setU_no(rs.getInt("u_no"));
 					sqlResult.setUser_id(rs.getNString("u_id"));
 					sqlResult.setProfile(rs.getNString("u_profile"));
-					System.out.println(sqlResult.getProfile());
 					sqlResult.setEmail(rs.getNString("u_email"));
 					sqlResult.setName(rs.getNString("u_name"));
 					sqlResult.setGender(rs.getInt("gender_no") == 1 ? "female" : "male");
@@ -43,8 +42,8 @@ public class UserDAO {
 	public static int insUser(UserVO param) {
 		
 		String sql = "INSERT INTO t_user"
-				+ " (u_id, u_password, u_name, u_birth, gender_no, u_email, u_profile) "
-				+ " VALUES (?,?,?,?,?,?,?) ";
+				+ " (u_id, u_password, u_name, u_birth, gender_no, u_email, u_profile, u_joinPath) "
+				+ " VALUES (?,?,?,?,?,?,?,?) ";
 		
 		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
 			@Override
@@ -63,6 +62,11 @@ public class UserDAO {
 					ps.setNString(7, "");
 				}else {
 					ps.setNString(7, param.getProfile());
+				}
+				if(param.getU_joinPath() > 1) {
+					ps.setInt(8, param.getU_joinPath());
+				}else {
+					ps.setInt(8, 1);
 				}
 			}
 
@@ -111,11 +115,9 @@ public class UserDAO {
 				if(rs.next()) {					//레코드가 있음
 					String dbPw = rs.getNString("u_password");
 					if(dbPw.equals(param.getUser_password())) {	//로그인 성공(비밀번호 맞을 경우)
-						int i_user = rs.getInt("u_no");
-						String nm = rs.getNString("u_name");
 						param.setUser_password(null);
-						param.setU_no(i_user);
-						param.setName(nm);
+						param.setU_no(rs.getInt("u_no"));
+						param.setName(rs.getNString("u_name"));
 						return 1;
 					} else {								//로그인 실패.(비밀번호 틀릴 경우)
 						return 2;
@@ -130,7 +132,7 @@ public class UserDAO {
 	//0:에러발생, 1:로그인 성공, 2:비밀번호 틀림, 3:아이디 없음
 		public static int login(UserVO param) {
 			
-			String sql = "SELECT u_no, u_password, u_name, u_birth, gender_no, u_email, u_profile, r_dt, m_dt "
+			String sql = "SELECT u_no, u_password, u_name, u_birth, gender_no, u_email, u_profile, r_dt, m_dt, u_joinPath "
 						+ " FROM t_user " 
 						+ " WHERE u_id = ? ";
 					
@@ -157,9 +159,12 @@ public class UserDAO {
 							param.setGender(rs.getInt("gender_no") == 1 ? "여성" : "남성");
 							param.setEmail(rs.getString("u_email"));
 							param.setProfile(rs.getString("u_profile"));
-							System.out.println(param.getProfile());
 							param.setR_dt(rs.getString("r_dt"));
 							param.setM_dt(rs.getString("m_dt"));
+							if(param.getProfile().length() > 4) {
+								param.setChkProfile(param.getProfile().substring(0, 4));
+								System.out.println("chkProfile : "+param.getChkProfile());
+							}
 							return 1;
 						} else {								//로그인 실패.(비밀번호 틀릴 경우)
 							return 2;

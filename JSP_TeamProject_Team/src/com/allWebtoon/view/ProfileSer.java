@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.allWebtoon.dao.UserDAO;
 import com.allWebtoon.util.MyUtils;
@@ -68,24 +69,13 @@ public class ProfileSer extends HttpServlet {
 				//확장자 추출
 				int pos = fileNm.lastIndexOf( "." );
 				String ext = fileNm.substring(pos);
-				System.out.println(pos);
-				System.out.println(ext);
 				
-				//form 태그의 name(key값)
-				System.out.println("str : "+key);
-				System.out.println("fileNm : "+fileNm);
-				
-				//UUID : 범용 고유 식별자
-
 				//예전 파일
 				File oldFile = new File(savePath+"/"+fileNm);
 				//공파일 만들기
-//				File newFile = new File(savePath+"/"+"dgdgdgdg.jpg");
 				saveFileNm = UUID.randomUUID()+ext;
 				File newFile = new File(savePath+"/"+saveFileNm);
-				System.out.println("newFile: "+newFile);
 				oldFile.renameTo(newFile);
-				System.out.println("newFile: "+newFile);
 				
 			}
 		}catch (Exception e) {
@@ -97,6 +87,8 @@ public class ProfileSer extends HttpServlet {
 			param.setProfile(saveFileNm);
 			param.setU_no(loginUser.getU_no());
 			UserDAO.updUser(param);
+			loginUser.setProfile(saveFileNm);
+			loginUser.setChkProfile(saveFileNm.substring(0, 4));
 		}
 		response.sendRedirect("/profile");
 	}

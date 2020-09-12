@@ -24,10 +24,8 @@ public class LoginSer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//플랫폼 넘버 구분
 		String platNo = request.getParameter("platNo");
-		System.out.println(platNo);
 		//네이버 : 난수 발생용
 		if(platNo == null) {
-			System.out.println("네이버");
 			SecureRandom random = new SecureRandom();
 			String state = new BigInteger(130, random).toString();
 			request.setAttribute("state", state);
@@ -42,8 +40,6 @@ public class LoginSer extends HttpServlet {
 				response.sendRedirect("/webtoon/cmt?user_id="+userInfo.getUser_id());
 				return;
 			}
-			
-			System.out.println("result : "+result);
 			//에러처리
 			if(result == 2) {		
 				String msg = "비밀번호가 틀렸습니다.";
