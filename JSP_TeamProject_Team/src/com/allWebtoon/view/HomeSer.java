@@ -21,6 +21,9 @@ public class HomeSer extends HttpServlet {
 		//홈에 이미지 출력할 배열 생성
 		//세션 정보 담긴 변수
 		UserVO loginUser = MyUtils.getLoginUser(request);
+	 	if(loginUser != null) {
+	 		System.out.println("home get profile : "+loginUser.getProfile());
+	 	}
 		
 		ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
 		//System.out.println("로그인 유저 없음");

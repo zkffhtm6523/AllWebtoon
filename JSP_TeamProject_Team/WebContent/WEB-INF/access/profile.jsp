@@ -34,7 +34,7 @@
 		<h1>프로필 변경</h1>
 		<div class="printImage">
 			<c:choose>
-				<c:when test="${profileData.profile == ''}">
+				<c:when test="${loginUser.profile == ''}">
 					<img src="/images/u_profile/default_image.jpg" class="profileImg">
 				</c:when>
 				<c:otherwise>

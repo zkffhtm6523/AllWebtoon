@@ -10,6 +10,8 @@ public class UserVO {
 	private String email;
 	private String profile;
 	private String[] u_genre;
+	private String r_dt;
+	private String m_dt;
 
 	
 	public String[] getU_genre() {
@@ -65,6 +67,18 @@ public class UserVO {
 	}
 	public void setProfile(String profile) {
 		this.profile = profile;
+	}
+	public String getR_dt() {
+		return r_dt;
+	}
+	public void setR_dt(String r_dt) {
+		this.r_dt = r_dt;
+	}
+	public String getM_dt() {
+		return m_dt;
+	}
+	public void setM_dt(String m_dt) {
+		this.m_dt = m_dt;
 	}
 	
 	

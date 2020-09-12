@@ -29,6 +29,7 @@ public class UserDAO {
 					sqlResult.setU_no(rs.getInt("u_no"));
 					sqlResult.setUser_id(rs.getNString("u_id"));
 					sqlResult.setProfile(rs.getNString("u_profile"));
+					System.out.println(sqlResult.getProfile());
 					sqlResult.setEmail(rs.getNString("u_email"));
 					sqlResult.setName(rs.getNString("u_name"));
 					sqlResult.setGender(rs.getInt("gender_no") == 1 ? "female" : "male");
@@ -129,14 +130,15 @@ public class UserDAO {
 	//0:에러발생, 1:로그인 성공, 2:비밀번호 틀림, 3:아이디 없음
 		public static int login(UserVO param) {
 			
-			String sql = "SELECT u_no, u_password, u_name FROM t_user WHERE u_id=?";
+			String sql = "SELECT u_no, u_password, u_name, u_birth, gender_no, u_email, u_profile, r_dt, m_dt "
+						+ " FROM t_user " 
+						+ " WHERE u_id = ? ";
 					
 			return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
 				@Override
 				public void prepared(PreparedStatement ps) throws SQLException {
 					ps.setNString(1,  param.getUser_id());
-					System.out.println(param.getUser_id());
 				}
 
 				@Override
@@ -151,6 +153,13 @@ public class UserDAO {
 							param.setUser_password(null);
 							param.setU_no(i_user);
 							param.setName(nm);
+							param.setBirth(rs.getString("u_birth"));
+							param.setGender(rs.getInt("gender_no") == 1 ? "여성" : "남성");
+							param.setEmail(rs.getString("u_email"));
+							param.setProfile(rs.getString("u_profile"));
+							System.out.println(param.getProfile());
+							param.setR_dt(rs.getString("r_dt"));
+							param.setM_dt(rs.getString("m_dt"));
 							return 1;
 						} else {								//로그인 실패.(비밀번호 틀릴 경우)
 							return 2;
@@ -170,6 +179,40 @@ public class UserDAO {
 			public void update(PreparedStatement ps) throws SQLException {
 				ps.setNString(1,param.getUser_id());
 				ps.setNString(2,str);
+			}
+		});
+	}
+	public static int updUser(UserVO param) {
+		StringBuilder sb = new StringBuilder(" UPDATE t_user SET m_dt = now()");
+		
+		if(param.getUser_password() != null) {
+			sb.append(" , u_password = '");
+			sb.append(param.getUser_password());
+			sb.append("' ");
+		}
+		if(param.getName() != null) {
+			sb.append(" , u_name = '");
+			sb.append(param.getName());
+			sb.append("' ");
+		}
+		if(param.getEmail() != null) {
+			sb.append(" , u_email = '");
+			sb.append(param.getEmail());
+			sb.append("' ");
+		}
+		if(param.getProfile() != null) {
+			sb.append(" , u_profile = '");
+			sb.append(param.getProfile());
+			sb.append("' ");
+		}
+		sb.append(" where u_no = ");
+		sb.append(param.getU_no());
+		
+		System.out.println("sb : " + sb.toString());
+		
+		return JdbcTemplate.executeUpdate(sb.toString(), new JdbcUpdateInterface() {
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
 			}
 		});
 	}

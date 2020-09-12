@@ -27,6 +27,9 @@
 	<jsp:include page="../header/header.jsp"></jsp:include>
 	<section></section>
 	</div>
+	${loginUser.profile}
+	${loginUser.m_dt}
+	${loginUser.r_dt}
 	<script>
 		function ToonVO(w_no, w_title, w_thumbnail, w_plat_no){
 			this.w_no = w_no;
