@@ -10,7 +10,7 @@
 	section{background-color: #F8F8F8; margin: 15px auto; height: 780px; background-color: #F8F8F8;
  			border-top: 1px solid #EAEAEA; text-align: center;}
  	section .frmContainer{margin: 15px auto; text-align: center;}
- 	.profileImg{width: 200px; border-radius: 50%; object-fit: cover; overflow: hidden;}
+ 	.profileImg{width: 240px; height:220px; border-radius: 50%; object-fit: cover; overflow: hidden;}
  	.name{color: gray; font-weight: gray; font-weight: bold;}
  	.updName{width: 280px; height: 41px;background: #FFFFFF; padding-left: 30px; 
 	padding-right:20px; border: 1px solid #4FA2C7; box-sizing: border-box; border-radius: 10px;
@@ -37,6 +37,9 @@
 				<c:when test="${profileData.profile == ''}">
 					<img src="/images/u_profile/default_image.jpg" class="profileImg">
 				</c:when>
+				<c:otherwise>
+					<img src="${loginUser.profile}" class="profileImg">
+				</c:otherwise>
 			</c:choose>
 		</div>
 		<div class="frmContainer">
