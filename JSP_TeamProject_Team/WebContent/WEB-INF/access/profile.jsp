@@ -66,6 +66,9 @@
 		margin: 30px auto;
 		margin-top: 15px;
 	}
+	section #frmBtn{
+		font-size: 1.05em;
+	}
 	section #frmBtn:hover {
 		cursor: pointer;
 	}
