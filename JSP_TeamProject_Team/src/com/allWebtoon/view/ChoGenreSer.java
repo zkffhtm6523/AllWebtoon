@@ -24,10 +24,10 @@ public class ChoGenreSer extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] genres = request.getParameterValues("genre_arr");
-		String user_id = request.getParameter("user_id");
+		String u_id = request.getParameter("u_id");
 		UserVO param = new UserVO();
 		param.setU_genre(genres);
-		param.setUser_id(user_id);
+		param.setU_id(u_id);
 		
 		for(String str : param.getU_genre()) {
 			UserDAO.insU_genre(param, str);
