@@ -57,8 +57,11 @@ public class JoinSer extends HttpServlet {
 		HttpSession hs = request.getSession();
 		hs.setAttribute(Const.LOGIN_USER,param);
 		
-		//response.sendRedirect("/webtoon/cmt?user_id="+ param.getUser_id());
+		UserVO vo = (UserVO) hs.getAttribute(Const.LOGIN_USER);
 		
-		response.sendRedirect("/");
+	//	System.out.println(vo.getU_no());
+		response.sendRedirect("/webtoon/cmt");
+		
+		//response.sendRedirect("/");
 	}
 }

@@ -1,7 +1,6 @@
 package com.allWebtoon.view;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
@@ -17,6 +18,10 @@ import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
 import com.allWebtoon.vo.WebtoonCmtVO;
 import com.allWebtoon.vo.WebtoonVO;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.apache.commons.io.IOUtils;
 
 @WebServlet("/webtoon/cmt")
 public class WebtoonCmtSer extends HttpServlet {
@@ -29,6 +34,9 @@ public class WebtoonCmtSer extends HttpServlet {
 		
 		list = WebtoonListDAO.selRandomWebtoonList(list);
 	
+		HttpSession hs = request.getSession();
+		hs.setAttribute("ratingList",list);
+		
 		request.setAttribute("list", list);
 	   
 		ViewResolver.viewForward("starRating", request, response);
@@ -37,15 +45,49 @@ public class WebtoonCmtSer extends HttpServlet {
 
    // 댓글 ( 작성 / 수정 )
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      UserVO loginUser = MyUtils.getLoginUser(request);
-      int u_no = loginUser.getU_no();
+      UserVO loginUser = new UserVO();
       
-      int w_no = MyUtils.getIntParameter(request, "w_no");
-      String strC_rating = request.getParameter("c_rating");
+      loginUser = MyUtils.getLoginUser(request);
+      
+      int u_no = loginUser.getU_no();
+      int w_no;
+      String strC_rating;
+      String ratingPage = null;
+      String cmtChk;
+      String c_com = null;
+      
+      
+      ///////////////////////////////////////
+      
+      String body = IOUtils.toString(request.getReader());
+      
+      if( body != null) {
+    	  
+    	  JsonParser parser = new JsonParser();
+          JsonObject object = (JsonObject) parser.parse(body);
+          //System.out.println(body);
+
+          w_no = Integer.parseInt(object.get("w_no").toString());
+          strC_rating = object.get("c_rating").toString();
+          ratingPage = object.get("ratingPage").toString();
+          cmtChk = object.get("cmtChk").toString().split("\"")[1];
+          
+      } else {
+    	  w_no = MyUtils.getIntParameter(request, "w_no");
+    	  strC_rating = request.getParameter("c_rating");
+      
+    	  c_com = request.getParameter("c_com");
+	      
+	      System.out.println("u_no: " + u_no);
+	      System.out.println("w_no: " + w_no);
+	      System.out.println("c_rating: " + strC_rating);
+	
+	      
+	      cmtChk = request.getParameter("cmtChk"); // 댓글 등록인지 수정인지 판단하는 변수
+	      
+      }
+      
       float c_rating = Float.parseFloat(strC_rating);
-      String c_com = request.getParameter("c_com");
-      System.out.println("점수 확인 : " + c_rating);
-     // String ratingPage = request.getParameter("ratingPage");
       
       WebtoonCmtVO param = new WebtoonCmtVO();
       
@@ -54,8 +96,7 @@ public class WebtoonCmtSer extends HttpServlet {
       param.setC_com(c_com);
       param.setC_rating(c_rating);
       
-      String cmtChk = request.getParameter("cmtChk"); // 댓글 등록인지 수정인지 판단하는 변수
-      
+      System.out.println("cmtChk: " + cmtChk);
       int result;
       switch(cmtChk) {
       case "0": // 등록
@@ -68,7 +109,55 @@ public class WebtoonCmtSer extends HttpServlet {
          break;
       }
       
-      response.sendRedirect("/webtoon/detail?w_no=" + w_no);
-   }
+      if(ratingPage == null) {
+    	  response.sendRedirect("/webtoon/detail?w_no=" + w_no);
+      } else {
+    	  HttpSession hs = request.getSession();
+  		
+    	//  WebtoonCmtVO webCmtVO = WebtoonCmtDAO.selCmt(param);
+    	//  request.setAttribute("cmtlist", webCmtVO);
+  		//  request.setAttribute("list", hs.getAttribute("ratingList"));
+    	//  ViewResolver.viewForward("starRating", request, response);
+    	  
+    /*	  
+    	  Gson gson = new Gson();
+    		
+    	  ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
+    	  list = (ArrayList<WebtoonVO>) hs.getAttribute("ratingList");
+    		
+    		String json = gson.toJson(list);
+    		
+    		System.out.println("json : " + json);
+    		
+    		response.setCharacterEncoding("UTF-8");
+    		response.setContentType("application/json");
+    		PrintWriter out = response.getWriter();
+    		out.print(json);*/
+      }
+   
+   
+   
+   
+   
+  // int i_board = MyUtils.getIntParameter(request, "i_board");
+	//System.out.println("i_board : " + i_board);
 
+	//List<BoardDomain> likeList = BoardDAO.selBoardLikeList(i_board);
+  /*   HttpSession hs = request.getSession();
+	Gson gson = new Gson();
+	
+	ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
+	list = (ArrayList<WebtoonVO>) hs.getAttribute("ratingList");
+	
+	String json = gson.toJson(list);
+	
+	System.out.println("json : " + json);
+	
+	response.setCharacterEncoding("UTF-8");
+	response.setContentType("application/json");
+	PrintWriter out = response.getWriter();
+	out.print(json);
+
+   }*/
+   }
 }
