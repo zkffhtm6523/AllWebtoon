@@ -34,14 +34,14 @@
 		<h1>프로필 변경</h1>
 		<div class="printImage">
 			<c:choose>
-				<c:when test="${loginUser.profile eq ''}">
+				<c:when test="${loginUser.u_profile eq ''}">
 					<img class="profileImg" src="/images/u_profile/default_image.jpg" alt="프로필 설정 가기">
 				</c:when>
 				<c:when test="${loginUser.chkProfile eq 'http'}">
-					<img class="profileImg" src="${loginUser.profile}" alt="프로필 설정 가기">
+					<img class="profileImg" src="${loginUser.u_profile}" alt="프로필 설정 가기">
 				</c:when>
 				<c:otherwise>
-					<img class="profileImg" src="/images/u_profile/user/${loginUser.u_no}/${loginUser.profile}" alt="프로필 설정 가기">
+					<img class="profileImg" src="/images/u_profile/user/${loginUser.u_no}/${loginUser.u_profile}" alt="프로필 설정 가기">
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -49,7 +49,7 @@
 			<form action="/profile" method="post" enctype="multipart/form-data">
 				<div>
 					<span class="name">이름</span>&nbsp;&nbsp;
-					<div><input type="search" name="updName" value="${profileData.name}" class="updName"></div>
+					<div><input type="search" name="updName" value="${profileData.u_name}" class="updName"></div>
 					<input type="file" name="profile_img" accept="image/*" value="이미지 선택" class="imgFile">
 					<input type="submit" value="업로드">
 				</div>

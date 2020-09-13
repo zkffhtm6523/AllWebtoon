@@ -2,8 +2,8 @@ package com.allWebtoon.vo;
 
 public class UserVO {
 	private int u_no;
-	private String user_id;
-	private String user_password;
+	private String u_id;
+	private String u_password;
 	private String u_name;
 	private String u_birth;
 	private String gender_name;
@@ -15,24 +15,25 @@ public class UserVO {
 	private int u_joinPath;
 	private String chkProfile;
 	
+	public String getU_id() {
+		return u_id;
+	}
+	public void setU_id(String u_id) {
+		this.u_id = u_id;
+	}
+	public String getU_password() {
+		return u_password;
+	}
+	public void setU_password(String u_password) {
+		this.u_password = u_password;
+	}
 	public int getU_no() {
 		return u_no;
 	}
 	public void setU_no(int u_no) {
 		this.u_no = u_no;
 	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-	public String getUser_password() {
-		return user_password;
-	}
-	public void setUser_password(String user_password) {
-		this.user_password = user_password;
-	}
+	
 	public String getU_name() {
 		return u_name;
 	}

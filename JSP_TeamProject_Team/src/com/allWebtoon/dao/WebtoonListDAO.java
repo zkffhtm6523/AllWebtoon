@@ -104,7 +104,7 @@ public class WebtoonListDAO {
 					param.setW_title(rs.getNString("w_title"));
 					param.setW_story(rs.getNString("w_story"));
 					param.setW_thumbnail(rs.getNString("w_thumbnail"));
-					param.setW_genre_name(rs.getNString("genre_name"));
+					param.setGenre_name(rs.getNString("genre_name"));
 					param.setW_writer(rs.getNString("w_writer"));
 					param.setW_link(rs.getNString("w_link"));
 					list.add(param);
@@ -119,7 +119,7 @@ public class WebtoonListDAO {
 			WebtoonVO vo = new WebtoonVO();
 			String sql = 
 					" select w_thumbnail, w_title, concat(left(w_story, 300),'…') as w_story, "
-					+ " w_link, plat_name, group_concat(w_writer separator ', ') as w_writer "
+					+ " w_link, plat_name, group_concat(w_writer separator ', ') as w_writer, genre_name "
 					+ " from view_webtoon "
 					+ " WHERE w_no = ? ";
 
@@ -139,6 +139,7 @@ public class WebtoonListDAO {
 						vo.setW_link(rs.getNString("w_link"));
 						vo.setW_plat_name(rs.getNString("plat_name"));
 						vo.setW_writer(rs.getNString("w_writer"));
+						vo.setGenre_name(rs.getNString("genre_name"));
 					}
 					return 1;
 				}

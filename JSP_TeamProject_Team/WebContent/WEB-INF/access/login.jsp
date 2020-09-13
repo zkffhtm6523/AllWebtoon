@@ -39,8 +39,8 @@
         <div class="err">${msg }</div>
         <div class="login_win">
             <form action="/login" method="post">
-                <input type="text" id="user_id" name="user_id" placeholder="아이디" value="${user_id}" autofocus><br>
-                <input type="password" id="user_pw" name="user_pw" placeholder="비밀번호"><br>
+                <input type="text" id="user_id" name="u_id" placeholder="아이디" value="${u_id}" autofocus><br>
+                <input type="password" id="user_pw" name="u_pw" placeholder="비밀번호"><br>
                 <input id="login_btn" type="submit" value="로그인">
             </form>
             <div class="snsbtn"><img class="snsimg" src="/images/login_logo/kakao_btn.PNG" id="kakao" onclick="goKakao()"></div>

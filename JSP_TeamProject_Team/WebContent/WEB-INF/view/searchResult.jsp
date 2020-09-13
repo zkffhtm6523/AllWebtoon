@@ -8,7 +8,7 @@
 <title>모두의 웹툰(검색 결과)</title>
 <style type="text/css">
     img{width: 180px; border-radius: 5%;}
-    .container section {width: 1200px; padding: 10px; margin: 0 auto; clear: both;}
+    #container section {width: 1200px; padding: 10px; margin: 0 auto; clear: both;}
     h2{margin-top: 0px; width: 300px; margin-left: 80px;}
     .webtoonContainer {width: 1100px;  padding: 10px; position: relative;}
     ul {list-style-type: none; clear: both; margin: 0 auto;padding-bottom: 15px;}
@@ -38,7 +38,7 @@
 </style>
 </head>
 <body>
-   <div class="container">
+   <div id="container">
    <jsp:include page="../template/header.jsp"></jsp:include>
    <section>
       <div class="content">
@@ -51,7 +51,7 @@
 	             <li><a href="/webtoon/detail?w_no=${item.w_no}">${item.w_title }</a></li>
 	             <li><span class="list" id="ctnt">내용</span> &nbsp; ${item.w_story }</li>
 	             <li><span class="list">작가</span> &nbsp; ${item.w_writer}</li>
-	             <li><span class="list">장르</span> &nbsp; ${item.w_genre_name}</li>
+	             <li><span class="list">장르</span> &nbsp; ${item.genre_name}</li>
 	          </ul>
 	       </div>
 	    </c:forEach>

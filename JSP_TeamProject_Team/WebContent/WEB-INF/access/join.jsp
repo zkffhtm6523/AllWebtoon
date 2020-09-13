@@ -37,9 +37,9 @@
 		        <div class="err">${msg}</div>
 	            <form id="frm" action="/join" method="post" onsubmit="return chk()">
 	            	<div id="genre_arr"></div>
-	            	<input type="text" name="id" id="id" placeholder="아이디를 입력해주세요" autofocus><br>
-	                <input type="password" name="pw" id="pw" placeholder="비밀번호"><br>
-	                <input type="password" name="pw2" id="pw2" placeholder="비밀번호 확인"><br>
+	            	<input type="text" name="u_id" id="id" placeholder="아이디를 입력해주세요" autofocus><br>
+	                <input type="password" name="u_pw" id="pw" placeholder="비밀번호"><br>
+	                <input type="password" name="u_pw2" id="pw2" placeholder="비밀번호 확인"><br>
 	                <input type="text" name="name" id="name" placeholder="이름" ><br>
 	                <input type="email" name="email" id="email" placeholder="메일"><br>
 	              	  생년월일 <input type="date" name="birth" id="birth"><br>
