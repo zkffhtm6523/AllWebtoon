@@ -14,51 +14,90 @@
    .startRadio__box { position: relative; z-index: 1; float: left; width: 20px; height: 40px;cursor: pointer;}
    .startRadio input { opacity: 0 !important; height: 0 !important;width: 0 !important;position: absolute !important;}
    .startRadio input:checked + .startRadio__img { background-color: #ffd700;}
-   .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none;}   
+   .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none;} 
+   
+   .listBlock {margin:0 auto;}  
+   .itembox {margin: 0 auto;}
+   .imgbox {width:50px;}
 </style>
 </head>
 <body>
+	<div id="container">
 	
-		<div class="listBlock">
+	<jsp:include page="../template/header.jsp"/>
+		
+	<section>
+		<div id="listBlock">
 		
 			<c:forEach items="${list}" var="item" begin="0" end="10" varStatus="status">
-					
+				<div class="itembox">
 				<dl>
 					<dt>${item.w_title }</dt>
 					<dd>${item.w_no }
 					<dd>${item.w_writer}</dd>
-					<dd><img src="${item.w_thumbnail }"></dd>
+					<dd class="imgbox"><img src="${item.w_thumbnail }"></dd>
 					<dd>
 						<form class="frm" action="/webtoon/cmt" method="post" >
 							<div class="startRadio">
 				               <c:forEach begin="1" end="10" step="1" var="rating_item">
 				                  <label class="startRadio__box">
-				                     <input type="radio" name="star" id="" onclick="score(${rating_item},${status.index })">
+				                     <!-- <input type="radio" name="star" onclick="score(${rating_item},${status.index })">  -->
+				                      <input type="radio" name="star" onclick="score(${rating_item},${status.index },${item.w_no })"> 
 				                     <span class="startRadio__img"><span class="blind"></span></span>
 				                  </label>
 				               </c:forEach>
-				             	<input type="hidden" name="c_rating" value="0" required>
+				             	<input type="hidden" name="c_rating" class="point" value="0" required>
 				             	<input type="hidden" name="w_no" value="${item.w_no }">
+				             	<input type="hidden" name="cmtChk" value="0">
 				             	<input type="hidden" name="ratingPage" value="1">
 				         	</div>
 				      	</form>
 			      	</dd>
 				</dl>
-					
+				</div>
 			</c:forEach>
 			
-		</div>
+			</div>
+		</section>
+		<jsp:include page="../template/footer.jsp"/>
+	</div>
+		
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
             
-      <script>
-      function score(star,index) { // 별점주기
-    	  
-          console.log('star : ' + star)
-          console.log('star type' + typeof star)
-          document.getElementsByName("c_rating")[index].value = parseFloat(star)/2
-          console.log('point.value : ' + document.getElementsByName("c_rating")[index].value)
-          console.log('index: ' + index)
-          document.getElementsByClassName("frm")[index].submit();
+    <script>
+
+		function score(star,index,w_no) { // 별점주기
+			
+			var cmtChk = 0;
+			
+	    	if(document.getElementsByName("c_rating")[index].value != 0){
+	    		 document.getElementsByName("cmtChk")[index].value = 1
+	    	  }
+		
+			cmtChk = document.getElementsByName("cmtChk")[index].value
+	      
+	    	document.getElementsByName("c_rating")[index].value = parseFloat(star)/2
+	    	 
+	    	var c_rating= parseFloat(star)/2
+	    	
+	    	
+			var data = { 
+				w_no : w_no,
+				c_rating : c_rating,
+				ratingPage : '1',
+				cmtChk : cmtChk
+			}
+			
+	    	console.log("index : " + index)
+	    	console.log("w_no : " + w_no)
+	    	console.log("c_rating : " + c_rating)
+	    	
+			axios.post('/webtoon/cmt', data).then(function(res) {
+				console.log(res)
+			})
+			
        }
+      
       </script>
 </body>
 </html>
