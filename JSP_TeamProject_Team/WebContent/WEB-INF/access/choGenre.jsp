@@ -16,7 +16,7 @@
 	<!-- section 부분 -->
 	<form action="/choGenre" method="post">
 	<div id="genre_arr"></div>
-	<input type="hidden" name="user_id" value="${param.user_id}">선호 장르
+	<input type="hidden" name="u_id" value="${param.u_id}">선호 장르
 	<select id="genres" onchange="sel_genre()">
 		<option value="">장르 선택</option>
 		<option value="romance">로맨스</option>

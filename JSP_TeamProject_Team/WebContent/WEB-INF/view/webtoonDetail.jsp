@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,27 +10,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>웹툰 상세 페이지</title>
 <style>
-   .container {width: 100%; margin: 0 auto; font-family: 'Noto Serif KR', serif ;}
    #btn_login {text-decoration: none; color: black;}
-   .detail {border: 1px solid black; margin: 0 auto; width: 1200px; padding: 10px; clear: both; position: relative;}
-   #thumbnail img {width: 180px; border-radius: 5%;height: 180px;   margin: 20px;display: inline-block;}
-   #title, #writer, #story, #platform, .startRadio {display: inline-block;position: absolute;}
-   #title {left: 230px;top: 30px;}
-   #writer {left: 230px;top: 60px;}
-   #platform {   left: 230px;top: 90px;}
-   #story {left: 230px;top: 120px;}
-   .startRadio {left: 230px; top: 150px;}
-   .comment {margin: 50px auto; width: 1200px; padding: 10px; display:inline;}
+   section{width:100%;background-color: #F8F8F8;margin: 0 auto;border-top: 1px solid #EAEAEA;}
+   .detail {margin: 0 auto; width: 1200px; padding: 10px; display: flex;}
+   .detail a {text-decoration: none;}
+   .detail > ul {list-style-type: none;}
+   .detail > ul > li {float:left;}
+   #thumbnail img {width: 230px;height: 210px; border-radius: 5%;margin: 20px;}
+   #platform{width: 60%; margin-top: 15px;}
+   #writer {width: 60%; margin-top: 10px;}
+   #title{width: 60%; margin-top: 10px;}
+   #genre {width: 60%; margin-top: 10px;}
+   .startRadio {width: 100%; margin-top: 10px; display: inline-block;}
+   #story {width: 100%; margin-top: 10px;}
+   #title {font-style: normal;font-weight: bold;font-size: 40px;line-height: 52px;}
+   #title a {color: black;}
+   #writer {font-style: normal;font-weight: bold;font-size: 25px;line-height: 34px;}
+   #writer a {color: black;}
+   #platform {font-style: normal;font-weight: bold;font-size: 25px;line-height: 34px;}
+   #platform a {color:#65B832;}
+   #genre {font-style: normal;font-weight: 300;font-size: 18px;line-height: 21px;}
+   #genre a {color: black;}
+   #story {font-style: normal;font-weight: 500;font-size: 23px;line-height: 27px;}
+   .comment {margin: 50px auto; padding: 10px; display:inline;}
    #cmtFrm {margin: 10px;}
    .startRadio__box, #comment, #submit{text-align: center;}
-   #cmt {border-radius: 20px; border: 2px solid #000000; width: 923px; height: 117px;} 
+   #cmt {border-radius: 20px; border: 2px solid #4FA2C7; width: 923px; height: 117px; padding-left: 30px; font-size: 1.2em;} 
+   #cmt:focus {outline:none;}
    #cmt_btn {margin: 10px; width: 118px; border: none; height: 50px; background-color: #4FA2C7; color: white;font-size: 1.1em; border-radius:20px}
     @font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
-    .container {width: 100%; height:1000px;  margin: 0 auto; font-family: 'GmarketSansMedium', serif ;}
    .blind { position: absolute; overflow: hidden; margin: -1px;padding: 0;width: 1px;height: 1px;border: none;clip: rect(0, 0, 0, 0);}
    .startRadio {display: inline-block; overflow: hidden; height: 40px;}
    .startRadio:after { content: ""; display: block; position: relative; z-index: 10; height: 40px;
-           background: url("data:image/png;base64,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")
+           background: url("/images/star_Radio.png")
            repeat-x 0 0; background-size: contain; pointer-events: none;}
    .startRadio__box { position: relative; z-index: 1; float: left; width: 20px; height: 40px;cursor: pointer;}
    .startRadio input { opacity: 0 !important; height: 0 !important;width: 0 !important;position: absolute !important;}
@@ -40,26 +51,29 @@
 </style>
 </head>
 <body>
-   <div class="container">
+   <div id="container">
 	<jsp:include page="../template/header.jsp"></jsp:include>
 	   	<section>
 	      <div class="detail">
-	         <div id="thumbnail">
-	            <img src="${data.w_thumbnail }">
-	         </div>
-	         <div id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></div>
-	         <div id="platform"><a href="/searchResult?result=${data.w_plat_nm }">${data.w_plat_nm }</a></div>
-	         <div id="writer"><a href="/searchResult?result=${data.w_writer }">${data.w_writer }</a></div>
-	         <div id="story">${data.w_story}</div>
-	         <div class="startRadio">
-	            <c:forEach begin="1" end="10" step="1" var="item">
-	               <label class="startRadio__box">
-	                  <input type="radio" name="star" id="" onclick="score(${item})">
-	                  <span class="startRadio__img"><span class="blind"></span></span>
-	               </label>
-	            </c:forEach>
-	         </div>
-	         <div id="tosite"><a href="${data.w_link }" target="_blank">보러가기</a></div>
+            <ul>
+               <li id="thumbnail"><img src="${data.w_thumbnail }"></li>
+               <li id="platform"><a href="/searchResult?result=${data.w_plat_name }">${data.w_plat_name }</a></li>
+               <li id="writer"><a href="/searchResult?result=${data.w_writer }">작가 : ${data.w_writer }</a></li>
+               <li id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></li>
+               <li id="genre"><a href="/searchResult?result=${data.genre_name }">${data.genre_name }</a></li>
+               <li>
+               	<div class="startRadio">
+                  <c:forEach begin="1" end="10" step="1" var="item">
+                     <label class="startRadio__box">
+                        <input type="radio" name="star" id="" onclick="score(${item})">
+                        <span class="startRadio__img"><span class="blind"></span></span>
+                     </label>
+                	  </c:forEach>
+                  </div>
+               </li>
+               <li id="story">${data.w_story}</li>
+	         <li><div id="tosite"><a href="${data.w_link }" target="_blank">보러가기</a></div></li>
+            </ul>
 	      </div>
 	      <!-- 댓글 부분 -->
 	      <div class="comment">
@@ -73,7 +87,8 @@
 		            <input type="submit" id="cmt_btn" value="${myCmt.c_com == null ? '등록하기' : '수정하기' }">
 	            </div>
 	            <div><input type="hidden" name="w_no" value="${data.w_no }"></div>
-	            <input type="hidden" id="u_no" name="u_no" value="${loginUser.name }">
+	            <div><input type="hidden" name="genre_name" value="${data.genre_name }"></div>
+	            <input type="hidden" id="u_no" name="u_no" value="${loginUser.u_name }">
 	         </form>
 	      </div>
       </section>

@@ -23,21 +23,21 @@ public class JoinSer extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String user_id = request.getParameter("id");
-		String user_pw = request.getParameter("pw");
-		String encrypt_pw = MyUtils.encryptString(user_pw);			//비밀번호 암호화
+		String u_id = request.getParameter("u_id");
+		String u_pw = request.getParameter("u_pw");
+		String encrypt_pw = MyUtils.encryptString(u_pw);			//비밀번호 암호화
 		String nm = request.getParameter("name");
 		String email = request.getParameter("email");
 		String birth = request.getParameter("birth");
 		String gender = request.getParameter("gender");
 		
 		UserVO param = new UserVO();
-		param.setUser_id(user_id);
-		param.setUser_password(encrypt_pw);
-		param.setName(nm);
-		param.setEmail(email);
-		param.setBirth(birth);
-		param.setGender(gender);
+		param.setU_id(u_id);
+		param.setU_password(encrypt_pw);
+		param.setU_name(nm);
+		param.setU_email(email);
+		param.setU_birth(birth);
+		param.setGender_name(gender);
 		
 		int result= UserDAO.insUser(param);
 	

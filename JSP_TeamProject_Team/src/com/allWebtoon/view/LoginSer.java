@@ -37,12 +37,14 @@ public class LoginSer extends HttpServlet {
 			int result = UserDAO.selKakaoUser(userInfo);
 			if(result == 0) {
 				UserDAO.insUser(userInfo);
+
 				
 				UserDAO.selKakaoUser(userInfo);
 				
 				HttpSession hs = request.getSession();
 				hs.setAttribute(Const.LOGIN_USER,userInfo);
 				response.sendRedirect("/webtoon/cmt");
+
 				return;
 			}
 			//에러처리
@@ -50,7 +52,7 @@ public class LoginSer extends HttpServlet {
 				String msg = "비밀번호가 틀렸습니다.";
 				request.setAttribute("msg",msg);
 			}
-			request.setAttribute("user_id", userInfo.getName());
+			request.setAttribute("u_id", userInfo.getU_name());
 			HttpSession hs = request.getSession();
 			hs.setAttribute(Const.LOGIN_USER,userInfo);
 			
@@ -61,15 +63,15 @@ public class LoginSer extends HttpServlet {
 		ViewResolver.accessForward("login", request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String user_id = request.getParameter("user_id");
-		String user_pw = request.getParameter("user_pw");
-		String encrypt_pw = MyUtils.encryptString(user_pw);
+		String u_id = request.getParameter("u_id");
+		String u_pw = request.getParameter("u_pw");
+		String encrypt_pw = MyUtils.encryptString(u_pw);
 		
 		UserVO param = new UserVO();
 		
 		
-		param.setUser_id(user_id);
-		param.setUser_password(encrypt_pw);
+		param.setU_id(u_id);
+		param.setU_password(encrypt_pw);
 		
 		int result = UserDAO.login(param);
 
@@ -88,14 +90,13 @@ public class LoginSer extends HttpServlet {
 				break;
 			}
 			request.setAttribute("msg",msg);
-			request.setAttribute("user_id", user_id);
+			request.setAttribute("u_id", u_id);
 			doGet(request,response);
 			return;
 		}
 		
 		HttpSession hs = request.getSession();
 		hs.setAttribute(Const.LOGIN_USER,param);
-		System.out.println("profile : "+param.getProfile());
 		System.out.println("로그인성공");
 		response.sendRedirect("/");
 		

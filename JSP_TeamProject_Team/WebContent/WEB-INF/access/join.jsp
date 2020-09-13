@@ -7,11 +7,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
 <style>
+	section {
+		width:100%;
+		margin: 0px auto;
+		background-color: #F8F8F8;
+ 		border-top: 1px solid #EAEAEA;
+ 		text-align: center;
+	}
     section > h1 {
         text-align: center;
+        margin-top: 40px;
+        font-size: 2em;
     }
     section > .user_info {
         text-align: center;
+        margin: 50px auto;
+    }
+    section #frm{
+    	width:400px;
+        margin: 0 auto;
     }
     section #id, #name, #pw, #pw2, #email {
         width: 300px; height: 30px; margin: 10px;
@@ -29,7 +43,7 @@
 </style>
 </head>
 <body>
-	<div class="container">
+	<div id="container">
    		<jsp:include page="../template/header.jsp"></jsp:include>
      	<section>
         <h1>모두의 웹툰 일원 되기</h1>
@@ -37,9 +51,9 @@
 		        <div class="err">${msg}</div>
 	            <form id="frm" action="/join" method="post" onsubmit="return chk()">
 	            	<div id="genre_arr"></div>
-	            	<input type="text" name="id" id="id" placeholder="아이디를 입력해주세요" autofocus><br>
-	                <input type="password" name="pw" id="pw" placeholder="비밀번호"><br>
-	                <input type="password" name="pw2" id="pw2" placeholder="비밀번호 확인"><br>
+	            	<input type="text" name="u_id" id="id" placeholder="아이디를 입력해주세요" autofocus><br>
+	                <input type="password" name="u_pw" id="pw" placeholder="비밀번호"><br>
+	                <input type="password" name="u_pw2" id="pw2" placeholder="비밀번호 확인"><br>
 	                <input type="text" name="name" id="name" placeholder="이름" ><br>
 	                <input type="email" name="email" id="email" placeholder="메일"><br>
 	              	  생년월일 <input type="date" name="birth" id="birth"><br>
@@ -49,6 +63,7 @@
 	            </form>
 	        </div>
         </section>
+        <jsp:include page="../template/footer.jsp"/>
 	</div>
     <script>
     	var genres_arr = new Array();

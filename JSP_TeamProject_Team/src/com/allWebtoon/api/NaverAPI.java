@@ -111,25 +111,25 @@ public class NaverAPI extends HttpServlet {
 				String birthday = property.getAsJsonObject().get("birthday").getAsString();
 				
 				UserVO userInfo = new UserVO();
-				userInfo.setUser_id(user_id);
-				userInfo.setUser_password(user_id);
-				userInfo.setName(name);
-				userInfo.setBirth("1990/"+birthday.replace("-", "/"));
-				userInfo.setProfile(profile_img);
-				userInfo.setEmail(email);
-				userInfo.setGender(gender.equals("M") ? "남성" : "여성");
+				userInfo.setU_id(user_id);
+				userInfo.setU_password(user_id);
+				userInfo.setU_name(name);
+				userInfo.setU_birth("1990/"+birthday.replace("-", "/"));
+				userInfo.setU_profile(profile_img);
+				userInfo.setU_email(email);
+				userInfo.setGender_name(gender.equals("M") ? "남성" : "여성");
 				userInfo.setU_joinPath(3);
-				userInfo.setChkProfile(userInfo.getProfile().substring(0, 4));
+				userInfo.setChkProfile(userInfo.getU_profile().substring(0, 4));
 				int db_result = UserDAO.selNaverUser(userInfo);
 				
 				if(db_result == 0) {
 					UserDAO.insUser(userInfo);
-					response.sendRedirect("/choGenre?user_id="+userInfo.getUser_id());
+					response.sendRedirect("/choGenre?user_id="+userInfo.getU_id());
 					return;
 				}else if(db_result == 2) {
 					String msg = "비밀번호가 틀렸습니다.";
 					request.setAttribute("msg",msg);
-					request.setAttribute("user_id", userInfo.getName());
+					request.setAttribute("user_id", userInfo.getU_name());
 					ViewResolver.accessForward("login", request, response);
 					return;
 				}

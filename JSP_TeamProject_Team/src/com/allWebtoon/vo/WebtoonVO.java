@@ -7,26 +7,15 @@ public class WebtoonVO {
 	private String w_story;
 	private String w_link;
 	private int w_plat_no;
-	private String w_plat_nm;
+	private String w_plat_name;
 	private String w_writer;
+	private String genre_name;
 	
-	public String getW_writer() {
-		return w_writer;
+	public String getGenre_name() {
+		return genre_name;
 	}
-	public void setW_writer(String w_writer) {
-		this.w_writer = w_writer;
-	}
-	public int getW_plat_no() {
-		return w_plat_no;
-	}
-	public void setW_plat_no(int w_plat_no) {
-		this.w_plat_no = w_plat_no;
-	}
-	public String getW_plat_nm() {
-		return w_plat_nm;
-	}
-	public void setW_plat_nm(String w_plat_nm) {
-		this.w_plat_nm = w_plat_nm;
+	public void setGenre_name(String genre_name) {
+		this.genre_name = genre_name;
 	}
 	public int getW_no() {
 		return w_no;
@@ -57,5 +46,23 @@ public class WebtoonVO {
 	}
 	public void setW_link(String w_link) {
 		this.w_link = w_link;
+	}
+	public int getW_plat_no() {
+		return w_plat_no;
+	}
+	public void setW_plat_no(int w_plat_no) {
+		this.w_plat_no = w_plat_no;
+	}
+	public String getW_plat_name() {
+		return w_plat_name;
+	}
+	public void setW_plat_name(String w_plat_name) {
+		this.w_plat_name = w_plat_name;
+	}
+	public String getW_writer() {
+		return w_writer;
+	}
+	public void setW_writer(String w_writer) {
+		this.w_writer = w_writer;
 	}
 }

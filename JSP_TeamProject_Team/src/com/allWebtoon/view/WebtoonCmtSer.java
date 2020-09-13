@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
+import com.allWebtoon.dao.UserDAO;
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.util.MyUtils;
@@ -86,21 +87,25 @@ public class WebtoonCmtSer extends HttpServlet {
 	      cmtChk = request.getParameter("cmtChk"); // 댓글 등록인지 수정인지 판단하는 변수
 	      
       }
-      
+    //  String genre_name = request.getParameter("genre_name");
+
       float c_rating = Float.parseFloat(strC_rating);
       
       WebtoonCmtVO param = new WebtoonCmtVO();
+     // UserVO vo = new UserVO();
       
       param.setU_no(u_no);
       param.setW_no(w_no);
       param.setC_com(c_com);
       param.setC_rating(c_rating);
+     // vo.setU_id(loginUser.getU_id());
       
       System.out.println("cmtChk: " + cmtChk);
       int result;
       switch(cmtChk) {
       case "0": // 등록
          result = WebtoonCmtDAO.insCmt(param);
+      //   UserDAO.insU_genre(vo, genre_name);
          System.out.println("댓글 등록 : " + result);
          break;
       default: // 수정
@@ -134,30 +139,5 @@ public class WebtoonCmtSer extends HttpServlet {
     		PrintWriter out = response.getWriter();
     		out.print(json);*/
       }
-   
-   
-   
-   
-   
-  // int i_board = MyUtils.getIntParameter(request, "i_board");
-	//System.out.println("i_board : " + i_board);
-
-	//List<BoardDomain> likeList = BoardDAO.selBoardLikeList(i_board);
-  /*   HttpSession hs = request.getSession();
-	Gson gson = new Gson();
-	
-	ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
-	list = (ArrayList<WebtoonVO>) hs.getAttribute("ratingList");
-	
-	String json = gson.toJson(list);
-	
-	System.out.println("json : " + json);
-	
-	response.setCharacterEncoding("UTF-8");
-	response.setContentType("application/json");
-	PrintWriter out = response.getWriter();
-	out.print(json);
-
-   }*/
    }
 }
