@@ -84,10 +84,10 @@ public class ProfileSer extends HttpServlet {
 		//DB에 프로필 파일명 저장
 		if(saveFileNm != null) {
 			UserVO param = new UserVO();
-			param.setProfile(saveFileNm);
+			param.setU_profile(saveFileNm);
 			param.setU_no(loginUser.getU_no());
 			UserDAO.updUser(param);
-			loginUser.setProfile(saveFileNm);
+			loginUser.setU_profile(saveFileNm);
 			loginUser.setChkProfile(saveFileNm.substring(0, 4));
 		}
 		response.sendRedirect("/profile");

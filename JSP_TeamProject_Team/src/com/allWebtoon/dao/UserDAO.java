@@ -28,10 +28,10 @@ public class UserDAO {
 				if(rs.next()) {
 					sqlResult.setU_no(rs.getInt("u_no"));
 					sqlResult.setUser_id(rs.getNString("u_id"));
-					sqlResult.setProfile(rs.getNString("u_profile"));
-					sqlResult.setEmail(rs.getNString("u_email"));
-					sqlResult.setName(rs.getNString("u_name"));
-					sqlResult.setGender(rs.getInt("gender_no") == 1 ? "female" : "male");
+					sqlResult.setU_profile(rs.getNString("u_profile"));
+					sqlResult.setU_email(rs.getNString("u_email"));
+					sqlResult.setU_name(rs.getNString("u_name"));
+					sqlResult.setGender_name(rs.getInt("gender_no") == 1 ? "female" : "male");
 				}
 				return 1;
 			}
@@ -50,18 +50,18 @@ public class UserDAO {
 			public void update(PreparedStatement ps) throws SQLException {
 				ps.setNString(1,param.getUser_id());
 				ps.setNString(2, param.getUser_password());
-				ps.setNString(3, param.getName());
-				ps.setNString(4, param.getBirth());
-				if(param.getGender().equals("female")) {
+				ps.setNString(3, param.getU_name());
+				ps.setNString(4, param.getU_birth());
+				if(param.getGender_name().equals("female")) {
 					ps.setInt(5, 1);
 				} else {
 					ps.setInt(5, 2);
 				}
-				ps.setNString(6, param.getEmail());
-				if(param.getProfile() == null) {
+				ps.setNString(6, param.getU_email());
+				if(param.getU_profile() == null) {
 					ps.setNString(7, "");
 				}else {
-					ps.setNString(7, param.getProfile());
+					ps.setNString(7, param.getU_profile());
 				}
 				if(param.getU_joinPath() > 1) {
 					ps.setInt(8, param.getU_joinPath());
@@ -89,7 +89,7 @@ public class UserDAO {
 						String nm = rs.getNString("u_name");
 						param.setUser_password(null);
 						param.setU_no(i_user);
-						param.setName(nm);
+						param.setU_name(nm);
 						return 1;
 					} else {								//로그인 실패.(비밀번호 틀릴 경우)
 						return 2;
@@ -117,7 +117,7 @@ public class UserDAO {
 					if(dbPw.equals(param.getUser_password())) {	//로그인 성공(비밀번호 맞을 경우)
 						param.setUser_password(null);
 						param.setU_no(rs.getInt("u_no"));
-						param.setName(rs.getNString("u_name"));
+						param.setU_name(rs.getNString("u_name"));
 						return 1;
 					} else {								//로그인 실패.(비밀번호 틀릴 경우)
 						return 2;
@@ -154,15 +154,15 @@ public class UserDAO {
 							String nm = rs.getNString("u_name");
 							param.setUser_password(null);
 							param.setU_no(i_user);
-							param.setName(nm);
-							param.setBirth(rs.getString("u_birth"));
-							param.setGender(rs.getInt("gender_no") == 1 ? "여성" : "남성");
-							param.setEmail(rs.getString("u_email"));
-							param.setProfile(rs.getString("u_profile"));
+							param.setU_name(nm);
+							param.setU_birth(rs.getString("u_birth"));
+							param.setGender_name(rs.getInt("gender_no") == 1 ? "여성" : "남성");
+							param.setU_email(rs.getString("u_email"));
+							param.setU_profile(rs.getString("u_profile"));
 							param.setR_dt(rs.getString("r_dt"));
 							param.setM_dt(rs.getString("m_dt"));
-							if(param.getProfile().length() > 4) {
-								param.setChkProfile(param.getProfile().substring(0, 4));
+							if(param.getU_profile().length() > 4) {
+								param.setChkProfile(param.getU_profile().substring(0, 4));
 								System.out.println("chkProfile : "+param.getChkProfile());
 							}
 							return 1;
@@ -195,19 +195,19 @@ public class UserDAO {
 			sb.append(param.getUser_password());
 			sb.append("' ");
 		}
-		if(param.getName() != null) {
+		if(param.getU_name() != null) {
 			sb.append(" , u_name = '");
-			sb.append(param.getName());
+			sb.append(param.getU_name());
 			sb.append("' ");
 		}
-		if(param.getEmail() != null) {
+		if(param.getU_email() != null) {
 			sb.append(" , u_email = '");
-			sb.append(param.getEmail());
+			sb.append(param.getU_email());
 			sb.append("' ");
 		}
-		if(param.getProfile() != null) {
+		if(param.getU_profile() != null) {
 			sb.append(" , u_profile = '");
-			sb.append(param.getProfile());
+			sb.append(param.getU_profile());
 			sb.append("' ");
 		}
 		sb.append(" where u_no = ");

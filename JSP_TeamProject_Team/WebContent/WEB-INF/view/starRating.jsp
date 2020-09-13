@@ -20,37 +20,44 @@
 <body>
 	
 		<div class="listBlock">
-			<c:forEach items="${list}" var="item">
+		
+			<c:forEach items="${list}" var="item" begin="0" end="10" varStatus="status">
 					
 				<dl>
 					<dt>${item.w_title }</dt>
+					<dd>${item.w_no }
 					<dd>${item.w_writer}</dd>
 					<dd><img src="${item.w_thumbnail }"></dd>
 					<dd>
-						<form action="/webtoon/cmt" method="post">
+						<form class="frm" action="/webtoon/cmt" method="post" >
 							<div class="startRadio">
-				               <c:forEach begin="1" end="10" step="1" var="item">
+				               <c:forEach begin="1" end="10" step="1" var="rating_item">
 				                  <label class="startRadio__box">
-				                     <input type="radio" name="star" id="" onclick="score(${item})">
+				                     <input type="radio" name="star" id="" onclick="score(${rating_item},${status.index })">
 				                     <span class="startRadio__img"><span class="blind"></span></span>
 				                  </label>
 				               </c:forEach>
-				             	<input type="hidden" id="point" name="c_rating" value="0" required>
-				             	<input type="hidden" id="webtoonNm" name="webtoonNm" value="${item }">
+				             	<input type="hidden" name="c_rating" value="0" required>
+				             	<input type="hidden" name="w_no" value="${item.w_no }">
+				             	<input type="hidden" name="ratingPage" value="1">
 				         	</div>
 				      	</form>
 			      	</dd>
 				</dl>
 					
 			</c:forEach>
+			
 		</div>
             
       <script>
-      function score(star) { // 별점주기
+      function score(star,index) { // 별점주기
+    	  
           console.log('star : ' + star)
           console.log('star type' + typeof star)
-          point.value = parseFloat(star)/2
-          console.log('point.value : ' + point.value)
+          document.getElementsByName("c_rating")[index].value = parseFloat(star)/2
+          console.log('point.value : ' + document.getElementsByName("c_rating")[index].value)
+          console.log('index: ' + index)
+          document.getElementsByClassName("frm")[index].submit();
        }
       </script>
 </body>

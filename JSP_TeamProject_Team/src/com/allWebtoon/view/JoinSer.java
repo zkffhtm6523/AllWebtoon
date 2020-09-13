@@ -7,8 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.allWebtoon.dao.UserDAO;
+import com.allWebtoon.util.Const;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
@@ -32,14 +34,13 @@ public class JoinSer extends HttpServlet {
 		UserVO param = new UserVO();
 		param.setUser_id(user_id);
 		param.setUser_password(encrypt_pw);
-		param.setName(nm);
-		param.setEmail(email);
-		param.setBirth(birth);
-		param.setGender(gender);
+		param.setU_name(nm);
+		param.setU_email(email);
+		param.setU_birth(birth);
+		param.setGender_name(gender);
 		
 		int result= UserDAO.insUser(param);
-		
-		
+	
 		if(result != 1) {
 			//'에러가 발생하였습니다. 관리자에게 문의 ㄱ'
 			request.setAttribute("msg", "에러가 발생했습니다. 관리자에게 문의 ㄱ");
@@ -49,7 +50,15 @@ public class JoinSer extends HttpServlet {
 			return;
 		}
 		
-		response.sendRedirect("/webtoon/cmt?user_id="+ param.getUser_id());
+		UserDAO.login(param);
 		
+		
+
+		HttpSession hs = request.getSession();
+		hs.setAttribute(Const.LOGIN_USER,param);
+		
+		//response.sendRedirect("/webtoon/cmt?user_id="+ param.getUser_id());
+		
+		response.sendRedirect("/");
 	}
 }
