@@ -5,8 +5,15 @@ public class WebtoonCmtVO {
    private int u_no;
    private String c_com;
    private float c_rating;
+   private String genre_name;
    
-   public int getW_no() {
+   public String getGenre_name() {
+		return genre_name;
+	}
+	public void setGenre_name(String genre_name) {
+		this.genre_name = genre_name;
+	}
+	public int getW_no() {
       return w_no;
    }
    public void setW_no(int w_no) {

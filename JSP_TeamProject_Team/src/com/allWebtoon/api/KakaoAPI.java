@@ -117,8 +117,8 @@ public class KakaoAPI {
 	        param.setGender_name(gender);
 	        param.setU_email(email);
 	        param.setU_profile(profile_image);
-	        param.setUser_id(user_id);
-	        param.setUser_password(user_id);
+	        param.setU_id(user_id);
+	        param.setU_password(user_id);
 	        param.setU_joinPath(2);
 	        param.setChkProfile(param.getU_profile().substring(0, 4));
 	        
