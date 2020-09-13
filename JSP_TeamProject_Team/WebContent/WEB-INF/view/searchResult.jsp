@@ -10,8 +10,8 @@
     img{width: 180px; border-radius: 5%;}
     .container section {width: 1200px; padding: 10px; margin: 0 auto; clear: both;}
     h2{margin-top: 0px; width: 300px; margin-left: 80px;}
-    .webtoonContainer {width: 1100px; height:180px; padding: 10px; position: relative;}
-    ul {list-style-type: none; clear: both; height: 185px; margin: 0 auto;padding-bottom: 15px;}
+    .webtoonContainer {width: 1100px;  padding: 10px; position: relative;}
+    ul {list-style-type: none; clear: both; margin: 0 auto;padding-bottom: 15px;}
     ul li:nth-child(1) {float: left; padding: 30px; padding-top: 0px;}
     ul li img{ border-radius: 10%;
 	    transform: scale(1.1);
@@ -39,7 +39,7 @@
 </head>
 <body>
    <div class="container">
-   <jsp:include page="../header/header.jsp"></jsp:include>
+   <jsp:include page="../template/header.jsp"></jsp:include>
    <section>
       <div class="content">
          <div class="aboveContainer"><h2>상위 검색 결과</h2></div>
@@ -47,7 +47,7 @@
 	    <c:forEach items="${result}" var="item">
 	       <div class="webtoonContainer">
 	          <ul class="itemRow">
-	             <li><img class="thumbnail" src=" ${item.w_thumbnail }" onclick="moveToDetail(${item.w_no	})"></li>
+	             <li><img class="thumbnail" src=" ${item.w_thumbnail}" onclick="moveToDetail(${item.w_no	})"></li>
 	             <li><a href="/webtoon/detail?w_no=${item.w_no}">${item.w_title }</a></li>
 	             <li><span class="list" id="ctnt">내용</span> &nbsp; ${item.w_story }</li>
 	             <li><span class="list">작가</span> &nbsp; ${item.w_writer}</li>
@@ -57,6 +57,7 @@
 	    </c:forEach>
       </div>
    </section>
+	<jsp:include page="../template/footer.jsp"></jsp:include>
 </div>
 <script type="text/javascript">
    function moveToDetail(w_no) {

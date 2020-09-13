@@ -10,8 +10,23 @@ public class UserVO {
 	private String email;
 	private String profile;
 	private String[] u_genre;
-
+	private String r_dt;
+	private String m_dt;
+	private int u_joinPath;
+	private String chkProfile;
 	
+	public String getChkProfile() {
+		return chkProfile;
+	}
+	public void setChkProfile(String chkProfile) {
+		this.chkProfile = chkProfile;
+	}
+	public int getU_joinPath() {
+		return u_joinPath;
+	}
+	public void setU_joinPath(int u_joinPath) {
+		this.u_joinPath = u_joinPath;
+	}
 	public String[] getU_genre() {
 		return u_genre;
 	}
@@ -65,6 +80,18 @@ public class UserVO {
 	}
 	public void setProfile(String profile) {
 		this.profile = profile;
+	}
+	public String getR_dt() {
+		return r_dt;
+	}
+	public void setR_dt(String r_dt) {
+		this.r_dt = r_dt;
+	}
+	public String getM_dt() {
+		return m_dt;
+	}
+	public void setM_dt(String m_dt) {
+		this.m_dt = m_dt;
 	}
 	
 	

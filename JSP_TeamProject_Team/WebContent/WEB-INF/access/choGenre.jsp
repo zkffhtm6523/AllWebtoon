@@ -6,13 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>장르 선택</title>
 
 </head>
 <body>
 <div id="container">
 	<!-- 헤더 삽입 -->
-	<jsp:include page="../header/header.jsp"></jsp:include>
+	<jsp:include page="../template/header.jsp"></jsp:include>
 	<!-- section 부분 -->
 	<form action="/choGenre" method="post">
 	<div id="genre_arr"></div>
