@@ -34,10 +34,10 @@ public class JoinSer extends HttpServlet {
 		UserVO param = new UserVO();
 		param.setUser_id(user_id);
 		param.setUser_password(encrypt_pw);
-		param.setName(nm);
-		param.setEmail(email);
-		param.setBirth(birth);
-		param.setGender(gender);
+		param.setU_name(nm);
+		param.setU_email(email);
+		param.setU_birth(birth);
+		param.setGender_name(gender);
 		
 		int result= UserDAO.insUser(param);
 	

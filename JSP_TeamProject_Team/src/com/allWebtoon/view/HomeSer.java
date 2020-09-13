@@ -22,7 +22,7 @@ public class HomeSer extends HttpServlet {
 		//세션 정보 담긴 변수
 		UserVO loginUser = MyUtils.getLoginUser(request);
 	 	if(loginUser != null) {
-	 		System.out.println("home get profile : "+loginUser.getProfile());
+	 		System.out.println("home get profile : "+loginUser.getU_profile());
 	 	}
 		
 		ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
