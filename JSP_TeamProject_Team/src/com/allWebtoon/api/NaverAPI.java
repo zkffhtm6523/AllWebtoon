@@ -111,8 +111,8 @@ public class NaverAPI extends HttpServlet {
 				String birthday = property.getAsJsonObject().get("birthday").getAsString();
 				
 				UserVO userInfo = new UserVO();
-				userInfo.setUser_id(user_id);
-				userInfo.setUser_password(user_id);
+				userInfo.setU_id(user_id);
+				userInfo.setU_password(user_id);
 				userInfo.setU_name(name);
 				userInfo.setU_birth("1990/"+birthday.replace("-", "/"));
 				userInfo.setU_profile(profile_img);
@@ -124,7 +124,7 @@ public class NaverAPI extends HttpServlet {
 				
 				if(db_result == 0) {
 					UserDAO.insUser(userInfo);
-					response.sendRedirect("/choGenre?user_id="+userInfo.getUser_id());
+					response.sendRedirect("/choGenre?user_id="+userInfo.getU_id());
 					return;
 				}else if(db_result == 2) {
 					String msg = "비밀번호가 틀렸습니다.";

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.allWebtoon.dao.UserDAO;
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.util.MyUtils;
@@ -42,17 +43,20 @@ public class WebtoonCmtSer extends HttpServlet {
       
       int w_no = MyUtils.getIntParameter(request, "w_no");
       String strC_rating = request.getParameter("c_rating");
+      String genre_name = request.getParameter("genre_name");
       float c_rating = Float.parseFloat(strC_rating);
       String c_com = request.getParameter("c_com");
       System.out.println("점수 확인 : " + c_rating);
      // String ratingPage = request.getParameter("ratingPage");
       
       WebtoonCmtVO param = new WebtoonCmtVO();
+      UserVO vo = new UserVO();
       
       param.setU_no(u_no);
       param.setW_no(w_no);
       param.setC_com(c_com);
       param.setC_rating(c_rating);
+      vo.setU_id(loginUser.getU_id());
       
       String cmtChk = request.getParameter("cmtChk"); // 댓글 등록인지 수정인지 판단하는 변수
       
@@ -60,6 +64,7 @@ public class WebtoonCmtSer extends HttpServlet {
       switch(cmtChk) {
       case "0": // 등록
          result = WebtoonCmtDAO.insCmt(param);
+         UserDAO.insU_genre(vo, genre_name);
          System.out.println("댓글 등록 : " + result);
          break;
       default: // 수정

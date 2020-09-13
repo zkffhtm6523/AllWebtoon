@@ -27,7 +27,7 @@ public class UserDAO {
 			public int executeQuery(ResultSet rs) throws SQLException {
 				if(rs.next()) {
 					sqlResult.setU_no(rs.getInt("u_no"));
-					sqlResult.setUser_id(rs.getNString("u_id"));
+					sqlResult.setU_id(rs.getNString("u_id"));
 					sqlResult.setU_profile(rs.getNString("u_profile"));
 					sqlResult.setU_email(rs.getNString("u_email"));
 					sqlResult.setU_name(rs.getNString("u_name"));
@@ -48,8 +48,8 @@ public class UserDAO {
 		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
 			@Override
 			public void update(PreparedStatement ps) throws SQLException {
-				ps.setNString(1,param.getUser_id());
-				ps.setNString(2, param.getUser_password());
+				ps.setNString(1,param.getU_id());
+				ps.setNString(2, param.getU_password());
 				ps.setNString(3, param.getU_name());
 				ps.setNString(4, param.getU_birth());
 				if(param.getGender_name().equals("female")) {
@@ -78,16 +78,16 @@ public class UserDAO {
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
-				ps.setNString(1,  param.getUser_id());
+				ps.setNString(1,  param.getU_id());
 			}
 			@Override
 			public int executeQuery(ResultSet rs) throws SQLException {
 				if(rs.next()) {					//레코드가 있음
 					String dbPw = rs.getNString("u_password");
-					if(dbPw.equals(param.getUser_password())) {	//로그인 성공(비밀번호 맞을 경우)
+					if(dbPw.equals(param.getU_password())) {	//로그인 성공(비밀번호 맞을 경우)
 						int i_user = rs.getInt("u_no");
 						String nm = rs.getNString("u_name");
-						param.setUser_password(null);
+						param.setU_password(null);
 						param.setU_no(i_user);
 						param.setU_name(nm);
 						param.setR_dt(rs.getString("r_dt"));
@@ -110,14 +110,14 @@ public class UserDAO {
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
-				ps.setNString(1,  param.getUser_id());
+				ps.setNString(1,  param.getU_id());
 			}
 			@Override
 			public int executeQuery(ResultSet rs) throws SQLException {
 				if(rs.next()) {					//레코드가 있음
 					String dbPw = rs.getNString("u_password");
-					if(dbPw.equals(param.getUser_password())) {	//로그인 성공(비밀번호 맞을 경우)
-						param.setUser_password(null);
+					if(dbPw.equals(param.getU_password())) {	//로그인 성공(비밀번호 맞을 경우)
+						param.setU_password(null);
 						param.setU_no(rs.getInt("u_no"));
 						param.setU_name(rs.getNString("u_name"));
 						param.setR_dt(rs.getString("r_dt"));
@@ -144,7 +144,7 @@ public class UserDAO {
 
 				@Override
 				public void prepared(PreparedStatement ps) throws SQLException {
-					ps.setNString(1,  param.getUser_id());
+					ps.setNString(1,  param.getU_id());
 				}
 
 				@Override
@@ -153,10 +153,10 @@ public class UserDAO {
 					if(rs.next()) {					//레코드가 있음
 						String dbPw = rs.getNString("u_password");
 						
-						if(dbPw.equals(param.getUser_password())) {	//로그인 성공(비밀번호 맞을 경우)
+						if(dbPw.equals(param.getU_password())) {	//로그인 성공(비밀번호 맞을 경우)
 							int i_user = rs.getInt("u_no");
 							String nm = rs.getNString("u_name");
-							param.setUser_password(null);
+							param.setU_password(null);
 							param.setU_no(i_user);
 							param.setU_name(nm);
 							param.setU_birth(rs.getString("u_birth"));
@@ -180,13 +180,13 @@ public class UserDAO {
 				}	
 			});
 		}
-	public static void insU_genre(UserVO param,String str) {
+	public static void insU_genre(UserVO param, String str) {
 		String sql = "INSERT INTO t_u_genre(u_no, genre_no) VALUES ((select u_no from t_user where u_id=?), (select genre_no from t_genre where genre_name=?))";
 		
 		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
 			@Override
 			public void update(PreparedStatement ps) throws SQLException {
-				ps.setNString(1,param.getUser_id());
+				ps.setNString(1,param.getU_id());
 				ps.setNString(2,str);
 			}
 		});
@@ -194,9 +194,9 @@ public class UserDAO {
 	public static int updUser(UserVO param) {
 		StringBuilder sb = new StringBuilder(" UPDATE t_user SET m_dt = now()");
 		
-		if(param.getUser_password() != null) {
+		if(param.getU_password() != null) {
 			sb.append(" , u_password = '");
-			sb.append(param.getUser_password());
+			sb.append(param.getU_password());
 			sb.append("' ");
 		}
 		if(param.getU_name() != null) {

@@ -9,7 +9,14 @@ public class WebtoonVO {
 	private int w_plat_no;
 	private String w_plat_name;
 	private String w_writer;
+	private String genre_name;
 	
+	public String getGenre_name() {
+		return genre_name;
+	}
+	public void setGenre_name(String genre_name) {
+		this.genre_name = genre_name;
+	}
 	public int getW_no() {
 		return w_no;
 	}
