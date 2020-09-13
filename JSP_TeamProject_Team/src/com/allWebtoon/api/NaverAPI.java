@@ -124,7 +124,10 @@ public class NaverAPI extends HttpServlet {
 				
 				if(db_result == 0) {
 					UserDAO.insUser(userInfo);
-					response.sendRedirect("/choGenre?user_id="+userInfo.getU_id());
+					UserDAO.selNaverUser(userInfo);
+					HttpSession hs = request.getSession();
+					hs.setAttribute(Const.LOGIN_USER,userInfo);
+					response.sendRedirect("/webtoon/cmt");
 					return;
 				}else if(db_result == 2) {
 					String msg = "비밀번호가 틀렸습니다.";

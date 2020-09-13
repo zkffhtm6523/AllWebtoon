@@ -37,7 +37,6 @@ public class LoginSer extends HttpServlet {
 			int result = UserDAO.selKakaoUser(userInfo);
 			if(result == 0) {
 				UserDAO.insUser(userInfo);
-
 				
 				UserDAO.selKakaoUser(userInfo);
 				
@@ -56,7 +55,6 @@ public class LoginSer extends HttpServlet {
 			HttpSession hs = request.getSession();
 			hs.setAttribute(Const.LOGIN_USER,userInfo);
 			
-			System.out.println("로그인성공");
 			response.sendRedirect("/");
 			return;
 		}

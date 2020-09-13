@@ -66,6 +66,12 @@
 		margin: 30px auto;
 		margin-top: 15px;
 	}
+	section #frmBtn{
+		font-size: 1.05em;
+	}
+	section #frmBtn:hover {
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -102,19 +108,23 @@
 				</div>
 				<div>
 					<span class="name">이메일</span>&nbsp;&nbsp;
-					<input type="search" name="updId" value="${loginUser.u_email}" class="updList">
+					<input type="search" name="updEmail" value="${loginUser.u_email}" class="updList">
 				</div>
 				<div>
 					<span class="name">성별</span>&nbsp;&nbsp;
-					<input type="search" name="updId" value="${loginUser.gender_name}" class="updList" readonly>
+					<input type="search" name="updGender" value="${loginUser.gender_name}" class="updList" readonly>
 				</div>
 				<div>
 					<span class="name">생년월일</span>&nbsp;&nbsp;
-					<input type="search" name="updId" value="${loginUser.u_birth}" class="updList" readonly>
+					<input type="date" name="updBrith" value="${loginUser.u_birth}" class="updList">
 				</div>
 				<div>
 					<span class="name">가입일자</span>&nbsp;&nbsp;
-					<input type="search" name="updId" value="${loginUser.r_dt}" class="updList" readonly>
+					<input type="search" name="updR_dt" value="${loginUser.r_dt}" class="updList" readonly>
+				</div>
+				<div>
+					<span class="name">가입일자</span>&nbsp;&nbsp;
+					<input type="search" name="updM_dt" value="${loginUser.m_dt}" class="updList" readonly>
 				</div>
 				<div id="btnBox">
 					<input type="submit" value="업데이트" id="frmBtn">
@@ -154,6 +164,10 @@ function moveToLogOut() {
 	if(confirm('로그아웃 하시겠습니까?')){
 		location.href = '/logout'
 	}
+}
+//평가페이지 가기
+function moveToReview(){
+	location.href = '/webtoon/cmt'
 }
 </script>
 </html>
