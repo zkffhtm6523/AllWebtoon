@@ -60,6 +60,18 @@ header #login,#myPage{
 	background: #4FA2C7;
 	color: white;
 }
+header #review{
+	width: 98px;
+	height: 41px;
+	position: absolute;
+	top: 20px;
+	right: 600px;
+	margin-right: 10px;
+	border: none;
+	border-radius: 10px;
+	background: #4FA2C7;
+	color: white;
+}
 header #signin,#logout{
 	width: 98px;
 	height: 41px;
