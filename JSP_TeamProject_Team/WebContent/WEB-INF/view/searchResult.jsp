@@ -51,7 +51,7 @@
 	             <li><a href="/webtoon/detail?w_no=${item.w_no}">${item.w_title }</a></li>
 	             <li><span class="list" id="ctnt">내용</span> &nbsp; ${item.w_story }</li>
 	             <li><span class="list">작가</span> &nbsp; ${item.w_writer}</li>
-	             <li><span class="list">장르</span> &nbsp; ${item.w_genre}</li>
+	             <li><span class="list">장르</span> &nbsp; ${item.w_genre_name}</li>
 	          </ul>
 	       </div>
 	    </c:forEach>

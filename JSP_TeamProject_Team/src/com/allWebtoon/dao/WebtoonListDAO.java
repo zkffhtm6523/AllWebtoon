@@ -124,7 +124,7 @@ public class WebtoonListDAO {
 					param.setW_title(rs.getNString("w_title"));
 					param.setW_story(rs.getNString("w_story"));
 					param.setW_thumbnail(rs.getNString("w_thumbnail"));
-					param.setW_genre(rs.getNString("genre_name"));
+					param.setW_genre_name(rs.getNString("genre_name"));
 					param.setW_writer(rs.getNString("w_writer"));
 					param.setW_link(rs.getNString("w_link"));
 					list.add(param);
@@ -159,7 +159,7 @@ public class WebtoonListDAO {
 						vo.setW_title(rs.getNString("w_title"));
 						vo.setW_story(rs.getNString("w_story"));
 						vo.setW_link(rs.getNString("w_link"));
-						vo.setW_plat_nm(rs.getNString("plat_name"));
+						vo.setW_plat_name(rs.getNString("plat_name"));
 						vo.setW_writer(rs.getNString("w_writer"));
 					}
 					return 1;

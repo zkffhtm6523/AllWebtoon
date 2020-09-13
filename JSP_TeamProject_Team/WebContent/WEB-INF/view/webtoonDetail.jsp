@@ -13,14 +13,17 @@
 <style>
    .container {width: 100%; margin: 0 auto; font-family: 'Noto Serif KR', serif ;}
    #btn_login {text-decoration: none; color: black;}
-   .detail {border: 1px solid black; margin: 0 auto; width: 1200px; padding: 10px; clear: both; position: relative;}
-   #thumbnail img {width: 180px; border-radius: 5%;height: 180px;   margin: 20px;display: inline-block;}
-   #title, #writer, #story, #platform, .startRadio {display: inline-block;position: absolute;}
-   #title {left: 230px;top: 30px;}
-   #writer {left: 230px;top: 60px;}
-   #platform {   left: 230px;top: 90px;}
-   #story {left: 230px;top: 120px;}
-   .startRadio {left: 230px; top: 150px;}
+   hr {width: 98%; border: 2px solid #1A729A;}
+   .detail {margin: 0 auto; width: 1200px; padding: 10px; clear: both;}
+   .detail > div {display: inline-block;}
+   .detail a {text-decoration: none;}
+   #thumbnail img {width: 200px; border-radius: 5%;height: 180px;   margin: 20px;}
+   #thumbnail, #title, #writer, #story, #platform, .startRadio {display: inline-block;}
+   #title {}
+   #writer {}
+   #platform {}
+   #story {}
+   .startRadio {}
    .comment {margin: 50px auto; width: 1200px; padding: 10px; display:inline;}
    #cmtFrm {margin: 10px;}
    .startRadio__box, #comment, #submit{text-align: center;}
@@ -43,13 +46,14 @@
    <div class="container">
 	<jsp:include page="../template/header.jsp"></jsp:include>
 	   	<section>
+	   	<hr>
 	      <div class="detail">
 	         <div id="thumbnail">
 	            <img src="${data.w_thumbnail }">
 	         </div>
+	         <div id="platform"><a href="/searchResult?result=${data.w_plat_name }">${data.w_plat_name }</a></div>
+	         <div id="writer"><a href="/searchResult?result=${data.w_writer }">${data.w_writer }</a></div><br>
 	         <div id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></div>
-	         <div id="platform"><a href="/searchResult?result=${data.w_plat_nm }">${data.w_plat_nm }</a></div>
-	         <div id="writer"><a href="/searchResult?result=${data.w_writer }">${data.w_writer }</a></div>
 	         <div id="story">${data.w_story}</div>
 	         <div class="startRadio">
 	            <c:forEach begin="1" end="10" step="1" var="item">
@@ -73,7 +77,7 @@
 		            <input type="submit" id="cmt_btn" value="${myCmt.c_com == null ? '등록하기' : '수정하기' }">
 	            </div>
 	            <div><input type="hidden" name="w_no" value="${data.w_no }"></div>
-	            <input type="hidden" id="u_no" name="u_no" value="${loginUser.name }">
+	            <input type="hidden" id="u_no" name="u_no" value="${loginUser.u_name }">
 	         </form>
 	      </div>
       </section>

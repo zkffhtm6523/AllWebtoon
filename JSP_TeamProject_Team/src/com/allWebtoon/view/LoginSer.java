@@ -45,7 +45,7 @@ public class LoginSer extends HttpServlet {
 				String msg = "비밀번호가 틀렸습니다.";
 				request.setAttribute("msg",msg);
 			}
-			request.setAttribute("user_id", userInfo.getName());
+			request.setAttribute("user_id", userInfo.getU_name());
 			HttpSession hs = request.getSession();
 			hs.setAttribute(Const.LOGIN_USER,userInfo);
 			
@@ -90,7 +90,7 @@ public class LoginSer extends HttpServlet {
 		
 		HttpSession hs = request.getSession();
 		hs.setAttribute(Const.LOGIN_USER,param);
-		System.out.println("profile : "+param.getProfile());
+		System.out.println("profile : "+param.getU_profile());
 		System.out.println("로그인성공");
 		response.sendRedirect("/");
 		

@@ -111,17 +111,17 @@ public class KakaoAPI {
 	        String thumbnail_image = properties.getAsJsonObject().get("thumbnail_image").getAsString();
 	        System.out.println("objUser_id : "+user_id);
 	        
-	        param.setName(nickname);
+	        param.setU_name(nickname);
 	        birthday = "1990/"+birthday.substring(0,2)+"/"+birthday.substring(2, birthday.length());
-	        param.setBirth(birthday);
+	        param.setU_birth(birthday);
 	       // gender = (gender.equals("female") ? "" : "man");
-	        param.setGender(gender);
-	        param.setEmail(email);
-	        param.setProfile(profile_image);
+	        param.setGender_name(gender);
+	        param.setU_email(email);
+	        param.setU_profile(profile_image);
 	        param.setUser_id(user_id);
 	        param.setUser_password(user_id);
 	        param.setU_joinPath(2);
-	        param.setChkProfile(param.getProfile().substring(0, 4));
+	        param.setChkProfile(param.getU_profile().substring(0, 4));
 	        
 	    } catch (IOException e) {
 	        e.printStackTrace();
