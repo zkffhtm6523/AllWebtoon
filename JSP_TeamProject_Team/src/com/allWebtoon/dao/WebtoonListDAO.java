@@ -44,12 +44,11 @@ public class WebtoonListDAO {
 		return list;
 	}
 	
-	
 	public static ArrayList<WebtoonVO> selRandomWebtoonList(ArrayList<WebtoonVO> list){
 		String sql = " select w_no, w_title, w_writer, w_story, w_thumbnail, w_link, plat_no "
 					+ " from view_webtoon "
 					+ " order by rand()";
-		
+
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			//물음표 넣을 때
@@ -81,30 +80,10 @@ public class WebtoonListDAO {
 	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo, int randomLength){
 		ArrayList<SearchWebtoonVO> list = new ArrayList<SearchWebtoonVO>();
 		String sql = 
-			" SELECT "
-		  +	"	A.w_no, A.w_title, concat(LEFT(A.w_story, 150), '...') as w_story, A.w_thumbnail, A.w_link, A.plat_no, "
-		  + "	B.genre_no, C.genre_name, CONCAT(LEFT(D.w_writer, 60), '...') as w_writer, "
-		  + "   E.plat_name "
-		  +	" FROM t_webtoon A "
-		  + " LEFT JOIN t_w_genre B "
-		  + " ON A.w_no = B.w_no "
-		  + " INNER JOIN "
-		  + "	(SELECT D.w_no, GROUP_CONCAT(DISTINCT genre_name SEPARATOR ', ') AS genre_name "
-		  + "	FROM "
-		  + "		(SELECT A.w_no, A.w_title, C.genre_name "
-		  + "		FROM t_webtoon A "
-		  + "		INNER JOIN t_w_genre B "
-		  + "		ON A.w_no = B.w_no "
-		  + "		INNER JOIN t_genre C "
-		  + "		ON B.genre_no = C.genre_no) D "
-		  + "	GROUP BY D.w_no) C "
-		  + " ON A.w_no = C.w_no "
-		  + " INNER JOIN " 
-		  + "	(select w_no, group_concat(distinct w_writer separator ', ') as w_writer from t_w_writer group by w_no) D "
-		  + " ON A.w_no = D.w_no "
-		  + " INNER JOIN t_platform E "
-		  + " ON  A.plat_no = E.plat_no "
-		  + " where A.w_title LIKE ? or C.genre_name LIKE ? or D.w_writer LIKE ? or E.plat_name LIKE ? "
+			" SELECT w_no, w_title, concat(LEFT(w_story, 150), '...') as w_story, w_thumbnail, w_link, plat_no, " + 
+			"		  	genre_name, CONCAT(LEFT(w_writer, 60), '...') as w_writer, " + 
+			"		    plat_name  from view_webtoon "
+		  + " where w_title LIKE ? or genre_name LIKE ? or w_writer LIKE ? or plat_name LIKE ? "
 		  + " order BY RAND() limit ? ";
 
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
@@ -138,13 +117,11 @@ public class WebtoonListDAO {
 	// 웹툰 디테일
 		public static WebtoonVO webtoonDetail(int w_no) {
 			WebtoonVO vo = new WebtoonVO();
-			String sql = " SELECT A.w_thumbnail, A.w_title, concat(left(A.w_story, 300),'…') as w_story, A.w_link, B.plat_name, group_concat(C.w_writer separator ', ') as w_writer "
-					+ " FROM t_webtoon A"
-					+ " INNER JOIN t_platform B "
-					+ " ON A.plat_no = B.plat_no "
-					+ " INNER JOIN t_w_writer C "
-					+ " ON A.w_no = C.w_no "
-					+ " WHERE A.w_no = ? ";
+			String sql = 
+					" select w_thumbnail, w_title, concat(left(w_story, 300),'…') as w_story, "
+					+ " w_link, plat_name, group_concat(w_writer separator ', ') as w_writer "
+					+ " from view_webtoon "
+					+ " WHERE w_no = ? ";
 
 			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 

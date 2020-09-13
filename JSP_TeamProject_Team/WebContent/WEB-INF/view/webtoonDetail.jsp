@@ -15,35 +15,19 @@
    #btn_login {text-decoration: none; color: black;}
    .detail {border: 1px solid black; margin: 0 auto; width: 1200px; padding: 10px; clear: both; position: relative;}
    #thumbnail img {width: 180px; border-radius: 5%;height: 180px;   margin: 20px;display: inline-block;}
-   #title, #writer, #story, #platform {display: inline-block;position: absolute;}
+   #title, #writer, #story, #platform, .startRadio {display: inline-block;position: absolute;}
    #title {left: 230px;top: 30px;}
    #writer {left: 230px;top: 60px;}
    #platform {   left: 230px;top: 90px;}
    #story {left: 230px;top: 120px;}
-   .comment {border: 1px solid black; margin: 50px auto; width: 1200px; padding: 10px; }
-   #cmtFrm, #comment {margin: 10px;}
+   .startRadio {left: 230px; top: 150px;}
+   .comment {margin: 50px auto; width: 1200px; padding: 10px; display:inline;}
+   #cmtFrm {margin: 10px;}
    .startRadio__box, #comment, #submit{text-align: center;}
-   #comment {height: 60px;}
-   #comment #cmt {width: 800px; height: 40px; padding: 5px;}
-   #cmt_btn {margin: 10px; width: 300px; border: none; height: 50px; background-color: #4FA2C7; color: white;font-size: 1.1em;}
+   #cmt {border-radius: 20px; border: 2px solid #000000; width: 923px; height: 117px;} 
+   #cmt_btn {margin: 10px; width: 118px; border: none; height: 50px; background-color: #4FA2C7; color: white;font-size: 1.1em; border-radius:20px}
     @font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
     .container {width: 100%; height:1000px;  margin: 0 auto; font-family: 'GmarketSansMedium', serif ;}
-   .header {width: 1200px; padding: 10px; height: 80px; margin: 15px auto;}
-   #logo{width: 250px; cursor: pointer; float: left; height: 80px; margin-left: 40px; z-index: 100%;}
-   #search {margin: 20px 10px 10px 130px;width: 406px;height: 41px;background: #FFFFFF;padding-left: 30px; 
-   padding-right:20px; border: 1px solid #4FA2C7;box-sizing: border-box;border-radius: 10px;}
-   #login,#myPage {margin-right: 10px;background: #4FA2C7;border-radius: 10px;width: 98px;height: 41px;color: white; font-family: 'GmarketSansMedium', serif ;border: none;
-   position: absolute; right: 200px; top: 20px;}
-    #signin,#logout { background: #4FA2C7;border-radius: 10px;width: 98px;height: 41px;color: white; font-family: 'GmarketSansMedium',serif;border: none;
-    position: absolute; right: 100px; top: 20px;}
-   #btn_login {text-decoration: none; color: black;}
-   #myPage{position: absolute; right: 200px; top: 20px;}
-   #logout{position: absolute; right: 100px; top: 20px;}
-   .topMenu{position: relative;}
-   .containerPImg {display: inline-block;width: 40px;height: 40px;border-radius: 50%;overflow: hidden;position: absolute;top: 20px;right: 320px;}
-   .containerPImg:hover{cursor: pointer;}   
-   .pImg {   object-fit: cover;height: 100%;width: 100%;}
-   button:hover {cursor: pointer;}
    .blind { position: absolute; overflow: hidden; margin: -1px;padding: 0;width: 1px;height: 1px;border: none;clip: rect(0, 0, 0, 0);}
    .startRadio {display: inline-block; overflow: hidden; height: 40px;}
    .startRadio:after { content: ""; display: block; position: relative; z-index: 10; height: 40px;
@@ -57,60 +41,48 @@
 </head>
 <body>
    <div class="container">
-      <div class="header">
-         <div class="topMenu">
-         <img alt="모두의 웹툰" src="/images/logo2.png" id="logo" onclick="goHome()">
-            <input type="search" id="search" placeholder="웹툰, 작가를 검색하세요" onkeydown="moveToResult()">
-            <c:choose>
-               <c:when test="${loginUser.name == null}">
-                  <button id="login" onclick="moveToLogin()">로그인</button>
-                  <button id="signin" onclick="moveToJoin()">회원가입</button>
-               </c:when>
-               <c:otherwise>
-                  <div class="containerPImg" onclick="moveToProfile()">
-                     <img class="pImg" src="${loginUser.profile}" alt="프로필 설정 가기">
-                  </div>
-                  <button id="myPage" onclick="moveToMyPage()">${loginUser.name}님</button>
-                  <button id="logout" onclick="moveToLogOut()">로그아웃</button>
-               </c:otherwise>
-            </c:choose>
-         </div>
-      </div>
-      <div class="detail">
-         <div id="thumbnail">
-            <img src="${data.w_thumbnail }">
-         </div>
-         <div id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></div>
-         <div id="writer"><a href="/searchResult?result=${data.w_writer }">${data.w_writer }</a></div>
-         <div id="story">${data.w_story}</div>
-         <div id="platform"><a href="/searchResult?result=${data.w_plat_nm }">${data.w_plat_nm }</a></div>
-         <div id="tosite"><a href="${data.w_link }" target="_blank">보러가기</a></div>
-      </div>
-      <!-- 댓글 부분 -->
-      <div class="comment">
-         <form action="/webtoon/cmt" method="post" id="cmtFrm" name="cmtFrm" onsubmit="return chk()">
-            <div class="startRadio">
-               <c:forEach begin="1" end="10" step="1" var="item">
-                  <label class="startRadio__box">
-                     <input type="radio" name="star" id="" onclick="score(${item})">
-                     <span class="startRadio__img"><span class="blind"></span></span>
-                  </label>
-               </c:forEach>
-               <input type="hidden" id="point" name="c_rating" value="${cmtFrm.u_no.value == '' ? '0.0' : myCmt.c_rating }" required>
-               <input type="hidden" id="cmtChk" name="cmtChk" value="0">
-            </div>
-               <!-- 댓글 남기기 -->
-            <div id="comment"><input type="text" id="cmt" name="c_com" placeholder="댓글을 남겨주세요" value="${myCmt.c_com }"></div>
-            <!-- 완료 후 보내기 -->
-            <div id="submit"><input type="submit" id="cmt_btn" value="${myCmt.c_com == null ? '등록하기' : '수정하기' }"></div>
-            <div><input type="hidden" name="w_no" value="${data.w_no }"></div>
-            <input type="hidden" id="u_no" name="u_no" value="${loginUser.name }">
-         </form>
-      </div>
+	<jsp:include page="../template/header.jsp"></jsp:include>
+	   	<section>
+	      <div class="detail">
+	         <div id="thumbnail">
+	            <img src="${data.w_thumbnail }">
+	         </div>
+	         <div id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></div>
+	         <div id="platform"><a href="/searchResult?result=${data.w_plat_nm }">${data.w_plat_nm }</a></div>
+	         <div id="writer"><a href="/searchResult?result=${data.w_writer }">${data.w_writer }</a></div>
+	         <div id="story">${data.w_story}</div>
+	         <div class="startRadio">
+	            <c:forEach begin="1" end="10" step="1" var="item">
+	               <label class="startRadio__box">
+	                  <input type="radio" name="star" id="" onclick="score(${item})">
+	                  <span class="startRadio__img"><span class="blind"></span></span>
+	               </label>
+	            </c:forEach>
+	         </div>
+	         <div id="tosite"><a href="${data.w_link }" target="_blank">보러가기</a></div>
+	      </div>
+	      <!-- 댓글 부분 -->
+	      <div class="comment">
+	         <form action="/webtoon/cmt" method="post" id="cmtFrm" name="cmtFrm" onsubmit="return chk()">
+	            <input type="hidden" id="point" name="c_rating" value="${cmtFrm.u_no.value == '' ? '0.0' : myCmt.c_rating }" required>
+	            <input type="hidden" id="cmtChk" name="cmtChk" value="0">
+	               <!-- 댓글 남기기 -->
+	            <div id="comment">
+	            	<input type="text" id="cmt" name="c_com" placeholder="댓글을 남겨주세요" value="${myCmt.c_com }">
+		            <!-- 완료 후 보내기 -->
+		            <input type="submit" id="cmt_btn" value="${myCmt.c_com == null ? '등록하기' : '수정하기' }">
+	            </div>
+	            <div><input type="hidden" name="w_no" value="${data.w_no }"></div>
+	            <input type="hidden" id="u_no" name="u_no" value="${loginUser.name }">
+	         </form>
+	      </div>
+      </section>
+      <jsp:include page="../template/footer.jsp"/>
    </div>
    <script>
       if(cmtFrm.point.value != '0.0'){
-         document.cmtFrm.star[Number(cmtFrm.point.value*2-1)].checked = true
+    	 console.log(point.value)
+         document.getElementsByName('star')[cmtFrm.point.value*2-1].checked = true
       } // 남긴 별점 표시하기
       
       if(cmtFrm.cmt_btn.value == '수정하기'){

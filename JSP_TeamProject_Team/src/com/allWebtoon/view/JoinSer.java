@@ -40,9 +40,6 @@ public class JoinSer extends HttpServlet {
 		param.setGender(gender);
 		
 		int result= UserDAO.insUser(param);
-		
-		HttpSession hs = request.getSession();
-		hs.setAttribute(Const.LOGIN_USER,param);
 	
 		if(result != 1) {
 			//'에러가 발생하였습니다. 관리자에게 문의 ㄱ'
@@ -52,6 +49,13 @@ public class JoinSer extends HttpServlet {
 			doGet(request, response);
 			return;
 		}
+		
+		UserDAO.login(param);
+		
+		
+
+		HttpSession hs = request.getSession();
+		hs.setAttribute(Const.LOGIN_USER,param);
 		
 		//response.sendRedirect("/webtoon/cmt?user_id="+ param.getUser_id());
 		
