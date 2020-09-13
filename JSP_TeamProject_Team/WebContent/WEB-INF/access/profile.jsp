@@ -98,7 +98,7 @@
 				</div>
 				<div>
 					<span class="name">아이디</span>&nbsp;&nbsp;
-					<input type="search" name="updId" value="${loginUser.user_id}" class="updList" readonly>
+					<input type="search" name="updId" value="${loginUser.u_id}" class="updList" readonly>
 				</div>
 				<div>
 					<span class="name">이메일</span>&nbsp;&nbsp;
