@@ -1,6 +1,7 @@
 package com.allWebtoon.view;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -26,7 +27,7 @@ public class WebtoonCmtSer extends HttpServlet {
 	   
 		ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
 		
-		list = WebtoonListDAO.selRandomWebtoonList(list, 20);
+		list = WebtoonListDAO.selRandomWebtoonList(list);
 	
 		request.setAttribute("list", list);
 	   
@@ -38,14 +39,16 @@ public class WebtoonCmtSer extends HttpServlet {
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       UserVO loginUser = MyUtils.getLoginUser(request);
       int u_no = loginUser.getU_no();
+      
       int w_no = MyUtils.getIntParameter(request, "w_no");
       String strC_rating = request.getParameter("c_rating");
       float c_rating = Float.parseFloat(strC_rating);
       String c_com = request.getParameter("c_com");
       System.out.println("점수 확인 : " + c_rating);
-      
+     // String ratingPage = request.getParameter("ratingPage");
       
       WebtoonCmtVO param = new WebtoonCmtVO();
+      
       param.setU_no(u_no);
       param.setW_no(w_no);
       param.setC_com(c_com);
@@ -64,6 +67,7 @@ public class WebtoonCmtSer extends HttpServlet {
          System.out.println("댓글 수정 : " + result);
          break;
       }
+      
       response.sendRedirect("/webtoon/detail?w_no=" + w_no);
    }
 
