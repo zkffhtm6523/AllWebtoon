@@ -41,40 +41,43 @@
 </head>
 <body>
    <div class="container">
-   	<jsp:include page="../header/header.jsp"></jsp:include>
-      <div class="detail">
-         <div id="thumbnail">
-            <img src="${data.w_thumbnail }">
-         </div>
-         <div id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></div>
-         <div id="platform"><a href="/searchResult?result=${data.w_plat_nm }">${data.w_plat_nm }</a></div>
-         <div id="writer"><a href="/searchResult?result=${data.w_writer }">${data.w_writer }</a></div>
-         <div id="story">${data.w_story}</div>
-         <div class="startRadio">
-            <c:forEach begin="1" end="10" step="1" var="item">
-               <label class="startRadio__box">
-                  <input type="radio" name="star" id="" onclick="score(${item})">
-                  <span class="startRadio__img"><span class="blind"></span></span>
-               </label>
-            </c:forEach>
-         </div>
-         <div id="tosite"><a href="${data.w_link }" target="_blank">보러가기</a></div>
-      </div>
-      <!-- 댓글 부분 -->
-      <div class="comment">
-         <form action="/webtoon/cmt" method="post" id="cmtFrm" name="cmtFrm" onsubmit="return chk()">
-            <input type="hidden" id="point" name="c_rating" value="${cmtFrm.u_no.value == '' ? '0.0' : myCmt.c_rating }" required>
-            <input type="hidden" id="cmtChk" name="cmtChk" value="0">
-               <!-- 댓글 남기기 -->
-            <div id="comment">
-            	<input type="text" id="cmt" name="c_com" placeholder="댓글을 남겨주세요" value="${myCmt.c_com }">
-	            <!-- 완료 후 보내기 -->
-	            <input type="submit" id="cmt_btn" value="${myCmt.c_com == null ? '등록하기' : '수정하기' }">
-            </div>
-            <div><input type="hidden" name="w_no" value="${data.w_no }"></div>
-            <input type="hidden" id="u_no" name="u_no" value="${loginUser.name }">
-         </form>
-      </div>
+	<jsp:include page="../template/header.jsp"></jsp:include>
+	   	<section>
+	      <div class="detail">
+	         <div id="thumbnail">
+	            <img src="${data.w_thumbnail }">
+	         </div>
+	         <div id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></div>
+	         <div id="platform"><a href="/searchResult?result=${data.w_plat_nm }">${data.w_plat_nm }</a></div>
+	         <div id="writer"><a href="/searchResult?result=${data.w_writer }">${data.w_writer }</a></div>
+	         <div id="story">${data.w_story}</div>
+	         <div class="startRadio">
+	            <c:forEach begin="1" end="10" step="1" var="item">
+	               <label class="startRadio__box">
+	                  <input type="radio" name="star" id="" onclick="score(${item})">
+	                  <span class="startRadio__img"><span class="blind"></span></span>
+	               </label>
+	            </c:forEach>
+	         </div>
+	         <div id="tosite"><a href="${data.w_link }" target="_blank">보러가기</a></div>
+	      </div>
+	      <!-- 댓글 부분 -->
+	      <div class="comment">
+	         <form action="/webtoon/cmt" method="post" id="cmtFrm" name="cmtFrm" onsubmit="return chk()">
+	            <input type="hidden" id="point" name="c_rating" value="${cmtFrm.u_no.value == '' ? '0.0' : myCmt.c_rating }" required>
+	            <input type="hidden" id="cmtChk" name="cmtChk" value="0">
+	               <!-- 댓글 남기기 -->
+	            <div id="comment">
+	            	<input type="text" id="cmt" name="c_com" placeholder="댓글을 남겨주세요" value="${myCmt.c_com }">
+		            <!-- 완료 후 보내기 -->
+		            <input type="submit" id="cmt_btn" value="${myCmt.c_com == null ? '등록하기' : '수정하기' }">
+	            </div>
+	            <div><input type="hidden" name="w_no" value="${data.w_no }"></div>
+	            <input type="hidden" id="u_no" name="u_no" value="${loginUser.name }">
+	         </form>
+	      </div>
+      </section>
+      <jsp:include page="../template/footer.jsp"/>
    </div>
    <script>
       if(cmtFrm.point.value != '0.0'){
