@@ -73,7 +73,7 @@ public class UserDAO {
 		});
 	}
 	public static int selKakaoUser(UserVO param) {
-		String sql = "SELECT u_no, u_password, u_name FROM t_user WHERE u_id=? ";
+		String sql = "SELECT u_no, u_password, u_name, r_dt, m_dt FROM t_user WHERE u_id=? ";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
@@ -90,6 +90,8 @@ public class UserDAO {
 						param.setUser_password(null);
 						param.setU_no(i_user);
 						param.setU_name(nm);
+						param.setR_dt(rs.getString("r_dt"));
+						param.setM_dt(rs.getString("m_dt"));
 						return 1;
 					} else {								//로그인 실패.(비밀번호 틀릴 경우)
 						return 2;
@@ -103,7 +105,7 @@ public class UserDAO {
 		});
 	}	
 	public static int selNaverUser(UserVO param) {
-		String sql = "SELECT u_no, u_password, u_name FROM t_user WHERE u_id=? ";
+		String sql = "SELECT u_no, u_password, u_name, r_dt, m_dt FROM t_user WHERE u_id=? ";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
@@ -118,6 +120,8 @@ public class UserDAO {
 						param.setUser_password(null);
 						param.setU_no(rs.getInt("u_no"));
 						param.setU_name(rs.getNString("u_name"));
+						param.setR_dt(rs.getString("r_dt"));
+						param.setM_dt(rs.getString("m_dt"));
 						return 1;
 					} else {								//로그인 실패.(비밀번호 틀릴 경우)
 						return 2;

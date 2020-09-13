@@ -29,7 +29,6 @@ public class ProfileSer extends HttpServlet {
 			response.sendRedirect("/login");
 			return;
 		}
-		request.setAttribute("profileData", UserDAO.selUser(loginUser.getU_no()));
 		ViewResolver.accessForward("profile", request, response);
 	}
 

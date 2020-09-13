@@ -109,7 +109,6 @@ public class KakaoAPI {
 	        String email = kakao_account.getAsJsonObject().get("email").getAsString();
 	        String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
 	        String thumbnail_image = properties.getAsJsonObject().get("thumbnail_image").getAsString();
-	        System.out.println("objUser_id : "+user_id);
 	        
 	        param.setU_name(nickname);
 	        birthday = "1990/"+birthday.substring(0,2)+"/"+birthday.substring(2, birthday.length());
