@@ -80,7 +80,6 @@
 	    	 
 	    	var c_rating= parseFloat(star)/2
 	    	
-	    	
 			var data = { 
 				w_no : w_no,
 				c_rating : c_rating,
@@ -88,15 +87,38 @@
 				cmtChk : cmtChk
 			}
 			
-	    	console.log("index : " + index)
-	    	console.log("w_no : " + w_no)
-	    	console.log("c_rating : " + c_rating)
-	    	
 			axios.post('/webtoon/cmt', data).then(function(res) {
 				console.log(res)
 			})
 			
        }
+		
+		
+		//검색결과로 넘어가기
+    	function moveToResult() {
+			if(event.keyCode == 13){
+				var result = search.value
+				location.href = '/searchResult?result='+result
+			}
+		}
+    	//홈으로 가기
+    	function goHome() {
+    		location.href = '/home'
+    	  }
+    	//마이 페이지로 넘어가기
+    	function moveToMyPage() {
+			location.href = '/myPage?i_user=${loginUser.u_no}'
+		}
+    	//프로필로 넘어가기
+    	function moveToProfile() {
+			location.href = '/profile?i_user=${loginUser.u_no}'
+		}
+    	//로그아웃하기
+    	function moveToLogOut() {
+    		if(confirm('로그아웃 하시겠습니까?')){
+	    		location.href = '/logout'
+    		}
+		}
       
       </script>
 </body>
