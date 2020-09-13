@@ -103,11 +103,8 @@ public class NaverAPI extends HttpServlet {
 				
 				JsonObject property = element.getAsJsonObject().get("response").getAsJsonObject();
 				System.out.println("properties : "+property);
-				System.out.println(1);
 				String user_id = property.getAsJsonObject().get("id").getAsString();
-				System.out.println(2);
 				String profile_img = property.getAsJsonObject().get("profile_image").getAsString();
-				System.out.println(3);
 				String gender = property.getAsJsonObject().get("gender").getAsString();
 				String email = property.getAsJsonObject().get("email").getAsString();
 				String name = property.getAsJsonObject().get("name").getAsString();
@@ -120,8 +117,9 @@ public class NaverAPI extends HttpServlet {
 				userInfo.setBirth("1990/"+birthday.replace("-", "/"));
 				userInfo.setProfile(profile_img);
 				userInfo.setEmail(email);
-				userInfo.setGender(gender.equals("M") ? "male" : "female");
-				
+				userInfo.setGender(gender.equals("M") ? "남성" : "여성");
+				userInfo.setU_joinPath(3);
+				userInfo.setChkProfile(userInfo.getProfile().substring(0, 4));
 				int db_result = UserDAO.selNaverUser(userInfo);
 				
 				if(db_result == 0) {
