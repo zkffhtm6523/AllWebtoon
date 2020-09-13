@@ -6,21 +6,22 @@
 <meta charset="UTF-8">
 <title>Profile</title>
 <style type="text/css">
-	@font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
-	section{background-color: #F8F8F8; margin: 15px auto; height: 780px; background-color: #F8F8F8;
+	section{
+	width:100%;
+	background-color: #F8F8F8; margin: 0 auto; background-color: #F8F8F8;
  			border-top: 1px solid #EAEAEA; text-align: center;}
  	section .frmContainer{margin: 15px auto; text-align: center;}
- 	.profileImg{width: 240px; height:220px; border-radius: 50%; object-fit: cover; overflow: hidden;}
- 	.name{color: gray; font-weight: gray; font-weight: bold;}
- 	.updName{width: 280px; height: 41px;background: #FFFFFF; padding-left: 30px; 
+ 	section .profileImg{width: 240px; height:220px; border-radius: 50%; object-fit: cover; overflow: hidden;}
+ 	section .name{color: gray; font-weight: gray; font-weight: bold;}
+ 	section .updName{width: 280px; height: 41px;background: #FFFFFF; padding-left: 30px; 
 	padding-right:20px; border: 1px solid #4FA2C7; box-sizing: border-box; border-radius: 10px;
 	margin: 15px auto;}
-	.updName[type="search"]{font-family: 'GmarketSansMedium', serif ;
+	section .updName[type="search"]{font-family: 'GmarketSansMedium', serif ;
 	line-height: normal;padding-top: 6px;}
-	.updName:hover{cursor: pointer;}
-	.imgFile[type="file"]{font-family: 'GmarketSansMedium', serif ; width:200px;  text-align: center; margin: 5px auto;}
-	input[type="submit"]{font-family: 'GmarketSansMedium', serif ;}
-	.box-file-input label{
+	section .updName:hover{cursor: pointer;}
+	section .imgFile[type="file"]{font-family: 'GmarketSansMedium', serif ; width:200px;  text-align: center; margin: 5px auto;}
+	section input[type="submit"]{font-family: 'GmarketSansMedium', serif ;}
+	section .box-file-input label{
 	font-family: 'GmarketSansMedium', serif ;
     display:inline-block;
     background: #4FA2C7
@@ -29,7 +30,7 @@
 </head>
 <body>
 <div id	="container">
-	<jsp:include page="../template/header.jsp"></jsp:include>
+	<jsp:include page="../template/header.jsp"/>
 	<section>
 		<h1>프로필 변경</h1>
 		<div class="printImage">
@@ -56,6 +57,7 @@
 			</form>
 		</div>
 	</section>
+	<jsp:include page="../template/footer.jsp"/>
 </div>
 </body>
 <script type="text/javascript">

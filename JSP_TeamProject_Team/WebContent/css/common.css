@@ -29,11 +29,15 @@ header #logo{
 	cursor: pointer;
 	float: left;
 	height: 80px;
-	margin-left: 40px;
+	margin-left: 100px;
+	margin-right:10px;
 	z-index: 100%;
 }
 header #search{
-	margin: 20px 10px 10px 130px;
+	position:absolute;
+	align-items:center;
+	top:20px;
+	margin: 0 auto;
 	width: 406px;
 	height: 41px;
 	background: #FFFFFF;
