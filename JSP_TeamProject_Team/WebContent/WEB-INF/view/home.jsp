@@ -11,14 +11,14 @@
 	/*section 시작*/
 	section {margin: 0 auto; clear: both;}
 	section h1{margin-left: 20px;margin-top: 30px;}
-	.indexBlock {margin:0 auto; width: 1200px; height : 260px; margin-bottom: 30px;position: relative;}
-	img{width: 180px; height:160px; border-radius: 5%;}
-	.imgBlock{display: inline-block; width: 200px; text-align: center;
+	section .indexBlock {margin:0 auto; width: 1200px; height : 260px; margin-bottom: 30px;position: relative;}
+	section img{width: 180px; height:160px; border-radius: 5%;}
+	section .imgBlock{display: inline-block; width: 200px; text-align: center;
 		   margin-right: -20px; vertical-align: top; margin-left: 50px;}
-	.imgBlock:hover{cursor: pointer;}
-	.listBlock{vertical-align: top;}
-	.material-icons{width: 50px; height: 30px; position: absolute; top: 130px; margin-left: 20px;}
-	.material-icons:hover{cursor: pointer;}
+	section .imgBlock:hover{cursor: pointer;}
+	section .listBlock{vertical-align: top;}
+	section .material-icons{width: 50px; height: 30px; position: absolute; top: 130px; margin-left: 20px;}
+	section .material-icons:hover{cursor: pointer;}
 </style>
 <title>모두의 웹툰</title>
 </head>
