@@ -45,16 +45,16 @@ public class WebtoonListDAO {
 	}
 	
 	
-	public static ArrayList<WebtoonVO> selRandomWebtoonList(ArrayList<WebtoonVO> list, int randomLength){
+	public static ArrayList<WebtoonVO> selRandomWebtoonList(ArrayList<WebtoonVO> list){
 		String sql = " select w_no, w_title, w_writer, w_story, w_thumbnail, w_link, plat_no "
-					+ " from t_webtoon "
-					+ " order by rand() limit ? ";
+					+ " from view_webtoon "
+					+ " order by rand()";
 		
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			//물음표 넣을 때
 			public void prepared(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, randomLength);
+				//ps.setInt(1, randomLength);
 			}
 			@Override
 			//while문으로 값 가져올 때
