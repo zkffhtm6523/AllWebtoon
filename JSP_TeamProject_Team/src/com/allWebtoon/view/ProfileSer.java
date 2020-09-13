@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.allWebtoon.dao.UserDAO;
 import com.allWebtoon.util.MyUtils;
@@ -49,44 +48,57 @@ public class ProfileSer extends HttpServlet {
 		
 		String fileNm = "";
 		String originFileNm = "";
-		
 		String saveFileNm = null;
+		
+		String updName = null;
+		String updBirth = null;
+		String updEmail = null;
 		try {
 			//이름 중복되면 자동으로 이름 바꿔서 저장해줌. 저장 후 파일이름 변경해야됨
 			MultipartRequest mr = new MultipartRequest(request, savePath, 
 					maxFileSize, "UTF-8", new DefaultFileRenamePolicy());
 			Enumeration files = mr.getFileNames();
-			
+			//type : file이 이외의 form 태그 값들 받아오기
+			updName = mr.getParameter("updName");
+			updBirth = mr.getParameter("updBrith");
+			updEmail = mr.getParameter("updEmail");
 			//파일의 다음 엘리멘트가 더 있냐
 			while(files.hasMoreElements()) {
 				String key = (String)files.nextElement();
 				fileNm = mr.getFilesystemName(key);
 				originFileNm = mr.getOriginalFileName(key);
-				System.out.println("originFileNm : "+originFileNm);
-				//확장자 추출
-				int pos = fileNm.lastIndexOf( "." );
-				String ext = fileNm.substring(pos);
-				
-				//예전 파일
-				File oldFile = new File(savePath+"/"+fileNm);
-				//공파일 만들기
-				saveFileNm = UUID.randomUUID()+ext;
-				File newFile = new File(savePath+"/"+saveFileNm);
-				oldFile.renameTo(newFile);
-				
+				if(originFileNm != null) {
+					System.out.println("originFileNm : "+originFileNm);
+					//확장자 추출
+					int pos = fileNm.lastIndexOf( "." );
+					String ext = fileNm.substring(pos);
+					
+					//예전 파일
+					File oldFile = new File(savePath+"/"+fileNm);
+					//공파일 만들기
+					saveFileNm = UUID.randomUUID()+ext;
+					File newFile = new File(savePath+"/"+saveFileNm);
+					oldFile.renameTo(newFile);
+				}
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		UserVO param = new UserVO();
+		param.setU_no(loginUser.getU_no());
+		param.setU_name(updName);
+		param.setU_email(updEmail);
+		param.setU_birth(updBirth);
 		//DB에 프로필 파일명 저장
 		if(saveFileNm != null) {
-			UserVO param = new UserVO();
 			param.setU_profile(saveFileNm);
-			param.setU_no(loginUser.getU_no());
-			UserDAO.updUser(param);
 			loginUser.setU_profile(saveFileNm);
 			loginUser.setChkProfile(saveFileNm.substring(0, 4));
 		}
+		UserDAO.updUser(param);
+		loginUser.setU_name(param.getU_name());
+		loginUser.setU_email(param.getU_email());
+		loginUser.setU_birth(param.getU_birth());
 		response.sendRedirect("/profile");
 	}
 
