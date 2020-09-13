@@ -37,7 +37,6 @@ public class ProfileSer extends HttpServlet {
 		UserVO loginUser = MyUtils.getLoginUser(request);
 		//업로드한 이미지 저장 공간 에러  
 		String savePath = getServletContext().getRealPath("images") + "/u_profile/user/" + loginUser.getU_no(); //저장경로
-		System.out.println("savePath : "+savePath);
 		//저장 경로를 매개변수로 받는 File 타입의 변수 하나를 만든다.
 		File directory = new File(savePath);
 		//만약 디렉토리가 존재하지 않는다면, 디렉토리를 만든다.
@@ -56,7 +55,6 @@ public class ProfileSer extends HttpServlet {
 			//이름 중복되면 자동으로 이름 바꿔서 저장해줌. 저장 후 파일이름 변경해야됨
 			MultipartRequest mr = new MultipartRequest(request, savePath, 
 					maxFileSize, "UTF-8", new DefaultFileRenamePolicy());
-			System.out.println("mr : " + mr);
 			Enumeration files = mr.getFileNames();
 			
 			//파일의 다음 엘리멘트가 더 있냐
