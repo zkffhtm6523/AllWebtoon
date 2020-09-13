@@ -60,32 +60,34 @@ public class WebtoonCmtSer extends HttpServlet {
       
       ///////////////////////////////////////
       
-      String body = IOUtils.toString(request.getReader());
       
-      if( body != null) {
     	  
+	  w_no = MyUtils.getIntParameter(request, "w_no");
+	  strC_rating = request.getParameter("c_rating");
+  
+	  c_com = request.getParameter("c_com");
+      
+      System.out.println("u_no: " + u_no);
+      System.out.println("w_no: " + w_no);
+      System.out.println("c_rating: " + strC_rating);
+
+      
+      cmtChk = request.getParameter("cmtChk"); // 댓글 등록인지 수정인지 판단하는 변수
+      
+      if(strC_rating == null) {
+    	  
+    	  String body = IOUtils.toString(request.getReader());
     	  JsonParser parser = new JsonParser();
           JsonObject object = (JsonObject) parser.parse(body);
-          //System.out.println(body);
-
+          
+          
+          System.out.println("body: " + body);
+          
           w_no = Integer.parseInt(object.get("w_no").toString());
           strC_rating = object.get("c_rating").toString();
           ratingPage = object.get("ratingPage").toString();
           cmtChk = object.get("cmtChk").toString().split("\"")[1];
-          
-      } else {
-    	  w_no = MyUtils.getIntParameter(request, "w_no");
-    	  strC_rating = request.getParameter("c_rating");
-      
-    	  c_com = request.getParameter("c_com");
-	      
-	      System.out.println("u_no: " + u_no);
-	      System.out.println("w_no: " + w_no);
-	      System.out.println("c_rating: " + strC_rating);
-	
-	      
-	      cmtChk = request.getParameter("cmtChk"); // 댓글 등록인지 수정인지 판단하는 변수
-	      
+              
       }
     //  String genre_name = request.getParameter("genre_name");
 
@@ -116,28 +118,6 @@ public class WebtoonCmtSer extends HttpServlet {
       
       if(ratingPage == null) {
     	  response.sendRedirect("/webtoon/detail?w_no=" + w_no);
-      } else {
-    	  HttpSession hs = request.getSession();
-  		
-    	//  WebtoonCmtVO webCmtVO = WebtoonCmtDAO.selCmt(param);
-    	//  request.setAttribute("cmtlist", webCmtVO);
-  		//  request.setAttribute("list", hs.getAttribute("ratingList"));
-    	//  ViewResolver.viewForward("starRating", request, response);
-    	  
-    /*	  
-    	  Gson gson = new Gson();
-    		
-    	  ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
-    	  list = (ArrayList<WebtoonVO>) hs.getAttribute("ratingList");
-    		
-    		String json = gson.toJson(list);
-    		
-    		System.out.println("json : " + json);
-    		
-    		response.setCharacterEncoding("UTF-8");
-    		response.setContentType("application/json");
-    		PrintWriter out = response.getWriter();
-    		out.print(json);*/
       }
    }
 }
