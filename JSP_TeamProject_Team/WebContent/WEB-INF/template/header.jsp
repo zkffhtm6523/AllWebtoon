@@ -18,7 +18,6 @@
 				<button id="signin" onclick="moveToJoin()" title="회원가입">회원가입</button>
 			</c:when>
 			<c:otherwise>
-			
 				<a href="/webtoon/cmt">평가하기</a>
 				<div class="containerPImg" onclick="moveToProfile()" title="프로필 설정">
 					<c:choose>
