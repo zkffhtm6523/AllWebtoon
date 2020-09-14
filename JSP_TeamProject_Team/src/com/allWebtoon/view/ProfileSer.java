@@ -34,6 +34,9 @@ public class ProfileSer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//로그인 세션 정보 받아오기  
 		UserVO loginUser = MyUtils.getLoginUser(request);
+		
+		String u_name = request.getParameter("updName");
+		System.out.println(u_name);
 		//업로드한 이미지 저장 공간 에러  
 		String savePath = getServletContext().getRealPath("images") + "/u_profile/user/" + loginUser.getU_no(); //저장경로
 		//저장 경로를 매개변수로 받는 File 타입의 변수 하나를 만든다.
@@ -94,6 +97,8 @@ public class ProfileSer extends HttpServlet {
 			param.setU_profile(saveFileNm);
 			loginUser.setU_profile(saveFileNm);
 			loginUser.setChkProfile(saveFileNm.substring(0, 4));
+		}else {
+			UserDAO.updUser(param);
 		}
 		UserDAO.updUser(param);
 		loginUser.setU_name(param.getU_name());
