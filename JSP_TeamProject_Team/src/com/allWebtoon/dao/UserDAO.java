@@ -12,7 +12,7 @@ import com.allWebtoon.vo.UserVO;
 public class UserDAO {
 	public static UserVO selUser(int i_user) {
 		String sql = " SELECT A.u_no, A.u_id, A.u_profile, A.u_email, A.u_name, "
-					+ " A.u_birth, A.gender_no "
+					+ " A.u_birth, A.gender_no, A.r_dt, A.m_dt "
 					+ " FROM t_user A "
 					+ " WHERE A.u_no = ? ";
 		
@@ -31,7 +31,10 @@ public class UserDAO {
 					sqlResult.setU_profile(rs.getNString("u_profile"));
 					sqlResult.setU_email(rs.getNString("u_email"));
 					sqlResult.setU_name(rs.getNString("u_name"));
+					sqlResult.setU_birth(rs.getString("u_birth"));
 					sqlResult.setGender_name(rs.getInt("gender_no") == 1 ? "female" : "male");
+					sqlResult.setR_dt(rs.getString("r_dt"));
+					sqlResult.setM_dt(rs.getString("m_dt"));
 				}
 				return 1;
 			}
@@ -223,7 +226,6 @@ public class UserDAO {
 		}
 		sb.append(" where u_no = ");
 		sb.append(param.getU_no());
-		
 		System.out.println("sb : " + sb.toString());
 		
 		return JdbcTemplate.executeUpdate(sb.toString(), new JdbcUpdateInterface() {
