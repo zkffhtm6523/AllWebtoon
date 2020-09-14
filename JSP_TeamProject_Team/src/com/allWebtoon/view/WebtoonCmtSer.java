@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 
-import com.allWebtoon.dao.UserDAO;
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.util.MyUtils;
@@ -22,7 +22,6 @@ import com.allWebtoon.vo.WebtoonVO;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.apache.commons.io.IOUtils;
 
 @WebServlet("/webtoon/cmt")
 public class WebtoonCmtSer extends HttpServlet {

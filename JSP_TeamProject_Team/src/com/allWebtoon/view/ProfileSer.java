@@ -89,22 +89,12 @@ public class ProfileSer extends HttpServlet {
 		}
 		UserVO param = new UserVO();
 		param.setU_no(loginUser.getU_no());
-<<<<<<< HEAD
-		param.setU_name(request.getParameter("updName"));
-		System.out.println(param.getU_name());
-		param.setU_email(request.getParameter("updEmail"));
-=======
 		param.setU_name(updName);
 		param.setU_email(updEmail);
 		param.setU_birth(updBirth);
->>>>>>> branch 'master' of https://github.com/zkffhtm6523/AllWebtoon.git
 		//DB에 프로필 파일명 저장
 		if(saveFileNm != null) {
 			param.setU_profile(saveFileNm);
-<<<<<<< HEAD
-			UserDAO.updUser(param);
-=======
->>>>>>> branch 'master' of https://github.com/zkffhtm6523/AllWebtoon.git
 			loginUser.setU_profile(saveFileNm);
 			loginUser.setChkProfile(saveFileNm.substring(0, 4));
 		}else {

@@ -19,8 +19,10 @@
 	<div id="rightMenu">
 		<c:choose>
 			<c:when test="${loginUser.u_name eq null}">
-				<button id="login" onclick="moveToLogin()" title="로그인">로그인</button>
+			<div id="rightnMenu3">
 				<button id="signin" onclick="moveToJoin()" title="회원가입">회원가입</button>
+				<button id="login" onclick="moveToLogin()" title="로그인">로그인</button>
+			</div>
 			</c:when>
 			<c:otherwise>
 				<div id="rightMenu2">

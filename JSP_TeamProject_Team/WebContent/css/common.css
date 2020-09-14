@@ -81,6 +81,15 @@ header #rightMenu2{
 	width:400px;
 	margin: 0 auto;
 }
+header #signin{
+	float: right;
+	margin-top: 30px;
+}
+header #login{
+	float: right;
+	margin-top: 30px;
+	margin-right: 10px;
+}
 header .containerPImg {
 	vertical-align:top;
 	display:inline-block;
