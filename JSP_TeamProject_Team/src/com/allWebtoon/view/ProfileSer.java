@@ -97,13 +97,15 @@ public class ProfileSer extends HttpServlet {
 			param.setU_profile(saveFileNm);
 			loginUser.setU_profile(saveFileNm);
 			loginUser.setChkProfile(saveFileNm.substring(0, 4));
-		}else {
-			UserDAO.updUser(param);
 		}
 		UserDAO.updUser(param);
+		
+		param = UserDAO.selUser(param.getU_no());
+		
 		loginUser.setU_name(param.getU_name());
 		loginUser.setU_email(param.getU_email());
 		loginUser.setU_birth(param.getU_birth());
+		loginUser.setM_dt(param.getM_dt());
 		response.sendRedirect("/profile");
 	}
 
