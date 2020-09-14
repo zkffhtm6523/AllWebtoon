@@ -159,6 +159,10 @@
 	    		location.href = '/logout'
     		}
 		}
+    	//평가페이지 가기
+    	function moveToReview(){
+    		location.href = '/webtoon/cmt'
+    	}
 	</script>
 </body>
 </html>

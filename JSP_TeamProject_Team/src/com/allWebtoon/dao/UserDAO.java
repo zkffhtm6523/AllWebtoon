@@ -52,7 +52,7 @@ public class UserDAO {
 				ps.setNString(2, param.getU_password());
 				ps.setNString(3, param.getU_name());
 				ps.setNString(4, param.getU_birth());
-				if(param.getGender_name().equals("female")) {
+				if(param.getGender_name().equals("female") || param.getGender_name().equals("여성")) {
 					ps.setInt(5, 1);
 				} else {
 					ps.setInt(5, 2);
@@ -73,7 +73,7 @@ public class UserDAO {
 		});
 	}
 	public static int selKakaoUser(UserVO param) {
-		String sql = "SELECT u_no, u_password, u_name, r_dt, m_dt FROM t_user WHERE u_id=? ";
+		String sql = "SELECT u_no, u_password, u_name, r_dt, m_dt, u_birth FROM t_user WHERE u_id=? ";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
@@ -92,6 +92,7 @@ public class UserDAO {
 						param.setU_name(nm);
 						param.setR_dt(rs.getString("r_dt"));
 						param.setM_dt(rs.getString("m_dt"));
+						param.setU_birth(rs.getString("u_birth"));
 						return 1;
 					} else {								//로그인 실패.(비밀번호 틀릴 경우)
 						return 2;
@@ -105,7 +106,7 @@ public class UserDAO {
 		});
 	}	
 	public static int selNaverUser(UserVO param) {
-		String sql = "SELECT u_no, u_password, u_name, r_dt, m_dt FROM t_user WHERE u_id=? ";
+		String sql = "SELECT u_no, u_password, u_name, r_dt, m_dt, u_birth FROM t_user WHERE u_id=? ";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
@@ -122,6 +123,7 @@ public class UserDAO {
 						param.setU_name(rs.getNString("u_name"));
 						param.setR_dt(rs.getString("r_dt"));
 						param.setM_dt(rs.getString("m_dt"));
+						param.setU_birth(rs.getString("u_birth"));
 						return 1;
 					} else {								//로그인 실패.(비밀번호 틀릴 경우)
 						return 2;
@@ -212,6 +214,11 @@ public class UserDAO {
 		if(param.getU_profile() != null) {
 			sb.append(" , u_profile = '");
 			sb.append(param.getU_profile());
+			sb.append("' ");
+		}
+		if(param.getU_birth() != null) {
+			sb.append(" , u_birth = '");
+			sb.append(param.getU_birth());
 			sb.append("' ");
 		}
 		sb.append(" where u_no = ");

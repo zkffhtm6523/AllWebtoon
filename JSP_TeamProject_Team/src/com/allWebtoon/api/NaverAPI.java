@@ -124,7 +124,6 @@ public class NaverAPI extends HttpServlet {
 				
 				if(db_result == 0) {
 					UserDAO.insUser(userInfo);
-					
 					UserDAO.selNaverUser(userInfo);
 					HttpSession hs = request.getSession();
 					hs.setAttribute(Const.LOGIN_USER,userInfo);
