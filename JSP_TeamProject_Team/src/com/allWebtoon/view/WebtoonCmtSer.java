@@ -50,28 +50,14 @@ public class WebtoonCmtSer extends HttpServlet {
       loginUser = MyUtils.getLoginUser(request);
       
       int u_no = loginUser.getU_no();
-      int w_no;
-      String strC_rating;
+
       String ratingPage = null;
-      String cmtChk;
-      String c_com = null;
-      
-      
-      ///////////////////////////////////////
-      
-      
-    	  
-	  w_no = MyUtils.getIntParameter(request, "w_no");
-	  strC_rating = request.getParameter("c_rating");
-  
-	  c_com = request.getParameter("c_com");
-      
-      System.out.println("u_no: " + u_no);
-      System.out.println("w_no: " + w_no);
-      System.out.println("c_rating: " + strC_rating);
 
       
-      cmtChk = request.getParameter("cmtChk"); // 댓글 등록인지 수정인지 판단하는 변수
+	  int w_no = MyUtils.getIntParameter(request, "w_no");
+	  String strC_rating = request.getParameter("c_rating");
+	  String c_com = request.getParameter("c_com");
+      String cmtChk = request.getParameter("cmtChk"); // 댓글 등록인지 수정인지 판단하는 변수
       
       if(strC_rating == null) {
     	  

@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>Header</title>
 <link rel="stylesheet" type="text/css" href="/css/common.css">
-
 </head>
 <header>
 	<div id="topMenu">
