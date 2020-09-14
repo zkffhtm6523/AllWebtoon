@@ -66,6 +66,12 @@
 		margin: 30px auto;
 		margin-top: 15px;
 	}
+	section #frmBtn{
+		font-size: 1.05em;
+	}
+	section #frmBtn:hover {
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -110,14 +116,22 @@
 				</div>
 				<div>
 					<span class="name">생년월일</span>&nbsp;&nbsp;
+<<<<<<< HEAD
 					<input type="search" name="updBirth" value="${loginUser.u_birth}" class="updList">
+=======
+					<input type="date" name="updBrith" value="${loginUser.u_birth}" class="updList">
+>>>>>>> branch 'master' of https://github.com/zkffhtm6523/AllWebtoon.git
 				</div>
 				<div>
 					<span class="name">가입일자</span>&nbsp;&nbsp;
 					<input type="search" name="updR_dt" value="${loginUser.r_dt}" class="updList" readonly>
 				</div>
 				<div>
+<<<<<<< HEAD
 					<span class="name">수정일자</span>&nbsp;&nbsp;
+=======
+					<span class="name">가입일자</span>&nbsp;&nbsp;
+>>>>>>> branch 'master' of https://github.com/zkffhtm6523/AllWebtoon.git
 					<input type="search" name="updM_dt" value="${loginUser.m_dt}" class="updList" readonly>
 				</div>
 				<div id="btnBox">
@@ -158,6 +172,10 @@ function moveToLogOut() {
 	if(confirm('로그아웃 하시겠습니까?')){
 		location.href = '/logout'
 	}
+}
+//평가페이지 가기
+function moveToReview(){
+	location.href = '/webtoon/cmt'
 }
 </script>
 </html>
