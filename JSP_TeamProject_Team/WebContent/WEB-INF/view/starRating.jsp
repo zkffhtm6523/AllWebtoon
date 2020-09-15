@@ -19,6 +19,7 @@ section #listBlock {width:90%; margin:0 auto;}
 section .itembox {margin:30px 80px; display: inline-block; position:relative;}
 section dl {position:relative;}
 section dt{position:absolute; bottom:60px; center:50%; left:50%; transform:translate(-50%,-50%); white-space:nowrap;}
+section .writer {white-space:nowrap;}
 section img {width:200px; margin-bottom:30px;}
 
 section .startRadio {display: inline-block; overflow: hidden; height: 40px;}
@@ -38,7 +39,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 <section>
 	<div id="listBlock">
 	<c:forEach items="${list}" var="item" begin="0" end="12" varStatus="status">
-		<div class="itembox">
+		<div class="itembox" id="itembox_${status.index }">
 			<dl>
 				<dt>${list[status.index].w_title }</dt>
 				<dd><img src="${list[status.index].w_thumbnail }"></dd>
@@ -65,6 +66,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 
+	var index = 12
 
 	function score(star,index,w_no) { // 별점주기
 		var cmtChk = 0;
@@ -74,7 +76,8 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		cmtChk = document.getElementsByName("cmtChk")[index].value
 	   	document.getElementsByName("c_rating")[index].value = parseFloat(star)/2
 	   	var c_rating= parseFloat(star)/2
-		var data = { 
+		
+	   	var data = { 
 			w_no : w_no,
 			c_rating : c_rating,
 			ratingPage : '1',
@@ -87,25 +90,35 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 	}
 	
 	
-	//Javascript
-	var count = 12;
-	
-	var index = 13;
 	//스크롤 바닥 감지
 	window.onscroll = function(e) {
-	    //추가되는 임시 콘텐츠
+		
 	    //window height + window scrollY 값이 document height보다 클 경우,
 	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 	    	//실행할 로직 (콘텐츠 추가)
-	        //count++;
-	        //var addContent = '<div class="block"><p>'+ count +'번째로 추가된 콘텐츠</p></div>';
-	        //article에 추가되는 콘텐츠를 append
-	      	//addContainer.innerHTML += addContent;
+	         index++;
+	    	
+	       // var addContent = '<div class="block"><p>'+ count +'번째로 추가된 콘텐츠</p></div>';
+	       var addContent = '<div class="itembox" id="itembox_'+index+'">'
+			+' <dl> '
+			+ ' <dt> ${list.get(index).w_title } </dt> '
+			+' <dd> <img src="${list.get(index).w_thumbnail }"> </dd> '
+			+ ' <dd>${list.get(index).w_writer}</dd>'
+			+ ' <dd> <div class="startRadio"> '
+			+ ' <c:forEach begin="1" end="10" step="1" var="rating_item"> '
+             +' <label class="startRadio__box"> '
+             + ' <input type="radio" name="star" onclick="score(${rating_item},' + index +', ${list.get(index).w_no } )"> '
+             + ' <span class="startRadio__img"><span class="blind"></span></span> </label> </c:forEach> '
+             + ' <input type="hidden" name="c_rating" class="point" value="0" required> '
+	         + ' <input type="hidden" name="cmtChk" value="0"> '
+	         + ' </div> </dd> '
+	         + ' </dl> </div> '
+	        
+	         
 	       
-	        
-	  //      document.getElementsByClass("frm").end = 20;
-	        
-	        
+	       //article에 추가되는 콘텐츠를 append
+	     	listBlock.innerHTML += addContent;
+	       
 	    }
 	};
 	
@@ -138,10 +151,10 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
    			location.href = '/logout'
   		}
 	}
-  	 //평가페이지 가기
-   	 function moveToReview(){
-   		 location.href = '/webtoon/cmt'
-   	 }
+ 	//평가페이지 가기
+	 function moveToReview(){
+		 location.href = '/webtoon/cmt'
+	 }
 </script>
 </body>
 </html>
