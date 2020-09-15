@@ -21,9 +21,6 @@ section dl {position:relative;}
 section dt{position:absolute; bottom:60px; center:50%; left:50%; transform:translate(-50%,-50%); white-space:nowrap;}
 section img {width:200px; margin-bottom:30px;}
 
-
-
-
 section .startRadio {display: inline-block; overflow: hidden; height: 40px;}
 section .startRadio:after { content: ""; display: block; position: relative; z-index: 10; height: 40px;
         background: url('/images/star_Radio.png');
