@@ -34,8 +34,6 @@ public class WebtoonCmtSer extends HttpServlet {
 		
 		list = WebtoonListDAO.selRandomWebtoonList(list);
 	
-		//HttpSession hs = request.getSession();
-		//hs.setAttribute("ratingList",list);
 		
 		request.setAttribute("list", list);
 	   

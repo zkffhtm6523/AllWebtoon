@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,11 +16,12 @@ section{
  		text-align: center;
  	}
 section #listBlock {width:90%; margin:0 auto;}  
-section .itembox {margin:30px 80px; display: inline-block; position:relative;}
+section .itembox {width:30%; margin:30px 80px; display: inline-block; position:relative;}
 section dl {position:relative;}
-section dt{position:absolute; bottom:60px; center:50%; left:50%; transform:translate(-50%,-50%); white-space:nowrap;}
+section dt {position:absolute; bottom:60px; left:50%; white-space:nowrap; transform:translate(-50%,-50%);}
 section .writer {white-space:nowrap;}
-section img {width:200px; margin-bottom:30px;}
+section img {height:170px; margin-bottom:30px; border-radius:30%;}
+
 
 section .startRadio {display: inline-block; overflow: hidden; height: 40px;}
 section .startRadio:after { content: ""; display: block; position: relative; z-index: 10; height: 40px;
@@ -43,7 +44,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 			<dl>
 				<dt>${list[status.index].w_title }</dt>
 				<dd><img src="${list[status.index].w_thumbnail }"></dd>
-				<dd>${list[status.index].w_writer}</dd>
+				<dd class="writer">${list[status.index].w_writer}</dd>
 				<dd>
 				   <div class="startRadio">
 		               <c:forEach begin="1" end="10" step="1" var="rating_item">
@@ -65,10 +66,15 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-
-	var index = 12
+	
 
 	function score(star,index,w_no) { // 별점주기
+		
+		
+		console.log(star)
+		console.log(index)
+		console.log(w_no)
+		
 		var cmtChk = 0;
 	   	if(document.getElementsByName("c_rating")[index].value != 0){
 	   		 document.getElementsByName("cmtChk")[index].value = 1
@@ -89,38 +95,104 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		})
 	}
 	
+
+	var idx = 13
+	var data = []
 	
-	//스크롤 바닥 감지
-	window.onscroll = function(e) {
+	<c:forEach items="${list}" var="item">
+		var obj = {
+				w_title: '${item.w_title}',
+				w_writer: '${item.w_writer}',
+				w_thumbnail: '${item.w_thumbnail}',	
+				w_no: '${item.w_no}'
+		}
 		
+		data.push(obj)
+	</c:forEach>
+		
+	//스크롤 바닥 감지
+	window.onscroll = function() {
 	    //window height + window scrollY 값이 document height보다 클 경우,
-	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
 	    	//실행할 로직 (콘텐츠 추가)
-	         index++;
-	    	
-	       // var addContent = '<div class="block"><p>'+ count +'번째로 추가된 콘텐츠</p></div>';
-	       var addContent = '<div class="itembox" id="itembox_'+index+'">'
-			+' <dl> '
-			+ ' <dt> ${list.get(index).w_title } </dt> '
-			+' <dd> <img src="${list.get(index).w_thumbnail }"> </dd> '
-			+ ' <dd>${list.get(index).w_writer}</dd>'
-			+ ' <dd> <div class="startRadio"> '
-			+ ' <c:forEach begin="1" end="10" step="1" var="rating_item"> '
-             +' <label class="startRadio__box"> '
-             + ' <input type="radio" name="star" onclick="score(${rating_item},' + index +', ${list.get(index).w_no } )"> '
-             + ' <span class="startRadio__img"><span class="blind"></span></span> </label> </c:forEach> '
-             + ' <input type="hidden" name="c_rating" class="point" value="0" required> '
-	         + ' <input type="hidden" name="cmtChk" value="0"> '
-	         + ' </div> </dd> '
-	         + ' </dl> </div> '
-	        
+	        // index++;
+	    
+	    		<c:forEach begin="0" end="11">
+	    		console.log(idx)
+	         var itembox = document.createElement('div')
+	         itembox.setAttribute('class','itembox')
+	         itembox.setAttribute('id','itembox_'+idx)
+	         var dl = document.createElement('dl')
+	         var title = document.createElement('dt')
+	         var imgbox = document.createElement('dd')
+	         var img = document.createElement('img')
+	         img.setAttribute('src',data[idx].w_thumbnail)
+	         imgbox.append(img)
+	         var writer = document.createElement('dd')
+	         writer.setAttribute('class','writer')
+	         title.append(data[idx].w_title)
+	         writer.append(data[idx].w_writer)
 	         
+	         var star = document.createElement('dd')
+	         var startRadio = document.createElement('startRadio')
+	         startRadio.setAttribute('class','startRadio')
+	         
+	         <c:forEach begin="1" end="10" step="1" var="rating_item">
+	         	var label = document.createElement('label')
+	         	label.setAttribute('class','startRadio__box')
+	         	var input = document.createElement('input')
+	         	input.setAttribute('type','radio')
+	         	input.setAttribute('name','start')
+	         	input.setAttribute('onclick','score(${rating_item},'+idx+','+data[idx].w_no+')')
+	         	
+	         	var startRadio__img = document.createElement('span')
+	         	startRadio__img.setAttribute('class','startRadio__img')
+	         	var blind = document.createElement('span')
+	         	blind.setAttribute('class','blind')
+	         	startRadio__img.append(blind)
+	         	label.append(input)
+	         	label.append(startRadio__img)
+	         	startRadio.append(label)
+	         </c:forEach>
+	         
+	         var c_rating = document.createElement('input')
+	         c_rating.setAttribute('type','hidden')
+	         c_rating.setAttribute('name','c_rating')
+	         c_rating.setAttribute('class','point')
+	         c_rating.setAttribute('value','0')
+	         
+	         var cmtChk = document.createElement('input')
+	         cmtChk.setAttribute('type','hidden')
+	         cmtChk.setAttribute('name','cmtChk')
+	         cmtChk.setAttribute('value','0')
+	         
+	         startRadio.append(c_rating)
+	         startRadio.append(cmtChk)
+	         
+	         star.append(startRadio)
+	         
+	         dl.append(title)
+	         dl.append(imgbox)
+	         dl.append(writer)
+	         dl.append(star)
+	         
+	         itembox.append(dl)
 	       
 	       //article에 추가되는 콘텐츠를 append
-	     	listBlock.innerHTML += addContent;
-	       
+	     	//listBlock.innerHTML += addContent;
+	        listBlock.append(itembox)
+	       /* console.log("innerHeight : " + window.innerHeight)
+	        console.log("scrollY: " + window.scrollY)     
+	        console.log("offsetHeight: " + document.body.offsetHeight)
+	        console.log('scrollTop: ' + document.body.scrollTop)
+	        console.log('scrollHight: ' + document.body.scrollHeight)*/
+	        
+	        idx++
+	        </c:forEach>
+	        
 	    }
 	};
+	
 	
 	
 	
