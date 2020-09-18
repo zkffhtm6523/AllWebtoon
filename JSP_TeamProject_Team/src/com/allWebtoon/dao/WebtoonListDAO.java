@@ -77,14 +77,14 @@ public class WebtoonListDAO {
 	
 	
 	// 검색 결과
-	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo, int randomLength){
+	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo){
 		ArrayList<SearchWebtoonVO> list = new ArrayList<SearchWebtoonVO>();
 		String sql = 
 			" SELECT w_no, w_title, concat(LEFT(w_story, 150), '...') as w_story, w_thumbnail, w_link, plat_no, " + 
-			"		  	genre_name, CONCAT(LEFT(w_writer, 60), '...') as w_writer, " + 
+			"		  	genre_name, group_concat(w_writer separator ', ') as w_writer, " + 
 			"		    plat_name  from view_webtoon "
 		  + " where w_title LIKE ? or genre_name LIKE ? or w_writer LIKE ? or plat_name LIKE ? "
-		  + " order BY RAND() limit ? ";
+		  + " group by w_no ";
 
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
@@ -93,7 +93,7 @@ public class WebtoonListDAO {
 				ps.setNString(2, "%"+vo.getSearchKeyword()+"%");
 				ps.setNString(3, "%"+vo.getSearchKeyword()+"%");
 				ps.setNString(4, "%"+vo.getSearchKeyword()+"%");
-				ps.setInt(5, randomLength);
+				
 			}
 			
 			@Override

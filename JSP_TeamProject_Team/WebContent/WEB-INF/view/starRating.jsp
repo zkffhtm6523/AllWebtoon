@@ -32,6 +32,8 @@ section .startRadio__box { position: relative; z-index: 1; float: left; width: 2
 section .startRadio input { opacity: 0 !important; height: 0 !important;width: 0 !important;position: absolute !important;}
 section .startRadio input:checked + .startRadio__img { background-color: #ffd700;}
 section .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none;} 
+
+
 </style>
 </head>
 <body>
@@ -39,7 +41,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 <jsp:include page="../template/header.jsp"/>
 <section>
 	<div id="listBlock">
-	<c:forEach items="${list}" var="item" begin="0" end="12" varStatus="status">
+	<c:forEach items="${list}" var="item" begin="0" end="11" varStatus="status">
 		<div class="itembox" id="itembox_${status.index }">
 			<dl>
 				<dt>${list[status.index].w_title }</dt>
@@ -60,7 +62,9 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 			</dl>
 		</div>
 	</c:forEach>
+	
 	</div>
+	
 </section>
 <jsp:include page="../template/footer.jsp"/>
 </div>
@@ -96,100 +100,97 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 	}
 	
 
-	var idx = 13
-	var data = []
+	var idx = 12
 	
-	<c:forEach items="${list}" var="item">
-		var obj = {
-				w_title: '${item.w_title}',
-				w_writer: '${item.w_writer}',
-				w_thumbnail: '${item.w_thumbnail}',	
-				w_no: '${item.w_no}'
-		}
-		
-		data.push(obj)
-	</c:forEach>
-		
 	//스크롤 바닥 감지
 	window.onscroll = function() {
 	    //window height + window scrollY 값이 document height보다 클 경우,
 	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
 	    	//실행할 로직 (콘텐츠 추가)
-	        // index++;
+	       	
+	    	console.log('index: '+ idx)
+	    	
+	    	axios.get('/webtoon/cmt', {
+	    		params : {
+	    			page : idx
+	    		}		
+	    	}).then(function(res) {
+	    		console.log(res.data)
 	    
-	    		<c:forEach begin="0" end="11">
-	    		console.log(idx)
-	         var itembox = document.createElement('div')
-	         itembox.setAttribute('class','itembox')
-	         itembox.setAttribute('id','itembox_'+idx)
-	         var dl = document.createElement('dl')
-	         var title = document.createElement('dt')
-	         var imgbox = document.createElement('dd')
-	         var img = document.createElement('img')
-	         img.setAttribute('src',data[idx].w_thumbnail)
-	         imgbox.append(img)
-	         var writer = document.createElement('dd')
-	         writer.setAttribute('class','writer')
-	         title.append(data[idx].w_title)
-	         writer.append(data[idx].w_writer)
-	         
-	         var star = document.createElement('dd')
-	         var startRadio = document.createElement('startRadio')
-	         startRadio.setAttribute('class','startRadio')
-	         
-	         <c:forEach begin="1" end="10" step="1" var="rating_item">
-	         	var label = document.createElement('label')
-	         	label.setAttribute('class','startRadio__box')
-	         	var input = document.createElement('input')
-	         	input.setAttribute('type','radio')
-	         	input.setAttribute('name','start')
-	         	input.setAttribute('onclick','score(${rating_item},'+idx+','+data[idx].w_no+')')
-	         	
-	         	var startRadio__img = document.createElement('span')
-	         	startRadio__img.setAttribute('class','startRadio__img')
-	         	var blind = document.createElement('span')
-	         	blind.setAttribute('class','blind')
-	         	startRadio__img.append(blind)
-	         	label.append(input)
-	         	label.append(startRadio__img)
-	         	startRadio.append(label)
-	         </c:forEach>
-	         
-	         var c_rating = document.createElement('input')
-	         c_rating.setAttribute('type','hidden')
-	         c_rating.setAttribute('name','c_rating')
-	         c_rating.setAttribute('class','point')
-	         c_rating.setAttribute('value','0')
-	         
-	         var cmtChk = document.createElement('input')
-	         cmtChk.setAttribute('type','hidden')
-	         cmtChk.setAttribute('name','cmtChk')
-	         cmtChk.setAttribute('value','0')
-	         
-	         startRadio.append(c_rating)
-	         startRadio.append(cmtChk)
-	         
-	         star.append(startRadio)
-	         
-	         dl.append(title)
-	         dl.append(imgbox)
-	         dl.append(writer)
-	         dl.append(star)
-	         
-	         itembox.append(dl)
-	       
-	       //article에 추가되는 콘텐츠를 append
-	     	//listBlock.innerHTML += addContent;
-	        listBlock.append(itembox)
-	       /* console.log("innerHeight : " + window.innerHeight)
-	        console.log("scrollY: " + window.scrollY)     
-	        console.log("offsetHeight: " + document.body.offsetHeight)
-	        console.log('scrollTop: ' + document.body.scrollTop)
-	        console.log('scrollHight: ' + document.body.scrollHeight)*/
-	        
-	        idx++
-	        </c:forEach>
-	        
+	    	res.data.forEach(function (item){
+	    		var itembox = document.createElement('div')
+		         itembox.setAttribute('class','itembox')
+		         itembox.setAttribute('id','itembox_'+idx)
+		         var dl = document.createElement('dl')
+		         var title = document.createElement('dt')
+		         var imgbox = document.createElement('dd')
+		         var img = document.createElement('img')
+		         img.setAttribute('src',item.w_thumbnail)
+		         imgbox.append(img)
+		         var writer = document.createElement('dd')
+		         writer.setAttribute('class','writer')
+		         title.append(item.w_title)
+		         writer.append(item.w_writer)
+		         
+		         var star = document.createElement('dd')
+		         var startRadio = document.createElement('startRadio')
+		         startRadio.setAttribute('class','startRadio')
+		         
+		         <c:forEach begin="1" end="10" step="1" var="rating_item">
+		         	var label = document.createElement('label')
+		         	label.setAttribute('class','startRadio__box')
+		         	var input = document.createElement('input')
+		         	input.setAttribute('type','radio')
+		         	input.setAttribute('name','start')
+		         	input.setAttribute('onclick','score(${rating_item},'+idx+','+ item.w_no + ')')
+		         	
+		         	var startRadio__img = document.createElement('span')
+		         	startRadio__img.setAttribute('class','startRadio__img')
+		         	var blind = document.createElement('span')
+		         	blind.setAttribute('class','blind')
+		         	startRadio__img.append(blind)
+		         	label.append(input)
+		         	label.append(startRadio__img)
+		         	startRadio.append(label)
+		         </c:forEach>
+		         
+		         var c_rating = document.createElement('input')
+		         c_rating.setAttribute('type','hidden')
+		         c_rating.setAttribute('name','c_rating')
+		         c_rating.setAttribute('class','point')
+		         c_rating.setAttribute('value','0')
+		         
+		         var cmtChk = document.createElement('input')
+		         cmtChk.setAttribute('type','hidden')
+		         cmtChk.setAttribute('name','cmtChk')
+		         cmtChk.setAttribute('value','0')
+		         
+		         startRadio.append(c_rating)
+		         startRadio.append(cmtChk)
+		         
+		         star.append(startRadio)
+		         
+		         dl.append(title)
+		         dl.append(imgbox)
+		         dl.append(writer)
+		         dl.append(star)
+		         
+		         itembox.append(dl)
+		       
+		        listBlock.append(itembox)
+		        
+		       /* console.log("innerHeight : " + window.innerHeight)
+		        console.log("scrollY: " + window.scrollY)     
+		        console.log("offsetHeight: " + document.body.offsetHeight)
+		        console.log('scrollTop: ' + document.body.scrollTop)
+		        console.log('scrollHight: ' + document.body.scrollHeight)*/
+		        
+		        idx++
+		        
+	    	})
+		        
+		         
+	    	})
 	    }
 	};
 	
