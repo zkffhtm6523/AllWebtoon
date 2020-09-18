@@ -65,7 +65,7 @@
                	<div class="startRadio">
                   <c:forEach begin="1" end="10" step="1" var="item">
                      <label class="startRadio__box">
-                        <input type="radio" name="star" id="" onclick="score(${item})">
+                        <input type="radio" name="star" id="" onclick="score(${item})" ${loginUser == null ? 'disabled':'' }>
                         <span class="startRadio__img"><span class="blind"></span></span>
                      </label>
                 	  </c:forEach>
@@ -82,9 +82,9 @@
 	            <input type="hidden" id="cmtChk" name="cmtChk" value="0">
 	               <!-- 댓글 남기기 -->
 	            <div id="comment">
-	            	<input type="text" id="cmt" name="c_com" placeholder="댓글을 남겨주세요" value="${myCmt.c_com }">
+	            	<input type="text" id="cmt" name="c_com" placeholder="댓글을 남겨주세요" value="${myCmt.c_com }" onclick="login_chk()" ${loginUser.u_no==null? 'readonly' : '' }>
 		            <!-- 완료 후 보내기 -->
-		            <input type="submit" id="cmt_btn" value="${myCmt.c_com == null ? '등록하기' : '수정하기' }">
+		            <input type="submit" id="cmt_btn" value="${myCmt.c_rating == '' || loginUser == null ? '등록하기' : '수정하기' }">
 	            </div>
 	            <div><input type="hidden" name="w_no" value="${data.w_no }"></div>
 	            <div><input type="hidden" name="genre_name" value="${data.genre_name }"></div>
@@ -107,10 +107,15 @@
       }
       
       function score(star) { // 별점주기
+    	 if(${loginUser.u_no==null}){
+    		 alert('로그인')
+    		 
+    	 }else{
          console.log('star : ' + star)
          console.log('star type' + typeof star)
          point.value = parseFloat(star)/2
          console.log('point.value : ' + point.value)
+    	 }
       }
    
       function chk() {
@@ -122,6 +127,12 @@
             return false
          } 
          alert('댓글이 등록되었습니다')
+      }
+      
+      function login_chk(){
+    	  if(${loginUser.u_no == null}){
+    		  alert('로그인해주세요')
+    	  }
       }
       
       function moveToLogin() {
