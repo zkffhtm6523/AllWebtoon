@@ -4,6 +4,8 @@ public class UserVO {
 	private int u_no;
 	private String u_id;
 	private String u_password;
+	private String u_encrypt;
+	private String u_salt;
 	private String u_name;
 	private String u_birth;
 	private String gender_name;
@@ -15,6 +17,18 @@ public class UserVO {
 	private int u_joinPath;
 	private String chkProfile;
 	
+	public String getU_encrypt() {
+		return u_encrypt;
+	}
+	public void setU_encrypt(String u_encrypt) {
+		this.u_encrypt = u_encrypt;
+	}
+	public String getU_salt() {
+		return u_salt;
+	}
+	public void setU_salt(String u_salt) {
+		this.u_salt = u_salt;
+	}
 	public String getU_id() {
 		return u_id;
 	}

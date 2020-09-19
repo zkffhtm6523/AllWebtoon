@@ -51,11 +51,14 @@
 		        <div class="err">${msg}</div>
 	            <form id="frm" action="/join" method="post" onsubmit="return chk()">
 	            	<div id="genre_arr"></div>
-	            	<input type="text" name="u_id" id="id" placeholder="아이디를 입력해주세요" autofocus><br>
-	                <input type="password" name="u_pw" id="pw" placeholder="비밀번호"><br>
-	                <input type="password" name="u_pw2" id="pw2" placeholder="비밀번호 확인"><br>
-	                <input type="text" name="name" id="name" placeholder="이름" ><br>
-	                <input type="email" name="email" id="email" placeholder="메일"><br>
+	            	<input type="text" name="u_profile" value="${userInfo.u_profile == '' ? '' : userInfo.u_joinPath}">
+	            	<input type="text" name="chkProfile" value="${userInfo.chkProfile == '' ? '' : userInfo.u_joinPath}">
+	            	<input type="text" name="u_joinPath" value="${userInfo.u_joinPath == '' ? 1 : userInfo.u_joinPath}">
+	            	<input type="text" name="u_id" id="id" placeholder="아이디를 입력해주세요" value="${userInfo.u_id}" autofocus><br>
+	                <input type="password" name="u_pw" id="pw" placeholder="비밀번호" value="${userInfo.u_password}"><br>
+	                <input type="password" name="u_pw2" id="pw2" placeholder="비밀번호 확인" value="${userInfo.u_password}"><br>
+	                <input type="text" name="name" id="name" placeholder="이름" value="${userInfo.u_name}" ><br>
+	                <input type="email" name="email" id="email" placeholder="메일" value="${userInfo.u_email}"><br>
 	              	  생년월일 <input type="date" name="birth" id="birth"><br>
 	                <label><input type="radio" class="gender" name="gender" value="male">남자</label>
 	                <label><input type="radio" class="gender" name="gender" value="female">여자</label><br>
@@ -119,6 +122,11 @@
 			if(!email.test(frm.email.value)){			//이메일 정규식을 만족하지 않을 경우.
 				alert('이메일을 확인해주세요');
 				frm.email.focus();
+				return false;
+			}
+			if(frm.birth.value == '' || frm.birth.value == null){
+				alert('생일을 확인해주세요');
+				frm.birth.focus();
 				return false;
 			}
 		}

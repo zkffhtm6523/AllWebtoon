@@ -92,6 +92,7 @@ public class ProfileSer extends HttpServlet {
 		param.setU_name(updName);
 		param.setU_email(updEmail);
 		param.setU_birth(updBirth);
+		param.setU_id(loginUser.getU_id());
 		//DB에 프로필 파일명 저장
 		if(saveFileNm != null) {
 			param.setU_profile(saveFileNm);
@@ -99,8 +100,8 @@ public class ProfileSer extends HttpServlet {
 			loginUser.setChkProfile(saveFileNm.substring(0, 4));
 		}
 		UserDAO.updUser(param);
-		
-		param = UserDAO.selUser(param.getU_no());
+		//수정된 정보 다시 가져오기  
+		UserDAO.selSNSUser(param);
 		
 		loginUser.setU_name(param.getU_name());
 		loginUser.setU_email(param.getU_email());

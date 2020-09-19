@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.allWebtoon.dao.UserDAO;
 import com.allWebtoon.util.Const;
 import com.allWebtoon.util.MyUtils;
+import com.allWebtoon.util.SecurityUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
 
@@ -25,19 +26,24 @@ public class JoinSer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String u_id = request.getParameter("u_id");
 		String u_pw = request.getParameter("u_pw");
-		String encrypt_pw = MyUtils.encryptString(u_pw);			//비밀번호 암호화
 		String nm = request.getParameter("name");
 		String email = request.getParameter("email");
 		String birth = request.getParameter("birth");
 		String gender = request.getParameter("gender");
+		String u_profile = request.getParameter("u_profile");
+		String chkProfile = request.getParameter("chkProfile");
+		int u_joinPath = Integer.parseInt(request.getParameter("u_joinPath"));
 		
 		UserVO param = new UserVO();
 		param.setU_id(u_id);
-		param.setU_password(encrypt_pw);
+		param.setU_password(u_pw);
 		param.setU_name(nm);
 		param.setU_email(email);
 		param.setU_birth(birth);
 		param.setGender_name(gender);
+		param.setU_profile(u_profile);
+		param.setChkProfile(chkProfile);
+		param.setU_joinPath(u_joinPath);
 		
 		int result= UserDAO.insUser(param);
 	
@@ -50,18 +56,13 @@ public class JoinSer extends HttpServlet {
 			return;
 		}
 		
-		UserDAO.login(param);
-		
-		
-
+		UserDAO.selUser(param);
+		System.out.println(param.getR_dt());
+		System.out.println(param.getM_dt());
 		HttpSession hs = request.getSession();
 		hs.setAttribute(Const.LOGIN_USER,param);
 		
-		UserVO vo = (UserVO) hs.getAttribute(Const.LOGIN_USER);
-		
-	//	System.out.println(vo.getU_no());
 		response.sendRedirect("/webtoon/cmt");
 		
-		//response.sendRedirect("/");
 	}
 }

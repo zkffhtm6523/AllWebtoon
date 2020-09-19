@@ -20,6 +20,7 @@ import org.json.simple.parser.JSONParser;
 
 import com.allWebtoon.dao.UserDAO;
 import com.allWebtoon.util.Const;
+import com.allWebtoon.util.SecurityUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
 import com.google.gson.JsonElement;
@@ -112,22 +113,18 @@ public class NaverAPI extends HttpServlet {
 				
 				UserVO userInfo = new UserVO();
 				userInfo.setU_id(user_id);
-				userInfo.setU_password(user_id);
+		        userInfo.setU_password(user_id);
 				userInfo.setU_name(name);
-				userInfo.setU_birth("1990/"+birthday.replace("-", "/"));
 				userInfo.setU_profile(profile_img);
 				userInfo.setU_email(email);
 				userInfo.setGender_name(gender.equals("M") ? "남성" : "여성");
 				userInfo.setU_joinPath(3);
 				userInfo.setChkProfile(userInfo.getU_profile().substring(0, 4));
-				int db_result = UserDAO.selNaverUser(userInfo);
+				int db_result = UserDAO.selSNSUser(userInfo);
 				
 				if(db_result == 0) {
-					UserDAO.insUser(userInfo);
-					UserDAO.selNaverUser(userInfo);
-					HttpSession hs = request.getSession();
-					hs.setAttribute(Const.LOGIN_USER,userInfo);
-					response.sendRedirect("/webtoon/cmt");
+					request.setAttribute("userInfo",userInfo);
+					ViewResolver.accessForward("join", request, response);
 					return;
 				}else if(db_result == 2) {
 					String msg = "비밀번호가 틀렸습니다.";

@@ -16,7 +16,6 @@ public class Daum {
 		ArrayList<CrawWebtoonVO> list = new ArrayList<CrawWebtoonVO>();
 		getDaum(list);
 	}
-	@SuppressWarnings("unchecked")
 	public static void getDaum(ArrayList<CrawWebtoonVO> list) throws UnsupportedEncodingException, IOException {
 	
 	String[] day = {"mon","tue","wed","thu","fri","sat","sun"};

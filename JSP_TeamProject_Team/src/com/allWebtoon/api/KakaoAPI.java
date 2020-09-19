@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
+import com.allWebtoon.util.SecurityUtils;
 import com.allWebtoon.vo.UserVO;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -104,21 +105,17 @@ public class KakaoAPI {
 	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 	        String user_id = element.getAsJsonObject().get("id").getAsString();
 	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-	        String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
 	        String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
 	        String email = kakao_account.getAsJsonObject().get("email").getAsString();
 	        String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
 	        String thumbnail_image = properties.getAsJsonObject().get("thumbnail_image").getAsString();
 	        
-	        param.setU_name(nickname);
-	        birthday = "1990/"+birthday.substring(0,2)+"/"+birthday.substring(2, birthday.length());
-	        param.setU_birth(birthday);
-	       // gender = (gender.equals("female") ? "" : "man");
-	        param.setGender_name(gender.equals("male") ? "남성" : "여성");
-	        param.setU_email(email);
-	        param.setU_profile(profile_image);
 	        param.setU_id(user_id);
 	        param.setU_password(user_id);
+	        param.setU_name(nickname);
+	        param.setU_profile(profile_image);
+	        param.setU_email(email);
+	        param.setGender_name(gender.equals("male") ? "남성" : "여성");
 	        param.setU_joinPath(2);
 	        param.setChkProfile(param.getU_profile().substring(0, 4));
 	        

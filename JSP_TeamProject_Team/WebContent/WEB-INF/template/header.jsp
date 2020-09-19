@@ -23,8 +23,8 @@
 			<c:choose>
 				<c:when test="${loginUser.u_name eq null}">
 				<div id="rightMenu3">
-					<button id="signin" onclick="moveToJoin()" title="회원가입">회원가입</button>
 					<button id="login" onclick="moveToLogin()" title="로그인">로그인</button>
+					<button id="signin" onclick="moveToJoin()" title="회원가입">회원가입</button>
 				</div>
 				</c:when>
 				
@@ -32,7 +32,7 @@
 					<div id="rightMenu2">
 						<div class="containerPImg" onclick="moveToProfile()" title="프로필 설정">
 							<c:choose>
-								<c:when test="${loginUser.u_profile eq ''}">
+								<c:when test="${(loginUser.u_profile eq '') or (loginUser.u_profile eq null)}">
 									<img class="pImg" src="/images/u_profile/default_image.jpg" alt="프로필 설정 가기">
 								</c:when>
 								

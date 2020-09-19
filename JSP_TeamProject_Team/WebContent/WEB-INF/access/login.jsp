@@ -102,7 +102,7 @@
 	}
 	function goGoogle() {
 		location.href = 'https://accounts.google.com/o/oauth2/auth?'
-			 + 'scope=https://www.googleapis.com/auth/userinfo.profile'
+			 + 'scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/plus.me+https://www.googleapis.com/auth/userinfo.profile'
 			 + '&approval_prompt=force'
 			 + '&access_type=offline'
 			 + '&response_type=code'
