@@ -17,7 +17,6 @@ public class ChoGenreSer extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String u_no = request.getParameter("u_no");
-		
 		request.setAttribute("u_no", u_no);
 		ViewResolver.accessForward("choGenre", request, response);
 	}
