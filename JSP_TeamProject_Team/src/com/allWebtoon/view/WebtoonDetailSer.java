@@ -1,6 +1,8 @@
 package com.allWebtoon.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +15,7 @@ import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
+import com.allWebtoon.vo.WebtoonCmtDomain;
 import com.allWebtoon.vo.WebtoonCmtVO;
 import com.allWebtoon.vo.WebtoonVO;
 
@@ -27,7 +30,7 @@ public class WebtoonDetailSer extends HttpServlet {
       System.out.println(w_no);
       WebtoonVO data = WebtoonListDAO.webtoonDetail(w_no);
       
-     System.out.println(data.getW_title());
+      System.out.println(data.getW_title());
       data.setW_no(w_no);
       request.setAttribute("data", data);
       // 웹툰 정보 뿌리기 - 끝
@@ -46,6 +49,11 @@ public class WebtoonDetailSer extends HttpServlet {
       }
       
       // 내 댓글 뿌리기 - 끝
+      
+      // 다른 사람 댓글 뿌리기
+      List<WebtoonCmtDomain> list = WebtoonCmtDAO.selCmtList(w_no);
+      request.setAttribute("cmtList", list); 
+      // 다른 사람 댓글 뿌리기 끝
       
       ViewResolver.viewForward("webtoonDetail", request, response);
    }

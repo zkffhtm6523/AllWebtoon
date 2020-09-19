@@ -11,7 +11,9 @@
 <body>
 <div class="container">
 	<jsp:include page="../template/header.jsp"/>
-	<section></section>
+	<section>
+	
+	</section>
 	<jsp:include page="../template/footer.jsp"/>
 </div>
 </body>
