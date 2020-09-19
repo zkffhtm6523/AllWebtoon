@@ -1,18 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 정보</title>
+<title>나의 페이지</title>
 <style type="text/css">
+.result_view .listItem {display: inline-block;}
+.result_view .listItem ul {list-style-type:none;}
+.result_view .listItem img {width: 125px; height: 100px;}
 </style>
 </head>
 <body>
 <div class="container">
 	<jsp:include page="../template/header.jsp"/>
 	<section>
-	
+		<div class="result_view">
+			<c:if test="${fn:length(list) > 0}">
+				<c:forEach var="i" begin="0" end="${fn:length(list) > 11 ? 10 : fn:length(list) - 1}">
+					<div class="listItem">
+						<ul>
+							<li><a href="/webtoon/detail?w_no=${list[i].w_no}"><img src="${list[i].w_thumbnail}"></a></li>
+							<li>${list[i].w_title}</li>
+							<li>${list[i].c_rating}</li>
+						</ul>
+					</div>
+				</c:forEach>
+			</c:if>
+		</div>
 	</section>
 	<jsp:include page="../template/footer.jsp"/>
 </div>
