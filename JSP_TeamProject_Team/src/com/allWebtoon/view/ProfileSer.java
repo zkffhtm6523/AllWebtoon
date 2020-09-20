@@ -101,8 +101,7 @@ public class ProfileSer extends HttpServlet {
 		}
 		UserDAO.updUser(param);
 		//수정된 정보 다시 가져오기  
-		UserDAO.selSNSUser(param);
-		
+		UserDAO.selUpdAfterUser(param);
 		loginUser.setU_name(param.getU_name());
 		loginUser.setU_email(param.getU_email());
 		loginUser.setU_birth(param.getU_birth());

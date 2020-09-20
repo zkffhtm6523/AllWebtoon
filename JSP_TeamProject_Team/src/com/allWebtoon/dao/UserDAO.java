@@ -113,10 +113,11 @@ public class UserDAO {
 						param.setU_email(rs.getString("u_email"));
 						param.setU_profile(rs.getString("u_profile"));
 						param.setR_dt(rs.getString("r_dt"));
+						System.out.println("회원가입 직후 r_dt :"+param.getR_dt());
 						param.setM_dt(rs.getString("m_dt"));
+						System.out.println("회원가입 직후 m_dt :"+param.getM_dt());
 						if(param.getU_profile().length() > 4) {
 							param.setChkProfile(param.getU_profile().substring(0, 4));
-							System.out.println("chkProfile : "+param.getChkProfile());
 						}
 						return 1;
 					} else {								//로그인 실패.(비밀번호 틀릴 경우)
@@ -126,6 +127,36 @@ public class UserDAO {
 					return 3;						
 				}
 				
+			}	
+		});
+	}
+	public static int selUpdAfterUser(UserVO param) {
+		String sql = "SELECT u_name, u_birth, gender_no, u_email, u_profile, m_dt "
+				+ " FROM t_user " 
+				+ " WHERE u_id = ? ";
+		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {
+				ps.setNString(1,  param.getU_id());
+			}
+
+			@Override
+			public int executeQuery(ResultSet rs) throws SQLException {
+				if(rs.next()) {					//레코드가 있음
+					param.setU_name(rs.getNString("u_name"));
+					param.setU_birth(rs.getString("u_birth"));
+					param.setGender_name(rs.getInt("gender_no") == 1 ? "여성" : "남성");
+					param.setU_email(rs.getString("u_email"));
+					param.setU_profile(rs.getString("u_profile"));
+					param.setM_dt(rs.getString("m_dt"));
+					if(param.getU_profile().length() > 4) {
+						param.setChkProfile(param.getU_profile().substring(0, 4));
+					}
+					return 1;
+				} else {								//로그인 실패.(비밀번호 틀릴 경우)
+					return 2;
+				}
 			}	
 		});
 	}
