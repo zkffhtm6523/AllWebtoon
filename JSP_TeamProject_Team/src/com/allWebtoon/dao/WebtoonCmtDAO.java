@@ -97,7 +97,7 @@ public class WebtoonCmtDAO {
 				while (rs.next()) {
 					WebtoonCmtDomain vo = new WebtoonCmtDomain();
 					vo.setU_name(rs.getNString("u_name"));
-					vo.setU_profile(rs.getString("u_profile") == null ? "" : rs.getString("u_profile"));
+					vo.setU_profile(rs.getString("u_profile").equals("") ? null : rs.getString("u_profile"));
 					vo.setC_com(rs.getString("c_com"));
 					vo.setC_rating(rs.getFloat("c_rating"));
 					vo.setU_no(rs.getInt("u_no"));

@@ -100,9 +100,9 @@
 	         </form>
 	      </div>
 	      <!-- 다른 사람들의 댓글 -->
-	      <hr>
 	      <div class="cmt_list">
 	      	<c:if test="${fn:length(cmtList) > 0}">
+	      	<hr>
 				<c:forEach var="i" begin="0" end="${fn:length(cmtList) > 3 ? 2 : fn:length(cmtList) - 1}">
 					<div class="cmtItem">
 						<ul id="cmt_list">
@@ -110,7 +110,7 @@
 							<li id="cmt_list_com">${cmtList[i].c_com}</li>
 							<li id="cmt_list_profile">
 								<c:choose>
-									<c:when test="${cmtList[i].u_profile eq '' or cmtList[i].u_profile eq null}">
+									<c:when test="${cmtList[i].u_profile eq null}">
 										<img class="pImg" src="/images/u_profile/default_image.jpg">
 									</c:when>
 									<c:when test="${cmtList[i].u_profile.substring(0,4) eq 'http'}">
