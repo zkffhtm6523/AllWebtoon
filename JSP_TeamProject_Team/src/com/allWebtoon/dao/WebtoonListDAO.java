@@ -80,7 +80,7 @@ public class WebtoonListDAO {
 	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo){
 		ArrayList<SearchWebtoonVO> list = new ArrayList<SearchWebtoonVO>();
 		String sql = 
-			" SELECT w_no, w_title, concat(LEFT(w_story, 150), '...') as w_story, w_thumbnail, w_link, plat_no, " + 
+			" SELECT w_no, w_title, CASE WHEN char_length(w_story) > 150 THEN concat(left(w_story, 150), '...') ELSE w_story END as w_story, w_thumbnail, w_link, plat_no, " + 
 			"		  	genre_name, group_concat(w_writer separator ', ') as w_writer, " + 
 			"		    plat_name  from view_webtoon "
 		  + " where w_title LIKE ? or genre_name LIKE ? or w_writer LIKE ? or plat_name LIKE ? "
@@ -118,7 +118,7 @@ public class WebtoonListDAO {
 		public static WebtoonVO webtoonDetail(int w_no) {
 			WebtoonVO vo = new WebtoonVO();
 			String sql = 
-					" select w_thumbnail, w_title, concat(left(w_story, 300),'…') as w_story, "
+					" select w_thumbnail, w_title, CASE WHEN char_length(w_story) > 300 THEN concat(left(w_story, 300), '...') ELSE w_story END as w_story, "
 					+ " w_link, plat_name, group_concat(w_writer separator ', ') as w_writer, genre_name "
 					+ " from view_webtoon "
 					+ " WHERE w_no = ? ";
@@ -146,5 +146,5 @@ public class WebtoonListDAO {
 			});
 			return vo;
 		}
-	
+			
 }

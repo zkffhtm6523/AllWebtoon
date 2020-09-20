@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +48,14 @@
    .startRadio__box { position: relative; z-index: 1; float: left; width: 20px; height: 40px;cursor: pointer;}
    .startRadio input { opacity: 0 !important; height: 0 !important;width: 0 !important;position: absolute !important;}
    .startRadio input:checked + .startRadio__img { background-color: #ffd700;}
-   .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none;}   
+   .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none;}
+   hr {width: 95%; margin-top: 20px;margin-bottom: 20px;}
+   .cmt_list {margin: 10px;}
+	.cmt_list .cmtItem {display: inline-block;width: 355px;height:255px; background-color:rgba(131,165,180,0.42);border-radius: 20px; position: relative;}
+	.cmt_list .cmtItem ul {list-style-type: none;}
+	.cmt_list .cmtItem:not(:first-child) {	margin-left: 4px;}
+	.cmt_list .cmtItem img {width: 53px;height: 49px; border-radius: 50%;}
+	.cmt_list .cmtItem .moreCmt {width: 100%;height:100%;display:flex;justify-content:center;align-items:center;} 
 </style>
 </head>
 <body>
@@ -90,6 +98,41 @@
 	            <div><input type="hidden" name="genre_name" value="${data.genre_name }"></div>
 	            <input type="hidden" id="u_no" name="u_no" value="${loginUser.u_name }">
 	         </form>
+	      </div>
+	      <!-- 다른 사람들의 댓글 -->
+	      <hr>
+	      <div class="cmt_list">
+	      	<c:if test="${fn:length(cmtList) > 0}">
+				<c:forEach var="i" begin="0" end="${fn:length(cmtList) > 3 ? 2 : fn:length(cmtList) - 1}">
+					<div class="cmtItem">
+						<ul id="cmt_list">
+							<li id="cmt_list_rating">${cmtList[i].c_rating}</li>
+							<li id="cmt_list_com">${cmtList[i].c_com}</li>
+							<li id="cmt_list_profile">
+								<c:choose>
+									<c:when test="${cmtList[i].u_profile eq '' or cmtList[i].u_profile eq null}">
+										<img class="pImg" src="/images/u_profile/default_image.jpg">
+									</c:when>
+									<c:when test="${cmtList[i].u_profile.substring(0,4) eq 'http'}">
+										<img class="pImg" src="${cmtList[i].u_profile}">
+									</c:when>
+									<c:otherwise>
+										<img class="pImg" src="/images/u_profile/user/${cmtList[i].u_no}/${cmtList[i].u_profile}">
+									</c:otherwise>
+								</c:choose>
+							</li>
+							<li id="cmt_list_name">${cmtList[i].u_name}</li>
+						</ul>
+					</div>
+				</c:forEach>
+				<c:if test="${fn:length(cmtList) > 3}">
+					<div class="cmtItem bg_black">
+						<div class="moreCmt">
+							+${fn:length(cmtList) - 3}
+						</div>
+					</div>
+				</c:if>
+			</c:if>
 	      </div>
       </section>
       <jsp:include page="../template/footer.jsp"/>
