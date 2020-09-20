@@ -15,8 +15,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.allWebtoon.dao.UserDAO;
+import com.allWebtoon.util.Const;
+import com.allWebtoon.util.SecurityUtils;
+import com.allWebtoon.util.ViewResolver;
+import com.allWebtoon.vo.UserVO;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @WebServlet("/googleAPI")
 public class GoogleAPI extends HttpServlet {
@@ -28,7 +37,7 @@ public class GoogleAPI extends HttpServlet {
 		String clientSecret = "LxGdpTGyFqWFj3AT1167xbvF";
 		String code = request.getParameter("code");
 		String redirectURI = "http://localhost:8089/googleAPI";
-		String reqURL = "https://oauth2.googleapis.com/token";
+		String reqURL = "https://www.googleapis.com/oauth2/v4/token";
 		
 		String query =	"code="+code; 
 		query += "&client_id="+clientId;
@@ -42,10 +51,42 @@ public class GoogleAPI extends HttpServlet {
 		Gson gson = new Gson();
 		Token token = gson.fromJson(tokenJson, Token.class);
 		//매개변수 1개 메소드 사용
-		String ret = getHttpConnection(
+		String result = getHttpConnection(
 				"https://www.googleapis.com/oauth2/v3/userinfo?alt=json&access_token=" + token.getAccess_token());
 		//test 1
-		System.out.println("ret : "+ret);
+		System.out.println("ret : "+result); 
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(result);
+		String u_name = element.getAsJsonObject().get("name").getAsString();
+		String u_email = element.getAsJsonObject().get("email").getAsString();
+		String u_profile = element.getAsJsonObject().get("picture").getAsString();
+		String u_id = element.getAsJsonObject().get("sub").getAsString();
+		
+		UserVO userInfo = new UserVO();
+		userInfo.setU_id(u_id);
+		userInfo.setU_name(u_name);
+		userInfo.setU_password(u_id);
+		userInfo.setU_profile(u_profile);
+		userInfo.setU_email(u_email);
+		userInfo.setU_joinPath(4);
+		userInfo.setChkProfile(userInfo.getU_profile().substring(0, 4));
+		
+		int db_result = UserDAO.selSNSUser(userInfo);
+		
+		if(db_result == 0) {
+			request.setAttribute("userInfo",userInfo);
+			ViewResolver.accessForward("join", request, response);
+			return;
+		}else if(db_result == 2) {
+			String msg = "비밀번호가 틀렸습니다.";
+			request.setAttribute("msg",msg);
+			request.setAttribute("user_id", userInfo.getU_name());
+			ViewResolver.accessForward("login", request, response);
+			return;
+		}
+		HttpSession hs = request.getSession();
+		hs.setAttribute(Const.LOGIN_USER,userInfo);
+		response.sendRedirect("/home");
 	}
 		
 	private String getHttpConnection(String uri) throws ServletException, IOException {

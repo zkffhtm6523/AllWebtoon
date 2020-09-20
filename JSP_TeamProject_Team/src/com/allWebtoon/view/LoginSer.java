@@ -34,16 +34,10 @@ public class LoginSer extends HttpServlet {
 		if(platNo != null && platNo.equals("1")) {
 			String access_token = KakaoAPI.getAccessToken(request.getParameter("code"));
 			UserVO userInfo = KakaoAPI.getUserInfo(access_token);
-			int result = UserDAO.selKakaoUser(userInfo);
+			int result = UserDAO.selSNSUser(userInfo);
 			if(result == 0) {
-				UserDAO.insUser(userInfo);
-				
-				UserDAO.selKakaoUser(userInfo);
-				
-				HttpSession hs = request.getSession();
-				hs.setAttribute(Const.LOGIN_USER,userInfo);
-				response.sendRedirect("/webtoon/cmt");
-
+				request.setAttribute("userInfo",userInfo);
+				ViewResolver.accessForward("join", request, response);
 				return;
 			}
 			//에러처리
@@ -63,15 +57,14 @@ public class LoginSer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String u_id = request.getParameter("u_id");
 		String u_pw = request.getParameter("u_pw");
-		String encrypt_pw = MyUtils.encryptString(u_pw);
 		
 		UserVO param = new UserVO();
 		
 		
 		param.setU_id(u_id);
-		param.setU_password(encrypt_pw);
+		param.setU_password(u_pw);
 		
-		int result = UserDAO.login(param);
+		int result = UserDAO.selUser(param);
 
 
 		if(result != 1) {		//에러처리
