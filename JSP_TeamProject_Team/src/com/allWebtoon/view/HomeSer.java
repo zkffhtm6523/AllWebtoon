@@ -29,6 +29,8 @@ public class HomeSer extends HttpServlet {
 		//System.out.println("로그인 유저 없음");
 		//네이버 정보 출력
 		list = WebtoonListDAO.selRandomWebtoonList(list, 1, 15);
+		//다음 정보 출력
+		list = WebtoonListDAO.selRandomWebtoonList(list, 2, 15);
 		//카카오 정보 출력
 		list = WebtoonListDAO.selRandomWebtoonList(list, 3, 15);
 		//레진 정보 출력

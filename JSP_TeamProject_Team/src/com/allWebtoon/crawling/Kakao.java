@@ -44,7 +44,6 @@ public class Kakao {
 
 						for (int b = 0; b < bodyArray.size(); b++) {
 							JSONObject body = (JSONObject) bodyArray.get(b);
-							CrawWebtoonVO c = new CrawWebtoonVO();
 							int stop=0;
 							
 							String title = body.get("title").toString();
@@ -69,6 +68,7 @@ public class Kakao {
 							String story = ect.get("description").toString();
 							String[] writers = ect.get("authorName").toString().split(",");
 							
+							CrawWebtoonVO c = new CrawWebtoonVO();
 							c.setTitle(title);
 							for (String w : writers) {
 								c.setWriter(w);
