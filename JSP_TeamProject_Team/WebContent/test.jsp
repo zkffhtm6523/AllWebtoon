@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	*{width: 300px, height:300px;}
+</style>
 </head>
 <body>
 <div>Hello</div>

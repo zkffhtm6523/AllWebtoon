@@ -42,13 +42,11 @@
     @font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
    .blind { position: absolute; overflow: hidden; margin: -1px;padding: 0;width: 1px;height: 1px;border: none;clip: rect(0, 0, 0, 0);}
    .startRadio {display: inline-block; overflow: hidden; height: 40px;}
-   .startRadio:after { content: ""; display: block; position: relative; z-index: 10; height: 40px;
-           background: url("/images/star_Radio.png")
-           repeat-x 0 0; background-size: contain; pointer-events: none;}
+   .startRadio:after { content: ""; display: block; position: relative; z-index: 10; height: 40px;background: url("/images/star_Radio.png") repeat-x 0 0; background-size: contain; pointer-events: none;}
    .startRadio__box { position: relative; z-index: 1; float: left; width: 20px; height: 40px;cursor: pointer;}
    .startRadio input { opacity: 0 !important; height: 0 !important;width: 0 !important;position: absolute !important;}
    .startRadio input:checked + .startRadio__img { background-color: #ffd700;}
-   .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none;}
+   .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none; z-index:-1}
    hr {width: 95%; margin-top: 20px;margin-bottom: 20px;}
    .cmt_list {margin: 10px;}
 	.cmt_list .cmtItem {display: inline-block;width: 355px;height:255px; background-color:rgba(131,165,180,0.42);border-radius: 20px; position: relative;}
@@ -57,6 +55,7 @@
 	.cmt_list .cmtItem img {width: 53px;height: 49px; border-radius: 50%;}
 	.cmt_list .cmtItem .moreCmt {width: 100%;height:100%;display:flex;justify-content:center;align-items:center;} 
 </style>
+<link rel="stylesheet" href="/css/modal.css" />
 </head>
 <body>
    <div id="container">
@@ -126,17 +125,40 @@
 					</div>
 				</c:forEach>
 				<c:if test="${fn:length(cmtList) > 3}">
-					<div class="cmtItem bg_black">
-						<div class="moreCmt">
-							+${fn:length(cmtList) - 3}
-						</div>
-					</div>
+					<button id="open">+${fn:length(cmtList) - 3}</button>
+					<div class="modal hidden ">
+				       <div class="modal__overlay"></div>
+				       <div class="modal__content">
+				          <ul id="cmt_list">
+							<li id="cmt_list_rating">${cmtList[3].c_rating}</li>
+							<li id="cmt_list_com">${cmtList[3].c_com}</li>
+							<li id="cmt_list_profile">
+								<c:choose>
+									<c:when test="${cmtList[3].u_profile eq null}">
+										<img class="pImg" src="/images/u_profile/default_image.jpg">
+									</c:when>
+									<c:when test="${cmtList[3].u_profile.substring(0,4) eq 'http'}">
+										<img class="pImg" src="${cmtList[3].u_profile}">
+									</c:when>
+									<c:otherwise>
+										<img class="pImg" src="/images/u_profile/user/${cmtList[3].u_no}/${cmtList[3].u_profile}">
+									</c:otherwise>
+								</c:choose>
+							</li>
+							<li id="cmt_list_name">${cmtList[3].u_name}</li>
+						</ul>
+				          <button>❌</button>
+				       </div>
+				    </div>  
 				</c:if>
 			</c:if>
 	      </div>
       </section>
       <jsp:include page="../template/footer.jsp"/>
    </div>
+   <!-- Scripts -->
+	<script src="/js/modal.js"></script>
+ 
    <script>
       if(cmtFrm.point.value != '0.0'){
     	 console.log(point.value)
