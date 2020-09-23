@@ -49,7 +49,7 @@ public class UserDAO {
 		});
 	}
 	public static int selSNSUser(UserVO param) {
-		String sql = "SELECT u_no, u_password, u_name, r_dt, m_dt, u_birth, u_salt, u_profile FROM t_user WHERE u_id=? ";
+		String sql = "SELECT u_no, u_password, u_name, r_dt, m_dt, u_birth, u_salt, u_profile, gender_no FROM t_user WHERE u_id=? ";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
@@ -70,6 +70,7 @@ public class UserDAO {
 						param.setU_profile(rs.getString("u_profile"));
 						param.setU_birth(rs.getString("u_birth"));
 						param.setChkProfile(param.getU_profile().substring(0, 4));
+						param.setGender_name(rs.getInt("gender_no") == 1 ? "여성" : "남성");
 						return 1;
 					} else {								//로그인 실패.(비밀번호 틀릴 경우)
 						return 2;

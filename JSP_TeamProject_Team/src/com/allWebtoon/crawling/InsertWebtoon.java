@@ -9,9 +9,6 @@ import org.json.simple.parser.ParseException;
 public class InsertWebtoon {
 	public static void main(String[] args) throws UnsupportedEncodingException, IOException, ParseException {
 		ArrayList<CrawWebtoonVO> list = new ArrayList<CrawWebtoonVO>();
-		String birthday = "0807";
-		birthday = "1990/"+birthday.substring(0,2)+"/"+birthday.substring(2, birthday.length());
-		System.out.println(birthday);
 		//1. 레진 데이터 DB 담기
 //		list = Lezhin.getLezhin(list);
 //		for (int i = 0; i < list.size(); i++) {
@@ -30,5 +27,15 @@ public class InsertWebtoon {
 //		for (int i = 0; i < list.size(); i++) {
 //		CrawWebtoonDAO.insWebtoonList(list.get(i));
 //		}
+		//4-1. 다음 웹툰 연재작 DB 담기(카카오와 중복 제거되서 총 161개 중 126개 삽입)
+//		Daum.getDaum(list);
+//		for (int i = 0; i < list.size(); i++) {
+//			CrawWebtoonDAO.insWebtoonList(list.get(i));
+//		}
+		//4-2. 다음 웹툰 연재작 DB 담기(카카오와 중복 제거되서 총 161개 중 126개 삽입)
+		Daum.getCompleteDaum(list);;
+		for (int i = 0; i < list.size(); i++) {
+			CrawWebtoonDAO.insWebtoonList(list.get(i));
+		}
 	}
 }

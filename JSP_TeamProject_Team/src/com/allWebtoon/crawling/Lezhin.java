@@ -40,6 +40,7 @@ public class Lezhin {
 			JSONArray items = (JSONArray) (((JSONObject) bodyArray.get(i)).get("items"));
 			// 요일마다 작품
 			for (int z = 0; z < items.size(); z++) {
+				//중복제거용 변수
 				int stop=0;
 				JSONObject data = (JSONObject) items.get(z);
 				//CartoonVO 객체 생성
@@ -49,6 +50,7 @@ public class Lezhin {
 				//1. Title 저장
 				String title = data.get("title").toString();
 				
+				//중복 제거 로직
 				for(CrawWebtoonVO vo : list) {
 					if(vo.getTitle().equals(title)) {
 						stop=1;

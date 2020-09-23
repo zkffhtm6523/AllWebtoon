@@ -8,9 +8,11 @@
 <title>모두의 웹툰(검색 결과)</title>
 <style type="text/css">
     section {width:100%; margin: 0 auto; clear: both;}
+    section .content{width: 80%; margin: 0 auto;}
     section img{width: 180px; border-radius: 5%;}
-    section h2{margin-top: 0px; width: 300px; margin-left: 180px;}
-    section .webtoonContainer { margin-left: 150px; }
+    section .content hr{width: 100%;}
+    section .aboveContainer h2{margin-top: 0px; width: 100%; margin-left: 20px;}
+    section .webtoonContainer { }
     section ul {list-style-type: none; 
     height:190px; clear: both; margin: 0 auto;padding: 0;}
     section ul li:nth-child(1) {float: left; padding: 30px; padding-top: 0px;}
@@ -47,7 +49,7 @@
 			<div class="aboveContainer">
 				<h2>상위 검색 결과</h2>
 			</div>
-			<hr style="width: 1100px;">
+			<hr>
 			<c:forEach items="${result}" var="item">
 			<div class="webtoonContainer">
 				<ul class="itemRow">
@@ -104,7 +106,7 @@
 	    		var a = document.createElement('a')
 	    		a.setAttribute('href','/webtoon/detail?w_no='+item.w_no)
 	    		a_li.append(a)
-	    		a_li.append(item.w_title)
+	    		a.append(item.w_title)
 	    		var story_li = document.createElement('li')
 	    		var story_span = document.createElement('span')
 	    		story_span.setAttribute('class','list')
