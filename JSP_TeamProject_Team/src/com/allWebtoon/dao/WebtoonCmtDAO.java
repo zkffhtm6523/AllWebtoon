@@ -109,5 +109,17 @@ public class WebtoonCmtDAO {
 		});
 		return list;
 	}
+	
+	public static int delCmt(WebtoonCmtVO param) {
+		String sql = " delete from t_comment where w_no=? and u_no=? ";
 
+		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getW_no());
+				ps.setInt(2, param.getU_no());
+			}
+		});
+	}
 }

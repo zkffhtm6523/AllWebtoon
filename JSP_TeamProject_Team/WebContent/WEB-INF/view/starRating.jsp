@@ -50,7 +50,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 				   <div class="startRadio">
 		               <c:forEach begin="1" end="10" step="1" var="rating_item">
 	                   <label class="startRadio__box">
-	                    	<input type="radio" name="star_${status.index}" onclick="score(${rating_item},${status.index },${list[status.index].w_no })" 
+	                    	<input type="radio" name="star_${status.index}" id="star_${status.index}_${rating_item}" onclick="score(${rating_item},${status.index },${list[status.index].w_no })" 
 	                    	
 	                    	<c:forEach items="${cmt_list }" var="cmtlist">
 		                    	<c:if test="${cmtlist.w_no == item.w_no}">
@@ -96,15 +96,22 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		console.log('c_rating: ' + document.getElementById("c_rating_"+index).value)
 		
 		var cmtChk = 0;
-	
+		var c_rating =0;
 	   	if(document.getElementById("c_rating_"+index).value != ''){
-	   		 cmtChk=1;
+	   		cmtChk=2;
+	   		document.getElementById("c_rating_"+index).value = ''
+	   		document.getElementById('star_' + index + '_' + star).checked = false;
+		}else {
+		   	c_rating = parseFloat(star)/2
+		   	document.getElementById("c_rating_"+index).setAttribute('value',c_rating)
 		}
 	   	
+
+		console.log('star2: '+star)
+		console.log('index2: '+index)
+		console.log('w_no2: '+w_no)
+		console.log('c_rating2: ' + document.getElementById("c_rating_"+index).value)
 	   	console.log('cmtChk2: ' + cmtChk)
-	   	
-	   	var c_rating = parseFloat(star)/2
-	   	document.getElementById("c_rating_"+index).setAttribute('value',c_rating)
 		
 	   	var data = { 
 			w_no : w_no,
@@ -172,6 +179,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		         	input.setAttribute('type','radio')
 		         	input.setAttribute('name','start'+idx)
 		         	input.setAttribute('onclick','score('+rating_item+','+idx+','+ item.w_no + ')')
+		         	input.setAttribute('id','star_'+idx+'_'+rating_item)
 		         	
 		         	
 		        	for(var i=0; i<cmtlist.length; i++){

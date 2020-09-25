@@ -134,10 +134,14 @@ public class WebtoonCmtSer extends HttpServlet {
       //   UserDAO.insU_genre(vo, genre_name);
          System.out.println("댓글 등록 : " + result);
          break;
-      default: // 수정
+      case "1": // 수정
          result = WebtoonCmtDAO.updCmt(param);
          System.out.println("댓글 수정 : " + result);
          break;
+      case "2":
+    	  result = WebtoonCmtDAO.delCmt(param);
+    	  System.out.println("평점 삭제 : " + result);
+    	  break;
       }
       
       if(ratingPage == null) {
