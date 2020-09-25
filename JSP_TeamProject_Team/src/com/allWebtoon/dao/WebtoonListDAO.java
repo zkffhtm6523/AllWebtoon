@@ -5,9 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.allWebtoon.db.JdbcSelectInterface;
 import com.allWebtoon.db.JdbcTemplate;
+import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.vo.SearchWebtoonVO;
+import com.allWebtoon.vo.UserVO;
+import com.allWebtoon.vo.WebtoonCmtDomain;
+import com.allWebtoon.vo.WebtoonCmtVO;
 import com.allWebtoon.vo.WebtoonVO;
 
 public class WebtoonListDAO {
@@ -45,15 +52,14 @@ public class WebtoonListDAO {
 	}
 	
 	public static ArrayList<WebtoonVO> selRandomWebtoonList(ArrayList<WebtoonVO> list){
-		String sql = " select w_no, w_title, w_writer, w_story, w_thumbnail, w_link, plat_no "
-					+ " from view_webtoon "
-					+ " order by rand()";
+		String sql = "select w_no, w_title, w_writer, w_thumbnail from view_webtoon ";
+		//		+ " order by rand() ";
 
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			//물음표 넣을 때
 			public void prepared(PreparedStatement ps) throws SQLException {
-				//ps.setInt(1, randomLength);
+				//ps.setInt(1, );
 			}
 			@Override
 			//while문으로 값 가져올 때
@@ -63,9 +69,9 @@ public class WebtoonListDAO {
 					vo.setW_no(rs.getInt("w_no"));
 					vo.setW_title(rs.getNString("w_title"));
 					vo.setW_writer(rs.getNString("w_writer"));
-					vo.setW_story(rs.getNString("w_story"));
 					vo.setW_thumbnail(rs.getNString("w_thumbnail"));
-					vo.setW_plat_no(rs.getInt("plat_no"));
+					//vo.setU_no(rs.getInt("u_no"));
+					//vo.setC_rating(rs.getFloat("c_rating"));
 					list.add(vo);
 				}
 				return 1;
@@ -75,6 +81,32 @@ public class WebtoonListDAO {
 		return list;
 	}
 	
+	
+	public static ArrayList<WebtoonCmtVO> selCmtList(ArrayList<WebtoonCmtVO> list, int u_no){
+		String sql = " select w_no, u_no, c_rating from t_comment where u_no=? ";
+
+		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+			@Override
+			//물음표 넣을 때
+			public void prepared(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, u_no);
+			}
+			@Override
+			//while문으로 값 가져올 때
+			public int executeQuery(ResultSet rs) throws SQLException {
+				while(rs.next()) {
+					WebtoonCmtVO vo = new WebtoonCmtVO();
+					vo.setW_no(rs.getInt("w_no"));
+					vo.setU_no(rs.getInt("u_no"));
+					vo.setC_rating(rs.getFloat("c_rating"));
+					list.add(vo);
+				}
+				return 1;
+			}
+		});
+		
+		return list;
+	}
 	
 	// 검색 결과
 	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo){

@@ -33,7 +33,6 @@ section .startRadio input { opacity: 0 !important; height: 0 !important;width: 0
 section .startRadio input:checked + .startRadio__img { background-color: #ffd700;}
 section .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none;} 
 
-
 </style>
 </head>
 <body>
@@ -51,12 +50,30 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 				   <div class="startRadio">
 		               <c:forEach begin="1" end="10" step="1" var="rating_item">
 	                   <label class="startRadio__box">
-	                    	<input type="radio" name="star" onclick="score(${rating_item},${status.index },${list[status.index].w_no })"> 
+	                    	<input type="radio" name="star_${status.index}" onclick="score(${rating_item},${status.index },${list[status.index].w_no })" 
+	                    	
+	                    	<c:forEach items="${cmt_list }" var="cmtlist">
+		                    	<c:if test="${cmtlist.w_no == item.w_no}">
+			                    	${(cmtlist.c_rating*2 == rating_item) ? 'checked' : ''}
+		                    	</c:if>
+		                    </c:forEach>
+	                    	
+	                    	> 
+	                    	
 	                    	<span class="startRadio__img"><span class="blind"></span></span>
 	                    </label>
 		                </c:forEach>
-		             	<input type="hidden" name="c_rating" class="point" value="0" required>
-		             	<input type="hidden" name="cmtChk" value="0">
+		                
+		             	<input type="hidden" name="c_rating" id="c_rating_${status.index}" class="point" 
+		             	<c:forEach items="${cmt_list }" var="cmtlist">
+			             	<c:if test="${cmtlist.w_no == item.w_no}">
+			             		value="${cmtlist.c_rating}"
+			             	</c:if>
+		             	</c:forEach>
+		            
+		             	
+		             	 required>
+		             	
 		         	</div>
 		      	</dd>
 			</dl>
@@ -71,21 +88,23 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	
-
 	function score(star,index,w_no) { // 별점주기
 		
-		
-		console.log(star)
-		console.log(index)
-		console.log(w_no)
+		console.log('star: '+star)
+		console.log('index: '+index)
+		console.log('w_no: '+w_no)
+		console.log('c_rating: ' + document.getElementById("c_rating_"+index).value)
 		
 		var cmtChk = 0;
-	   	if(document.getElementsByName("c_rating")[index].value != 0){
-	   		 document.getElementsByName("cmtChk")[index].value = 1
+	
+	   	if(document.getElementById("c_rating_"+index).value != ''){
+	   		 cmtChk=1;
 		}
-		cmtChk = document.getElementsByName("cmtChk")[index].value
-	   	document.getElementsByName("c_rating")[index].value = parseFloat(star)/2
-	   	var c_rating= parseFloat(star)/2
+	   	
+	   	console.log('cmtChk2: ' + cmtChk)
+	   	
+	   	var c_rating = parseFloat(star)/2
+	   	document.getElementById("c_rating_"+index).setAttribute('value',c_rating)
 		
 	   	var data = { 
 			w_no : w_no,
@@ -98,7 +117,18 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 			console.log(res)
 		})
 	}
-	
+
+	var cmtlist = []
+
+	<c:forEach items="${cmt_list}" var="item">
+		var obj = {
+				w_no: '${item.w_no}',
+				u_no: '${item.u_no}',
+				c_rating: '${item.c_rating}'
+		}
+		
+		cmtlist.push(obj)
+	</c:forEach>
 
 	var idx = 12
 	
@@ -106,14 +136,13 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 	window.onscroll = function() {
 	    //window height + window scrollY 값이 document height보다 클 경우,
 	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-	    	//실행할 로직 (콘텐츠 추가)
 	       	
 	    	console.log('index: '+ idx)
 	    	
 	    	axios.get('/webtoon/cmt', {
 	    		params : {
 	    			page : idx
-	    		}		
+	    		}
 	    	}).then(function(res) {
 	    		console.log(res.data)
 	    
@@ -136,13 +165,22 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		         var startRadio = document.createElement('startRadio')
 		         startRadio.setAttribute('class','startRadio')
 		         
-		         <c:forEach begin="1" end="10" step="1" var="rating_item">
-		         	var label = document.createElement('label')
+		        for(var rating_item=1; rating_item<=10; rating_item++){
+	    			var label = document.createElement('label')
 		         	label.setAttribute('class','startRadio__box')
 		         	var input = document.createElement('input')
 		         	input.setAttribute('type','radio')
-		         	input.setAttribute('name','start')
-		         	input.setAttribute('onclick','score(${rating_item},'+idx+','+ item.w_no + ')')
+		         	input.setAttribute('name','start'+idx)
+		         	input.setAttribute('onclick','score('+rating_item+','+idx+','+ item.w_no + ')')
+		         	
+		         	
+		        	for(var i=0; i<cmtlist.length; i++){
+		        		//t_comment에 저장된 내 평점이 있고 라디오버튼 위치가 점수와 같으면  
+			         	 if(cmtlist[i].w_no == item.w_no && cmtlist[i].c_rating * 2 == rating_item ){		
+			         		//해당 라디오버튼 체크  
+			         		input.checked = true;
+			         	}
+		         	}
 		         	
 		         	var startRadio__img = document.createElement('span')
 		         	startRadio__img.setAttribute('class','startRadio__img')
@@ -152,21 +190,23 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		         	label.append(input)
 		         	label.append(startRadio__img)
 		         	startRadio.append(label)
-		         </c:forEach>
 		         
+		         }
+		        
 		         var c_rating = document.createElement('input')
 		         c_rating.setAttribute('type','hidden')
 		         c_rating.setAttribute('name','c_rating')
 		         c_rating.setAttribute('class','point')
-		         c_rating.setAttribute('value','0')
+		         c_rating.setAttribute('id','c_rating_'+idx)
 		         
-		         var cmtChk = document.createElement('input')
-		         cmtChk.setAttribute('type','hidden')
-		         cmtChk.setAttribute('name','cmtChk')
-		         cmtChk.setAttribute('value','0')
+		         for(var i=0; i<cmtlist.length; i++){
+		        	 //평점테이블에 기록이 있다면  
+		         	 if(cmtlist[i].w_no == item.w_no){
+		         		c_rating.setAttribute('value',cmtlist[i].c_rating)
+		         	}
+	         	}
 		         
 		         startRadio.append(c_rating)
-		         startRadio.append(cmtChk)
 		         
 		         star.append(startRadio)
 		         
@@ -224,6 +264,14 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
    			location.href = '/logout'
   		}
 	}
+  	
+
+    function moveToLogin() {
+    	location.href = '/login'
+    }
+    function moveToJoin() {
+    	location.href = '/join'
+    }
  	//평가페이지 가기
 	 function moveToReview(){
 		 location.href = '/webtoon/cmt'

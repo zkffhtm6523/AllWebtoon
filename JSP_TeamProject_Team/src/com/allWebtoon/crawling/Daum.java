@@ -135,7 +135,7 @@ public class Daum {
 			if(deptStop == 1) {continue;}
 			
 			//썸네일 가져오기
-			JSONObject jobj_thumbnail = (JSONObject) ((JSONObject)data.get(j)).get("pcHomeImage");
+			JSONObject jobj_thumbnail = (JSONObject) ((JSONObject)data.get(j)).get("pcRecommendImage");
 			String thumbnail = jobj_thumbnail.get("url").toString();
 			//스토리 가져오기
 			String introduction = ((JSONObject)data.get(j)).get("introduction").toString();
