@@ -40,7 +40,7 @@
     	var kakaoList = new Array();
     	var lezhinList = new Array();
     	var daumList = new Array();
-    	var komikoList = new Array();
+    	var toptoonList = new Array();
 		//배열에 넣어주기 위한 JSTL For-Each문  
 		<c:forEach items="${list}" var="item">
  			var toonVO = new ToonVO("${item.w_no}","${item.w_title}","${item.w_thumbnail}","${item.w_plat_no}")
@@ -58,7 +58,7 @@
     				lezhinList.push(toonVO)
     			</c:when>
 				<c:when test="${item.w_plat_no == 5}">
-    				komikoList.push(toonVO)
+    				toptoonList.push(toonVO)
     			</c:when>
  			</c:choose>
     	</c:forEach>
@@ -67,6 +67,7 @@
 	  	makeImage(daumList, "다음 웹툰 추천",'다음')
 	  	makeImage(kakaoList, "카카오페이지 추천",'카카오')
 	  	makeImage(lezhinList, "레진코믹스 추천",'레진')
+	  	makeImage(toptoonList, "탑툰 추천",'탑툰')
 	    function makeImage(list, title, result){
 			//컨테이너 안 섹션 태그 받아오기   
 		    let section = document.querySelector('section')
