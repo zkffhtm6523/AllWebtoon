@@ -35,7 +35,8 @@ public class HomeSer extends HttpServlet {
 		list = WebtoonListDAO.selRandomWebtoonList(list, 3, 15);
 		//레진 정보 출력
 		list = WebtoonListDAO.selRandomWebtoonList(list, 4, 15);
-		//네이버 정보 출력
+		//탑툰 정보 출력
+		list = WebtoonListDAO.selRandomWebtoonList(list, 5, 15);
 		request.setAttribute("list", list);
 		ViewResolver.viewForward("home", request, response);
 	}
