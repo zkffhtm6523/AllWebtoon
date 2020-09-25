@@ -5,7 +5,14 @@ public class WebtoonCmtDomain extends WebtoonCmtVO {
 	private String u_name;
 	private String w_thumbnail;
 	private String w_title;
+	private String w_writer;
 	
+	public String getW_writer() {
+		return w_writer;
+	}
+	public void setW_writer(String w_writer) {
+		this.w_writer = w_writer;
+	}
 	public String getW_thumbnail() {
 		return w_thumbnail;
 	}

@@ -18,6 +18,7 @@ import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
+import com.allWebtoon.vo.WebtoonCmtDomain;
 import com.allWebtoon.vo.WebtoonCmtVO;
 import com.allWebtoon.vo.WebtoonVO;
 import com.google.gson.Gson;
@@ -34,10 +35,19 @@ public class WebtoonCmtSer extends HttpServlet {
 	   
 	   int idx = MyUtils.getIntParameter(request, "page");
 	   
+	   UserVO loginUser = MyUtils.getLoginUser(request);
+	   
+	   //ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
+	   //ArrayList<WebtoonVO> sendarr = new ArrayList<WebtoonVO>();
+
+	   
 	   ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
 	   ArrayList<WebtoonVO> sendarr = new ArrayList<WebtoonVO>();
-
+	   
+	   ArrayList<WebtoonCmtVO> cmt_list = new ArrayList<WebtoonCmtVO>();
+	   
 		list = WebtoonListDAO.selRandomWebtoonList(list);
+		cmt_list = WebtoonListDAO.selCmtList(cmt_list, loginUser.getU_no());
 		
 	   if(idx == 0) {
 	
@@ -46,6 +56,7 @@ public class WebtoonCmtSer extends HttpServlet {
 		}
 		
 		request.setAttribute("list", sendarr);
+		request.setAttribute("cmt_list", cmt_list);
 		
 		ViewResolver.viewForward("starRating", request, response);
 	   
@@ -99,7 +110,7 @@ public class WebtoonCmtSer extends HttpServlet {
           w_no = Integer.parseInt(object.get("w_no").toString());
           strC_rating = object.get("c_rating").toString();
           ratingPage = object.get("ratingPage").toString();
-          cmtChk = object.get("cmtChk").toString().split("\"")[1];
+          cmtChk = object.get("cmtChk").toString();
               
       }
     //  String genre_name = request.getParameter("genre_name");
