@@ -20,7 +20,7 @@ section{
 section .indexBlock {
 	position: relative;
 	width: 80%;
-	margin:30px auto;
+	margin:20px auto;
 }
 section .indexBlock h1{
 	position: relative;
