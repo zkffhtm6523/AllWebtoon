@@ -32,7 +32,7 @@ public class WebtoonListDAO {
 				sql+= " AND genre_name like ? ";
 			}
 		} else {
-			if(!genre.equals("")) {
+			if(!genre.equals("") && !genre.equals("전체")) {
 				sql += " where genre_name like ? ";
 			}
 		}
@@ -50,7 +50,7 @@ public class WebtoonListDAO {
 				if(platformNum != 0) {
 					ps.setInt(idx++, platformNum);
 				}
-				if(!genre.equals("")) {
+				if(!genre.equals("") && !genre.equals("전체")) {
 					ps.setNString(idx++, "%"+genre+"%");
 				}
 				if(randomLength != 0) {
