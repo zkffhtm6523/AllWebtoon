@@ -114,6 +114,7 @@ public class UserDAO {
 						param.setU_email(rs.getString("u_email"));
 						param.setU_profile(rs.getString("u_profile"));
 						param.setR_dt(rs.getString("r_dt"));
+						param.setU_joinPath(rs.getInt("u_joinPath"));
 						System.out.println("회원가입 직후 r_dt :"+param.getR_dt());
 						param.setM_dt(rs.getString("m_dt"));
 						System.out.println("회원가입 직후 m_dt :"+param.getM_dt());

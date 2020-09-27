@@ -26,7 +26,7 @@ header #topMenu {
 	display:flex;
 	flex-flow: row nowrap;
 	align-items : center;
-	width:85%; 
+	width:60%; 
 	height: 100px;
 	margin: 0px auto;
 	padding-top:20px;
@@ -70,6 +70,8 @@ header #centerMenu #search {
 	box-sizing: border-box;
 	border-radius: 10px;
 	margin:0 auto;
+	padding-left: 25px;
+	padding-top: 3px;
 }
 
 header #rightMenu {
