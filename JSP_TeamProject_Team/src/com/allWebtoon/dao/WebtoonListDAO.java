@@ -32,7 +32,7 @@ public class WebtoonListDAO {
 				sql+= " AND genre_name like ? ";
 			}
 		} else {
-			if(!genre.equals("") && !genre.equals("전체")) {
+			if(!genre.equals("") && !genre.equals("전체") ) {
 				sql += " where genre_name like ? ";
 			}
 		}
