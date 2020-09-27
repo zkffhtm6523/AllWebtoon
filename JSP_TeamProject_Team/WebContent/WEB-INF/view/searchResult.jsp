@@ -82,7 +82,7 @@
 	       	
 	    	console.log('index: '+ idx)
 	    	
-	    	axios.get('/searchResult?result=${keyword}&page=' +idx
+	    	axios.get('/searchResult?result=${keyword}&writer=${param.writer}&genre=${param.genre}&page=' +idx
 	    			/*{
 	    		params : {
 	    			page : idx

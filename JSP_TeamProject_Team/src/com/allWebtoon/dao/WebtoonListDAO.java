@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,19 +19,52 @@ import com.allWebtoon.vo.WebtoonCmtVO;
 import com.allWebtoon.vo.WebtoonVO;
 
 public class WebtoonListDAO {
-	// 홈화면 출력 
-	public static ArrayList<WebtoonVO> selRandomWebtoonList(ArrayList<WebtoonVO> list, int platformNum, int randomLength){
-		String sql = " select w_no, w_title, w_story, w_thumbnail, w_link, plat_no "
-					+ " from t_webtoon "
-					+ " where plat_no = ? "
-					+ " order by rand() limit ? ";
+	//홈화면 출력  
+	//platformNum =0 , randomLength=0 이면 전체  
+	public static ArrayList<WebtoonVO> selRandomWebtoonList(ArrayList<WebtoonVO> list, int platformNum, int randomLength, String genre){
+		String sql = "select w_no, w_title, w_story, w_writer, w_thumbnail, w_link, plat_no from view_webtoon ";
+
+		if(platformNum != 0) {
+			sql += " where plat_no =? ";
+			if(!genre.equals("")) {
+				sql+= " AND genre_name like ? ";
+			}
+		} else {
+			if(!genre.equals("")) {
+				sql += " where genre_name like ? ";
+			}
+		}
+		sql += " order by rand() ";
 		
+		if(randomLength != 0) {
+			sql += " limit ? ";
+		}
+
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			//물음표 넣을 때
 			public void prepared(PreparedStatement ps) throws SQLException {
-				ps.setInt(1, platformNum);
-				ps.setInt(2, randomLength);
+				int idx = 1;
+				if(platformNum != 0) {
+					ps.setInt(idx++, platformNum);
+				}
+				if(!genre.equals("")) {
+					ps.setNString(idx++, "%"+genre+"%");
+				}
+				if(randomLength != 0) {
+					ps.setInt(idx++, randomLength);
+				}
+				
+			/*	if(platformNum != 0) {
+					ps.setInt(1, platformNum);
+					if(randomLength != 0) {
+						ps.setInt(2, randomLength);
+					}
+				}else {
+					if(randomLength != 0) {
+						ps.setInt(1, randomLength);
+					}
+				}*/
 			}
 			@Override
 			//while문으로 값 가져올 때
@@ -40,36 +74,10 @@ public class WebtoonListDAO {
 					vo.setW_no(rs.getInt("w_no"));
 					vo.setW_title(rs.getNString("w_title"));
 					vo.setW_story(rs.getNString("w_story"));
-					vo.setW_thumbnail(rs.getNString("w_thumbnail"));
-					vo.setW_plat_no(rs.getInt("plat_no"));
-					list.add(vo);
-				}
-				return 1;
-			}
-		});
-		
-		return list;
-	}
-	
-	public static ArrayList<WebtoonVO> selRandomWebtoonList(ArrayList<WebtoonVO> list){
-		String sql = "select w_no, w_title, w_writer, w_thumbnail from view_webtoon ";
-		//		+ " order by rand() ";
-
-		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
-			@Override
-			//물음표 넣을 때
-			public void prepared(PreparedStatement ps) throws SQLException {
-				//ps.setInt(1, );
-			}
-			@Override
-			//while문으로 값 가져올 때
-			public int executeQuery(ResultSet rs) throws SQLException {
-				while(rs.next()) {
-					WebtoonVO vo = new WebtoonVO();
-					vo.setW_no(rs.getInt("w_no"));
-					vo.setW_title(rs.getNString("w_title"));
 					vo.setW_writer(rs.getNString("w_writer"));
 					vo.setW_thumbnail(rs.getNString("w_thumbnail"));
+					vo.setW_link(rs.getNString("w_link"));
+					vo.setW_plat_no(rs.getInt("plat_no"));
 					//vo.setU_no(rs.getInt("u_no"));
 					//vo.setC_rating(rs.getFloat("c_rating"));
 					list.add(vo);
@@ -109,22 +117,44 @@ public class WebtoonListDAO {
 	}
 	
 	// 검색 결과
-	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo){
+	public static ArrayList<SearchWebtoonVO> selSearchList(SearchWebtoonVO vo, String kind){
 		ArrayList<SearchWebtoonVO> list = new ArrayList<SearchWebtoonVO>();
 		String sql = 
-			" SELECT w_no, w_title, CASE WHEN char_length(w_story) > 150 THEN concat(left(w_story, 150), '...') ELSE w_story END as w_story, w_thumbnail, w_link, plat_no, " + 
+			/*" SELECT w_no, w_title, CASE WHEN char_length(w_story) > 150 THEN concat(left(w_story, 150), '...') ELSE w_story END as w_story, w_thumbnail, w_link, plat_no, " + 
 			"		  	genre_name, group_concat(w_writer separator ', ') as w_writer, " + 
 			"		    plat_name  from view_webtoon "
 		  + " where w_title LIKE ? or genre_name LIKE ? or w_writer LIKE ? or plat_name LIKE ? "
-		  + " group by w_no ";
+		  + " group by w_no ";*/
+				
+			" select a.w_no, a.w_title,CASE WHEN char_length(a.w_story) > 150 THEN concat(left(a.w_story, 150), '...') ELSE a.w_story END as w_story, "
+			+ "	a.w_thumbnail, a.w_link, a.plat_no, a.genre_name, group_concat(a.w_writer separator ', ') as w_writer, "
+			+ "	a.plat_name from view_webtoon A ";
+
+			if(kind.equals("writer")) {
+				sql += " inner join t_w_writer B "
+				+ " on a.w_no = b.w_no "
+				+ " where b.w_writer = ? ";
+			} else if(kind.equals("genre")) {
+				sql += " where genre_name like ? ";
+			}
+			else if(kind.equals("all")){
+				sql += " where w_title LIKE ? or w_writer LIKE ? or plat_name LIKE ? ";
+			}
+			
+		sql += " group by a.w_no ";
 
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
-				ps.setNString(1, "%"+vo.getSearchKeyword()+"%");
-				ps.setNString(2, "%"+vo.getSearchKeyword()+"%");
-				ps.setNString(3, "%"+vo.getSearchKeyword()+"%");
-				ps.setNString(4, "%"+vo.getSearchKeyword()+"%");
+				if(kind.equals("all")) {
+					ps.setNString(1, "%"+vo.getSearchKeyword()+"%");
+					ps.setNString(2, "%"+vo.getSearchKeyword()+"%");
+					ps.setNString(3, "%"+vo.getSearchKeyword()+"%");
+				} else if(kind.equals("genre")) {
+					ps.setNString(1, "%"+vo.getSearchKeyword()+"%");
+				} else if(kind.equals("writer")) {
+					ps.setNString(1, vo.getSearchKeyword());
+				}
 				
 			}
 			
@@ -146,6 +176,7 @@ public class WebtoonListDAO {
 		});
 		return list;
 	}
+	
 	// 웹툰 디테일
 		public static WebtoonVO webtoonDetail(int w_no) {
 			WebtoonVO vo = new WebtoonVO();
@@ -179,4 +210,27 @@ public class WebtoonListDAO {
 			return vo;
 		}
 			
+		public static ArrayList<String> selGenre(){
+			ArrayList<String> genreList = new ArrayList<String>();
+			
+			String sql = " select genre_no, genre_name from t_genre ";
+			
+			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+
+				@Override
+				public void prepared(PreparedStatement ps) throws SQLException {
+					
+				}
+
+				@Override
+				public int executeQuery(ResultSet rs) throws SQLException {
+					while(rs.next()) {
+						genreList.add(rs.getNString("genre_name"));
+					}
+					return 1;
+				}
+			});
+			return genreList;
+			
+		}
 }

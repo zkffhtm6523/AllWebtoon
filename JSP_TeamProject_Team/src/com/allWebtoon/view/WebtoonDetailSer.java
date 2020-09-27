@@ -31,8 +31,15 @@ public class WebtoonDetailSer extends HttpServlet {
       WebtoonVO data = WebtoonListDAO.webtoonDetail(w_no);
       
       System.out.println(data.getW_title());
+      String[] writer = data.getW_writer().split(", ");
+      
+      for(String w: writer) {
+    	  System.out.println("작가 : " +w);
+      }
+      
       data.setW_no(w_no);
       request.setAttribute("data", data);
+      request.setAttribute("writers", writer);
       // 웹툰 정보 뿌리기 - 끝
       
       // 내 댓글 뿌리기 - 시작

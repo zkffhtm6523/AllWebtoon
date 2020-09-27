@@ -46,7 +46,7 @@ public class WebtoonCmtSer extends HttpServlet {
 	   
 	   ArrayList<WebtoonCmtVO> cmt_list = new ArrayList<WebtoonCmtVO>();
 	   
-		list = WebtoonListDAO.selRandomWebtoonList(list);
+		list = WebtoonListDAO.selRandomWebtoonList(list,0,0,"");
 		cmt_list = WebtoonListDAO.selCmtList(cmt_list, loginUser.getU_no());
 		
 	   if(idx == 0) {
