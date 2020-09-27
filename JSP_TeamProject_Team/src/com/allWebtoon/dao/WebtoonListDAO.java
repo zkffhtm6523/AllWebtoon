@@ -11,7 +11,9 @@ import javax.servlet.http.HttpSession;
 
 import com.allWebtoon.db.JdbcSelectInterface;
 import com.allWebtoon.db.JdbcTemplate;
+import com.allWebtoon.db.JdbcUpdateInterface;
 import com.allWebtoon.util.MyUtils;
+import com.allWebtoon.util.SecurityUtils;
 import com.allWebtoon.vo.SearchWebtoonVO;
 import com.allWebtoon.vo.UserVO;
 import com.allWebtoon.vo.WebtoonCmtDomain;
@@ -232,5 +234,51 @@ public class WebtoonListDAO {
 			});
 			return genreList;
 			
+		}
+		
+		
+		public static int insSelWebtoon(int w_no, int u_no) {
+			String sql = "INSERT INTO t_selwebtoon "
+					+ " (w_no, u_no) "
+					+ " VALUES (?,?) ";
+			
+			return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+				@Override
+				public void update(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, w_no);
+					ps.setInt(2, u_no);
+				}
+
+			});
+		}
+		
+		public static int updSelWebtoon(int w_no, int u_no) {
+			String sql = "UPDATE t_selwebtoon "
+					+ " SET r_dt=now() "
+					+ " WHERE w_no= ? and u_no=? ";
+			
+			
+			return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+				@Override
+				public void update(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, w_no);
+					ps.setInt(2, u_no);
+				}
+			});
+		}
+		
+		public static int delselWebtoon(int u_no) {
+			
+			String sql = " delete from t_selwebtoon " + 
+					"where u_no= ? and w_no not in (select new.ww_no from (select w_no as ww_no from t_selwebtoon where u_no=? order by r_dt desc limit 5) new) ";
+			
+			
+			return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+				@Override
+				public void update(PreparedStatement ps) throws SQLException {
+					ps.setInt(1, u_no);
+					ps.setInt(2, u_no);
+				}
+			});
 		}
 }

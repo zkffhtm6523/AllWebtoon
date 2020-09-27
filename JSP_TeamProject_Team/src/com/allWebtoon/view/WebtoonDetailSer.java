@@ -46,6 +46,18 @@ public class WebtoonDetailSer extends HttpServlet {
       UserVO loginUser = MyUtils.getLoginUser(request);
       
       if(loginUser != null) {
+    	  
+    	 int result =0;
+    	 
+    	 try {
+    		 result = WebtoonListDAO.insSelWebtoon(w_no, loginUser.getU_no());
+    		 WebtoonListDAO.delselWebtoon(loginUser.getU_no());
+    	 }catch(Exception e) { }
+    	 
+    	 if(result == 0) {
+    		 WebtoonListDAO.updSelWebtoon(w_no, loginUser.getU_no());
+    	 }
+    	  
          WebtoonCmtVO myCmt = new WebtoonCmtVO();
          myCmt.setW_no(w_no);
          myCmt.setU_no(loginUser.getU_no());
