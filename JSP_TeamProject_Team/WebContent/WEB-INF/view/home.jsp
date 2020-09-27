@@ -28,7 +28,21 @@
 		<section></section>
 		<jsp:include page="../template/footer.jsp"/>
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
+	
+	var genrelist = []
+	
+	
+	<c:forEach items="${genreList}" var="item">
+		var obj = '${item}'
+	
+		genrelist.push(obj)
+	</c:forEach>
+	
+	
 		function ToonVO(w_no, w_title, w_thumbnail, w_plat_no){
 			this.w_no = w_no;
 			this.w_title = w_title;
@@ -36,11 +50,18 @@
 			this.w_plat_no = w_plat_no;
 		}
 		//HomeSer에서 EL식으로 값을 받아와 자바스크립트 각 배열에 넣어주기
+		var genreList = new Array();
     	var naverList = new Array();
     	var kakaoList = new Array();
     	var lezhinList = new Array();
     	var daumList = new Array();
     	var toptoonList = new Array();
+    	
+    	<c:forEach items="${gList}" var="item">
+    		var toonVO = new ToonVO("${item.w_no}","${item.w_title}","${item.w_thumbnail}","${item.w_plat_no}")
+    		genreList.push(toonVO)
+    	</c:forEach>
+
 		//배열에 넣어주기 위한 JSTL For-Each문  
 		<c:forEach items="${list}" var="item">
  			var toonVO = new ToonVO("${item.w_no}","${item.w_title}","${item.w_thumbnail}","${item.w_plat_no}")
@@ -62,13 +83,21 @@
     			</c:when>
  			</c:choose>
     	</c:forEach>
+    	
     	//함수 사용으로 인한 간단한 호출...이거만 있으면 됨!!!
+    	makeImage(genreList, "장르별 웹툰 보기",'','genre')
 	  	makeImage(naverList, "네이버 웹툰 추천",'네이버')
 	  	makeImage(daumList, "다음 웹툰 추천",'다음')
 	  	makeImage(kakaoList, "카카오페이지 추천",'카카오')
 	  	makeImage(lezhinList, "레진코믹스 추천",'레진')
 	  	makeImage(toptoonList, "탑툰 추천",'탑툰')
-	    function makeImage(list, title, result){
+	  	
+	  	function selectGenre(){
+    		var selectText = sel_genre.options[sel_genre.selectedIndex].text;
+    		
+    	}
+	    
+	  	function makeImage(list, title, result, genre){
 			//컨테이너 안 섹션 태그 받아오기   
 		    let section = document.querySelector('section')
 		    //추천별 블록 만들기
@@ -80,17 +109,66 @@
 		    let secTitle = document.createElement('h1')
 		    secTitle.append(title)
 		    indexBlock.append(secTitle) // 타이틀 이름 넣기  
+		    if(genre != null){
+		    	let select = document.createElement('select')
+		    	select.setAttribute('id','sel_gerne')
+				select.addEventListener('change',function(){
+
+					var data = { 
+						genre : select.options[select.selectedIndex].text
+					}
+						
+					console.log("장르: " + data.genre)
+					axios.post('/home', data).then(function(res) {
+						console.log(res)
+						result = data.genre
+						list = []
+						
+						listBlock.innerHTML = ""
+						
+						res.data.forEach(function (item){
+							console.log(item.w_title)
+							
+							list.push(item)
+						})
+						
+	    				makeItem(listBlock, list, result,'y')
+					})
+					
+				})
+		    	let option = document.createElement('option')
+		    	option.setAttribute('value','all')
+		    	option.append('전체')
+		    	select.append(option)
+		    	for(var i=0; i<genrelist.length; i++){
+		    		let option = document.createElement('option')
+		    		option.setAttribute('value',genrelist[i])
+		    		option.append(genrelist[i])
+		    		select.append(option)
+		    	}
+		    	
+		    	indexBlock.append(select)
+		    }
 		    indexBlock.append(document.createElement('hr'))
 		
 		    //배열이 담길 전체 박스
 		    let listBlock = document.createElement('div')
 		    indexBlock.append(listBlock)
 		    listBlock.classList.add('listBlock')
-		    //배열 인덱스 및 반복문 체크용
-		    let index = 0;
-	    	let chk = 0;
+		    
+	    	
+	    	makeItem(listBlock, list, result,'n')
+	    	
+	  	}
 		    
 		    //좌측 화살표 아이콘 집어넣기
+		    
+		function makeItem(listBlock, list, result, yn_genre){
+		    	
+			//배열 인덱스 및 반복문 체크용
+		    let index = 0;
+	    	let chk = 0;
+	    	
 		    var icons = document.createElement('span')
 		    icons.classList.add('material-icons')
 		    icons.innerHTML = 'keyboard_arrow_left'
@@ -155,7 +233,11 @@
 			    	 listBlock.removeChild(listBlock.childNodes[1]); 
 		    	 }else{
 		    		 if(confirm('추가 목록을 확인하시겠습니까?')){
-		    			 location.href = '/searchResult?result='+result
+		    			 if(yn_genre == 'n'){
+		    			 	location.href = '/searchResult?result='+result
+		    			 }else if(yn_genre == 'y'){
+		    			 	location.href = '/searchResult?genre=y&result='+result
+		    			 }
 		    		 }
 		    	 }
 		    })		   

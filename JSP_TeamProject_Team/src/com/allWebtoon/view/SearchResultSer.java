@@ -21,15 +21,27 @@ public class SearchResultSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchKeyword = request.getParameter("result");
+		String writer = request.getParameter("writer");
+		String genre = request.getParameter("genre");
 		int index = MyUtils.getIntParameter(request, "page");
 		
 		final int count = 20;
 		SearchWebtoonVO vo = new SearchWebtoonVO();
 		vo.setSearchKeyword(searchKeyword);
 		
-		ArrayList<SearchWebtoonVO> list =  WebtoonListDAO.selSearchList(vo);
+		ArrayList<SearchWebtoonVO> list = new ArrayList<SearchWebtoonVO>();
 		ArrayList<SearchWebtoonVO> resultarr = new ArrayList<SearchWebtoonVO>();
 		
+
+		if(writer != null && !("".equals(writer))) {
+			list = WebtoonListDAO.selSearchList(vo,"writer");
+			System.out.println("writer is " + writer);
+		} else if(genre != null && !("".equals(genre))) {
+			list = WebtoonListDAO.selSearchList(vo,"genre");
+		} else {
+			list =  WebtoonListDAO.selSearchList(vo,"all");
+			System.out.println("writer is null");
+		}
 		
 		if(index == 0) {
 			for(int i=0; i<count; i++) {

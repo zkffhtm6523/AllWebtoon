@@ -65,7 +65,11 @@
             <ul>
                <li id="thumbnail"><img src="${data.w_thumbnail }"></li>
                <li id="platform"><a href="/searchResult?result=${data.w_plat_name }">${data.w_plat_name }</a></li>
-               <li id="writer"><a href="/searchResult?result=${data.w_writer }">작가 : ${data.w_writer }</a></li>
+               <li id="writer">작가 : 
+               <c:forEach items="${writers}" var="item">
+               	<a href="/searchResult?result=${item}&writer=y">${item}</a>
+               </c:forEach>
+               </li>
                <li id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></li>
                <li id="genre"><a href="/searchResult?result=${data.genre_name }">${data.genre_name }</a></li>
                <li>
