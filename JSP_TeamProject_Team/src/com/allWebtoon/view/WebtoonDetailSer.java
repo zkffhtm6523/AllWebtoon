@@ -51,7 +51,9 @@ public class WebtoonDetailSer extends HttpServlet {
     	 
     	 try {
     		 result = WebtoonListDAO.insSelWebtoon(w_no, loginUser.getU_no());
+    		 System.out.println("insSelWebtoon");
     		 WebtoonListDAO.delselWebtoon(loginUser.getU_no());
+    		 System.out.println("insDelWebtoon");
     	 }catch(Exception e) { }
     	 
     	 if(result == 0) {
@@ -71,6 +73,7 @@ public class WebtoonDetailSer extends HttpServlet {
       
       // 다른 사람 댓글 뿌리기
       List<WebtoonCmtDomain> list = WebtoonCmtDAO.selCmtList(w_no);
+      System.out.println("detail here??");
       request.setAttribute("cmtList", list); 
       // 다른 사람 댓글 뿌리기 끝
       

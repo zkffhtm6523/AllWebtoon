@@ -215,7 +215,7 @@ section .name{
 									<li>${list[i].w_title}</li>
 									<span class="material-icons">grade</span>
 									<li>${list[i].c_rating}</li>
-									<c:if test="${list[i].c_com != null}">
+									<c:if test="${list[i].c_com != null && list[i].c_com != '' && list[i].c_com != ' '}">
 										<span class="material-icons">insert_comment</span>
 									</c:if>
 								</ul>

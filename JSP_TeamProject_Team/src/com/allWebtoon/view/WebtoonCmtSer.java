@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 
@@ -18,7 +17,6 @@ import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
-import com.allWebtoon.vo.WebtoonCmtDomain;
 import com.allWebtoon.vo.WebtoonCmtVO;
 import com.allWebtoon.vo.WebtoonVO;
 import com.google.gson.Gson;
@@ -84,7 +82,7 @@ public class WebtoonCmtSer extends HttpServlet {
 
    // 댓글 ( 작성 / 수정 )
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      UserVO loginUser = new UserVO();
+	  UserVO loginUser = new UserVO();
       
       loginUser = MyUtils.getLoginUser(request);
       
@@ -122,7 +120,7 @@ public class WebtoonCmtSer extends HttpServlet {
       
       param.setU_no(u_no);
       param.setW_no(w_no);
-      param.setC_com(c_com);
+      if(!"".equals(c_com)) {param.setC_com(c_com);}
       param.setC_rating(c_rating);
      // vo.setU_id(loginUser.getU_id());
       
