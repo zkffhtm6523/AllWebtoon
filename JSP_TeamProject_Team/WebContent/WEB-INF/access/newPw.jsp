@@ -179,7 +179,10 @@ section .newPw {
 		function new_Pw() {
 			console.log(newPassword.value)
 			console.log(chknewPassword.value)
-			if(newPassword.value == chknewPassword.value){
+			if(newPassword.value.length < 5){
+				alert('비밀번호는 5글자 이상이어야합니다.');
+				frm.pw.focus();
+			} else if(newPassword.value == chknewPassword.value){
 		
 			var data = { 
 					id : id.value,
@@ -190,12 +193,12 @@ section .newPw {
 					console.log(res.data)
 					if(res.data=='success'){
 						alert('비밀번호가 재설정 되었습니다')
+						location.href = '/login'
 					} else{
 						alert('에러가 발생했습니다. 다시 시도해 주세요 ')
 					}
 				})
-			}
-			else{
+			} else{
 				alert('비밀번호를 확인해주세요 ')
 			}
 		}
