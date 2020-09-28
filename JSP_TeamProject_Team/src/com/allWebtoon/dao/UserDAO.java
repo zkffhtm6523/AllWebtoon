@@ -89,12 +89,21 @@ public class UserDAO {
 		String sql = "SELECT u_no, u_password, u_name, u_birth, gender_no, u_email, u_profile, r_dt, m_dt, u_joinPath, u_salt "
 					+ " FROM t_user " 
 					+ " WHERE u_id = ? ";
+		
+		if(param.getU_birth() != null) {
+			sql += " AND u_email = ? AND u_birth=? AND gender_no = (Select gender_no from t_gender where gender_name=?) ";
+		}
 				
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
 				ps.setNString(1,  param.getU_id());
+				if(param.getU_birth() != null) {
+					ps.setNString(2,  param.getU_email());
+					ps.setNString(3,  param.getU_birth());
+					ps.setNString(4,  param.getGender_name());
+				}
 			}
 
 			@Override
@@ -103,7 +112,7 @@ public class UserDAO {
 				if(rs.next()) {					//레코드가 있음
 					String dbPw = rs.getNString("u_password");
 					String salt = rs.getString("u_salt");
-					if(dbPw.equals(SecurityUtils.getEncrypt(param.getU_password(), salt))) {	//로그인 성공(비밀번호 맞을 경우)
+					if(param.getU_birth() == null && dbPw.equals(SecurityUtils.getEncrypt(param.getU_password(), salt))) {	//로그인 성공(비밀번호 맞을 경우)
 						int i_user = rs.getInt("u_no");
 						String nm = rs.getNString("u_name");
 						param.setU_password(null);
@@ -125,7 +134,7 @@ public class UserDAO {
 					} else {								//로그인 실패.(비밀번호 틀릴 경우)
 						return 2;
 					}
-				}else {							//레코드가 없음. (아이디 없음)
+				} else {							//레코드가 없음. (아이디 없음)
 					return 3;						
 				}
 				
@@ -177,8 +186,14 @@ public class UserDAO {
 		StringBuilder sb = new StringBuilder(" UPDATE t_user SET m_dt = now()");
 		
 		if(param.getU_password() != null) {
+			String u_salt = SecurityUtils.generateSalt();
+			//param.setU_salt(u_salt);
+			param.setU_encrypt(SecurityUtils.getEncrypt(param.getU_password(), u_salt));
 			sb.append(" , u_password = '");
-			sb.append(param.getU_password());
+			sb.append(param.getU_encrypt());
+			sb.append("' ");
+			sb.append(" , u_salt = '");
+			sb.append(u_salt);
 			sb.append("' ");
 		}
 		if(param.getU_name() != null) {
@@ -201,8 +216,14 @@ public class UserDAO {
 			sb.append(param.getU_birth());
 			sb.append("' ");
 		}
-		sb.append(" where u_no = ");
-		sb.append(param.getU_no());
+		
+		if(param.getU_no() != 0) {
+			sb.append(" where u_no = ");
+			sb.append(param.getU_no());
+		} else {
+			sb.append(" where u_id = '" );
+			sb.append(param.getU_id()+ "' ");
+		}
 		System.out.println("sb : " + sb.toString());
 		
 		return JdbcTemplate.executeUpdate(sb.toString(), new JdbcUpdateInterface() {

@@ -56,6 +56,7 @@ public class ProfileSer extends HttpServlet {
 		String updName = null;
 		String updBirth = null;
 		String updEmail = null;
+		String updPw = null;
 		try {
 			//이름 중복되면 자동으로 이름 바꿔서 저장해줌. 저장 후 파일이름 변경해야됨
 			MultipartRequest mr = new MultipartRequest(request, savePath, 
@@ -65,6 +66,7 @@ public class ProfileSer extends HttpServlet {
 			updName = mr.getParameter("updName");
 			updBirth = mr.getParameter("updBrith");
 			updEmail = mr.getParameter("updEmail");
+			updPw = mr.getParameter("password");
 			//파일의 다음 엘리멘트가 더 있냐
 			while(files.hasMoreElements()) {
 				String key = (String)files.nextElement();
@@ -93,6 +95,9 @@ public class ProfileSer extends HttpServlet {
 		param.setU_email(updEmail);
 		param.setU_birth(updBirth);
 		param.setU_id(loginUser.getU_id());
+		if(!"".equals(updPw)) {
+			param.setU_password(updPw);
+		}
 		//DB에 프로필 파일명 저장
 		if(saveFileNm != null) {
 			param.setU_profile(saveFileNm);
