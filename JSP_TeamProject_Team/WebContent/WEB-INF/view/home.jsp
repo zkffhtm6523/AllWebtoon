@@ -184,11 +184,12 @@ section .material-icons:hover{cursor: pointer;}
 		
 		    //배열이 담길 전체 박스
 		    let listBlock = document.createElement('div')
+		    
 		    indexBlock.append(listBlock)
 		    listBlock.classList.add('listBlock')
 		    
 	    	
-	    	makeItem(listBlock, list, result,'n')
+	    	
 	  	}
 		    
 		    //좌측 화살표 아이콘 집어넣기
