@@ -269,8 +269,14 @@ public class WebtoonListDAO {
 		
 		public static int delselWebtoon(int u_no) {
 			
-			String sql = " delete from t_selwebtoon " + 
-					"where u_no= ? and w_no not in (select new.ww_no from (select w_no as ww_no from t_selwebtoon where u_no=? order by r_dt desc limit 5) new) ";
+			String sql = " delete from t_selwebtoon " 
+					+ " where u_no = ? "
+					+ " and w_no not in "
+					+ " (select new.ww_no"
+					+ "		from (select w_no as ww_no from "
+					+ "			  t_selwebtoon where u_no = ? "
+					+ "			  order by r_dt desc limit 5)"
+					+ "		as new) ";
 			
 			
 			return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {

@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Cute+Font&family=Noto+Sans+KR&family=Noto+Serif+KR:wght@600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>웹툰 상세 페이지</title>
 <style>
    #btn_login {text-decoration: none; color: black;}
@@ -47,8 +46,8 @@
     @font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
    .blind { position: absolute; overflow: hidden; margin: -1px;padding: 0;width: 1px;height: 1px;border: none;clip: rect(0, 0, 0, 0);}
    .startRadio {display: inline-block; overflow: hidden; height: 40px;}
-   .startRadio:after { content: ""; display: block; position: relative; z-index: 10; height: 40px;background: url("/images/star_Radio.png") repeat-x 0 0; background-size: contain; pointer-events: none;}
-   .startRadio__box { position: relative; z-index: 1; float: left; width: 20px; height: 40px;cursor: pointer;}
+   .startRadio:after { content: ""; display: block; position: relative; height: 40px;background: url("/images/star_Radio.png") repeat-x 0 0; background-size: contain; pointer-events: none;}
+   .startRadio__box { position: relative; z-index: 0; float: left; width: 20px; height: 40px;cursor: pointer;}
    .startRadio input { opacity: 0 !important; height: 0 !important;width: 0 !important;position: absolute !important;}
    .startRadio input:checked + .startRadio__img { background-color: #ffd700;}
    .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none; z-index:-1}
@@ -58,9 +57,12 @@
 	.cmt_list .cmtItem ul {list-style-type: none;}
 	.cmt_list .cmtItem:not(:first-child) {	margin-left: 4px;}
 	.cmt_list .cmtItem img {width: 53px;height: 49px; border-radius: 50%;}
-	.cmt_list .cmtItem .moreCmt {width: 100%;height:100%;display:flex;justify-content:center;align-items:center;} 
+	.cmt_list .cmtItem .moreCmt {width: 100%;height:100%;display:flex;justify-content:center;align-items:center;}
+	.swiper-container {height: 100%;}
+    .swiper-slide {display: flex !important;justify-content: center;align-items: center;font-size: 3rem;} 
 </style>
 <link rel="stylesheet" href="/css/modal.css" />
+<link rel="stylesheet" href="/css/swiper-bundle.min.css">
 </head>
 <body>
    <div id="container">
@@ -138,24 +140,43 @@
 					<div class="modal hidden ">
 				       <div class="modal__overlay"></div>
 				       <div class="modal__content">
-				          <ul id="cmt_list">
-							<li id="cmt_list_rating">${cmtList[3].c_rating}</li>
-							<li id="cmt_list_com">${cmtList[3].c_com}</li>
-							<li id="cmt_list_profile">
-								<c:choose>
-									<c:when test="${cmtList[3].u_profile eq null}">
-										<img class="pImg" src="/images/u_profile/default_image.jpg">
-									</c:when>
-									<c:when test="${cmtList[3].u_profile.substring(0,4) eq 'http'}">
-										<img class="pImg" src="${cmtList[3].u_profile}">
-									</c:when>
-									<c:otherwise>
-										<img class="pImg" src="/images/u_profile/user/${cmtList[3].u_no}/${cmtList[3].u_profile}">
-									</c:otherwise>
-								</c:choose>
-							</li>
-							<li id="cmt_list_name">${cmtList[3].u_name}</li>
-						</ul>
+						   <!-- Swiper -->
+						  <div class="swiper-container">
+						    <div class="swiper-wrapper">
+						       <div class="swiper-slide">
+							      <ul id="cmt_list">
+									<li id="cmt_list_rating">${cmtList[3].c_rating}</li>
+									<li id="cmt_list_com">${cmtList[3].c_com}</li>
+									<li id="cmt_list_profile">
+									<c:choose>
+										<c:when test="${cmtList[3].u_profile eq null}">
+											<img class="pImg" src="/images/u_profile/default_image.jpg">
+										</c:when>
+										<c:when test="${cmtList[3].u_profile.substring(0,4) eq 'http'}">
+											<img class="pImg" src="${cmtList[3].u_profile}">
+										</c:when>
+										<c:otherwise>
+											<img class="pImg" src="/images/u_profile/user/${cmtList[3].u_no}/${cmtList[3].u_profile}">
+										</c:otherwise>
+									</c:choose>
+								</li>
+								<li id="cmt_list_name">${cmtList[3].u_name}</li>
+							</ul>
+						</div>
+						      <div class="swiper-slide">Slide 2</div>
+						      <div class="swiper-slide">Slide 3</div>
+						      <div class="swiper-slide">Slide 4</div>
+						      <div class="swiper-slide">Slide 5</div>
+						      <div class="swiper-slide">Slide 6</div>
+						      <div class="swiper-slide">Slide 7</div>
+						      <div class="swiper-slide">Slide 8</div>
+						      <div class="swiper-slide">Slide 9</div>
+						      <div class="swiper-slide">Slide 10</div>
+						    </div>
+						    <!-- Add Arrows -->
+						    <div class="swiper-button-next"></div>
+						    <div class="swiper-button-prev"></div>
+						  </div>
 				          <button>❌</button>
 				       </div>
 				    </div>  
@@ -167,12 +188,27 @@
    </div>
    <!-- Scripts -->
 	<script src="/js/modal.js"></script>
- 
-   <script>
-      if(cmtFrm.point.value != '0.0'){
-    	 console.log(point.value)
-         document.getElementsByName('star')[cmtFrm.point.value*2-1].checked = true
-      } // 남긴 별점 표시하기
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<script>	
+		var mySwiper = new Swiper('.swiper-container', {
+		  // Optional parameters
+		  loop: true,
+		  
+		  // Navigation arrows
+		  navigation: {
+		    nextEl: '.swiper-button-next',
+		    prevEl: '.swiper-button-prev',
+		  },
+		})
+		
+      function star_score() { // 남긴 별점 표시하기
+    	  var score = document.querySelector("#point").value
+    	  if(score != '0') {
+    	  	document.getElementsByName('star')[cmtFrm.point.value*2-1].checked = true
+    	  }
+      }
+      star_score()
       
       if(cmtFrm.cmt_btn.value == '수정하기'){
          console.log('누르기 전 ' + cmtFrm.cmtChk.value)

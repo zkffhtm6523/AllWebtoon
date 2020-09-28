@@ -1,11 +1,9 @@
-/**
- * 
- */
+
 	const openButton = document.getElementById("open")
 	const modal = document.querySelector(".modal")
 	const overlay = modal.querySelector(".modal__overlay")
 	const closeBtn = modal.querySelector("button")
-	const openModal = () => {
+	function openModal(){
 	    modal.classList.remove("hidden")
 	}
 	const closeModal = () => {
@@ -14,3 +12,4 @@
 	overlay.addEventListener("click", closeModal)
 	closeBtn.addEventListener("click", closeModal)
 	openButton.addEventListener("click", openModal)
+	

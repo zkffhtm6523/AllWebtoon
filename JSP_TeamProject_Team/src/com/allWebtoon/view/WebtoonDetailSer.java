@@ -1,7 +1,7 @@
 package com.allWebtoon.view;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,6 +18,7 @@ import com.allWebtoon.vo.UserVO;
 import com.allWebtoon.vo.WebtoonCmtDomain;
 import com.allWebtoon.vo.WebtoonCmtVO;
 import com.allWebtoon.vo.WebtoonVO;
+import com.google.gson.Gson;
 
 @WebServlet("/webtoon/detail")
 public class WebtoonDetailSer extends HttpServlet {
@@ -51,7 +52,9 @@ public class WebtoonDetailSer extends HttpServlet {
     	 
     	 try {
     		 result = WebtoonListDAO.insSelWebtoon(w_no, loginUser.getU_no());
+    		 System.out.println("insSelWebtoon");
     		 WebtoonListDAO.delselWebtoon(loginUser.getU_no());
+    		 System.out.println("insDelWebtoon");
     	 }catch(Exception e) { }
     	 
     	 if(result == 0) {
@@ -66,15 +69,15 @@ public class WebtoonDetailSer extends HttpServlet {
          System.out.println("내 별점 : " + param.getC_rating());
          request.setAttribute("myCmt", param);
       }
-      
       // 내 댓글 뿌리기 - 끝
       
       // 다른 사람 댓글 뿌리기
       List<WebtoonCmtDomain> list = WebtoonCmtDAO.selCmtList(w_no);
+      System.out.println("detail here??");
       request.setAttribute("cmtList", list); 
-      // 다른 사람 댓글 뿌리기 끝
-      
       ViewResolver.viewForward("webtoonDetail", request, response);
+      // 다른 사람 댓글 뿌리기 끝
+      // json 사용시 아래 부분이 필요한지 안한지
    }
    
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
