@@ -67,24 +67,12 @@ public class WebtoonDetailSer extends HttpServlet {
          System.out.println("내 별점 : " + param.getC_rating());
          request.setAttribute("myCmt", param);
       }
-      
       // 내 댓글 뿌리기 - 끝
       
       // 다른 사람 댓글 뿌리기
       List<WebtoonCmtDomain> list = WebtoonCmtDAO.selCmtList(w_no);
       request.setAttribute("cmtList", list); 
       ViewResolver.viewForward("webtoonDetail", request, response);
-
-      if(list.size() > 3) {
-    	  Gson gson = new Gson();
-    	  
-    	  String json = gson.toJson(list);
-    	  System.out.println("json : " + json);
-    	  response.setCharacterEncoding("UTF-8");
-    	  response.setContentType("application/json");
-    	  PrintWriter out = response.getWriter();
-    	  out.print(json);
-      }
       // 다른 사람 댓글 뿌리기 끝
       // json 사용시 아래 부분이 필요한지 안한지
    }

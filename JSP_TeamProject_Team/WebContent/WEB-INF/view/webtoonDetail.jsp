@@ -135,7 +135,7 @@
 					<div class="modal hidden ">
 				       <div class="modal__overlay"></div>
 				       <div class="modal__content">
-						   <!-- Swiper --><!-- 
+						   <!-- Swiper -->
 						  <div class="swiper-container">
 						    <div class="swiper-wrapper">
 						       <div class="swiper-slide">
@@ -167,7 +167,7 @@
 						      <div class="swiper-slide">Slide 8</div>
 						      <div class="swiper-slide">Slide 9</div>
 						      <div class="swiper-slide">Slide 10</div>
-						    </div> -->
+						    </div>
 						    <!-- Add Arrows -->
 						    <div class="swiper-button-next"></div>
 						    <div class="swiper-button-prev"></div>
@@ -185,24 +185,7 @@
 	<script src="/js/modal.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-	<script>
-		const openButton = document.getElementById("open")
-		const modal = document.querySelector(".modal")
-		const overlay = modal.querySelector(".modal__overlay")
-		const closeBtn = modal.querySelector("button")
-		function openModal(idx){
-			mySwiper.slideTo(idx)
-		    modal.classList.remove("hidden")
-		}
-		const closeModal = () => {
-		    modal.classList.add("hidden")
-		}
-		overlay.addEventListener("click", closeModal)
-		closeBtn.addEventListener("click", closeModal)
-		openButton.addEventListener("click", function() {
-			openModal(idx + 1)
-		})
-	
+	<script>	
 		var mySwiper = new Swiper('.swiper-container', {
 		  // Optional parameters
 		  loop: true,
@@ -214,74 +197,6 @@
 		  },
 		})
 		
-		var cmtArr = []
-		// 배열에 담아주기위한 반복문,
-		function ajaxSelCmtList(){
-			axios.get('/webtoon/detail', {
-				params: {
-					w_no: ${data.w_no}
-				}
-			}).then(function(res) {
-				console.log(res.data)
-				cmtArr = res.data
-				insArr()
-			})
-		}
-		
-		function insArr() {
-			cmtArr.forEach(function(item, idx) {
-				makeCmt(item, idx)
-			})
-		}
-		
-		// modal 댓글 뿌리기
-		function makeCmt(item, idx) {
-			swiperDiv = document.createElement('div')
-			swiperDiv.setAttribute('class', 'swiper-slide')
-			
-			ul = document.createElement('ul')
-			ul.setAttribute('id', 'cmt_list')
-			
-			li_rating = document.createElement('li')
-			li_rating.setAttribute('id', 'cmt_cmt_rating')
-			li_rating.innerText(`cmtList[idx].c_rating`)
-			
-			li_com = document.createElement('li')
-			li_com.setAttribute('id', 'cmt_list_com')
-			li_com.innerText(`cmtList[idx].c_com`)
-			
-			li_profile = document.createElement('li')
-			li_profile.setAttribute('id', 'cmt_list_profile')
-			
-			img = document.createElement('img')
-			img.setAttribute('class', 'pImg')
-			img.setAttribute('src', '/images/u_profile/default_image.jpg'>
-
-//			<c:choose>
-//				<c:when test='${cmtArr[idx].u_profile eq null}'>
-//					img.setAttribute('src', '/images/u_profile/default_image.jpg'>
-//				</c:when>
-//				<c:when test="${cmtArr[idx].u_profile.substring(0,4) eq 'http'}">
-//					img.setAttribute("src", "cmtArr[idx].u_profile}">
-//				</c:when>
-//				<c:otherwise>
-//					img.setAttribute("src", "/images/u_profile/user/${cmtArr[idx].u_no}/${cmtArr[idx].u_profile}">
-//				</c:otherwise>
-//			</c:choose>
-			
-			li_name = document.createElement('li')
-			li_name.setAttribute('id', 'cmt_list_name')
-			
-			ul.append(li_rating)
-			ul.append(li_com)
-			li_profile.append(img)
-			ul.append(li_profile)
-			ul.append(li_name)
-			
-			swiperDiv.append(ul)
-			mySwiper.appendSlide(swiperDiv)
-		}
-      
       function star_score() { // 남긴 별점 표시하기
     	  var score = document.querySelector("#point").value
     	  if(score != '0') {
@@ -355,7 +270,6 @@
   	 function moveToReview(){
   		 location.href = '/webtoon/cmt'
   	 }
-     ajaxSelCmtList()
    </script>
 </body>
 </html>
