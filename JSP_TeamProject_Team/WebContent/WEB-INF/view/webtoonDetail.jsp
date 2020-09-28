@@ -99,7 +99,7 @@
 		            <!-- 완료 후 보내기 -->
 		            <input type="submit" id="cmt_btn" value="${myCmt.c_rating == '' || loginUser == null ? '등록하기' : '수정하기' }">
 	            </div>
-	            <div><input type="hidden" name="w_no" value="${data.w_no }"></div>
+	            <div><input type="hidden" name="w_no" value="${data.w_no}"></div>
 	            <div><input type="hidden" name="genre_name" value="${data.genre_name }"></div>
 	            <input type="hidden" id="u_no" name="u_no" value="${loginUser.u_name }">
 	         </form>
@@ -131,48 +131,34 @@
 					</div>
 				</c:forEach>
 				<c:if test="${fn:length(cmtList) > 3}">
-					<button id="open">+${fn:length(cmtList) - 3}</button>
+					<button id="open" onclick="openModal(${data.w_no})">+${fn:length(cmtList) - 3}</button>
 					<div class="modal hidden ">
-				       <div class="modal__overlay"></div>
+				       <div class="modal__overlay" id="modalOverlay"></div>
 				       <div class="modal__content">
 						   <!-- Swiper -->
 						  <div class="swiper-container">
 						    <div class="swiper-wrapper">
+						    	<!-- 배열 시작 -->
 						       <div class="swiper-slide">
 							      <ul id="cmt_list">
 									<li id="cmt_list_rating">${cmtList[3].c_rating}</li>
 									<li id="cmt_list_com">${cmtList[3].c_com}</li>
 									<li id="cmt_list_profile">
-									<c:choose>
-										<c:when test="${cmtList[3].u_profile eq null}">
-											<img class="pImg" src="/images/u_profile/default_image.jpg">
-										</c:when>
-										<c:when test="${cmtList[3].u_profile.substring(0,4) eq 'http'}">
-											<img class="pImg" src="${cmtList[3].u_profile}">
-										</c:when>
-										<c:otherwise>
-											<img class="pImg" src="/images/u_profile/user/${cmtList[3].u_no}/${cmtList[3].u_profile}">
-										</c:otherwise>
-									</c:choose>
-								</li>
-								<li id="cmt_list_name">${cmtList[3].u_name}</li>
-							</ul>
-						</div>
-						      <div class="swiper-slide">Slide 2</div>
-						      <div class="swiper-slide">Slide 3</div>
-						      <div class="swiper-slide">Slide 4</div>
-						      <div class="swiper-slide">Slide 5</div>
-						      <div class="swiper-slide">Slide 6</div>
-						      <div class="swiper-slide">Slide 7</div>
-						      <div class="swiper-slide">Slide 8</div>
-						      <div class="swiper-slide">Slide 9</div>
-						      <div class="swiper-slide">Slide 10</div>
+										<img class="pImg" src="/images/u_profile/user/${cmtList[3].u_no}/${cmtList[3].u_profile}">
+									</li>
+									<li id="cmt_list_name">${cmtList[3].u_name}</li>
+								</ul>
+								</div>
+						    	<!-- 배열 종료  -->
+							    <div class="swiper-slide">Slide 2</div>
+							    <div class="swiper-slide">Slide 3</div>
+							    <div class="swiper-slide">Slide 4</div>
 						    </div>
 						    <!-- Add Arrows -->
-						    <div class="swiper-button-next"></div>
-						    <div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+						  	<div class="swiper-button-prev"></div>
 						  </div>
-				          <button>❌</button>
+				          <button id="modalCloseBtn">❌</button>
 				       </div>
 				    </div>  
 				</c:if>
@@ -185,12 +171,37 @@
 	<script src="/js/modal.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-	<script>	
+	<script>
+		var openButton = document.getElementById("open")
+		var modal = document.querySelector(".modal")
+			function openModal(w_no){
+	    	modal.classList.remove("hidden")
+	    	console.log('모달 열렸음')
+	    	axios.get('/webtoon/detail',{
+				params : {
+					w_no : w_no,
+					ajaxChk : 1
+				}
+			}).then(function(res) {
+				console.log(res.data)				
+				modalOverlay.addEventListener("click", closeModal)
+				modalCloseBtn.addEventListener("click", closeModal)
+			})
+		}
+		var makeSwiper_slide(arr){
+			var swiper_slide = document.createElement('div')
+			swiper_slide.classList.add('swiper-slide')
+		}
+		var closeModal = () => {
+		    modal.classList.add("hidden")
+		}
+		//회색 배경 누를 시 모달 닫기
+		//닫기 버튼 누를 시 모달 닫기
+		
+		//모달창 좌우 버튼 누를 시 반복,
 		var mySwiper = new Swiper('.swiper-container', {
-		  // Optional parameters
-		  loop: true,
-		  
-		  // Navigation arrows
+		 	 loop: true,
+		  // 네비게이션 방향키
 		  navigation: {
 		    nextEl: '.swiper-button-next',
 		    prevEl: '.swiper-button-prev',

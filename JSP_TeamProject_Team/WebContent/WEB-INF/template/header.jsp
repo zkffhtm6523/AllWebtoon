@@ -27,7 +27,6 @@
 					<button id="signin" onclick="moveToJoin()" title="회원가입">회원가입</button>
 				</div>
 				</c:when>
-				
 				<c:otherwise>
 					<div id="rightMenu2">
 						<div class="containerPImg" onclick="moveToProfile()" title="프로필 설정">
