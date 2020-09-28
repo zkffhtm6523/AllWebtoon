@@ -43,9 +43,9 @@ section .indexBlock #sel_gerne{
 	color: white;
 	margin: 25px auto;
 }
-section img{width: 180px; height:160px; border-radius: 5%;}
-section .imgBlock{display: inline-block; width: 200px; text-align: center;
-		height:210px;
+section img{width: 100%; height:80%; border-radius: 5%;}
+section .imgBlock{display: inline-block; width: 15%; text-align: center;
+	    height: 180px;
 	    vertical-align: top;
 	    margin: 10px auto;
 	    margin-left: 1%;
@@ -53,8 +53,8 @@ section .imgBlock{display: inline-block; width: 200px; text-align: center;
 section .imgBlock:hover{cursor: pointer;}
 section .listBlock{vertical-align: top;}
 section .material-icons{width: 50px; height: 30px; position: absolute; top: 58%;}
-section  #prevArrIcon{left: 4%;}
-section  #nextArrIcon{right: 4%;}
+section  #prevArrIcon{left: 2%;}
+section  #nextArrIcon{right: 2%;}
 section .material-icons:hover{cursor: pointer;}
 </style>
 <title>모두의 웹툰</title>

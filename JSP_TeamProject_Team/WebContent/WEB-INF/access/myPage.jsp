@@ -58,7 +58,6 @@ section #myPageContainer .result_view .listItem{
  	vertical-align : top;
  	top: 0px;
  	margin: 0 auto;
- 	margin-right: 5%;
 }
 section #myPageContainer .result_view .nonListItem{
 	width: 96%;
