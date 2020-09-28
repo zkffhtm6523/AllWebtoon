@@ -41,10 +41,16 @@
 	    -o-transform: scale(1.2);}
 	section ul li a{color: #0c65c6; text-decoration: none;}
     section ul li:nth-child(2) {font-weight: bold; font-size: 1.2em; padding-top: 1px;}
-    section ul li:nth-child(3) {line-height: 25px;}
+    section ul li:nth-child(3) {line-height: 25px; }
     section ul li:not(:first-child){margin-top: 15px;}
     section ul li .list{color: gray; font-weight: gray; font-weight: bold; margin-right:10px;}
     section ul .thumbnail{width: 180px; height: 160px; margin-top: 10px;}
+    section ul #writer {
+    width:500px;
+   	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    }
 </style>
 </head>
 <body>
@@ -62,7 +68,7 @@
 		           <li><img class="thumbnail" src=" ${item.w_thumbnail}" onclick="moveToDetail(${item.w_no	})"></li>
 		           <li><a href="/webtoon/detail?w_no=${item.w_no}">${item.w_title }</a></li>
 		           <li><span class="list" id="ctnt">내용</span>${item.w_story }</li>
-		           <li><span class="list">작가</span>${item.w_writer}</li>
+		           <li id="writer"><span class="list">작가</span>${item.w_writer}</li>
 		           <li><span class="list">장르</span>${item.genre_name}</li>
 				</ul>
 			</div>

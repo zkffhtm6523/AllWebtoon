@@ -215,7 +215,7 @@ section .name{
 									<li>${list[i].w_title}</li>
 									<span class="material-icons">grade</span>
 									<li>${list[i].c_rating}</li>
-									<c:if test="${list[i].c_com != null}">
+									<c:if test="${list[i].c_com != null && list[i].c_com != ''}">
 										<span class="material-icons">insert_comment</span>
 									</c:if>
 								</ul>
@@ -301,7 +301,11 @@ function makeListItem(result_view, res, delNum, addNum) {
 	ulList.append(starIcon)
 	//평점 li 만들
 	var grade = document.createElement('li')
-	grade.innerHTML = res.data.c_rating
+	if(res.data.c_rating.toString().indexOf(".") == -1){
+		grade.innerHTML = res.data.c_rating + ".0"
+	}else {
+		grade.innerHTML = res.data.c_rating
+	}
 	ulList.append(grade)
 	//cmtIcon 만들기
 	if(res.data.c_com != null){

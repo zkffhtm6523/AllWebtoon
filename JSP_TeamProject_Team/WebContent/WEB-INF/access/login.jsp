@@ -81,7 +81,9 @@
             <div class="snsbtn"><img class="snsimg" src="/images/login_logo/kakao_btn.PNG" id="kakao" onclick="goKakao()"></div>
             <div class="snsbtn"><img class="snsimg" src="/images/login_logo/naver_btn.PNG" id="naver" onclick="goNaver('${state}')"></div>
             <div class="snsbtn"><img class="snsimg" src="/images/login_logo/google_btn.PNG" id="google" onclick="goGoogle()"></div>  	
+        	<a href="/newPw">비밀번호를 잊으셨나요?</a>
         </div>
+        
     </section>
 	<jsp:include page="../template/footer.jsp"/>
 	</div>	

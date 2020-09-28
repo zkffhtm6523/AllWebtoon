@@ -122,7 +122,9 @@ public class WebtoonCmtSer extends HttpServlet {
       
       param.setU_no(u_no);
       param.setW_no(w_no);
-      param.setC_com(c_com);
+      if(!"".equals(c_com)) {
+    	  param.setC_com(c_com);
+      }
       param.setC_rating(c_rating);
      // vo.setU_id(loginUser.getU_id());
       

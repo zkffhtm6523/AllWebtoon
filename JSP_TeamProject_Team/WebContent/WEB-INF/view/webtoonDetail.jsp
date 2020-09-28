@@ -23,11 +23,16 @@
    #title{width: 60%; margin-top: 10px;}
    #genre {width: 60%; margin-top: 10px;}
    .startRadio {width: 100%; margin-top: 10px; display: inline-block;}
-   #story {width: 100%; margin-top: 10px;}
+   #story {width: 80%; margin-top: 10px;}
    #title {font-style: normal;font-weight: bold;font-size: 40px;line-height: 52px;}
    #title a {color: black;}
-   #writer {font-style: normal;font-weight: bold;font-size: 25px;line-height: 34px;}
-   #writer a {color: black;}
+   #writer {font-style: normal;font-weight: bold;font-size: 25px;line-height: 34px;
+  	width:500px;
+   	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+   }
+   #writer a {color: black; }
    #platform {font-style: normal;font-weight: bold;font-size: 25px;line-height: 34px;}
    #platform a {color:#65B832;}
    #genre {font-style: normal;font-weight: 300;font-size: 18px;line-height: 21px;}

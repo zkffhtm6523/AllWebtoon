@@ -16,7 +16,7 @@ public class MyPageDAO {
 		String sql = 
 				  " SELECT A.w_thumbnail,"
 				+ " CASE WHEN char_length(A.w_title) > 8 THEN concat(left(A.w_title, 8), '...') ELSE A.w_title END as w_title,"
-				+ " B.c_rating, A.w_no, B.c_com " 
+				+ " format(B.c_rating,1) as c_rating, A.w_no, B.c_com " 
 				+ " FROM t_webtoon A " 
 				+ " INNER JOIN t_comment B " 
 				+ " ON A.w_no = B.w_no " 
@@ -42,15 +42,17 @@ public class MyPageDAO {
 					vo.setW_no(rs.getInt("w_no"));
 					vo.setC_com(rs.getString("c_com"));
 					
+					
 					list.add(vo);
 				}
 				return 1;
 			}
 		});
 	}
+	
 	public static int selRecentlyWebtoon(List<WebtoonCmtDomain> list, int u_no) {
 		String sql = 
-				" select a.w_no, a.w_title, a.w_thumbnail, B.c_com, B.c_rating, c.w_no, c.u_no " 
+				" select a.w_no, a.w_title, a.w_thumbnail, B.c_com, format(B.c_rating,1) as c_rating, c.w_no, c.u_no " 
 				+" from t_webtoon A "
 				+" left join t_comment B "
 				+" on a.w_no = B.w_no and B.u_no = ? "

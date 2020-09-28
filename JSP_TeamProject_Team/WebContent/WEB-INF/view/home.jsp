@@ -188,7 +188,7 @@ section .material-icons:hover{cursor: pointer;}
 		    indexBlock.append(listBlock)
 		    listBlock.classList.add('listBlock')
 		    
-	    	
+	    	makeItem(listBlock, list, result, 'n')
 	    	
 	  	}
 		    
