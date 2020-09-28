@@ -1,12 +1,9 @@
-/**
- * 
- 
+
 	const openButton = document.getElementById("open")
 	const modal = document.querySelector(".modal")
 	const overlay = modal.querySelector(".modal__overlay")
 	const closeBtn = modal.querySelector("button")
-	function openModal(idx){
-		mySwiper.slideTo(idx)
+	function openModal(){
 	    modal.classList.remove("hidden")
 	}
 	const closeModal = () => {
@@ -14,7 +11,5 @@
 	}
 	overlay.addEventListener("click", closeModal)
 	closeBtn.addEventListener("click", closeModal)
-	openButton.addEventListener("click", function() {
-		openModal(idx + 1)
-	})
-	*/
+	openButton.addEventListener("click", openModal)
+	
