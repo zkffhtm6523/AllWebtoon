@@ -79,13 +79,24 @@ public class WebtoonDetailSer extends HttpServlet {
 		         myCmt.setW_no(w_no);
 		         myCmt.setU_no(loginUser.getU_no());
 		         WebtoonCmtVO param = WebtoonCmtDAO.selCmt(myCmt);
+		         
 		         request.setAttribute("myCmt", param);
 		         // ---------------------------------------
 	      }
 	      // 모든 댓글 뿌리기 --------------------------------
-	      List<WebtoonCmtDomain> list = WebtoonCmtDAO.selCmtList(w_no);
-	      System.out.println("detail here??");
-	      request.setAttribute("cmtList", list); 
+	      List<WebtoonCmtDomain> cmtList = WebtoonCmtDAO.selCmtList(w_no);
+	      for (int i = 0; i < cmtList.size(); i++) {
+	    		String u_profile = cmtList.get(i).getU_profile();
+	    		if(u_profile == null) {
+	    			cmtList.get(i).setU_profile("/images/u_profile/default_image.jpg");
+	    		}else if("http".equals(u_profile.substring(0, 4))){
+	    			cmtList.get(i).setU_profile(u_profile);
+	    		}else {
+	    			int u_no = cmtList.get(i).getU_no();
+	    			cmtList.get(i).setU_profile("/images/u_profile/user/"+u_no+"/"+u_profile);
+	    		}
+			}
+	      request.setAttribute("cmtList", cmtList); 
 	      ViewResolver.viewForward("webtoonDetail", request, response);
 	      // ---------------------------------------------------
       }
