@@ -50,20 +50,21 @@ public class MyPageDAO {
 	}
 	public static int selRecentlyWebtoon(List<WebtoonCmtDomain> list, int u_no) {
 		String sql = 
-				" SELECT A.w_no, A.u_no, A.r_dt, B.w_title, B.w_thumbnail, C.c_com, C.c_rating "
-			+	" FROM t_selwebtoon A "
-			+	" INNER JOIN t_webtoon B "
-			+	" ON A.w_no = B.w_no "
-			+	" left JOIN t_comment C "
-			+	" ON B.w_no = C.w_no "
-			+	" WHERE A.u_no = ? "
-			+	" ORDER BY A.r_dt desc ";
+				  " select a.w_no, a.w_title, a.w_thumbnail, B.c_com, B.c_rating, c.w_no, c.u_no, C.r_dt "
+				+ " from t_webtoon A "
+				+ " left join t_comment B "
+				+ " on a.w_no = B.w_no and B.u_no = ? " 
+				+ " inner join t_selwebtoon C "
+				+ " on a.w_no = c.w_no "
+				+ " where c.u_no = ? "
+				+ " order by C.r_dt desc ";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, u_no);
+				ps.setInt(2, u_no);
 			}
 			
 			@Override
