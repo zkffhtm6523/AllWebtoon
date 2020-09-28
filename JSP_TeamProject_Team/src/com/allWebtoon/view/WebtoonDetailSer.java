@@ -1,7 +1,7 @@
 package com.allWebtoon.view;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,6 +18,7 @@ import com.allWebtoon.vo.UserVO;
 import com.allWebtoon.vo.WebtoonCmtDomain;
 import com.allWebtoon.vo.WebtoonCmtVO;
 import com.allWebtoon.vo.WebtoonVO;
+import com.google.gson.Gson;
 
 @WebServlet("/webtoon/detail")
 public class WebtoonDetailSer extends HttpServlet {
@@ -72,9 +73,20 @@ public class WebtoonDetailSer extends HttpServlet {
       // 다른 사람 댓글 뿌리기
       List<WebtoonCmtDomain> list = WebtoonCmtDAO.selCmtList(w_no);
       request.setAttribute("cmtList", list); 
-      // 다른 사람 댓글 뿌리기 끝
-      
       ViewResolver.viewForward("webtoonDetail", request, response);
+
+      if(list.size() > 3) {
+    	  Gson gson = new Gson();
+    	  
+    	  String json = gson.toJson(list);
+    	  System.out.println("json : " + json);
+    	  response.setCharacterEncoding("UTF-8");
+    	  response.setContentType("application/json");
+    	  PrintWriter out = response.getWriter();
+    	  out.print(json);
+      }
+      // 다른 사람 댓글 뿌리기 끝
+      // json 사용시 아래 부분이 필요한지 안한지
    }
    
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
