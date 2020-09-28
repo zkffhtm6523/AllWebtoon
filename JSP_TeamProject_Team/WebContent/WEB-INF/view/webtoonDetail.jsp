@@ -188,12 +188,17 @@
 					ajaxChk : 1
 				}
 			}).then(function(res) {
-				console.log(res.data)				
+				console.log(res.data)
+				for (var i in res.data) {
+					console.log(res.data[i])
+				}
+				//makeSwiper_slide 반복문 돌려서 만들기
+				makeSwiper_slide(arr)
 				modalOverlay.addEventListener("click", closeModal)
 				modalCloseBtn.addEventListener("click", closeModal)
 			})
 		}
-		var makeSwiper_slide(arr){
+		function makeSwiper_slide(arr){
 			var swiper_slide = document.createElement('div')
 			swiper_slide.classList.add('swiper-slide')
 		}
