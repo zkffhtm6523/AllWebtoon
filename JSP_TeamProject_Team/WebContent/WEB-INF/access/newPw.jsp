@@ -190,6 +190,7 @@ section .newPw {
 					console.log(res.data)
 					if(res.data=='success'){
 						alert('비밀번호가 재설정 되었습니다')
+						location.href = '/login'
 					} else{
 						alert('에러가 발생했습니다. 다시 시도해 주세요 ')
 					}
