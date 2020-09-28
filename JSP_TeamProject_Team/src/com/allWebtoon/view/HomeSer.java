@@ -27,9 +27,6 @@ public class HomeSer extends HttpServlet {
 		//홈에 이미지 출력할 배열 생성
 		//세션 정보 담긴 변수
 		UserVO loginUser = MyUtils.getLoginUser(request);
-	 	if(loginUser != null) {
-	 		System.out.println("home get profile : "+loginUser.getU_profile());
-	 	}
 		
 		ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
 		ArrayList<WebtoonVO> gList = new ArrayList<WebtoonVO>();
@@ -49,10 +46,6 @@ public class HomeSer extends HttpServlet {
 	//	list = WebtoonListDAO.selRandomWebtoonList(list,15);
 		gList = WebtoonListDAO.selRandomWebtoonList(gList,0, 15,"");
 		genreList = WebtoonListDAO.selGenre();
-		
-		for(String g : genreList) {
-			System.out.println(g);
-		}
 		
 		request.setAttribute("list", list);
 		request.setAttribute("gList", gList);

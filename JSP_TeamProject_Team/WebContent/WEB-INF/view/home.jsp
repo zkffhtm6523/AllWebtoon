@@ -9,16 +9,53 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
 	/*section 시작*/
-	section {margin: 0 auto; clear: both;}
-	section h1{margin-left: 20px;margin-top: 30px;}
-	section .indexBlock {margin:0 auto; width: 1200px; height : 260px; margin-bottom: 30px;position: relative;}
-	section img{width: 180px; height:160px; border-radius: 5%;}
-	section .imgBlock{display: inline-block; width: 200px; text-align: center;
-		   margin-right: -20px; vertical-align: top; margin-left: 50px;}
-	section .imgBlock:hover{cursor: pointer;}
-	section .listBlock{vertical-align: top;}
-	section .material-icons{width: 50px; height: 30px; position: absolute; top: 130px; margin-left: 20px;}
-	section .material-icons:hover{cursor: pointer;}
+section{
+	width:100%;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+	background-color: #F8F8F8;
+	border-top: 1px solid #EAEAEA;
+	text-align: center;
+}
+section .indexBlock {
+	position: relative;
+	width: 80%;
+	margin:20px auto;
+}
+section .indexBlock h1{
+	position: relative;
+	top:10%;
+	left: -35%;
+	display: inline-block;
+}
+section .indexBlock hr{
+ 	width: 85%;
+ 	margin-right: 8%;
+}
+section .indexBlock #sel_gerne{
+	position: absolute;
+	width: 120px;
+	padding: 5px;
+	border-radius: 5px;
+	border:none;
+	right:10%;
+	background-color: #4FA2C7;
+	color: white;
+	margin: 25px auto;
+}
+section img{width: 100%; height:80%; border-radius: 5%;}
+section .imgBlock{display: inline-block; width: 15%; text-align: center;
+	    height: 180px;
+	    vertical-align: top;
+	    margin: 10px auto;
+	    margin-left: 1%;
+	    margin-right: 1%;}
+section .imgBlock:hover{cursor: pointer;}
+section .listBlock{vertical-align: top;}
+section .material-icons{width: 50px; height: 30px; position: absolute; top: 58%;}
+section  #prevArrIcon{left: 2%;}
+section  #nextArrIcon{right: 2%;}
+section .material-icons:hover{cursor: pointer;}
 </style>
 <title>모두의 웹툰</title>
 </head>
@@ -28,20 +65,15 @@
 		<section></section>
 		<jsp:include page="../template/footer.jsp"/>
 </div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
-	
-	var genrelist = []
-	
-	
-	<c:forEach items="${genreList}" var="item">
-		var obj = '${item}'
-	
-		genrelist.push(obj)
-	</c:forEach>
-	
+		var genrelist = []
+		
+		<c:forEach items="${genreList}" var="item">
+			var obj = '${item}'
+		
+			genrelist.push(obj)
+		</c:forEach>
 	
 		function ToonVO(w_no, w_title, w_thumbnail, w_plat_no){
 			this.w_no = w_no;
@@ -94,7 +126,6 @@
 	  	
 	  	function selectGenre(){
     		var selectText = sel_genre.options[sel_genre.selectedIndex].text;
-    		
     	}
 	    
 	  	function makeImage(list, title, result, genre){
@@ -158,12 +189,11 @@
 		    
 	    	
 	    	makeItem(listBlock, list, result,'n')
-	    	
 	  	}
 		    
 		    //좌측 화살표 아이콘 집어넣기
 		    
-		function makeItem(listBlock, list, result, yn_genre){
+			function makeItem(listBlock, list, result, yn_genre){
 		    	
 			//배열 인덱스 및 반복문 체크용
 		    let index = 0;
@@ -173,6 +203,7 @@
 		    icons.classList.add('material-icons')
 		    icons.innerHTML = 'keyboard_arrow_left'
 		    icons.title = '이전 목록'
+		    icons.id = 'prevArrIcon'
 	    	icons.addEventListener('click',function(){
 	    		if(index - 5 > 0){
 	    		var imgBlock = document.createElement('div')
@@ -218,6 +249,7 @@
 		    icons2.classList.add('material-icons')
 		    icons2.innerHTML = 'keyboard_arrow_right'
 		    icons2.title = '다음 목록'
+		    icons2.id = 'nextArrIcon'
 		    icons2.addEventListener('click',function(){
 		    	 if(list.length > index){
 			    	 var imgBlock = document.createElement('div')
@@ -269,11 +301,11 @@
 	  	  }
 	  	//마이 페이지로 넘어가기
 	  	function moveToMyPage() {
-	  		location.href = '/myPage?i_user=${loginUser.u_no}'
+	  		location.href = '/myPage'
 	  	}
 	  	//프로필로 넘어가기
 	  	function moveToProfile() {
-	  		location.href = '/profile?i_user=${loginUser.u_no}'
+	  		location.href = '/profile'
 	  	}
 	  	//로그아웃하기
 	  	function moveToLogOut() {

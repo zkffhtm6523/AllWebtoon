@@ -16,18 +16,15 @@ section{
  		text-align: center;
  	}
 section #listBlock {width:90%; margin:0 auto;}  
-section .itembox {width:30%; margin:30px 80px; display: inline-block; position:relative;}
+section .itembox {width:20%; margin:30px 80px; display: inline-block; position:relative;}
 section dl {position:relative;}
 section dt {position:absolute; bottom:60px; left:50%; white-space:nowrap; transform:translate(-50%,-50%);}
 section .writer {white-space:nowrap;}
-section img {height:170px; margin-bottom:30px; border-radius:30%;}
-
-
+section img {width:170px; height:170px; margin-bottom:30px; border-radius:30%; cursor: pointer;}
 section .startRadio {display: inline-block; overflow: hidden; height: 40px;}
 section .startRadio:after { content: ""; display: block; position: relative; z-index: 10; height: 40px;
         background: url('/images/star_Radio.png');
         repeat-x 0 0; background-size: contain; pointer-events: none;}
-        
 section .startRadio__box { position: relative; z-index: 1; float: left; width: 20px; height: 40px;cursor: pointer;}
 section .startRadio input { opacity: 0 !important; height: 0 !important;width: 0 !important;position: absolute !important;}
 section .startRadio input:checked + .startRadio__img { background-color: #ffd700;}
@@ -44,7 +41,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		<div class="itembox" id="itembox_${status.index }">
 			<dl>
 				<dt>${list[status.index].w_title }</dt>
-				<dd><img src="${list[status.index].w_thumbnail }"></dd>
+				<dd><img src="${list[status.index].w_thumbnail }" title="${list[status.index].w_title}"></dd>
 				<dd class="writer">${list[status.index].w_writer}</dd>
 				<dd>
 				   <div class="startRadio">
@@ -57,9 +54,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 			                    	${(cmtlist.c_rating*2 == rating_item) ? 'checked' : ''}
 		                    	</c:if>
 		                    </c:forEach>
-	                    	
-	                    	> 
-	                    	
+	                    		> 
 	                    	<span class="startRadio__img"><span class="blind"></span></span>
 	                    </label>
 		                </c:forEach>
@@ -69,11 +64,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 			             	<c:if test="${cmtlist.w_no == item.w_no}">
 			             		value="${cmtlist.c_rating}"
 			             	</c:if>
-		             	</c:forEach>
-		            
-		             	
-		             	 required>
-		             	
+		             	</c:forEach>required>
 		         	</div>
 		      	</dd>
 			</dl>
@@ -161,6 +152,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		         var title = document.createElement('dt')
 		         var imgbox = document.createElement('dd')
 		         var img = document.createElement('img')
+		         img.title = item.w_title
 		         img.setAttribute('src',item.w_thumbnail)
 		         imgbox.append(img)
 		         var writer = document.createElement('dd')

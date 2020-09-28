@@ -7,14 +7,20 @@
 <meta charset="UTF-8">
 <title>모두의 웹툰(검색 결과)</title>
 <style type="text/css">
-    section {width:100%; margin: 0 auto; clear: both;}
-    section .content{width: 80%; margin: 0 auto;}
+    section{
+	width:100%;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+	background-color: #F8F8F8;
+	border-top: 1px solid #EAEAEA;
+}
+    section .content{width: 70%; margin: 30px auto;}
     section img{width: 180px; border-radius: 5%;}
     section .content hr{width: 100%;}
     section .aboveContainer h2{margin-top: 0px; width: 100%; margin-left: 20px;}
-    section .webtoonContainer { }
+    section .webtoonContainer {margin: 0 auto; padding: 5px;}
     section ul {list-style-type: none; 
-    height:190px; clear: both; margin: 0 auto;padding: 0;}
+    clear: both; margin: 0 auto;padding: 0;}
     section ul li:nth-child(1) {float: left; padding: 30px; padding-top: 0px;}
     section ul li img{ 
     	border-radius: 10%;

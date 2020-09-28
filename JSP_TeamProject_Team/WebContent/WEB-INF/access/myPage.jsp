@@ -40,13 +40,13 @@ section #myPageContainer .result_view{
 	padding-bottom: 10px;
 	position: relative;
 }
-section #myPageContainer .result_view > :nth-child(2){
+section #myPageContainer .result_view > #prevArrIcon{
  	position: absolute;
  	top: 50%;
  	left: 2%;
  	cursor: pointer;
 }
-section #myPageContainer .result_view > :nth-child(8){
+section #myPageContainer .result_view > #nextArrIcon{
  	position: absolute;
  	top: 50%;
  	right: 2%;
@@ -54,7 +54,18 @@ section #myPageContainer .result_view > :nth-child(8){
 }
 
 section #myPageContainer .result_view .listItem{
- 	margin: 0 auto; 
+ 	position: relative;
+ 	vertical-align : top;
+ 	top: 0px;
+ 	margin: 0 auto;
+}
+section #myPageContainer .result_view .nonListItem{
+	width: 96%;
+	margin: 0 auto;
+}
+section #myPageContainer .result_view .nonListItem h2{
+	text-align: center;
+	font-size: 1.3em;	
 }
 section #myPageContainer .result_view .listItem ul{
  	padding-left: 10px;
@@ -93,7 +104,7 @@ section .profileImg{
  	overflow: hidden;
  	line-height: 30px;
  }
-section h2{
+section >  #myPageContainer > .result_view > h2{
 	text-align: left;
 	margin-left: 20px;
 }
@@ -116,6 +127,7 @@ section .name{
  section #myPageContainer .printImage ul li{
  	margin: 15px auto;
  }
+#loginUser{color: gray; font-weight: bold; font-size: 1.1em;}
 .result_view .listItem {display: inline-block;}
 .result_view .listItem ul {list-style-type:none;}
 .result_view .listItem img {width: 125px; height: 100px;}
@@ -162,23 +174,63 @@ section .name{
 				</li>
 			</ul>
 			</div>
-			<div class="result_view">
-				<h2>${loginUser.u_name}님의 평가한 웹툰</h2>
-				<c:if test="${fn:length(list) > 0}">
-					<span class="material-icons" onclick="selCmtMinus()">keyboard_arrow_left</span>
-					<c:forEach var="i" begin="0" end="4">
-						<div class="listItem">
-							<ul>
-								<li><a href="/webtoon/detail?w_no=${list[i].w_no}"><img src="${list[i].w_thumbnail}" title="${list[i].w_title}"></a></li>
-								<li>${list[i].w_title}</li>
-								<span class="material-icons">grade</span>
-								<li>${list[i].c_rating}</li>
-								<span class="material-icons">insert_comment</span>
-							</ul>
+			<div class="result_view" id="view_list">
+				<h2><span id="loginUser">${loginUser.u_name}님</span> 최근 조회 웹툰</h2>
+				<c:choose>
+					<c:when test="${recentWebtoon != null}">
+						<c:forEach var="i" begin="0" end="${fn:length(recentWebtoon) <= 5 ? fn:length(recentWebtoon)-1 : 4 }">
+							<div class="listItem">
+								<ul>
+									<li><a href="/webtoon/detail?w_no=${recentWebtoon[i].w_no}"><img src="${recentWebtoon[i].w_thumbnail}" title="${recentWebtoon[i].w_title}"></a></li>
+									<li>${recentWebtoon[i].w_title}</li>
+									<c:if test="${recentWebtoon[i].c_rating != 0}">
+										<span class="material-icons">grade</span>
+										<li>${recentWebtoon[i].c_rating}</li>
+									</c:if>
+									<c:if test="${recentWebtoon[i].c_com != null}">
+										<span class="material-icons">insert_comment</span>
+									</c:if>
+								</ul>
+							</div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<div class="nonListItem">
+							<h2>조회한 웹툰이 없습니다.</h2>
 						</div>
-					</c:forEach>
-					<span class="material-icons" onclick="selCmtPlus()">keyboard_arrow_right</span>
-				</c:if>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div class="result_view" id="cmt_list">
+				<h2><span id="loginUser">${loginUser.u_name}님</span> 평가 웹툰</h2>
+				<c:choose>
+					<c:when test="${list != null}">
+						<c:if test="${fn:length(list) > 5}">
+							<span class="material-icons" id="prevArrIcon" onclick="selCmtMinus()">keyboard_arrow_left</span>
+						</c:if>
+						<c:forEach var="i" begin="0" end="${fn:length(list) <= 5 ? fn:length(list)-1 : 4 }">
+							<div class="listItem">
+								<ul>
+									<li><a href="/webtoon/detail?w_no=${list[i].w_no}"><img src="${list[i].w_thumbnail}" title="${list[i].w_title}"></a></li>
+									<li>${list[i].w_title}</li>
+									<span class="material-icons">grade</span>
+									<li>${list[i].c_rating}</li>
+									<c:if test="${list[i].c_com != null}">
+										<span class="material-icons">insert_comment</span>
+									</c:if>
+								</ul>
+							</div>
+						</c:forEach>
+						<c:if test="${fn:length(list) > 5}">
+							<span class="material-icons" id="nextArrIcon" onclick="selCmtPlus()">keyboard_arrow_right</span>
+						</c:if>
+					</c:when>
+					<c:otherwise>
+						<div class="nonListItem">
+							<h2>평가한 웹툰이 없습니다.</h2>
+						</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</section>
@@ -198,50 +250,10 @@ function selCmtMinus() {
 				page : cmtIdx - 5
 			}
 		}).then(function(res){
-			console.log('ajax 결과 : '+res.data)
-			var result_view = document.querySelector('.result_view')
-			//listItem 만들기 
-			var listItem = document.createElement('div')
-			listItem.classList.add('listItem')
-			//ul 만들기 
-			var ulList = document.createElement('ul')
-			listItem.append(ulList)
-			//li 만들기 
-			var liImg = document.createElement('li')
-			ulList.append(liImg)
-			//a태그 만들기 
-			var aImg = document.createElement('a')
-			aImg.href = '/webtoon/detail?w_no='+res.data.w_no
-			liImg.append(aImg)
-			//이미지 태그 만들기 
-			var addImg = document.createElement('img')
-			addImg.src = res.data.w_thumbnail
-			addImg.title = res.data.w_title
-			aImg.append(addImg)
-			//타이틀 만들기 
-			var liTitle = document.createElement('li')
-			liTitle.innerText = res.data.w_title
-			ulList.append(liTitle)
-			//starIcon 만들기 
-			var starIcon = document.createElement('span')
-			starIcon.classList.add('material-icons')
-			starIcon.innerHTML = 'grade'
-			ulList.append(starIcon)
-			//평점 li 만들
-			var grade = document.createElement('li')
-			grade.innerHTML = res.data.c_rating
-			ulList.append(grade)
-			//cmtIcon 만들기
-			var cmtIcon = document.createElement('span')
-			cmtIcon.classList.add('material-icons')
-			cmtIcon.innerHTML = 'insert_comment'
-			ulList.append(cmtIcon)
-			result_view.insertBefore(listItem,result_view.children[2])
-			result_view.children[7].remove();
+			//각 웹툰별 아이템 박스 만들기(json, delNum, addNum)
+			makeListItem(cmt_list, res, 7, 2)
 			cmtIdx--;
-			console.log(cmtIdx)
 		})
-		
 	}
 }
 function selCmtPlus() {
@@ -250,53 +262,57 @@ function selCmtPlus() {
 			page : cmtIdx + 1
 		}
 	}).then(function(res) {
-		console.log(res.data)
 		if(res.data == 0){
 			alert('마지막입니다')
 		}else{
-			var result_view = document.querySelector('.result_view')
-			//listItem 만들기 
-			var listItem = document.createElement('div')
-			listItem.classList.add('listItem')
-			//ul 만들기 
-			var ulList = document.createElement('ul')
-			listItem.append(ulList)
-			//li 만들기 
-			var liImg = document.createElement('li')
-			ulList.append(liImg)
-			//a태그 만들기 
-			var aImg = document.createElement('a')
-			aImg.href = '/webtoon/detail?w_no='+res.data.w_no
-			liImg.append(aImg)
-			//이미지 태그 만들기 
-			var addImg = document.createElement('img')
-			addImg.src = res.data.w_thumbnail
-			addImg.title = res.data.w_title
-			aImg.append(addImg)
-			//타이틀 만들기 
-			var liTitle = document.createElement('li')
-			liTitle.innerText = res.data.w_title
-			ulList.append(liTitle)
-			//starIcon 만들기 
-			var starIcon = document.createElement('span')
-			starIcon.classList.add('material-icons')
-			starIcon.innerHTML = 'grade'
-			ulList.append(starIcon)
-			//평점 li 만들
-			var grade = document.createElement('li')
-			grade.innerHTML = res.data.c_rating
-			ulList.append(grade)
-			//cmtIcon 만들기
-			var cmtIcon = document.createElement('span')
-			cmtIcon.classList.add('material-icons')
-			cmtIcon.innerHTML = 'insert_comment'
-			ulList.append(cmtIcon)
-			
-			result_view.insertBefore(listItem,result_view.children[7])
-			result_view.children[2].remove();
+			//각 웹툰별 아이템 박스 만들기(넣을 div 박스, json, delNum, addNum)
+			makeListItem(cmt_list, res, 2, 7)
 			cmtIdx++;
 		}
 	})
+}
+function makeListItem(result_view, res, delNum, addNum) {
+	//listItem 만들기 
+	var listItem = document.createElement('div')
+	listItem.classList.add('listItem')
+	//ul 만들기 
+	var ulList = document.createElement('ul')
+	listItem.append(ulList)
+	//li 만들기 
+	var liImg = document.createElement('li')
+	ulList.append(liImg)
+	//a태그 만들기 
+	var aImg = document.createElement('a')
+	aImg.href = '/webtoon/detail?w_no='+res.data.w_no
+	liImg.append(aImg)
+	//이미지 태그 만들기 
+	var addImg = document.createElement('img')
+	addImg.src = res.data.w_thumbnail
+	addImg.title = res.data.w_title
+	aImg.append(addImg)
+	//타이틀 만들기 
+	var liTitle = document.createElement('li')
+	liTitle.innerText = res.data.w_title
+	ulList.append(liTitle)
+	//starIcon 만들기 
+	var starIcon = document.createElement('span')
+	starIcon.classList.add('material-icons')
+	starIcon.innerHTML = 'grade'
+	ulList.append(starIcon)
+	//평점 li 만들
+	var grade = document.createElement('li')
+	grade.innerHTML = res.data.c_rating
+	ulList.append(grade)
+	//cmtIcon 만들기
+	if(res.data.c_com != null){
+		var cmtIcon = document.createElement('span')
+		cmtIcon.classList.add('material-icons')
+		cmtIcon.innerHTML = 'insert_comment'
+		ulList.append(cmtIcon)
+	}
+	
+	result_view.insertBefore(listItem,result_view.children[addNum])
+	result_view.children[delNum].remove();
 }
 
 function moveToDetail(w_no) {
