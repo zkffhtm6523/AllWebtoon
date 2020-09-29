@@ -45,22 +45,8 @@ public class JoinSer extends HttpServlet {
 		param.setChkProfile(chkProfile);
 		param.setU_joinPath(u_joinPath);
 		
-		//String u_salt = SecurityUtils.generateSalt();
-		//String encrypt = SecurityUtils.getEncrypt(u_pw, u_salt);
-		
-		//param.setU_salt(u_salt);
-		//param.setU_password(encrypt);
-		
-		System.out.println(param.getU_id());
-		System.out.println(param.getU_password());
-		System.out.println(param.getU_name());
-		System.out.println(param.getU_email());
-		System.out.println(param.getU_birth());
-		System.out.println(param.getGender_name());
-		
 		int result= UserDAO.insUser(param);
 	
-		System.out.println("result : "  + result);
 		if(result != 1) {
 			//'에러가 발생하였습니다. 관리자에게 문의 ㄱ'
 			request.setAttribute("msg", "에러가 발생했습니다. 관리자에게 문의 ㄱ");
@@ -72,16 +58,16 @@ public class JoinSer extends HttpServlet {
 		
 		param.setU_birth(null);
 		
-		int result2 = UserDAO.selUser(param);
-		System.out.println("result2 : "  + result2);
-		System.out.println(param.getR_dt());
-		System.out.println(param.getM_dt());
+		result = UserDAO.selUser(param);
 		
-		System.out.println("가입 후 u_no : "  + param.getU_no());
-		HttpSession hs = request.getSession();
-		hs.setAttribute(Const.LOGIN_USER,param);
-		
-		response.sendRedirect("/webtoon/cmt");
+		if(result == 1) {
+			HttpSession hs = request.getSession();
+			hs.setAttribute(Const.LOGIN_USER,param);
+			
+			response.sendRedirect("/webtoon/cmt");
+		} else {
+			response.sendRedirect("/login");
+		}
 		
 	}
 }
