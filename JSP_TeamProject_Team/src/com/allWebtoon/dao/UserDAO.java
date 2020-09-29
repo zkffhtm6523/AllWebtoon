@@ -21,11 +21,11 @@ public class UserDAO {
 		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
 			@Override
 			public void update(PreparedStatement ps) throws SQLException {
-				
-				//param.setU_salt(u_salt);
-				//param.setU_encrypt();
+				String u_salt = SecurityUtils.generateSalt();
+				param.setU_salt(u_salt);
+				param.setU_encrypt(SecurityUtils.getEncrypt(param.getU_password(), u_salt));
 				ps.setNString(1,param.getU_id());
-				ps.setNString(2, param.getU_password());
+				ps.setNString(2, param.getU_encrypt());
 				ps.setNString(3, param.getU_name());
 				ps.setNString(4, param.getU_birth());
 				if(param.getGender_name().equals("female") || param.getGender_name().equals("여성")) {
@@ -113,7 +113,7 @@ public class UserDAO {
 				if(rs.next()) {					//레코드가 있음
 					String dbPw = rs.getNString("u_password");
 					String salt = rs.getString("u_salt");
-					if(param.getU_birth() == null && dbPw.equals(param.getU_password())) {	//로그인 성공(비밀번호 맞을 경우)
+					if(param.getU_birth() == null && dbPw.equals(SecurityUtils.getEncrypt(param.getU_password(), salt))) {	//로그인 성공(비밀번호 맞을 경우)
 						int i_user = rs.getInt("u_no");
 						String nm = rs.getNString("u_name");
 						param.setU_password(null);

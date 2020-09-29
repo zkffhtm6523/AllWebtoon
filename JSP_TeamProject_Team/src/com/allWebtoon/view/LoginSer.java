@@ -55,6 +55,7 @@ public class LoginSer extends HttpServlet {
 		ViewResolver.accessForward("login", request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String u_id = request.getParameter("u_id");
 		String u_pw = request.getParameter("u_pw");
 		
