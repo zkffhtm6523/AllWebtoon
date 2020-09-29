@@ -76,7 +76,7 @@ public class WebtoonCmtDAO {
 	}
 
 	public static List<WebtoonCmtDomain> selCmtList(int w_no) {
-		List<WebtoonCmtDomain> list = new ArrayList();
+		List<WebtoonCmtDomain> list = new ArrayList<WebtoonCmtDomain>();
 
 		String sql = " SELECT A.u_no, A.u_name, A.u_profile, CASE WHEN char_length(B.c_com) > 20 THEN concat(left(B.c_com, 20), '...') ELSE B.c_com END as c_com, B.c_rating " 
 				+ " FROM t_user A " 
@@ -95,14 +95,15 @@ public class WebtoonCmtDAO {
 			@Override
 			public int executeQuery(ResultSet rs) throws SQLException {
 				while (rs.next()) {
-					WebtoonCmtDomain vo = new WebtoonCmtDomain();
-					vo.setU_name(rs.getNString("u_name"));
-					vo.setU_profile(rs.getString("u_profile").equals("") ? null : rs.getString("u_profile"));
-					vo.setC_com(rs.getString("c_com"));
-					vo.setC_rating(rs.getFloat("c_rating"));
-					vo.setU_no(rs.getInt("u_no"));
-
-					list.add(vo);
+					if(rs.getString("c_com") != null) {
+						WebtoonCmtDomain vo = new WebtoonCmtDomain();
+						vo.setU_name(rs.getNString("u_name"));
+						vo.setU_profile(rs.getString("u_profile").equals("") ? null : rs.getString("u_profile"));
+						vo.setC_com(rs.getString("c_com"));
+						vo.setC_rating(rs.getFloat("c_rating"));
+						vo.setU_no(rs.getInt("u_no"));
+						list.add(vo);
+					}
 				}
 				return 1;
 			}

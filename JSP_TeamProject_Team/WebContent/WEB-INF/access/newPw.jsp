@@ -27,7 +27,7 @@ section .name{
 	color: gray; 
 	font-weight: gray;
 	font-weight: bold;
-	width: 100px;
+	width: 120px;
 	display: inline-block;
 	text-align: left;
 }
@@ -69,6 +69,12 @@ section .btn:hover {
 section .newPw {
 	margin-top:20px;
 }
+section #newPassword{
+	margin-left: 26px;
+}
+section #chknewPassword{
+	margin-left: 26px;
+}	
 </style>
 </head>
 <body>
@@ -155,7 +161,7 @@ section .newPw {
 					chknewPw.append(label2)
 					chknewPw.append(input2)
 					
-					label.innerHTML = "비밀번호 재설정"
+					label.innerHTML = "비밀번호 재설정"	
 					label2.innerHTML = "비밀번호 확인"
 					
 					var button = document.createElement('input')

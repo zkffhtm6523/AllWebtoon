@@ -66,7 +66,7 @@ public class GoogleAPI extends HttpServlet {
 		userInfo.setU_id(u_id);
 		userInfo.setU_name(u_name);
 		userInfo.setU_password(u_id);
-		userInfo.setU_profile(u_profile);
+		userInfo.setU_profile(u_profile.trim());
 		userInfo.setU_email(u_email);
 		userInfo.setU_joinPath(4);
 		userInfo.setChkProfile(userInfo.getU_profile().substring(0, 4));

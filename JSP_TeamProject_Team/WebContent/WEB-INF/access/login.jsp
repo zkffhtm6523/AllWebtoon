@@ -60,6 +60,12 @@
     }
     section a{
     	text-decoration: none;
+    	color: #0c65c6;
+    	font-weight: bold;
+    	font-size: 1.1em;
+    }
+    section .newPw{
+    	margin: 20px auto;
     }
     section .snsimg{width: 360px; height: 60px;}
     section .snsimg:hover{cursor: pointer;}
@@ -81,7 +87,7 @@
             <div class="snsbtn"><img class="snsimg" src="/images/login_logo/kakao_btn.PNG" id="kakao" onclick="goKakao()"></div>
             <div class="snsbtn"><img class="snsimg" src="/images/login_logo/naver_btn.PNG" id="naver" onclick="goNaver('${state}')"></div>
             <div class="snsbtn"><img class="snsimg" src="/images/login_logo/google_btn.PNG" id="google" onclick="goGoogle()"></div>  	
-        	<a href="/newPw">비밀번호를 잊으셨나요?</a>
+        	<div class="newPw"><a href="/newPw">비밀번호를 잊으셨나요?</a></div>
         </div>
         
     </section>
