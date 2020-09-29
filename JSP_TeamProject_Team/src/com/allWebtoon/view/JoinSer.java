@@ -36,7 +36,7 @@ public class JoinSer extends HttpServlet {
 		
 		UserVO param = new UserVO();
 		param.setU_id(u_id);
-		//param.setU_password(u_pw);
+		param.setU_password(u_pw);
 		param.setU_name(nm);
 		param.setU_email(email);
 		param.setU_birth(birth);
@@ -45,11 +45,11 @@ public class JoinSer extends HttpServlet {
 		param.setChkProfile(chkProfile);
 		param.setU_joinPath(u_joinPath);
 		
-		String u_salt = SecurityUtils.generateSalt();
-		String encrypt = SecurityUtils.getEncrypt(u_pw, u_salt);
+		//String u_salt = SecurityUtils.generateSalt();
+		//String encrypt = SecurityUtils.getEncrypt(u_pw, u_salt);
 		
-		param.setU_salt(u_salt);
-		param.setU_password(encrypt);
+		//param.setU_salt(u_salt);
+		//param.setU_password(encrypt);
 		
 		System.out.println(param.getU_id());
 		System.out.println(param.getU_password());
