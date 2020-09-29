@@ -10,7 +10,14 @@ public class WebtoonVO {
 	private String w_plat_name;
 	private String w_writer;
 	private String genre_name;
+	private int is_favorite;
 	
+	public int getIs_favorite() {
+		return is_favorite;
+	}
+	public void setIs_favorite(int is_favorite) {
+		this.is_favorite = is_favorite;
+	}
 	public String getGenre_name() {
 		return genre_name;
 	}

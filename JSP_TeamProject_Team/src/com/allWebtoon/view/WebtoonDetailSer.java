@@ -1,7 +1,6 @@
 package com.allWebtoon.view;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
 
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
@@ -18,7 +19,8 @@ import com.allWebtoon.vo.UserVO;
 import com.allWebtoon.vo.WebtoonCmtDomain;
 import com.allWebtoon.vo.WebtoonCmtVO;
 import com.allWebtoon.vo.WebtoonVO;
-import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @WebServlet("/webtoon/detail")
 public class WebtoonDetailSer extends HttpServlet {
@@ -27,10 +29,11 @@ public class WebtoonDetailSer extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       // 웹툰 정보 뿌리기 - 시작
       int w_no = MyUtils.getIntParameter(request, "w_no");
-      
+      int u_no = MyUtils.getLoginUserPk(request);
+      System.out.println("u_no : " + u_no);
       System.out.println(w_no);
-      WebtoonVO data = WebtoonListDAO.webtoonDetail(w_no);
-      
+      WebtoonVO data = WebtoonListDAO.webtoonDetail(w_no, u_no);
+      System.out.println("data : " + data.getIs_favorite());
       System.out.println(data.getW_title());
       String[] writer = data.getW_writer().split(", ");
       
@@ -81,7 +84,15 @@ public class WebtoonDetailSer extends HttpServlet {
    }
    
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   
+	   String body = IOUtils.toString(request.getReader());
+ 	   JsonParser parser = new JsonParser();
+       JsonObject object = (JsonObject) parser.parse(body);
+       
+       
+       System.out.println("body: " + body);
+       
+       int w_no = Integer.parseInt(object.get("w_no").toString());
+       String proc_type = object.get("proc_type").toString();
    }
 
 }
