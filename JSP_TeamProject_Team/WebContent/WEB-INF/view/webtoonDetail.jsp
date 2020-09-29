@@ -309,16 +309,16 @@
 					console.log(res.data[i])
 					//makeSwiper_slide 반복문 돌려서 만들기
 					makeSwiper_slide(res.data[i], ajaxModalContainer)
-					//모달창 좌우 버튼 누를 시 반복,
-					var mySwiper = new Swiper('.swiper-container', {
-					 	 loop: true,
-					  // 네비게이션 방향키
-					  navigation: {
-					    nextEl: '.swiper-button-next',
-					    prevEl: '.swiper-button-prev',
-					  },
-					})
 				}
+				//모달창 좌우 버튼 누를 시 반복,
+				var mySwiper = new Swiper('.swiper-container', {
+				 	 loop: true,
+				  // 네비게이션 방향키
+				  navigation: {
+				    nextEl: '.swiper-button-next',
+				    prevEl: '.swiper-button-prev',
+				  },
+				})
 				//회색 배경 누를 시 모달 닫기
 				modalOverlay.addEventListener("click", closeModal)
 				})
