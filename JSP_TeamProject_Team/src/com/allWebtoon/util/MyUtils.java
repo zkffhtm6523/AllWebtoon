@@ -7,7 +7,14 @@ import com.allWebtoon.vo.UserVO;
 
 public class MyUtils {
 
-	
+	public static int getLoginUserPk(HttpServletRequest request) {
+		return getLoginUserPk(request.getSession());
+	}
+
+	public static int getLoginUserPk(HttpSession hs) {
+		UserVO loginUser = (UserVO)hs.getAttribute(Const.LOGIN_USER);
+		return loginUser == null ? 0 : loginUser.getU_no();
+	}
 
 	// 세션의 attr 조회 기능 : 로그인 유저 여부 확인용
 	public static UserVO getLoginUser(HttpServletRequest request) {

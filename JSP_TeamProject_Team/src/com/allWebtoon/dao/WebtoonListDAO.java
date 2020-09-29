@@ -180,19 +180,31 @@ public class WebtoonListDAO {
 	}
 	
 	// 웹툰 디테일
-		public static WebtoonVO webtoonDetail(int w_no) {
+		public static WebtoonVO webtoonDetail(int w_no, int u_no) {
 			WebtoonVO vo = new WebtoonVO();
 			String sql = 
-					" select w_thumbnail, w_title, CASE WHEN char_length(w_story) > 300 THEN concat(left(w_story, 300), '...') ELSE w_story END as w_story, "
-					+ " w_link, plat_name, group_concat(w_writer separator ', ') as w_writer, genre_name "
-					+ " from view_webtoon "
-					+ " WHERE w_no = ? ";
+					" SELECT A.w_thumbnail, A.w_title,  CASE WHEN char_length(A.w_story) > 300 THEN concat(left(A.w_story, 300), '...') ELSE A.w_story END as w_story, " + 
+					" A.w_link, B.plat_name, group_concat(C.w_writer separator ', ') as w_writer, E.genre_name, E.genre_name, CASE WHEN F.w_no IS NULL then 0 ELSE 1 END AS is_favorite " + 
+					" FROM t_webtoon A " + 
+					" LEFT JOIN t_platform B " + 
+					" ON A.plat_no = B.plat_no " + 
+					" LEFT JOIN t_w_writer C " + 
+					" ON A.w_no = C.w_no " + 
+					" LEFT JOIN t_w_genre D " + 
+					" ON A.w_no = D.w_no " + 
+					" LEFT JOIN t_genre E " + 
+					" ON D.genre_no = E.genre_no " +
+					" LEFT JOIN t_webtoon_favorite F " + 
+					" ON A.w_no = F.w_no " + 
+					" AND F.u_no = ? " + 
+					" WHERE A.w_no = ? ; ";
 
 			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
 				@Override
 				public void prepared(PreparedStatement ps) throws SQLException {
-					ps.setInt(1, w_no);
+					ps.setInt(1, u_no);
+					ps.setInt(2, w_no);
 				}
 
 				@Override
@@ -205,6 +217,7 @@ public class WebtoonListDAO {
 						vo.setW_plat_name(rs.getNString("plat_name"));
 						vo.setW_writer(rs.getNString("w_writer"));
 						vo.setGenre_name(rs.getNString("genre_name"));
+						vo.setIs_favorite(rs.getInt("is_favorite"));
 					}
 					return 1;
 				}
