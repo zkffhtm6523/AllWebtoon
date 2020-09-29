@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
+
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.util.MyUtils;
@@ -19,6 +21,8 @@ import com.allWebtoon.vo.WebtoonCmtDomain;
 import com.allWebtoon.vo.WebtoonCmtVO;
 import com.allWebtoon.vo.WebtoonVO;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @WebServlet("/webtoon/detail")
 public class WebtoonDetailSer extends HttpServlet {
@@ -51,7 +55,8 @@ public class WebtoonDetailSer extends HttpServlet {
 		out.print(json);
       }else {
     	  System.out.println("ajaxChk : "+ajaxChk);
-	      WebtoonVO data = WebtoonListDAO.webtoonDetail(w_no);
+    	  int loginUser_u_no = MyUtils.getLoginUserPk(request);
+	      WebtoonVO data = WebtoonListDAO.webtoonDetail(w_no, loginUser_u_no);
 	      
 	      String[] writer = data.getW_writer().split(", ");
 	      
@@ -103,7 +108,15 @@ public class WebtoonDetailSer extends HttpServlet {
    }
    
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   
+	   String body = IOUtils.toString(request.getReader());
+ 	   JsonParser parser = new JsonParser();
+       JsonObject object = (JsonObject) parser.parse(body);
+       
+       
+       System.out.println("body: " + body);
+       
+       int w_no = Integer.parseInt(object.get("w_no").toString());
+       String proc_type = object.get("proc_type").toString();
    }
 
 }

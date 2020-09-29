@@ -89,6 +89,8 @@ public class WebtoonCmtSer extends HttpServlet {
       int u_no = loginUser.getU_no();
 
       String ratingPage = null;
+      
+      
 
       
 	  int w_no = MyUtils.getIntParameter(request, "w_no");

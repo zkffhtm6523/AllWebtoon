@@ -9,6 +9,7 @@ import com.allWebtoon.db.JdbcTemplate;
 import com.allWebtoon.db.JdbcUpdateInterface;
 import com.allWebtoon.util.SecurityUtils;
 import com.allWebtoon.vo.UserVO;
+import com.allWebtoon.vo.WebtoonCmtVO;
 
 public class UserDAO {
 	public static int insUser(UserVO param) {
@@ -231,5 +232,37 @@ public class UserDAO {
 			public void update(PreparedStatement ps) throws SQLException {
 			}
 		});
+	}
+	
+	public static int insFavorite(WebtoonCmtVO param) {
+		String sql = " INSERT INTO t_webtoon_favorite "
+				+ " (w_no, u_no) "
+				+ " VALUES "
+				+ " (?, ?) ";
+		
+		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+			
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getW_no());
+				ps.setInt(2, param.getU_no());
+			}
+		});
+		return 1;
+	}
+	
+	public static int delFavorite(WebtoonCmtVO param) {
+		String sql = " DELETE FROM t_webtoon_favorite "
+				+ " WHERE w_no = ? AND u_no = ? ";
+		
+		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+			
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getW_no());
+				ps.setInt(2, param.getU_no());
+			}
+		});
+		return 1;
 	}
 }

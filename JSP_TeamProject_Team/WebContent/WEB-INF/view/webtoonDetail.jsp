@@ -211,15 +211,23 @@
                </c:forEach>
                </li>
                <li id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></li>
-               <li id="genre"><a href="/searchResult?result=${data.genre_name }">${data.genre_name }</a></li>
+               <li id="genre"><a href="/searchResult?result=${data.genre_name }">${data.genre_name }</a>
+					<c:if test="${loginUser != null}">
+					<span id="favorite" class="material-icons" onclick="toggleFavorite()" style="color: red">
+					<c:if test="${data.is_favorite == 1 }">favorite</c:if>
+					<c:if test="${data.is_favorite == 0 }">favorite_border</c:if>
+					</span>
+					</c:if>
+				</li>
+               <li>
                <li id="starGrade">
                	<div class="startRadio">
-                  <c:forEach begin="1" end="10" step="1" var="item">
-                     <label class="startRadio__box">
-                        <input type="radio" name="star" id="" onclick="score(${item})" ${loginUser == null ? 'disabled':'' }>
-                        <span class="startRadio__img"><span class="blind"></span></span>
-                     </label>
-                	  </c:forEach>
+	               	<c:forEach begin="1" end="10" step="1" var="item">
+	                   <label class="startRadio__box">
+	                      <input type="radio" name="star" id="" onclick="score(${item})" ${loginUser == null ? 'disabled':'' }>
+	                      <span class="startRadio__img"><span class="blind"></span></span>
+	                   </label>
+                	</c:forEach>
                   </div>
                </li>
             </ul>
@@ -426,6 +434,34 @@
   	 function moveToReview(){
   		 location.href = '/webtoon/cmt'
   	 }
+     
+  	function toggleFavorite() {
+		console.log('favorite : ' + (favorite.innerText.trim() == 'favorite'))
+		
+		let parameter = {
+			params:{
+				w_no: ${data.w_no}
+			}
+		} 
+		
+		var icon = favorite.innerText.trim()
+		
+		switch(favorite.innerText.trim()){
+		case 'favorite':
+			parameter.params.proc_type = 'del'
+			break;
+		case 'favorite_border':
+			parameter.params.proc_type = 'ins'
+			break;
+		}
+		
+		axios.get('/webtoon/favorite', parameter).then(function(res) {
+			console.log(res)
+			if(res.data == 1) {
+				favorite.innerText = icon == 'favorite' ? 'favorite_border' : 'favorite'
+			}
+		})
+	}
    </script>
 </body>
 </html>
