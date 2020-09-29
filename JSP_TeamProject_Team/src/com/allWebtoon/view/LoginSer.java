@@ -60,7 +60,6 @@ public class LoginSer extends HttpServlet {
 		
 		UserVO param = new UserVO();
 		
-		
 		param.setU_id(u_id);
 		param.setU_password(u_pw);
 		
