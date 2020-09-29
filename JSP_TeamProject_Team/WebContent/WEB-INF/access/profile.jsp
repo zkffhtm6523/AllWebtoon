@@ -172,7 +172,6 @@ function chk(){
 		frm.birth.focus();
 		return false;
 	}
-	
 }
 
 
