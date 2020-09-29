@@ -183,21 +183,13 @@ public class WebtoonListDAO {
 		public static WebtoonVO webtoonDetail(int w_no, int u_no) {
 			WebtoonVO vo = new WebtoonVO();
 			String sql = 
-					" SELECT A.w_thumbnail, A.w_title,  CASE WHEN char_length(A.w_story) > 300 THEN concat(left(A.w_story, 300), '...') ELSE A.w_story END as w_story, " + 
-					" A.w_link, B.plat_name, group_concat(C.w_writer separator ', ') as w_writer, E.genre_name, E.genre_name, CASE WHEN F.w_no IS NULL then 0 ELSE 1 END AS is_favorite " + 
-					" FROM t_webtoon A " + 
-					" LEFT JOIN t_platform B " + 
-					" ON A.plat_no = B.plat_no " + 
-					" LEFT JOIN t_w_writer C " + 
-					" ON A.w_no = C.w_no " + 
-					" LEFT JOIN t_w_genre D " + 
-					" ON A.w_no = D.w_no " + 
-					" LEFT JOIN t_genre E " + 
-					" ON D.genre_no = E.genre_no " +
-					" LEFT JOIN t_webtoon_favorite F " + 
-					" ON A.w_no = F.w_no " + 
-					" AND F.u_no = ? " + 
-					" WHERE A.w_no = ? ";
+					" select a.w_no,w_thumbnail, w_title,CASE WHEN char_length(w_story) > 300 THEN concat(left(w_story, 300), '...') ELSE w_story END as w_story, "
+					+" w_link, plat_name, group_concat(w_writer separator ', ') as w_writer, genre_name, CASE WHEN b.w_no IS NULL then 0 ELSE 1 END AS is_favorite "
+					+" from view_webtoon a "
+					+" LEFT JOIN t_webtoon_favorite B " 
+					+" ON A.w_no = b.w_no and b.u_no=? "
+					+" where a.w_no=? "
+					+" group by w_no ";
 
 			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 
