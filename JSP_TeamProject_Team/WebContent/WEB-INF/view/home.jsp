@@ -52,10 +52,11 @@ section .imgBlock{display: inline-block; width: 15%; text-align: center;
 	    margin-right: 1%;}
 section .imgBlock:hover{cursor: pointer;}
 section .listBlock{vertical-align: top;}
-section .material-icons{width: 50px; height: 30px; position: absolute; top: 58%;}
+section .indexBlock .material-icons{width: 50px; height: 30px; position: absolute; top: 58%;}
 section  #prevArrIcon{left: 2%;}
 section  #nextArrIcon{right: 2%;}
 section .material-icons:hover{cursor: pointer;}
+
 </style>
 <title>모두의 웹툰</title>
 </head>
@@ -123,6 +124,23 @@ section .material-icons:hover{cursor: pointer;}
 	  	makeImage(kakaoList, "카카오페이지 추천",'카카오')
 	  	makeImage(lezhinList, "레진코믹스 추천",'레진')
 	  	makeImage(toptoonList, "탑툰 추천",'탑툰')
+	  	makeArrowUpward()
+	  	
+	  	function makeArrowUpward() {
+			var arrowUpward = document.createElement('span')
+			arrowUpward.classList.add('material-icons')
+			arrowUpward.innerText = 'arrow_upward'
+			arrowUpward.id = 'arrow_upward'
+			arrowUpward.title = '상단으로 가기'
+			
+			var a = document.createElement('a')
+			a.href = 'javascript:window.scrollTo(0,0);'
+			a.append(arrowUpward)
+			
+			let section = document.querySelector('section')
+			section.append(a)
+		}
+	  	
 	  	
 	  	function selectGenre(){
     		var selectText = sel_genre.options[sel_genre.selectedIndex].text;
