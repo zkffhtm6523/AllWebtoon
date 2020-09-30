@@ -113,11 +113,25 @@ header #review,#signin,#logout,#login,#myPage{
 	color: white;
 	text-align:center;
 }
-
-
-
 section{
 	flex-grow: 1;
+}
+/*최상단으로 가는 버튼*/
+section > a > #arrow_upward{
+	position: fixed;
+	bottom: 10%;
+	right: 5%;
+	font-size: 3em;
+	font-weight: bold;
+	color: gray;
+}
+section > a > #arrow_downward{
+	position: fixed;
+	bottom: 5%;
+	right: 5%;
+	font-size: 3em;
+	font-weight: bold;
+	color: gray;
 }
 footer {
 	width:100%;

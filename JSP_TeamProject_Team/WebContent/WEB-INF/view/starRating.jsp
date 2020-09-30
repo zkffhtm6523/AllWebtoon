@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 <style>
 body, div, dl, dd, p, form, input {margin:0; padding:0;}
 section{
@@ -31,6 +31,7 @@ section .startRadio input:checked + .startRadio__img { background-color: #ffd700
 section .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none;} 
 
 </style>
+<title>평가하기</title>
 </head>
 <body>
 <div id="container">
@@ -78,7 +79,39 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+	//최상단 가기 버튼
+	makeArrowUpward()
+	//최하단 가기 버튼
+	makeArrowDownward()
 	
+	function makeArrowUpward() {
+		var arrowUpward = document.createElement('span')
+		arrowUpward.classList.add('material-icons')
+		arrowUpward.innerText = 'arrow_upward'
+		arrowUpward.id = 'arrow_upward'
+		arrowUpward.title = '상단으로 가기'
+		
+		var a = document.createElement('a')
+		a.href = 'javascript:window.scrollTo(0,0);'
+		a.append(arrowUpward)
+		
+		let section = document.querySelector('section')
+		section.append(a)
+	}
+ 	function makeArrowDownward() {
+		var arrowDownward = document.createElement('span')
+		arrowDownward.classList.add('material-icons')
+		arrowDownward.innerText = 'arrow_downward'
+		arrowDownward.id = 'arrow_downward'
+		arrowDownward.title = '하단으로 가기'
+		
+		var a = document.createElement('a')
+		a.href = 'javascript:window.scrollTo(0,document.body.scrollHeight);'
+		a.append(arrowDownward)
+		
+		let section = document.querySelector('section')
+		section.append(a)
+	}
 	function score(star,index,w_no) { // 별점주기
 		
 		console.log('star: '+star)
