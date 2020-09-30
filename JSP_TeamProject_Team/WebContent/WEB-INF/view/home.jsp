@@ -125,7 +125,7 @@ section .material-icons:hover{cursor: pointer;}
 	  	makeImage(lezhinList, "레진코믹스 추천",'레진')
 	  	makeImage(toptoonList, "탑툰 추천",'탑툰')
 	  	makeArrowUpward()
-	  	
+	  	makeArrowDownward()
 	  	function makeArrowUpward() {
 			var arrowUpward = document.createElement('span')
 			arrowUpward.classList.add('material-icons')
@@ -136,6 +136,20 @@ section .material-icons:hover{cursor: pointer;}
 			var a = document.createElement('a')
 			a.href = 'javascript:window.scrollTo(0,0);'
 			a.append(arrowUpward)
+			
+			let section = document.querySelector('section')
+			section.append(a)
+		}
+	  	function makeArrowDownward() {
+			var arrowDownward = document.createElement('span')
+			arrowDownward.classList.add('material-icons')
+			arrowDownward.innerText = 'arrow_downward'
+			arrowDownward.id = 'arrow_downward'
+			arrowDownward.title = '하단으로 가기'
+			
+			var a = document.createElement('a')
+			a.href = 'javascript:window.scrollTo(0,document.body.scrollHeight);'
+			a.append(arrowDownward)
 			
 			let section = document.querySelector('section')
 			section.append(a)

@@ -88,6 +88,8 @@
 	console.log(idx)
 	//최상단 가기 버튼
 	makeArrowUpward()
+	//최하단 가기 버튼
+	makeArrowDownward()
 	//스크롤 바닥 감지
 	window.onscroll = function() {
 	    //window height + window scrollY 값이 document height보다 클 경우,
@@ -170,6 +172,20 @@
 		var a = document.createElement('a')
 		a.href = 'javascript:window.scrollTo(0,0);'
 		a.append(arrowUpward)
+		
+		let section = document.querySelector('section')
+		section.append(a)
+	}
+	function makeArrowDownward() {
+		var arrowDownward = document.createElement('span')
+		arrowDownward.classList.add('material-icons')
+		arrowDownward.innerText = 'arrow_downward'
+		arrowDownward.id = 'arrow_downward'
+		arrowDownward.title = '하단으로 가기'
+		
+		var a = document.createElement('a')
+		a.href = 'javascript:window.scrollTo(0,document.body.scrollHeight);'
+		a.append(arrowDownward)
 		
 		let section = document.querySelector('section')
 		section.append(a)

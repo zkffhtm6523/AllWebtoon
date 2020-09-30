@@ -79,7 +79,10 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+	//최상단 가기 버튼
 	makeArrowUpward()
+	//최하단 가기 버튼
+	makeArrowDownward()
 	
 	function makeArrowUpward() {
 		var arrowUpward = document.createElement('span')
@@ -95,7 +98,20 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		let section = document.querySelector('section')
 		section.append(a)
 	}
-	
+ 	function makeArrowDownward() {
+		var arrowDownward = document.createElement('span')
+		arrowDownward.classList.add('material-icons')
+		arrowDownward.innerText = 'arrow_downward'
+		arrowDownward.id = 'arrow_downward'
+		arrowDownward.title = '하단으로 가기'
+		
+		var a = document.createElement('a')
+		a.href = 'javascript:window.scrollTo(0,document.body.scrollHeight);'
+		a.append(arrowDownward)
+		
+		let section = document.querySelector('section')
+		section.append(a)
+	}
 	function score(star,index,w_no) { // 별점주기
 		
 		console.log('star: '+star)
