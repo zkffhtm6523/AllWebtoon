@@ -40,6 +40,10 @@
    		font-weight: bold;
    		font-size: 40px;
    		line-height: 52px;
+   		width:500px;
+   		text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
    	}
    section #detailContainer #webtoonContainer #webtoonSummary ul #title a{
    		color: black;
@@ -191,6 +195,7 @@
 	.swiper-container {height: 100%;}
     .swiper-slide {display: flex !important;justify-content: center;align-items: center;font-size: 3rem;}
 
+	#favorite {cursor:pointer;}
 </style>
 <link rel="stylesheet" href="/css/modal.css" />
 <link rel="stylesheet" href="/css/swiper-bundle.min.css">
@@ -213,7 +218,7 @@
                <li id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></li>
                <li id="genre"><a href="/searchResult?result=${data.genre_name }">${data.genre_name }</a>
 					<c:if test="${loginUser != null}">
-					<span id="favorite" class="material-icons" onclick="toggleFavorite()" style="color: red">
+					<span id="favorite" class="material-icons" onclick="toggleFavorite()" style="color: red" title="찜하기">
 					<c:if test="${data.is_favorite == 1 }">favorite</c:if>
 					<c:if test="${data.is_favorite == 0 }">favorite_border</c:if>
 					</span>

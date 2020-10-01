@@ -134,8 +134,6 @@ public class Lezhin {
 		return story;
 	}
 	
-	
-	
 	public static int getGenreNo(String str) {
 		int result;
 		if(str.equals("romance") || str.equals("로맨스")) {
