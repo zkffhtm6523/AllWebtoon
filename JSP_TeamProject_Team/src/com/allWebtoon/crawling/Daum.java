@@ -201,7 +201,7 @@ public class Daum {
 			case "액션":
 				genre = 9; break;
 			case "스포츠":
-				genre = 12; break;
+				genre = 11; break;
 			case "미스터리":
 				genre = 12; break;
 			case "공포":

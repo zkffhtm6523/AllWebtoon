@@ -19,7 +19,7 @@ section{
 }
 section .indexBlock {
 	position: relative;
-	width: 80%;
+	width:85%;
 	margin:20px auto;
 }
 section .indexBlock h1{

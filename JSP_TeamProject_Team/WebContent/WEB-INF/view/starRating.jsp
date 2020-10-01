@@ -16,11 +16,19 @@ section{
  		text-align: center;
  	}
 section #listBlock {width:90%; margin:0 auto;}  
-section .itembox {width:20%; margin:30px 80px; display: inline-block; position:relative;}
+section .itembox {width:20%; margin:30px 60px; display: inline-block; position:relative;}
 section dl {position:relative;}
-section dt {position:absolute; bottom:60px; left:50%; white-space:nowrap; transform:translate(-50%,-50%);}
-section .writer {white-space:nowrap;}
-section img {width:170px; height:170px; margin-bottom:30px; border-radius:30%; cursor: pointer;}
+section dt {position:absolute; bottom:60px; left:50%; white-space:nowrap; transform:translate(-50%,-50%);
+		width:100%;
+   		text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
+}
+section .writer {width:100%;
+   		text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;}
+section img {width:170px; height:170px; margin-bottom:30px; border-radius:30%;}
 section .startRadio {display: inline-block; overflow: hidden; height: 40px;}
 section .startRadio:after { content: ""; display: block; position: relative; z-index: 10; height: 40px;
         background: url('/images/star_Radio.png');
@@ -41,9 +49,9 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 	<c:forEach items="${list}" var="item" begin="0" end="11" varStatus="status">
 		<div class="itembox" id="itembox_${status.index }">
 			<dl>
-				<dt>${list[status.index].w_title }</dt>
-				<dd><img src="${list[status.index].w_thumbnail }" title="${list[status.index].w_title}"></dd>
-				<dd class="writer">${list[status.index].w_writer}</dd>
+				<dt title="${list[status.index].w_title }">${list[status.index].w_title }</dt>
+				<dd class="img"><img src="${list[status.index].w_thumbnail }" title="${list[status.index].w_title}"></dd>
+				<dd class="writer" title="${list[status.index].w_writer}">${list[status.index].w_writer}</dd>
 				<dd>
 				   <div class="startRadio">
 		               <c:forEach begin="1" end="10" step="1" var="rating_item">
@@ -183,6 +191,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		         itembox.setAttribute('id','itembox_'+idx)
 		         var dl = document.createElement('dl')
 		         var title = document.createElement('dt')
+		         title.setAttribute('title',item.w_title)
 		         var imgbox = document.createElement('dd')
 		         var img = document.createElement('img')
 		         img.title = item.w_title
@@ -190,6 +199,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		         imgbox.append(img)
 		         var writer = document.createElement('dd')
 		         writer.setAttribute('class','writer')
+		         writer.setAttribute('title',item.w_writer)
 		         title.append(item.w_title)
 		         writer.append(item.w_writer)
 		         

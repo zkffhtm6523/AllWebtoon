@@ -128,7 +128,7 @@ public class WebtoonListDAO {
 		  + " where w_title LIKE ? or genre_name LIKE ? or w_writer LIKE ? or plat_name LIKE ? "
 		  + " group by w_no ";*/
 				
-			" select a.w_no, a.w_title,CASE WHEN char_length(a.w_story) > 150 THEN concat(left(a.w_story, 150), '...') ELSE a.w_story END as w_story, "
+			" select a.w_no, a.w_title,CASE WHEN char_length(a.w_story) > 100 THEN concat(left(a.w_story, 100), '...') ELSE a.w_story END as w_story, "
 			+ "	a.w_thumbnail, a.w_link, a.plat_no, a.genre_name, group_concat(a.w_writer separator ', ') as w_writer, "
 			+ "	a.plat_name from view_webtoon A ";
 
@@ -183,7 +183,7 @@ public class WebtoonListDAO {
 		public static WebtoonVO webtoonDetail(int w_no, int u_no) {
 			WebtoonVO vo = new WebtoonVO();
 			String sql = 
-					" select a.w_no,w_thumbnail, w_title,CASE WHEN char_length(w_story) > 300 THEN concat(left(w_story, 300), '...') ELSE w_story END as w_story, "
+					" select a.w_no,w_thumbnail, w_title,CASE WHEN char_length(w_story) > 100 THEN concat(left(w_story, 100), '...') ELSE w_story END as w_story, "
 					+" w_link, plat_name, group_concat(w_writer separator ', ') as w_writer, genre_name, CASE WHEN b.w_no IS NULL then 0 ELSE 1 END AS is_favorite "
 					+" from view_webtoon a "
 					+" LEFT JOIN t_webtoon_favorite B " 
