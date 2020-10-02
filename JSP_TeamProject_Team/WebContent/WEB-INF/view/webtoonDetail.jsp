@@ -287,7 +287,7 @@
    		width: 100%;
    		height:78%;
    		white-space: normal;
-   		margin-top: 5%;
+   		margin-top: 2%;
    		word-break: break-all;
    		overflow: auto;
 	}
