@@ -95,7 +95,9 @@
    }
    section #detailContainer #webtoonContainer #webtoonSummary #thumbnail{
    		display: inline-block;
-   		width: 207px;	
+   		width: 210px;
+   		height: 200px;
+   		margin-top: 2%;	
    }
    section #detailContainer #webtoonContainer #webtoonSummary #thumbnail img {
    		width: 100%;
