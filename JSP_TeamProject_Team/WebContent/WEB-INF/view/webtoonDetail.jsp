@@ -34,13 +34,30 @@
    		vertical-align: top;
    		margin: 0;
    		margin-top: 5px;
+   		position: relative;
+   }
+   section #detailContainer #webtoonContainer #webtoonSummary ul #favorite_title{
+   		position: absolute;
+   		font-weight: bold;
+   		font-size: 1.4em;
+   		color: gray;
+   		top: 43%;
+   		margin-right: 2%;
+   }
+   section #detailContainer #webtoonContainer #webtoonSummary ul #favorite{
+   		position: absolute;
+   		font-size: 2em;
+   		color: red;
+   		top: 41%;
+   		margin-left: 5%;
    }
    section #detailContainer #webtoonContainer #webtoonSummary ul #title{
    		font-style: normal;
    		font-weight: bold;
    		font-size: 40px;
    		line-height: 52px;
-   		width:500px;
+   		width:60%;
+   		display:inline-block;
    		text-overflow: ellipsis;
     	overflow: hidden;
     	white-space: nowrap;
@@ -216,13 +233,14 @@
                </c:forEach>
                </li>
                <li id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></li>
-               <li id="genre"><a href="/searchResult?result=${data.genre_name }">${data.genre_name }</a>
 					<c:if test="${loginUser != null}">
-					<span id="favorite" class="material-icons" onclick="toggleFavorite()" style="color: red" title="찜하기">
+					<span id="favorite_title">찜</span>
+					<span id="favorite" class="material-icons" onclick="toggleFavorite()" title="찜하기">
 					<c:if test="${data.is_favorite == 1 }">favorite</c:if>
 					<c:if test="${data.is_favorite == 0 }">favorite_border</c:if>
 					</span>
 					</c:if>
+               <li id="genre"><a href="/searchResult?result=${data.genre_name }">${data.genre_name }</a>
 				</li>
                <li>
                <li id="starGrade">
