@@ -85,4 +85,38 @@ public class MyPageDAO {
 			}
 		});
 	}
+	
+	public static int selfavoriteWebtoon(List<WebtoonCmtDomain> list, int u_no) {
+		String sql = 
+				" select b.w_no, b.w_title, b.w_thumbnail, c.c_com, format(C.c_rating,1) as c_rating from t_webtoon_favorite A "
+				+" inner join t_webtoon B "
+				+ " on a.w_no = b.w_no "
+				+" left join t_comment C "
+				+" on b.w_no = c.w_no and c.u_no=? "
+				+" where a.u_no=? ";
+		
+		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+			
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, u_no);
+				ps.setInt(2, u_no);
+			}
+			
+			@Override
+			public int executeQuery(ResultSet rs) throws SQLException {
+				while(rs.next()) {
+					WebtoonCmtDomain vo = new WebtoonCmtDomain();
+					vo.setW_no(rs.getInt("w_no"));
+					vo.setW_title(rs.getString("w_title"));
+					vo.setW_thumbnail(rs.getString("w_thumbnail"));
+					vo.setC_com(rs.getString("c_com"));
+					vo.setC_rating(rs.getFloat("c_rating"));
+					
+					list.add(vo);
+				}
+				return 1;
+			}
+		});
+	}
 }

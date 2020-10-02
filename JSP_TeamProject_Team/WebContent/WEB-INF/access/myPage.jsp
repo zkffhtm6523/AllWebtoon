@@ -201,13 +201,17 @@ section .name{
 					</c:otherwise>
 				</c:choose>
 			</div>
+			
+			
 			<div class="result_view" id="cmt_list">
 				<h2><span id="loginUser">${loginUser.u_name}님</span> 평가 웹툰</h2>
 				<c:choose>
 					<c:when test="${list != null}">
-						<c:if test="${fn:length(list) > 5}">
-							<span class="material-icons" id="prevArrIcon" onclick="selCmtMinus()">keyboard_arrow_left</span>
+					<c:if test="${fn:length(list) > 5}">
+							<span class="material-icons" id="prevArrIcon" onclick="selCmtMinus('cmt')">keyboard_arrow_left</span>
 						</c:if>
+							
+					
 						<c:forEach var="i" begin="0" end="${fn:length(list) <= 5 ? fn:length(list)-1 : 4 }">
 							<div class="listItem">
 								<ul>
@@ -222,7 +226,7 @@ section .name{
 							</div>
 						</c:forEach>
 						<c:if test="${fn:length(list) > 5}">
-							<span class="material-icons" id="nextArrIcon" onclick="selCmtPlus()">keyboard_arrow_right</span>
+							<span class="material-icons" id="nextArrIcon" onclick="selCmtPlus('cmt')">keyboard_arrow_right</span>
 						</c:if>
 					</c:when>
 					<c:otherwise>
@@ -232,6 +236,41 @@ section .name{
 					</c:otherwise>
 				</c:choose>
 			</div>
+			
+			
+			
+			<div class="result_view" id="favoritelist">
+				<h2><span id="loginUser">${loginUser.u_name}님</span> 찜한 웹툰</h2>
+				<c:choose>
+					<c:when test="${favoritelist != null}">
+					<c:if test="${fn:length(favoritelist) > 5}">
+							<span class="material-icons" id="prevArrIcon" onclick="selCmtMinus('favorite')">keyboard_arrow_left</span>
+					</c:if>
+						<c:forEach var="i" begin="0" end="${fn:length(favoritelist) <= 5 ? fn:length(favoritelist)-1 : 4 }">
+							<div class="listItem">
+								<ul>
+									<li><a href="/webtoon/detail?w_no=${favoritelist[i].w_no}"><img src="${favoritelist[i].w_thumbnail}" title="${favoritelist[i].w_title}"></a></li>
+									<li>${favoritelist[i].w_title}</li>
+									<span class="material-icons">grade</span>
+									<li>${favoritelist[i].c_rating}</li>
+									<c:if test="${favoritelist[i].c_com != null && favoritelist[i].c_com != '' && favoritelist[i].c_com != ' '}">
+										<span class="material-icons">insert_comment</span>
+									</c:if>
+								</ul>
+							</div>
+						</c:forEach>
+						<c:if test="${fn:length(favoritelist) > 5}">
+							<span class="material-icons" id="nextArrIcon" onclick="selCmtPlus('favorite')">keyboard_arrow_right</span>
+						</c:if>
+					</c:when>
+					<c:otherwise>
+						<div class="nonListItem">
+							<h2>찜한 웹툰이 없습니다.</h2>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
 		</div>
 	</section>
 	<jsp:include page="../template/footer.jsp"/>
@@ -240,34 +279,49 @@ section .name{
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 let cmtIdx = 5;
-function selCmtMinus() {
-	if(cmtIdx - 5 == 0){
+let favoriteIdx= 5;
+function selCmtMinus(type) {
+	if((type=='cmt'? cmtIdx-5 : favoriteIdx-5) == 0){
 		alert('처음입니다')
-	}else if(cmtIdx - 5 >= 1){
-		console.log('minus : '+cmtIdx - 5)
+	}else if((type=='cmt'? cmtIdx-5 : favoriteIdx-5) >= 1){
+		console.log('minus : '+(type=='cmt'? cmtIdx-5 : favoriteIdx-5))
 		axios.get('/myPage',{
 			params :{
-				page : cmtIdx - 5
+				type : type,
+				page : (type=='cmt'? cmtIdx - 5 :favoriteIdx-5)
 			}
 		}).then(function(res){
 			//각 웹툰별 아이템 박스 만들기(json, delNum, addNum)
-			makeListItem(cmt_list, res, 7, 2)
-			cmtIdx--;
+			if(type=='cmt'){
+				makeListItem(cmt_list, res, 7, 2)
+				cmtIdx--;
+			} else{
+				makeListItem(favoritelist, res, 7, 2)
+				favoriteIdx--;
+			}
+			
 		})
 	}
 }
-function selCmtPlus() {
+function selCmtPlus(type) {
 	axios.get('/myPage',{
 		params : {
-			page : cmtIdx + 1
+			type : type,
+			page : (type=='cmt'? cmtIdx +1 :favoriteIdx +1 )
 		}
 	}).then(function(res) {
 		if(res.data == 0){
 			alert('마지막입니다')
 		}else{
 			//각 웹툰별 아이템 박스 만들기(넣을 div 박스, json, delNum, addNum)
-			makeListItem(cmt_list, res, 2, 7)
-			cmtIdx++;
+			if(type=='cmt'){
+				makeListItem(cmt_list, res, 2, 7)
+				cmtIdx++;
+			}else{
+				makeListItem(favoritelist, res, 2, 7)
+				favoriteIdx++;
+			}
+			
 		}
 	})
 }
