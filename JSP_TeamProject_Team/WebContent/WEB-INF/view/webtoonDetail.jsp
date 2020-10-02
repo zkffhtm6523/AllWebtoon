@@ -201,7 +201,6 @@
    		height: 80%;
    		border-radius: 20px;
    		margin: 2% auto;
-   		padding-bottom: 2%;
    	}
    	section #detailContainer .cmt_list .cmtItem img {
    		width: 53px;
@@ -209,7 +208,7 @@
    		border-radius: 50%;
    	}
    	section #detailContainer .cmt_list .cmtItem #cmt_list{
-   		padding-left: 50px;
+   		padding-left: 15%;
    	}
    	section #detailContainer .cmt_list .cmtItem ul li{
    		display: inline-block;
@@ -238,6 +237,7 @@
    		margin: 0 auto;
    		word-break: break-all;
    		overflow: hidden;
+   		margin-bottom: 5%;
    	}
    	section #detailContainer .cmt_list .cmtItem #cmt_list_com li{
    		display: inline;
@@ -246,6 +246,7 @@
    		position:absolute;
    		background-color: steelblue;
    		width: 80px;
+   		height: 85%;
    		right: 0%;
    		cursor: pointer;
    	}
