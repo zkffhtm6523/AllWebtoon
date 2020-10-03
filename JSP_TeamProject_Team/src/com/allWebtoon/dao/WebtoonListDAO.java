@@ -148,6 +148,7 @@ public class WebtoonListDAO {
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
+				
 				if(kind.equals("all")) {
 					ps.setNString(1, "%"+vo.getSearchKeyword()+"%");
 					ps.setNString(2, "%"+vo.getSearchKeyword()+"%");
