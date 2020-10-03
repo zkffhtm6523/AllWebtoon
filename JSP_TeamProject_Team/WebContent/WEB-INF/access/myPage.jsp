@@ -58,6 +58,7 @@ section #myPageContainer .result_view .listItem{
  	vertical-align : top;
  	top: 0px;
  	margin: 0 auto;
+ 	display: inline-block;
 }
 section #myPageContainer .result_view .nonListItem{
 	width: 96%;
@@ -130,7 +131,16 @@ section .name{
  section #myPageContainer .printImage ul li{
  	margin: 15px auto;
  }
+ 
 #loginUser{color: gray; font-weight: bold; font-size: 1.1em;}
+
+.title{
+		width:125px;
+   		text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
+}
+
 </style>
 </head>
 <body>
@@ -183,7 +193,7 @@ section .name{
 							<div class="listItem">
 								<ul>
 									<li><a href="/webtoon/detail?w_no=${recentWebtoon[i].w_no}"><img src="${recentWebtoon[i].w_thumbnail}" title="${recentWebtoon[i].w_title}"></a></li>
-									<li>${recentWebtoon[i].w_title}</li>
+									<li class="title">${recentWebtoon[i].w_title}</li>
 									<c:if test="${recentWebtoon[i].c_rating != 0}">
 										<span class="material-icons">grade</span>
 										<li>${recentWebtoon[i].c_rating}</li>
@@ -217,7 +227,7 @@ section .name{
 							<div class="listItem">
 								<ul>
 									<li><a href="/webtoon/detail?w_no=${list[i].w_no}"><img src="${list[i].w_thumbnail}" title="${list[i].w_title}"></a></li>
-									<li>${list[i].w_title}</li>
+									<li><div class="title">${list[i].w_title}</div></li>
 									<c:if test="${list[i].c_rating != 0 && list[i].c_rating != null}">
 										<span class="material-icons">grade</span>
 										<li>${list[i].c_rating}</li>
@@ -253,8 +263,8 @@ section .name{
 							<div class="listItem">
 								<ul>
 									<li><a href="/webtoon/detail?w_no=${favoritelist[i].w_no}"><img src="${favoritelist[i].w_thumbnail}" title="${favoritelist[i].w_title}"></a></li>
-									<li>${favoritelist[i].w_title}</li>
-									<c:if test="${favoritelist[i].c_rating != 0 && list[i].c_rating != null}">
+									<li class="title">${favoritelist[i].w_title}</li>
+									<c:if test="${favoritelist[i].c_rating != 0 && favoritelist[i].c_rating != null}">
 										<span class="material-icons">grade</span>
 										<li>${favoritelist[i].c_rating}</li>
 									</c:if>
@@ -351,21 +361,27 @@ function makeListItem(result_view, res, delNum, addNum) {
 	aImg.append(addImg)
 	//타이틀 만들기 
 	var liTitle = document.createElement('li')
+	liTitle.setAttribute('class','title')
 	liTitle.innerText = res.data.w_title
 	ulList.append(liTitle)
-	//starIcon 만들기 
-	var starIcon = document.createElement('span')
-	starIcon.classList.add('material-icons')
-	starIcon.innerHTML = 'grade'
-	ulList.append(starIcon)
-	//평점 li 만들
-	var grade = document.createElement('li')
-	if(res.data.c_rating.toString().indexOf(".") == -1){
-		grade.innerHTML = res.data.c_rating + ".0"
-	}else {
-		grade.innerHTML = res.data.c_rating
+	
+	if(res.data.c_rating != 0.0){
+		
+		//starIcon 만들기 
+		var starIcon = document.createElement('span')
+		starIcon.classList.add('material-icons')
+		starIcon.innerHTML = 'grade'
+		ulList.append(starIcon)
+		//평점 li 만들
+		var grade = document.createElement('li')
+		if(res.data.c_rating.toString().indexOf(".") == -1){
+			grade.innerHTML = res.data.c_rating + ".0"
+		}else {
+			grade.innerHTML = res.data.c_rating
+		}
+		ulList.append(grade)
+	
 	}
-	ulList.append(grade)
 	//cmtIcon 만들기
 	if(res.data.c_com != null){
 		var cmtIcon = document.createElement('span')
