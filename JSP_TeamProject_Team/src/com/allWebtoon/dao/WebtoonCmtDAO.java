@@ -78,7 +78,7 @@ public class WebtoonCmtDAO {
 	public static List<WebtoonCmtDomain> selCmtList(int w_no) {
 		List<WebtoonCmtDomain> list = new ArrayList<WebtoonCmtDomain>();
 
-		String sql = " SELECT A.u_no, A.u_name, A.u_profile, CASE WHEN char_length(B.c_com) > 20 THEN concat(left(B.c_com, 20), '...') ELSE B.c_com END as c_com, B.c_rating " 
+		String sql = " SELECT A.u_no, A.u_name, A.u_profile, B.c_com	, B.c_rating " 
 				+ " FROM t_user A " 
 				+ " INNER JOIN t_comment B "
 				+ " ON A.u_no = B.u_no" 
