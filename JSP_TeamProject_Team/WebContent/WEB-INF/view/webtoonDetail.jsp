@@ -50,6 +50,7 @@
    		color: red;
    		top: 41%;
    		margin-left: 5%;
+   		cursor:pointer;
    }
    section #detailContainer #webtoonContainer #webtoonSummary ul #title{
    		font-style: normal;
@@ -104,12 +105,46 @@
    		height: 100%;
    		border-radius: 5%;
    	}
-   .startRadio {display: inline-block; overflow: hidden; height: 40px;}
-   .startRadio:after { content: ""; display: block; position: relative; height: 40px;background: url("/images/star_Radio.png") repeat-x 0 0; background-size: contain; pointer-events: none;}
-   .startRadio__box { position: relative; z-index: 0; float: left; width: 20px; height: 40px;cursor: pointer;}
-   .startRadio input { opacity: 0 !important; height: 0 !important;width: 0 !important;position: absolute !important;}
-   .startRadio input:checked + .startRadio__img { background-color: #ffd700;}
-   .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none; z-index:-1}
+   section #detailContainer #webtoonContainer #webtoonSummary .startRadio {
+   		display: inline-block;
+   		overflow: hidden;
+   		height: 40px;
+   	}
+   section #detailContainer #webtoonContainer #webtoonSummary .startRadio:after {
+   		content: "";
+   		display: block;
+   		position: relative;
+   		height: 40px;
+   		background: url("/images/star_Radio.png") repeat-x 0 0;
+   		background-size: contain;
+   		pointer-events: none;
+   	}
+   section #detailContainer #webtoonContainer #webtoonSummary .startRadio__box {
+   		position: relative;
+   		z-index: 0;
+   		float: left;
+   		width: 20px;
+   		height: 40px;
+   		cursor: pointer;
+   	}
+   section #detailContainer #webtoonContainer #webtoonSummary .startRadio input {
+   		opacity: 0 !important;
+   		height: 0 !important;
+   		width: 0 !important;
+   		position: absolute !important;
+   	}
+   section #detailContainer #webtoonContainer #webtoonSummary .startRadio input:checked + .startRadio__img {
+   		background-color: #ffd700;
+   }
+   section #detailContainer #webtoonContainer #webtoonSummary .startRadio__img {
+   		display: block;
+   		position: absolute;
+   		right: 0;
+   		width: 500px;
+   		height: 40px;
+   		pointer-events: none;
+   		z-index:-1
+   	}
    section #detailContainer #webtoonContainer #story {
    		width: 80%;
    		margin: 20px auto;
@@ -163,12 +198,17 @@
    		vertical-align:top;
    		display: inline-block;
    		width: 30%;
-   		height : 180px;
+   		height: 80%;
    		border-radius: 20px;
    		margin: 2% auto;
    	}
+   	section #detailContainer .cmt_list .cmtItem img {
+   		width: 53px;
+   		height: 49px;
+   		border-radius: 50%;
+   	}
    	section #detailContainer .cmt_list .cmtItem #cmt_list{
-   		padding-left: 50px;
+   		padding-left: 15%;
    	}
    	section #detailContainer .cmt_list .cmtItem ul li{
    		display: inline-block;
@@ -193,12 +233,20 @@
    	}
    	section #detailContainer .cmt_list .cmtItem #cmt_list_com{
    		width: 80%;
+   		height: 150px;
    		margin: 0 auto;
+   		word-break: break-all;
+   		overflow: hidden;
+   		margin-bottom: 5%;
+   	}
+   	section #detailContainer .cmt_list .cmtItem #cmt_list_com li{
+   		display: inline;
    	}
    	section #detailContainer .cmt_list .cmtItem:nth-child(4){
    		position:absolute;
    		background-color: steelblue;
    		width: 80px;
+   		height: 85%;
    		right: 0%;
    		cursor: pointer;
    	}
@@ -206,15 +254,47 @@
    		position: absolute;
    		top: 40%;
    		right: 18%;
+   	}
+   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list{
+   		position: relative;
+   		height: 90%;
+   		padding-top: 3%;
+   		padding-left: 10%;
+   		padding-right: 10%;
+   	}
+   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list li{
+   		display: inline;
    	}	
-   .blind { position: absolute; overflow: hidden; margin: -1px;padding: 0;width: 1px;height: 1px;border: none;clip: rect(0, 0, 0, 0);}
-   
-	.cmt_list .cmtItem img {width: 53px;height: 49px; border-radius: 50%;}
-	.cmt_list .cmtItem .moreCmt {width: 100%;height:100%;display:flex;justify-content:center;align-items:center;}
+   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list .cmt_list_name{
+   		position: absolute;
+   		left: 27%;
+   		top: 9%;
+   		margin-right: 2%;
+   	}
+   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list #modalStar{
+   		position: absolute;
+   		color: gold;
+   		font-size : 1.2em;
+   		right: 20%;
+   		top: 8.5%;
+   	}
+   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list .cmt_list_rating{
+   		position: absolute;
+   		right: 10%;
+   		top: 9%;
+   	} 
+   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list .cmt_list_com{
+   		display: block;
+   		width: 100%;
+   		height:78%;
+   		white-space: normal;
+   		margin-top: 2%;
+   		word-break: break-all;
+   		overflow: auto;
+	}
+   	.blind { position: absolute; overflow: hidden; margin: -1px;padding: 0;width: 1px;height: 1px;border: none;clip: rect(0, 0, 0, 0);}
 	.swiper-container {height: 100%;}
-    .swiper-slide {display: flex !important;justify-content: center;align-items: center;font-size: 3rem;}
-
-	#favorite {cursor:pointer;}
+    .swiper-slide {display: flex !important;justify-content: center;align-items: center;font-size: 2rem;}
 </style>
 <link rel="stylesheet" href="/css/modal.css" />
 <link rel="stylesheet" href="/css/swiper-bundle.min.css">
@@ -341,8 +421,8 @@
 				  // 네비게이션 방향키
 				  navigation: {
 				    nextEl: '.swiper-button-next',
-				    prevEl: '.swiper-button-prev',
-				  },
+				    prevEl: '.swiper-button-prev'
+				  }
 				})
 				//회색 배경 누를 시 모달 닫기
 				modalOverlay.addEventListener("click", closeModal)
@@ -358,7 +438,8 @@
 			//cmt_list_rating 만들고 클래스 추가
 			var cmt_list_rating = document.createElement('li')
 			cmt_list_rating.classList.add('cmt_list_rating')
-			cmt_list_rating.innerText = arr.c_rating
+			cmt_list_rating.innerText = parseFloat(arr.c_rating).toFixed(1)
+		
 			//cmt_list_com 만들고 클래스 추가
 			var cmt_list_com = document.createElement('li')
 			cmt_list_com.classList.add('cmt_list_com')
@@ -380,6 +461,13 @@
 			swiper_slide.append(cmt_list)
 			cmt_list.append(cmt_list_profile)
 			cmt_list.append(cmt_list_name)
+			if(arr.c_rating != 0 && arr.c_rating != null && arr.c_rating != ''){
+				var star = document.createElement('span')
+				star.classList.add('material-icons')
+				star.id = 'modalStar'
+				star.innerText = 'grade'
+				cmt_list.append(star)
+			}
 			cmt_list.append(cmt_list_rating)
 			cmt_list.append(cmt_list_com)
 		}
