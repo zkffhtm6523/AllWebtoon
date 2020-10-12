@@ -24,7 +24,7 @@ section button {
     position: absolute;
 }
 .modal__content {
-    background-color: #91a3b0; 
+    background-color: darkgray; 
     position: relative; 
     border-radius: 10px; 
     width: 45%;

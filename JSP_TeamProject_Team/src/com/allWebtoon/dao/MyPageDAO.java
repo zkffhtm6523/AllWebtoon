@@ -15,7 +15,8 @@ public class MyPageDAO {
 	public static int myWebtoon(List<WebtoonCmtDomain> list, int u_no) {
 		String sql = 
 				  " SELECT A.w_thumbnail,"
-				+ " CASE WHEN char_length(A.w_title) > 8 THEN concat(left(A.w_title, 8), '...') ELSE A.w_title END as w_title,"
+			//	+ " CASE WHEN char_length(A.w_title) > 8 THEN concat(left(A.w_title, 8), '...') ELSE A.w_title END as w_title,"
+				+ " A.w_title, "
 				+ " format(B.c_rating,1) as c_rating, A.w_no, B.c_com " 
 				+ " FROM t_webtoon A " 
 				+ " INNER JOIN t_comment B " 

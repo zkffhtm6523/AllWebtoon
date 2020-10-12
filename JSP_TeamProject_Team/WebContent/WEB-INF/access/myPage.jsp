@@ -52,12 +52,13 @@ section #myPageContainer .result_view > #nextArrIcon{
  	right: 2%;
  	cursor: pointer;
 }
-
 section #myPageContainer .result_view .listItem{
  	position: relative;
+ 	display: inline-block;
  	vertical-align : top;
  	top: 0px;
  	margin: 0 auto;
+ 	display: inline-block;
 }
 section #myPageContainer .result_view .nonListItem{
 	width: 96%;
@@ -71,6 +72,7 @@ section #myPageContainer .result_view .listItem ul{
  	padding-left: 10px;
  	padding-right: 10px;
  	position: relative;
+ 	list-style-type:none;
 }
 section #myPageContainer .result_view .listItem ul :nth-child(3){
 	position:absolute;
@@ -84,6 +86,7 @@ section #myPageContainer .result_view .listItem ul :nth-child(4){
  	display: inline-block;
  	vertical-align: top;
  	line-height: 30px;
+
  	left: -20px;
 }
 section #myPageContainer .result_view .listItem ul :nth-child(5){
@@ -95,6 +98,7 @@ section #myPageContainer .result_view .listItem ul :nth-child(5){
 }
 section #myPageContainer .result_view .listItem ul li a img{
  	border-radius: 8px;
+ 	width: 125px; height: 100px;
 }
 section .profileImg{
 	width: 160px;
@@ -127,10 +131,16 @@ section .name{
  section #myPageContainer .printImage ul li{
  	margin: 15px auto;
  }
+ 
 #loginUser{color: gray; font-weight: bold; font-size: 1.1em;}
-.result_view .listItem {display: inline-block;}
-.result_view .listItem ul {list-style-type:none;}
-.result_view .listItem img {width: 125px; height: 100px;}
+
+.title{
+		width:125px;
+   		text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
+}
+
 </style>
 </head>
 <body>
@@ -174,6 +184,7 @@ section .name{
 				</li>
 			</ul>
 			</div>
+			<!-- 조회한 웹툰 -->
 			<div class="result_view" id="view_list">
 				<h2><span id="loginUser">${loginUser.u_name}님</span> 최근 조회 웹툰</h2>
 				<c:choose>
@@ -182,7 +193,7 @@ section .name{
 							<div class="listItem">
 								<ul>
 									<li><a href="/webtoon/detail?w_no=${recentWebtoon[i].w_no}"><img src="${recentWebtoon[i].w_thumbnail}" title="${recentWebtoon[i].w_title}"></a></li>
-									<li>${recentWebtoon[i].w_title}</li>
+									<li class="title">${recentWebtoon[i].w_title}</li>
 									<c:if test="${recentWebtoon[i].c_rating != 0}">
 										<span class="material-icons">grade</span>
 										<li>${recentWebtoon[i].c_rating}</li>
@@ -216,9 +227,11 @@ section .name{
 							<div class="listItem">
 								<ul>
 									<li><a href="/webtoon/detail?w_no=${list[i].w_no}"><img src="${list[i].w_thumbnail}" title="${list[i].w_title}"></a></li>
-									<li>${list[i].w_title}</li>
-									<span class="material-icons">grade</span>
-									<li>${list[i].c_rating}</li>
+									<li><div class="title">${list[i].w_title}</div></li>
+									<c:if test="${list[i].c_rating != 0 && list[i].c_rating != null}">
+										<span class="material-icons">grade</span>
+										<li>${list[i].c_rating}</li>
+									</c:if>
 									<c:if test="${list[i].c_com != null && list[i].c_com != '' && list[i].c_com != ' '}">
 										<span class="material-icons">insert_comment</span>
 									</c:if>
@@ -238,7 +251,7 @@ section .name{
 			</div>
 			
 			
-			
+			<!--  찜한 웹툰 -->
 			<div class="result_view" id="favoritelist">
 				<h2><span id="loginUser">${loginUser.u_name}님</span> 찜한 웹툰</h2>
 				<c:choose>
@@ -250,9 +263,11 @@ section .name{
 							<div class="listItem">
 								<ul>
 									<li><a href="/webtoon/detail?w_no=${favoritelist[i].w_no}"><img src="${favoritelist[i].w_thumbnail}" title="${favoritelist[i].w_title}"></a></li>
-									<li>${favoritelist[i].w_title}</li>
-									<span class="material-icons">grade</span>
-									<li>${favoritelist[i].c_rating}</li>
+									<li class="title">${favoritelist[i].w_title}</li>
+									<c:if test="${favoritelist[i].c_rating != 0 && favoritelist[i].c_rating != null}">
+										<span class="material-icons">grade</span>
+										<li>${favoritelist[i].c_rating}</li>
+									</c:if>
 									<c:if test="${favoritelist[i].c_com != null && favoritelist[i].c_com != '' && favoritelist[i].c_com != ' '}">
 										<span class="material-icons">insert_comment</span>
 									</c:if>
@@ -346,21 +361,27 @@ function makeListItem(result_view, res, delNum, addNum) {
 	aImg.append(addImg)
 	//타이틀 만들기 
 	var liTitle = document.createElement('li')
+	liTitle.setAttribute('class','title')
 	liTitle.innerText = res.data.w_title
 	ulList.append(liTitle)
-	//starIcon 만들기 
-	var starIcon = document.createElement('span')
-	starIcon.classList.add('material-icons')
-	starIcon.innerHTML = 'grade'
-	ulList.append(starIcon)
-	//평점 li 만들
-	var grade = document.createElement('li')
-	if(res.data.c_rating.toString().indexOf(".") == -1){
-		grade.innerHTML = res.data.c_rating + ".0"
-	}else {
-		grade.innerHTML = res.data.c_rating
+	
+	if(res.data.c_rating != 0.0){
+		
+		//starIcon 만들기 
+		var starIcon = document.createElement('span')
+		starIcon.classList.add('material-icons')
+		starIcon.innerHTML = 'grade'
+		ulList.append(starIcon)
+		//평점 li 만들
+		var grade = document.createElement('li')
+		if(res.data.c_rating.toString().indexOf(".") == -1){
+			grade.innerHTML = res.data.c_rating + ".0"
+		}else {
+			grade.innerHTML = res.data.c_rating
+		}
+		ulList.append(grade)
+	
 	}
-	ulList.append(grade)
 	//cmtIcon 만들기
 	if(res.data.c_com != null){
 		var cmtIcon = document.createElement('span')

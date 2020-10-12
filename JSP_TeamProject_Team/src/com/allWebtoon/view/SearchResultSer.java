@@ -3,6 +3,7 @@ package com.allWebtoon.view;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,6 +40,31 @@ public class SearchResultSer extends HttpServlet {
 		} else if(genre != null && !("".equals(genre))) {
 			list = WebtoonListDAO.selSearchList(vo,"genre");
 		} else {
+			
+			//한글 사이에 % 넣기. 띄어쓰기에 % 넣기, 영어는 띄어쓰기에만 넣음. 
+			String[] str = new String[vo.getSearchKeyword().length()];
+			String result = "";
+			for(int i=0; i<vo.getSearchKeyword().length(); i++) {
+				str[i] = vo.getSearchKeyword().substring(i, i+1);
+				if(Pattern.matches("^[ㄱ-ㅎ가-힣]*$", str[i])){
+					System.out.println("한글이다");
+					str[i] = "%" + str[i] + "%";
+				} else if(" ".equals(str[i])) {
+					str[i] = "%";
+				}
+			}
+			
+			for(int i=0; i<str.length; i++) {
+				result += str[i];
+			}
+			
+			System.out.println("result:  "+ result);
+			
+			vo.setSearchKeyword(result);
+
+	
+			System.out.println(vo.getSearchKeyword());
+			
 			list =  WebtoonListDAO.selSearchList(vo,"all");
 			System.out.println("writer is null");
 		}
