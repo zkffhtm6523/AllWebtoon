@@ -57,6 +57,7 @@ public class GoogleAPI extends HttpServlet {
 		System.out.println("ret : "+result); 
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(result);
+		System.out.println(element);
 		String u_name = element.getAsJsonObject().get("name").getAsString();
 		String u_email = element.getAsJsonObject().get("email").getAsString();
 		String u_profile = element.getAsJsonObject().get("picture").getAsString();
