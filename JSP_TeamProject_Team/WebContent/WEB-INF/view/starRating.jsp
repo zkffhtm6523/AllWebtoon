@@ -276,49 +276,6 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 	    	})
 	    }
 	};
-	
-	
-	
-	
-	//검색결과로 넘어가기
-	function moveToResult() {
-		if(event.keyCode == 13){
-			var result = search.value
-			location.href = '/searchResult?result='+result
-		}
-	}
-	
-  	//홈으로 가기
-  	function goHome() {
-  		location.href = '/home'
-  	}
-  	
-  	//마이 페이지로 넘어가기
-  	function moveToMyPage() {
-		location.href = '/myPage?i_user=${loginUser.u_no}'
-	}
-  	//프로필로 넘어가기
-  	function moveToProfile() {
-		location.href = '/profile?i_user=${loginUser.u_no}'
-	}
-  	//로그아웃하기
-  	function moveToLogOut() {
-  		if(confirm('로그아웃 하시겠습니까?')){
-   			location.href = '/logout'
-  		}
-	}
-  	
-
-    function moveToLogin() {
-    	location.href = '/login'
-    }
-    function moveToJoin() {
-    	location.href = '/join'
-    }
- 	//평가페이지 가기
-	 function moveToReview(){
-		 location.href = '/webtoon/cmt'
-	 }
 </script>
 </body>
 </html>

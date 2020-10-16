@@ -67,8 +67,6 @@ public class WebtoonCmtSer extends HttpServlet {
 			
 			String json = gson.toJson(sendarr);
 			
-			System.out.println("json : " + json);
-			
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/json");
 			PrintWriter out = response.getWriter();
@@ -85,13 +83,8 @@ public class WebtoonCmtSer extends HttpServlet {
 	  UserVO loginUser = new UserVO();
       
       loginUser = MyUtils.getLoginUser(request);
-      
       int u_no = loginUser.getU_no();
-
       String ratingPage = null;
-      
-      
-
       
 	  int w_no = MyUtils.getIntParameter(request, "w_no");
 	  String strC_rating = request.getParameter("c_rating");
@@ -103,9 +96,6 @@ public class WebtoonCmtSer extends HttpServlet {
     	  String body = IOUtils.toString(request.getReader());
     	  JsonParser parser = new JsonParser();
           JsonObject object = (JsonObject) parser.parse(body);
-          
-          
-          System.out.println("body: " + body);
           
           w_no = Integer.parseInt(object.get("w_no").toString());
           strC_rating = object.get("c_rating").toString();
@@ -123,7 +113,12 @@ public class WebtoonCmtSer extends HttpServlet {
       param.setU_no(u_no);
       param.setW_no(w_no);
 
-      if(!"".equals(c_com)) {param.setC_com(c_com);}
+      if(!"".equals(c_com)) {
+    	  String filterCcom1 = scriptFilter(c_com);
+    	  String filterCcom2 = swearWordFilter(filterCcom1);
+    	  
+    	  param.setC_com(filterCcom2);
+      }
       param.setC_rating(c_rating);
      // vo.setU_id(loginUser.getU_id());
       
@@ -133,15 +128,15 @@ public class WebtoonCmtSer extends HttpServlet {
       case "0": // 등록
          result = WebtoonCmtDAO.insCmt(param);
       //   UserDAO.insU_genre(vo, genre_name);
-         System.out.println("댓글 등록 : " + result);
+         //System.out.println("댓글 등록 : " + result);
          break;
       case "1": // 수정
          result = WebtoonCmtDAO.updCmt(param);
-         System.out.println("댓글 수정 : " + result);
+         //System.out.println("댓글 수정 : " + result);
          break;
       case "2":
     	  result = WebtoonCmtDAO.delCmt(param);
-    	  System.out.println("평점 삭제 : " + result);
+    	  //System.out.println("평점 삭제 : " + result);
     	  break;
       }
       
@@ -149,4 +144,26 @@ public class WebtoonCmtSer extends HttpServlet {
     	  response.sendRedirect("/webtoon/detail?w_no=" + w_no);
       }
    }
+   
+   //욕 필터
+ 	private String swearWordFilter(final String ctnt) {
+ 		String[] filters = {"개새끼", "미친년", "ㄱ ㅐ ㅅ ㅐ ㄲ ㅣ"};
+ 		String result = ctnt;
+ 		for(int i=0; i<filters.length; i++) {
+ 			result = result.replace(filters[i], "***");
+ 		}
+ 		return result;
+ 	}
+ 	
+ 	//스크립트 필터
+ 	private String scriptFilter(final String ctnt) {
+ 		String[] filters = {"<script>", "</script>","\"\">"};
+ 		String[] filterReplaces = {"&lt;script&gt;", "&lt;/script&gt;","\"\""};
+ 		
+ 		String result = ctnt;
+ 		for(int i=0; i<filters.length; i++) {
+ 			result = result.replace(filters[i], filterReplaces[i]);
+ 		}
+ 		return result;
+ 	}
 }

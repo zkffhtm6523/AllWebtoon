@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,25 +79,33 @@ section input[type="submit"]:hover {
 	            	<input type="hidden" name="u_profile" value="${userInfo.u_profile == '' ? '' : userInfo.u_profile}">
 	            	<input type="hidden" name="chkProfile" value="${userInfo.chkProfile == '' ? '' : userInfo.chkProfile}">
 	            	<input type="hidden" name="u_joinPath" value="${userInfo.u_joinPath >= 2 ? userInfo.u_joinPath : 1}">
+	            	
 	            	<div>
+	            		<c:if test = "=${userInfo.u_id == ''}">
 		            	<span class="name">아이디</span>&nbsp;&nbsp;
-		            	<input type="text" class="joinList" name="u_id" id="id" placeholder="아이디를 입력해주세요" value="${userInfo.u_id}" autofocus required>
+		            	</c:if>
+		            	<input type=${userInfo.u_id == ''? "text" : "hidden"} class="joinList" name="u_id" id="id" placeholder="아이디를 입력해주세요" value="${userInfo.u_id}" ${userInfo.u_id != '' ? 'readonly' : ''} autofocus required >
 	            	</div>
 	            	<div>
+	            		<c:if test = "=${userInfo.u_password == ''}">
 	            		<span class="name">비밀번호</span>&nbsp;&nbsp;
-	                	<input type="password" class="joinList" name="u_pw" id="pw" placeholder="비밀번호" value="${userInfo.u_password}" required>
+	            		</c:if>
+	                	<input type=${userInfo.u_password == ''? "password" : "hidden"} class="joinList" name="u_pw" id="pw" placeholder="비밀번호" value="${userInfo.u_password}" required>
 					</div>
 					<div>
+						<c:if test = "=${userInfo.u_password == ''}">
 						<span class="name">비밀번호 확인</span>&nbsp;&nbsp;
-	                	<input type="password" class="joinList" name="u_pw2" id="pw2" placeholder="비밀번호 확인" value="${userInfo.u_password}" required>
+						</c:if>
+	                	<input type=${userInfo.u_password == ''? "password" : "hidden"} class="joinList" name="u_pw2" id="pw2" placeholder="비밀번호 확인" value="${userInfo.u_password}" required>
 					</div>
+					
 					<div>
 						<span class="name">이름</span>&nbsp;&nbsp;
 		                <input type="text" class="joinList" name="name" id="name" placeholder="이름" value="${userInfo.u_name}" required>
 	                </div>
 	                <div>
 						<span class="name">이메일</span>&nbsp;&nbsp;
-		                <input type="email" class="joinList" name="email" id="email" placeholder="메일" value="${userInfo.u_email}" required>
+		                <input type="email" class="joinList" name="email" id="email" placeholder="메일" value="${userInfo.u_email}" ${userInfo.u_email != '' ? 'readonly' : ''} required>
 	                </div>
 	                <div>
 	                	<span class="name">생년월일</span>&nbsp;&nbsp;
@@ -156,47 +165,6 @@ section input[type="submit"]:hover {
 				return false;
 			}
 		}
-		//웹툰 상세페이지 가기
-	  	function moveToDetail(w_no) {
-	  		location.href = '/webtoon/detail?w_no='+w_no
-	  	}
-	  	//로그인으로 넘어가기
-    	function moveToLogin() {
-			location.href = '/login'
-		}
-    	//회원가입으로 넘어가기
-    	function moveToJoin() {
-			location.href = '/join'
-		}
-    	//검색결과로 넘어가기
-    	function moveToResult() {
-			if(event.keyCode == 13){
-				var result = search.value
-				location.href = '/searchResult?result='+result
-			}
-		}
-    	//홈으로 가기
-    	function goHome() {
-    		location.href = '/home'
-    	  }
-    	//마이 페이지로 넘어가기
-    	function moveToMyPage() {
-			location.href = '/myPage?i_user=${loginUser.u_no}'
-		}
-    	//프로필로 넘어가기
-    	function moveToProfile() {
-			location.href = '/profile?i_user=${loginUser.u_no}'
-		}
-    	//로그아웃하기
-    	function moveToLogOut() {
-    		if(confirm('로그아웃 하시겠습니까?')){
-	    		location.href = '/logout'
-    		}
-		}
-    	//평가페이지 가기
-    	function moveToReview(){
-    		location.href = '/webtoon/cmt'
-    	}
 	</script>
 </body>
 </html>

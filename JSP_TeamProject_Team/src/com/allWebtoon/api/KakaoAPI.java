@@ -34,7 +34,8 @@ public class KakaoAPI {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=48c16d63af5493c7ae43a1433ec7760f");
-			sb.append("&redirect_uri=http://localhost:8089/login?platNo=1");
+			//sb.append("&redirect_uri=http://localhost:8089/login?platNo=1");
+			String redirectURI = "http://192.168.2.8:8089/googleAPI";
 			sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -101,23 +102,48 @@ public class KakaoAPI {
 	        JsonParser parser = new JsonParser();
 	        JsonElement element = parser.parse(result);
 	        
+	        System.out.println(element);
+	        
 	        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+	        
 	        String user_id = element.getAsJsonObject().get("id").getAsString();
-	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-	        String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
-	        String email = kakao_account.getAsJsonObject().get("email").getAsString();
-	        String profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
-	        String thumbnail_image = properties.getAsJsonObject().get("thumbnail_image").getAsString();
+	        String nickname = "";
+	        String gender ="";
+	        String profile_image ="";
+	        String email = "";
+	        try {
+	        	nickname = properties.getAsJsonObject().get("nickname").getAsString();
+	        }catch(Exception e) {}
+	        try {
+	        	gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+	        }catch(Exception e) {}
+	        try {
+	        email = kakao_account.getAsJsonObject().get("email").getAsString();
+	        }catch(Exception e) {}
+	        try {
+	        profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
+	        } catch(Exception e) {}
+	        //String thumbnail_image = properties.getAsJsonObject().get("thumbnail_image").getAsString();
 	        
 	        param.setU_id(user_id);
 	        param.setU_password(user_id);
-	        param.setU_name(nickname);
-	        param.setU_profile(profile_image);
-	        param.setU_email(email);
-	        param.setGender_name(gender.equals("male") ? "남성" : "여성");
 	        param.setU_joinPath(2);
-	        param.setChkProfile(param.getU_profile().substring(0, 4));
+	       
+	        
+	        if(!"".equals(email)) {
+	        	param.setU_email(email);
+	        }
+	        if(!"".equals(nickname)) {
+	        	param.setU_name(nickname);
+	        }
+	        if(!"".equals(profile_image)) {
+	        	param.setU_profile(profile_image);
+	        	param.setChkProfile(param.getU_profile().substring(0, 4));
+	        }  
+	        if(!"".equals(gender)) {
+	        	param.setGender_name(gender.equals("male") ? "남성" : "여성");
+	        }
 	        
 	    } catch (IOException e) {
 	        e.printStackTrace();

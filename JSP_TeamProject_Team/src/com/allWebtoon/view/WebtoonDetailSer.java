@@ -34,7 +34,6 @@ public class WebtoonDetailSer extends HttpServlet {
       int ajaxChk = MyUtils.getIntParameter(request, "ajaxChk");
       
       if(ajaxChk == 1) {
-    	System.out.println("ajaxChk : "+ajaxChk);
     	List<WebtoonCmtDomain> cmtList = WebtoonCmtDAO.selCmtList(w_no);
     	for (int i = 0; i < cmtList.size(); i++) {
     		String u_profile = cmtList.get(i).getU_profile();
@@ -54,7 +53,6 @@ public class WebtoonDetailSer extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.print(json);
       }else {
-    	  System.out.println("ajaxChk : "+ajaxChk);
     	  int loginUser_u_no = MyUtils.getLoginUserPk(request);
 	      WebtoonVO data = WebtoonListDAO.webtoonDetail(w_no, loginUser_u_no);
 	      
@@ -111,9 +109,6 @@ public class WebtoonDetailSer extends HttpServlet {
 	   String body = IOUtils.toString(request.getReader());
  	   JsonParser parser = new JsonParser();
        JsonObject object = (JsonObject) parser.parse(body);
-       
-       
-       System.out.println("body: " + body);
        
        int w_no = Integer.parseInt(object.get("w_no").toString());
        String proc_type = object.get("proc_type").toString();

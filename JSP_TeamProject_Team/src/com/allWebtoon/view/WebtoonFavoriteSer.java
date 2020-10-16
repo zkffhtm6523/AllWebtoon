@@ -22,7 +22,6 @@ public class WebtoonFavoriteSer extends HttpServlet {
 			throws ServletException, IOException {
 		// keep(보고파요) ajax를 위한 servlet
 		int w_no = MyUtils.getIntParameter(request, "w_no");
-		System.out.println("w_no : " + w_no);
 
 		WebtoonCmtVO param = new WebtoonCmtVO();
 		int u_no = MyUtils.getLoginUser(request).getU_no();
@@ -31,7 +30,6 @@ public class WebtoonFavoriteSer extends HttpServlet {
 		param.setW_no(w_no);
 		int result = 0;
 		String proc_type = request.getParameter("proc_type");
-		System.out.println("proc_type : " + proc_type);
 		switch (proc_type) {
 		case "ins":
 			result = UserDAO.insFavorite(param);

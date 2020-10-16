@@ -98,7 +98,8 @@
 	function goKakao() {
 		location.href = 'https://kauth.kakao.com/oauth/authorize'
 			    		+'?client_id=48c16d63af5493c7ae43a1433ec7760f'
-			            +'&redirect_uri=http://localhost:8089/login?platNo=1'
+			         //   +'&redirect_uri=http://localhost:8089/login?platNo=1'
+			        	+'&redirect_uri=http://192.168.2.8:8089/login?platNo=1'
 			            +'&response_type=code'
 	}
 	function goNaver(state) {
@@ -117,54 +118,6 @@
 			 + '&client_id=659641044041-d8d9d26ubldu5veldv2g3cqaqedv6htq.apps.googleusercontent.com'
 			 + '&redirect_uri=http://localhost:8089/googleAPI'
 			 //scope=https://www.googleapis.com/auth/userinfo.email'
-	}
-	//검색결과로 넘어가기
-	function moveToResult() {
-		if(event.keyCode == 13){
-			var result = search.value
-			location.href = '/searchResult?result='+result
-		}
-	}
-	//웹툰 상세페이지 가기
-  	function moveToDetail(w_no) {
-  		location.href = '/webtoon/detail?w_no='+w_no
-  	}
-  	//로그인으로 넘어가기
-	function moveToLogin() {
-		location.href = '/login'
-	}
-	//회원가입으로 넘어가기
-	function moveToJoin() {
-		location.href = '/join'
-	}
-	//검색결과로 넘어가기
-	function moveToResult() {
-		if(event.keyCode == 13){
-			var result = search.value
-			location.href = '/searchResult?result='+result
-		}
-	}
-	//홈으로 가기
-	function goHome() {
-		location.href = '/home'
-	  }
-	//마이 페이지로 넘어가기
-	function moveToMyPage() {
-		location.href = '/myPage?i_user=${loginUser.u_no}'
-	}
-	//프로필로 넘어가기
-	function moveToProfile() {
-		location.href = '/profile?i_user=${loginUser.u_no}'
-	}
-	//로그아웃하기
-	function moveToLogOut() {
-		if(confirm('로그아웃 하시겠습니까?')){
-    		location.href = '/logout'
-		}
-	}
-	//평가페이지 가기
-	function moveToReview(){
-		location.href = '/webtoon/cmt'
 	}
 </script>
 </html>

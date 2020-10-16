@@ -347,7 +347,7 @@
 	            <input type="hidden" id="point" name="c_rating" value="${cmtFrm.u_no.value == '' ? '0.0' : myCmt.c_rating }" required>
 	            <input type="hidden" id="cmtChk" name="cmtChk" value="0">
 	               <!-- 댓글 남기기 -->
-            	<input type="text" id="cmt" name="c_com" placeholder="댓글을 남겨주세요" value="${myCmt.c_com }" onclick="login_chk()" ${loginUser.u_no==null? 'readonly' : '' }>
+            	<input type="text" id="cmt" name="c_com" placeholder="댓글을 남겨주세요(100자 이내)" maxlength="100" value="${myCmt.c_com }" onclick="login_chk()" ${loginUser.u_no==null? 'readonly' : '' }>
 		            <!-- 완료 후 보내기 -->
 	            <input type="submit" id="cmt_btn" value="${myCmt.c_rating == '' || loginUser == null ? '등록하기' : '수정하기' }">
 	            <div><input type="hidden" name="w_no" value="${data.w_no}"></div>
@@ -366,7 +366,7 @@
 							<span class="material-icons">grade</span>
 							<li id="cmt_list_rating">${cmtList[i].c_rating}</li>
 						</ul>
-						<div id="cmt_list_com">${cmtList[i].c_com}</div>
+						<div id="cmt_list_com"><xmp>${cmtList[i].c_com}</xmp></div>
 					</div>
 				</c:forEach>
 				<c:if test="${fn:length(cmtList) > 3}">
@@ -444,6 +444,7 @@
 			var cmt_list_com = document.createElement('li')
 			cmt_list_com.classList.add('cmt_list_com')
 			cmt_list_com.innerText = arr.c_com
+
 			//cmt_list_profile 만들고 클래스 추가			
 			var cmt_list_profile = document.createElement('li')
 			cmt_list_profile.classList.add('cmt_list_profile')
@@ -517,37 +518,6 @@
     	  }
       }
       
-      function moveToLogin() {
-         location.href = '/login'
-      }
-      function moveToJoin() {
-         location.href = '/join'
-      }
-      function moveToResult() {
-         if(event.keyCode == 13){
-            var result = search.value
-            location.href = '/searchResult?result='+result
-         }
-      }
-      function goHome() {
-         location.href = '/home'
-        }
-      function moveToMyPage() {
-         location.href = '/myPage?i_user=${loginUser.u_no}'
-      }
-      function moveToProfile() {
-         location.href = '/profile?i_user=${loginUser.u_no}'
-      }
-      function moveToLogOut() {
-         if(confirm('로그아웃 하시겠습니까?')){
-            location.href = '/logout'
-         }
-      }
-     //평가페이지 가기
-  	 function moveToReview(){
-  		 location.href = '/webtoon/cmt'
-  	 }
-     
   	function toggleFavorite() {
 		console.log('favorite : ' + (favorite.innerText.trim() == 'favorite'))
 		

@@ -193,36 +193,6 @@
    function moveToDetail(w_no) {
    	location.href = '/webtoon/detail?w_no='+w_no
    }
-   function moveToLogin() {
-   	location.href = '/login'
-   }
-   function moveToJoin() {
-   	location.href = '/join'
-   }
-   function moveToResult() {
-   	if(event.keyCode == 13){
-   		var result = search.value
-   		location.href = '/searchResult?result='+result
-   	}
-   }
-   function goHome() {
-   	location.href = '/home'
-     }
-   function moveToMyPage() {
-   	location.href = '/myPage?i_user=${loginUser.u_no}'
-   }
-   function moveToProfile() {
-   	location.href = '/profile?i_user=${loginUser.u_no}'
-   }
-   function moveToLogOut() {
-   	if(confirm('로그아웃 하시겠습니까?')){
-   		location.href = '/logout'
-   	}
-   }
-   //평가페이지 가기
-	 function moveToReview(){
-		 location.href = '/webtoon/cmt'
-	 }
 </script>
 </body>
 </html>

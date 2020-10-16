@@ -36,7 +36,6 @@ public class ProfileSer extends HttpServlet {
 		UserVO loginUser = MyUtils.getLoginUser(request);
 		
 		String u_name = request.getParameter("updName");
-		System.out.println(u_name);
 		//업로드한 이미지 저장 공간 에러  
 		String savePath = getServletContext().getRealPath("images") + "/u_profile/user/" + loginUser.getU_no(); //저장경로
 		//저장 경로를 매개변수로 받는 File 타입의 변수 하나를 만든다.
@@ -73,7 +72,6 @@ public class ProfileSer extends HttpServlet {
 				fileNm = mr.getFilesystemName(key);
 				originFileNm = mr.getOriginalFileName(key);
 				if(originFileNm != null) {
-					System.out.println("originFileNm : "+originFileNm);
 					//확장자 추출
 					int pos = fileNm.lastIndexOf( "." );
 					String ext = fileNm.substring(pos);

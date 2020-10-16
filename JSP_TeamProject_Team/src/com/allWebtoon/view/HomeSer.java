@@ -89,8 +89,6 @@ public class HomeSer extends HttpServlet {
 
 		String genre = reqStr.split("\"")[3];
 		
-		System.out.println(genre);
-		
 		ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
 		
 		list = WebtoonListDAO.selRandomWebtoonList(list,0, 15, genre);
