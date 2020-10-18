@@ -25,7 +25,7 @@ public class MyPageSer extends HttpServlet {
 		int idx = MyUtils.getIntParameter(request, "page");
 		String type = request.getParameter("type");
 		
-		System.out.println("type: " + type );
+		//System.out.println("type: " + type );
 		  
 		//로그인 체크
 		UserVO loginUser = MyUtils.getLoginUser(request);
@@ -94,10 +94,10 @@ public class MyPageSer extends HttpServlet {
 			
 			if(list.size() >= idx) {
 				idx -= 1;
-				System.out.println("ajax 왔음  ");
+				//System.out.println("ajax 왔음  ");
 				Gson gson = new Gson();
 				String json = gson.toJson(list.get(idx));
-				System.out.println("json : " + json);
+				//System.out.println("json : " + json);
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("application/json");
 				PrintWriter out = response.getWriter();

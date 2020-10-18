@@ -15,7 +15,7 @@
 	</div>-->
 		<fieldset id="centerMenu">
 			<legend class="hidden">검색 </legend>
-			<input type="search" id="search" placeholder="웹툰, 작가를 검색하세요" onkeydown="moveToResult()" title="검색어 입력">
+			<input type="search" id="search" placeholder="제목, 작가를 검색하세요" onkeydown="moveToResult()" title="검색어 입력" maxlength="50">
 		</fieldset>
 		<fieldset id="rightMenu">
 			<legend class="hidden">회원관련 </legend>
@@ -55,4 +55,45 @@
 		</fieldset>
 	</div>
 </header>
+
+<script>
+//로그인으로 넘어가기
+function moveToLogin() {
+	location.href = '/login'
+}
+//회원가입으로 넘어가기
+function moveToJoin() {
+	location.href = '/join'
+}
+
+//홈으로 가기
+function goHome() {
+	location.href = '/home'
+  }
+//마이 페이지로 넘어가기
+function moveToMyPage() {
+	location.href = '/myPage'
+}
+//프로필로 넘어가기
+function moveToProfile() {
+	location.href = '/profile'
+}
+//로그아웃하기
+function moveToLogOut() {
+	if(confirm('로그아웃 하시겠습니까?')){
+		location.href = '/logout'
+	}
+}
+//평가페이지 가기
+function moveToReview(){
+	location.href = '/webtoon/cmt'
+}
+//검색결과로 넘어가기
+	function moveToResult() {
+		if(event.keyCode == 13){
+			var result = search.value
+			location.href = '/searchResult?result='+result
+		}
+	}
+</script>
 </html>

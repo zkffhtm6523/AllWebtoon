@@ -36,7 +36,8 @@ public class GoogleAPI extends HttpServlet {
 		String clientId = "659641044041-d8d9d26ubldu5veldv2g3cqaqedv6htq.apps.googleusercontent.com";
 		String clientSecret = "LxGdpTGyFqWFj3AT1167xbvF";
 		String code = request.getParameter("code");
-		String redirectURI = "http://localhost:8089/googleAPI";
+		//String redirectURI = "http://localhost:8089/googleAPI";
+		String redirectURI = "http://192.168.2.8:8089/googleAPI";
 		String reqURL = "https://www.googleapis.com/oauth2/v4/token";
 		
 		String query =	"code="+code; 
@@ -57,6 +58,7 @@ public class GoogleAPI extends HttpServlet {
 		System.out.println("ret : "+result); 
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(result);
+		System.out.println(element);
 		String u_name = element.getAsJsonObject().get("name").getAsString();
 		String u_email = element.getAsJsonObject().get("email").getAsString();
 		String u_profile = element.getAsJsonObject().get("picture").getAsString();

@@ -28,7 +28,10 @@ public class SearchResultSer extends HttpServlet {
 		
 		final int count = 20;
 		SearchWebtoonVO vo = new SearchWebtoonVO();
-		vo.setSearchKeyword(searchKeyword);
+		
+		String filterKeyword = scriptFilter(searchKeyword);
+		
+		vo.setSearchKeyword(filterKeyword);
 		
 		ArrayList<SearchWebtoonVO> list = new ArrayList<SearchWebtoonVO>();
 		ArrayList<SearchWebtoonVO> resultarr = new ArrayList<SearchWebtoonVO>();
@@ -47,7 +50,6 @@ public class SearchResultSer extends HttpServlet {
 			for(int i=0; i<vo.getSearchKeyword().length(); i++) {
 				str[i] = vo.getSearchKeyword().substring(i, i+1);
 				if(Pattern.matches("^[ㄱ-ㅎ가-힣]*$", str[i])){
-					System.out.println("한글이다");
 					str[i] = "%" + str[i] + "%";
 				} else if(" ".equals(str[i])) {
 					str[i] = "%";
@@ -57,16 +59,8 @@ public class SearchResultSer extends HttpServlet {
 			for(int i=0; i<str.length; i++) {
 				result += str[i];
 			}
-			
-			System.out.println("result:  "+ result);
-			
 			vo.setSearchKeyword(result);
-
-	
-			System.out.println(vo.getSearchKeyword());
-			
 			list =  WebtoonListDAO.selSearchList(vo,"all");
-			System.out.println("writer is null");
 		}
 		
 		if(index == 0) {
@@ -96,8 +90,6 @@ public class SearchResultSer extends HttpServlet {
 			
 			String json = gson.toJson(resultarr);
 			
-			System.out.println("json : " + json);
-			
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/json");
 			PrintWriter out = response.getWriter();
@@ -107,5 +99,18 @@ public class SearchResultSer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
+	
+	
+	//스크립트 필터
+ 	private String scriptFilter(final String ctnt) {
+ 		String[] filters = {"<script>", "</script>","\"\">"};
+ 		String[] filterReplaces = {"&lt;script&gt;", "&lt;/script&gt;","\"\""};
+ 		
+ 		String result = ctnt;
+ 		for(int i=0; i<filters.length; i++) {
+ 			result = result.replace(filters[i], filterReplaces[i]);
+ 		}
+ 		return result;
+ 	}
 
 }
