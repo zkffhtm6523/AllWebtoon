@@ -10,7 +10,8 @@ public class DbCon {
 		//mysql의 포트번호/데이터베이스명을 적는다.
 		String dbURL = "jdbc:mysql://localhost:3306/webtoon_db?serverTimezone=UTC";
 		String dbID = "root";
-		String dbPassword = "koreait2020";		
+		//String dbPassword = "koreait2020";		
+		String dbPassword = "root";	
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = DriverManager.getConnection(dbURL,dbID,dbPassword);
 		return conn;
