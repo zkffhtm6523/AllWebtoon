@@ -11,7 +11,7 @@
 	<div id="footer_menubar">
 		<ul>
 			<li><a href="#">Info | </a></li>
-			<li><a href="#">Supprot | </a></li>
+			<li><a href="#">Support | </a></li>
 			<li><a href="#">Marketing</a></li>
 		</ul>
 	</div>

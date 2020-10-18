@@ -295,6 +295,87 @@
    	.blind { position: absolute; overflow: hidden; margin: -1px;padding: 0;width: 1px;height: 1px;border: none;clip: rect(0, 0, 0, 0);}
 	.swiper-container {height: 100%;}
     .swiper-slide {display: flex !important;justify-content: center;align-items: center;font-size: 2rem;}
+    
+    
+    
+    
+    
+    
+    section #detailContainer .result_view{
+ 	width: 80%;
+ 	margin: 20px auto;
+ 	border: 3px solid #EAEAEA;
+	border-radius: 8px;
+	padding: 10px;
+	padding-bottom: 10px;
+	position: relative;
+}
+section #detailContainer .result_view > #prevArrIcon{
+ 	position: absolute;
+ 	top: 50%;
+ 	left: 2%;
+ 	cursor: pointer;
+}
+section #detailContainer .result_view > #nextArrIcon{
+ 	position: absolute;
+ 	top: 50%;
+ 	right: 2%;
+ 	cursor: pointer;
+}
+section #detailContainer .result_view .listItem{
+ 	position: relative;
+ 	display: inline-block;
+ 	vertical-align : top;
+ 	top: 0px;
+ 	margin: 0 auto;
+ 	display: inline-block;
+}
+section #detailContainer .result_view .nonListItem{
+	width: 96%;
+	margin: 0 auto;
+}
+section #detailContainer .result_view .nonListItem h2{
+	text-align: center;
+	font-size: 1.3em;	
+}
+section #detailContainer .result_view .listItem ul{
+ 	padding-left: 10px;
+ 	padding-right: 10px;
+ 	position: relative;
+ 	list-style-type:none;
+}
+section #detailContainer .result_view .listItem ul :nth-child(3){
+	position:absolute;
+	color: gold;
+	font-size: 1.3em;
+	bottom: 5px;
+	left: 10px;
+}
+section #detailContainer .result_view .listItem ul :nth-child(4){
+ 	position:relative;
+ 	display: inline-block;
+ 	vertical-align: top;
+ 	line-height: 30px;
+
+ 	left: -20px;
+}
+section #detailContainer .result_view .listItem ul :nth-child(5){
+	position:absolute;
+	color: gray;
+	font-size: 1.3em;
+	bottom: 5px;
+	right: 10px;
+}
+section #detailContainer .result_view .listItem ul li a img{
+ 	border-radius: 8px;
+ 	width: 125px; height: 100px;
+}
+
+section >  #detailContainer > .result_view > h2{
+	text-align: left;
+	margin-left: 20px;
+}
+
 </style>
 <link rel="stylesheet" href="/css/modal.css" />
 <link rel="stylesheet" href="/css/swiper-bundle.min.css">
@@ -334,6 +415,9 @@
 	                   </label>
                 	</c:forEach>
                   </div>
+                  <c:if test="${loginUser != null }">
+                  평균 별점 : ${aveScore} (${ numScore}명)
+                  </c:if>
                </li>
             </ul>
             </div>
@@ -345,7 +429,7 @@
 	      <div id="comment">
 	         <form action="/webtoon/cmt" method="post" id="cmtFrm" name="cmtFrm" onsubmit="return chk()">
 	            <input type="hidden" id="point" name="c_rating" value="${cmtFrm.u_no.value == '' ? '0.0' : myCmt.c_rating }" required>
-	            <input type="hidden" id="cmtChk" name="cmtChk" value="0">
+	            <input type="hidden" id="cmtChk" name="cmtChk" value=${myCmt.c_rating == 0.0 ? "0" : "1" }>
 	               <!-- 댓글 남기기 -->
             	<input type="text" id="cmt" name="c_com" placeholder="댓글을 남겨주세요(100자 이내)" maxlength="100" value="${myCmt.c_com }" onclick="login_chk()" ${loginUser.u_no==null? 'readonly' : '' }>
 		            <!-- 완료 후 보내기 -->
@@ -386,6 +470,32 @@
 				</c:if>
 			</c:if>
 	      </div>
+	      
+	      
+	      <c:if test="${loginUser != null}">
+	      
+	      <div class="result_view" id="rec_list">
+				<h2>이 웹툰 비슷한 작품</h2>
+				<c:choose>
+					<c:when test="${rec_list != null && fn:length(rec_list) != 0}">
+						<c:forEach var="i" begin="0" end="${fn:length(rec_list)-1 }">
+							<div class="listItem">
+								<ul>
+									<li><a href="/webtoon/detail?w_no=${rec_list[i].w_no}"><img src="${rec_list[i].w_thumbnail}" title="${rec_list[i].w_title}"></a></li>
+									<li class="title">${rec_list[i].w_title}</li>
+								</ul>
+							</div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<div class="nonListItem">
+							<h2>추천 웹툰이 없습니다.</h2>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			</c:if>
+	      
 	      </div>
       </section>
       <jsp:include page="../template/footer.jsp"/>
@@ -545,6 +655,75 @@
 			}
 		})
 	}
+  	
+  	
+  	
+  	
+  	let recIdx = 5;
+  	function selCmtMinus() {
+  		if(recIdx-5 == 0){
+  			alert('처음입니다')
+  		}else if(redIdx-5 >= 1){
+  			console.log('minus : '+ recIdx-5)
+  			axios.get('/myPage',{
+  				params :{
+  					type : type,
+  					page : recIdx - 5 
+  				}
+  			}).then(function(res){
+  				//각 웹툰별 아이템 박스 만들기(json, delNum, addNum)
+				makeListItem(rec_list, res, 7, 2)
+				recIdx--;
+  				
+  			})
+  		}
+  	}
+  	
+  	function selCmtPlus(type) {
+  		axios.get('/myPage',{
+  			params : {
+  				type : type,
+  				page : recIdx +1
+  			}
+  		}).then(function(res) {
+  			if(res.data == 0){
+  				alert('마지막입니다')
+  			}else{
+  				//각 웹툰별 아이템 박스 만들기(넣을 div 박스, json, delNum, addNum)
+  				makeListItem(rec_list, res, 2, 7)
+  				recIdx++;
+  			}
+  		})
+  	}
+  	function makeListItem(result_view, res, delNum, addNum) {
+  		//listItem 만들기 
+  		var listItem = document.createElement('div')
+  		listItem.classList.add('listItem')
+  		//ul 만들기 
+  		var ulList = document.createElement('ul')
+  		listItem.append(ulList)
+  		//li 만들기 
+  		var liImg = document.createElement('li')
+  		ulList.append(liImg)
+  		//a태그 만들기 
+  		var aImg = document.createElement('a')
+  		aImg.href = '/webtoon/detail?w_no='+res.data.w_no
+  		liImg.append(aImg)
+  		//이미지 태그 만들기 
+  		var addImg = document.createElement('img')
+  		addImg.src = res.data.w_thumbnail
+  		addImg.title = res.data.w_title
+  		aImg.append(addImg)
+  		//타이틀 만들기 
+  		var liTitle = document.createElement('li')
+  		liTitle.setAttribute('class','title')
+  		liTitle.innerText = res.data.w_title
+  		ulList.append(liTitle)
+  		
+  		
+  		result_view.insertBefore(listItem,result_view.children[addNum])
+  		result_view.children[delNum].remove();
+  	}
    </script>
 </body>
 </html>

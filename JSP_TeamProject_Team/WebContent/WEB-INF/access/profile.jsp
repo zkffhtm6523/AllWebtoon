@@ -98,10 +98,12 @@
 					<span class="name">사진 변경</span>&nbsp;&nbsp;
 					<input type="file" name="profile_img" accept="image/*" value="이미지 선택" class="imgFile">
 				</div>
+				<c:if test="${loginUser.u_joinPath ==1 }">
 				<div>
 					<span class="name">아이디</span>&nbsp;&nbsp;
 					<input type="search" name="updId" value="${loginUser.u_id}" class="updList" readonly>
 				</div>
+				</c:if>
 			
 				<div>
 					<span class="name">이름</span>&nbsp;&nbsp;

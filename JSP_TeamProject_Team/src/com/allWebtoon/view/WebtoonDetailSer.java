@@ -1,7 +1,9 @@
 package com.allWebtoon.view;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -23,6 +25,8 @@ import com.allWebtoon.vo.WebtoonVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import jep.*;
 
 @WebServlet("/webtoon/detail")
 public class WebtoonDetailSer extends HttpServlet {
@@ -75,34 +79,109 @@ public class WebtoonDetailSer extends HttpServlet {
 	    		 WebtoonListDAO.delselWebtoon(loginUser.getU_no());
 	    	 }catch(Exception e) { }
 	    	 	 	//만약 기존 웹툰 r_dt가 있으면 r_dt를 수정하는 것
-		    	 if(result == 0) {WebtoonListDAO.updSelWebtoon(w_no, loginUser.getU_no());}
-		    	 // ---------------------------------------
-		    	 // input 박스에 남는 내가 쓴 글 뿌리기------------------------------
-		         WebtoonCmtVO myCmt = new WebtoonCmtVO();
-		         myCmt.setW_no(w_no);
-		         myCmt.setU_no(loginUser.getU_no());
-		         WebtoonCmtVO param = WebtoonCmtDAO.selCmt(myCmt);
-		         
-		         request.setAttribute("myCmt", param);
-		         // ---------------------------------------
-	      }
-	      // 모든 댓글 뿌리기 --------------------------------
-	      List<WebtoonCmtDomain> cmtList = WebtoonCmtDAO.selCmtList(w_no);
-	      for (int i = 0; i < cmtList.size(); i++) {
-	    		String u_profile = cmtList.get(i).getU_profile();
-	    		if(u_profile == null) {
-	    			cmtList.get(i).setU_profile("/images/u_profile/default_image.jpg");
-	    		}else if("http".equals(u_profile.substring(0, 4))){
-	    			cmtList.get(i).setU_profile(u_profile);
-	    		}else {
-	    			int u_no = cmtList.get(i).getU_no();
-	    			cmtList.get(i).setU_profile("/images/u_profile/user/"+u_no+"/"+u_profile);
-	    		}
-			}
-	      request.setAttribute("cmtList", cmtList); 
-	      ViewResolver.viewForward("webtoonDetail", request, response);
-	      // ---------------------------------------------------
+	    	 if(result == 0) {WebtoonListDAO.updSelWebtoon(w_no, loginUser.getU_no());}
+	    	 // ---------------------------------------
+	    	 // input 박스에 남는 내가 쓴 글 뿌리기------------------------------
+	         WebtoonCmtVO myCmt = new WebtoonCmtVO();
+	         myCmt.setW_no(w_no);
+	         myCmt.setU_no(loginUser.getU_no());
+	         WebtoonCmtVO param = WebtoonCmtDAO.selCmt(myCmt);
+	         
+	         request.setAttribute("myCmt", param);
+	         // ---------------------------------------
+	      
+		      // 모든 댓글 뿌리기 --------------------------------
+		      List<WebtoonCmtDomain> cmtList = WebtoonCmtDAO.selCmtList(w_no);
+		      List<WebtoonCmtDomain> send_cmtList = new ArrayList<WebtoonCmtDomain>();
+		      float sumScore =0;					//누적 점수  
+		      float numScore =0;					//평가한 사람 수   
+		      for (int i = 0; i < cmtList.size(); i++) {
+		    	  	sumScore += cmtList.get(i).getC_rating();
+		    	  	numScore += 1;
+		    	  	
+		    	  	if(cmtList.get(i).getC_com() != null && !"".equals(cmtList.get(i).getC_com())) {		//comment가 있는 것만.
+			    		String u_profile = cmtList.get(i).getU_profile();
+			    		
+			    		if(u_profile == null) {
+			    			cmtList.get(i).setU_profile("/images/u_profile/default_image.jpg");
+			    		}else if("http".equals(u_profile.substring(0, 4))){
+			    			cmtList.get(i).setU_profile(u_profile);
+			    		}else {
+			    			int u_no = cmtList.get(i).getU_no();
+			    			cmtList.get(i).setU_profile("/images/u_profile/user/"+u_no+"/"+u_profile);
+			    		}
+			    		send_cmtList.add(cmtList.get(i));
+		    	  	}
+				}
+		      
+		      
+		      System.out.println("listsize: " + cmtList.size());
+		      for(WebtoonCmtDomain cmtlist: cmtList) {
+		    	  System.out.println(cmtlist.getW_title());
+		      }
+		      	request.setAttribute("aveScore", Math.round(sumScore/numScore*10)/10.0);		//평균 평점은 소수점 이하 한자리까지만.
+		      	request.setAttribute("numScore", numScore);
+		      	request.setAttribute("cmtList", send_cmtList); 
+		      
+		      // ---------------------------------------------------
+	      
+	      
+	      
+		      
+		      ////파이썬호출
+		      
+		   /*  System.out.println("w_no: " + w_no);
+		     
+		    
+		     
+			 try {
+				List<WebtoonVO> list = new ArrayList<WebtoonVO>();
+				JepConfig jepConfig = new JepConfig().addSharedModules("numpy")
+	                    .addSharedModules("pandas")
+	                    .addSharedModules("scipy") 
+	                    .addSharedModules("tensorflow")
+	                    .addSharedModules("sklearn");
+	            Jep jep = new Jep(jepConfig);
+				jep.set("w_no_args", w_no);
+				jep.runScript("/Users/hyeseon/python_test/Python/recommend_toon.py");
+				
+				System.out.println("rec_result: " + jep.getValue("recomment_result"));
+				
+				List arr = (List) jep.getValue("recomment_result");
+				
+				System.out.println("이 작품과 비슷한 작품 " );
+				
+				for(int i=0; i<arr.size(); i++) {
+					
+					String rec_wno = ((List) arr.get(i)).get(0).toString();
+							
+					list.add(WebtoonListDAO.selrecommendWebtoon(Integer.parseInt(rec_wno)));
+				}
+				
+				for(WebtoonVO s : list) {
+					System.out.println(s.getW_no());
+					System.out.println(s.getW_title());
+					System.out.println(s.getW_thumbnail());
+				}
+				
+				jep.close();
+				
+	
+				request.setAttribute("rec_list", list);
+				
+			 } catch (JepException e) {
+				//e.printStackTrace();
+				System.out.println("추천작품이 없습니다.");
+			 }
+		 */
+	     }
+		 
+		 
+		 ViewResolver.viewForward("webtoonDetail", request, response);
+		 
+	    
       }
+      
    }
    
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
