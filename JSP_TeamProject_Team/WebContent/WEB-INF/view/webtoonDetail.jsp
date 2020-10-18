@@ -57,7 +57,7 @@
    		font-weight: bold;
    		font-size: 40px;
    		line-height: 52px;
-   		width:60%;
+   		width:500px;
    		display:inline-block;
    		text-overflow: ellipsis;
     	overflow: hidden;
