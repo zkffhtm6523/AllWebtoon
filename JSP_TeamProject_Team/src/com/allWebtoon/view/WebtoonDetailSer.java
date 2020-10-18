@@ -94,10 +94,10 @@ public class WebtoonDetailSer extends HttpServlet {
 		      List<WebtoonCmtDomain> cmtList = WebtoonCmtDAO.selCmtList(w_no);
 		      List<WebtoonCmtDomain> send_cmtList = new ArrayList<WebtoonCmtDomain>();
 		      float sumScore =0;					//누적 점수  
-		      float numScore =0;					//평가한 사람 수   
+		      int numScore =0;					//평가한 사람 수   
 		      for (int i = 0; i < cmtList.size(); i++) {
 		    	  	sumScore += cmtList.get(i).getC_rating();
-		    	  	numScore += 1;
+		    	  	numScore++;
 		    	  	
 		    	  	if(cmtList.get(i).getC_com() != null && !"".equals(cmtList.get(i).getC_com())) {		//comment가 있는 것만.
 			    		String u_profile = cmtList.get(i).getU_profile();
@@ -119,7 +119,7 @@ public class WebtoonDetailSer extends HttpServlet {
 		      for(WebtoonCmtDomain cmtlist: cmtList) {
 		    	  System.out.println(cmtlist.getW_title());
 		      }
-		      	request.setAttribute("aveScore", Math.round(sumScore/numScore*10)/10.0);		//평균 평점은 소수점 이하 한자리까지만.
+		      	request.setAttribute("aveScore", Math.round(sumScore/(float)numScore*10)/10.0);		//평균 평점은 소수점 이하 한자리까지만.
 		      	request.setAttribute("numScore", numScore);
 		      	request.setAttribute("cmtList", send_cmtList); 
 		      
