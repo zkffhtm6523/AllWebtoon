@@ -9,6 +9,7 @@ import java.util.List;
 import com.allWebtoon.db.JdbcSelectInterface;
 import com.allWebtoon.db.JdbcTemplate;
 import com.allWebtoon.vo.WebtoonCmtDomain;
+import com.allWebtoon.vo.WebtoonVO;
 
 public class MyPageDAO {
 
@@ -24,7 +25,7 @@ public class MyPageDAO {
 				+ " INNER JOIN t_user C " 
 				+ " ON B.u_no = c.u_no " 
 				+ " WHERE B.u_no = ? "
-				+ " ORDER BY B.r_dt ";
+				+ " ORDER BY B.m_dt desc";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			
@@ -94,7 +95,8 @@ public class MyPageDAO {
 				+ " on a.w_no = b.w_no "
 				+" left join t_comment C "
 				+" on b.w_no = c.w_no and c.u_no=? "
-				+" where a.u_no=? ";
+				+" where a.u_no=? "
+				+ " order by a.r_dt desc";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			
@@ -120,4 +122,6 @@ public class MyPageDAO {
 			}
 		});
 	}
+	
+	
 }
