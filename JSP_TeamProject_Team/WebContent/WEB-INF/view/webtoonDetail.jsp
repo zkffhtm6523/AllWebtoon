@@ -245,160 +245,160 @@ section >  #detailContainer > .result_view > h2{
 	text-align: left;
 	margin-left: 20px;
 }
-   
-   
-   
-   
-   
-   section #detailContainer #comment{text-align: center;}
-   section #detailContainer #comment #cmtFrm{
-   		margin: 10px;
-   		border-bottom: 1px solid darkgray;
-   }
-   section #detailContainer #comment #cmtFrm #cmt{
-   		border-radius: 20px;
-   		border: 2px solid #4FA2C7;
-   		width: 80%;
-   		height: 80px;
-   		padding-left: 30px;
-   		font-size: 1em;
-   		display: block;
-   		margin: 0 auto;
-   }
-   section #detailContainer #comment #cmtFrm #cmt:focus {outline:none;}
-   section #detailContainer #comment #cmtFrm #submit{text-align: center;}
-   section #detailContainer #comment #cmtFrm #cmt_btn {
-   		margin: 10px;
-   		width: 118px;
-   		border: none;
-   		height: 50px;
-   		background-color: #4FA2C7;
-   		color: white;
-   		font-size: 1em;
-   		border-radius:10px
-   	}
-   	
-   	section #detailContainer .cmt_list{
-   		width: 90%;
-   		margin: 0 auto;
-   		vertical-align:top;
-   		position: relative;
-   	}
-   	section #detailContainer .cmt_list .cmtItem{
-   		background-color:rgba(131,165,180,0.42);
-   		position: relative;
-   		vertical-align:top;
-   		display: inline-block;
-   		width: 30%;
-   		height: 80%;
-   		border-radius: 20px;
-   		margin: 2% auto;
-   		padding-bottom : 25px;
-   	}
-   	section #detailContainer .cmt_list .cmtItem img {
-   		width: 53px;
-   		height: 49px;
-   		border-radius: 50%;
-   	}
-   	section #detailContainer .cmt_list .cmtItem #cmt_list{
-   		padding-left: 15%;
-   	}
-   	section #detailContainer .cmt_list .cmtItem ul li{
-   		display: inline-block;
-   		vertical-align: top;
-   	}
-   	section #detailContainer .cmt_list .cmtItem #cmt_list :nth-child(2){
-	   	position:absolute;
-		top : 18px;
-		left: 44%;	
-   	}
-   	section #detailContainer .cmt_list .cmtItem #cmt_list :nth-child(3){
-	   	position:absolute;
-		color: gold;
-		font-size: 1.5em;
-		top : 40px;
-		left: 40%;	
-   	}
-   	section #detailContainer .cmt_list .cmtItem #cmt_list :nth-child(4){
-	   	position:absolute;
-		top : 42px;
-		left: 50%;	
-   	}
-   	section #detailContainer .cmt_list .cmtItem #cmt_list_com{
-   		width: 80%;
-   		height: 100px;
-   		margin: 0 auto;
-   		word-wrap: break-word;
-   		word-break: break-all;
-   		overflow: hidden;
-   		margin-bottom: 5%;
-   		background-color:rgba(131,165,180,0);
-   		color: black;
-   		margin-left:10px;
-   	}
-   	section #detailContainer .cmt_list .cmtItem #cmt_list_com li{
-   		display: inline;
-   	}
-   	section #detailContainer .cmt_list .cmtItem:nth-child(4){
-   		position:absolute;
-   		background-color: steelblue;
-   		width: 80px;
-   		height: 75%;
-   		right: 0%;
-   		cursor: pointer;
-   	}
-   	section #detailContainer .cmt_list .cmtItem:nth-child(4) #open{
-   		position: absolute;
-   		top: 40%;
-   		right: 18%;
-   	}
-   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list{
-   		position: relative;
-   		height: 90%;
-   		padding-top: 3%;
-   		padding-left: 10%;
-   		padding-right: 10%;
-   	}
-   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list li{
-   		display: inline;
-   	}	
-   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list .cmt_list_name{
-   		position: absolute;
-   		left: 27%;
-   		top: 9%;
-   		margin-right: 2%;
-   	}
-   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list #modalStar{
-   		position: absolute;
-   		color: gold;
-   		font-size : 1.2em;
-   		right: 20%;
-   		top: 8.5%;
-   	}
-   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list .cmt_list_rating{
-   		position: absolute;
-   		right: 10%;
-   		top: 9%;
-   	} 
-   	section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list .cmt_list_com{
-   		display: block;
-   		width: 100%;
-   		height:78%;
-   		white-space: normal;
-   		margin-top: 2%;
-   		word-break: break-all;
-   		overflow: auto;
-	}
-   	.blind { position: absolute; overflow: hidden; margin: -1px;padding: 0;width: 1px;height: 1px;border: none;clip: rect(0, 0, 0, 0);}
-	.swiper-container {height: 100%;}
-    .swiper-slide {display: flex !important;justify-content: center;align-items: center;font-size: 2rem;}
-    
-    
-    
-    
-#cmt_com {
+
+
+section #detailContainer #comment{text-align: center;}
+section #detailContainer #comment #cmtFrm{
+		margin: 10px;
+		border-bottom: 1px solid darkgray;
+}
+ section #detailContainer #comment #cmtFrm #cmt{
+ 		border-radius: 20px;
+ 		border: 2px solid #4FA2C7;
+ 		width: 80%;
+ 		height: 80px;
+ 		padding-left: 30px;
+ 		font-size: 1em;
+ 		display: block;
+ 		margin: 0 auto;
+ }
+ section #detailContainer #comment #cmtFrm #cmt:focus {outline:none;}
+ section #detailContainer #comment #cmtFrm #submit{text-align: center;}
+ section #detailContainer #comment #cmtFrm #cmt_btn {
+ 		margin: 10px;
+ 		width: 118px;
+ 		border: none;
+ 		height: 50px;
+ 		background-color: #4FA2C7;
+ 		color: white;
+ 		font-size: 1em;
+ 		border-radius:10px
+ 	}
+ 	
+ 	section #detailContainer .cmt_list{
+ 		width: 90%;
+ 		margin: 0 auto;
+ 		vertical-align:top;
+ 		position: relative;
+ 	}
+ 	section #detailContainer .cmt_list .cmtItem{
+ 		background-color:rgba(131,165,180,0.42);
+ 		position: relative;
+ 		vertical-align:top;
+ 		display: inline-block;
+ 		width: 30%;
+ 		height: 80%;
+ 		border-radius: 20px;
+ 		margin: 2% auto;
+ 		padding-bottom : 25px;
+ 	}
+section #detailContainer .cmt_list .cmtItem img {
+	width: 53px;
+	height: 49px;
+	border-radius: 50%;
+}
+section #detailContainer .cmt_list .cmtItem #cmt_list{
+	padding-left: 15%;
+}
+section #detailContainer .cmt_list .cmtItem ul li{
+	display: inline-block;
+	vertical-align: top;
+}
+section #detailContainer .cmt_list .cmtItem #cmt_list :nth-child(2){
+ 	position:absolute;
+	top : 18px;
+	left: 44%;	
+}
+section #detailContainer .cmt_list .cmtItem #cmt_list :nth-child(3){
+ 	position:absolute;
+	color: gold;
+	font-size: 1.5em;
+	top : 40px;
+	left: 40%;	
+}
+section #detailContainer .cmt_list .cmtItem #cmt_list :nth-child(4){
+	position:absolute;
+	top : 42px;
+	left: 50%;	
+}
+section #detailContainer .cmt_list .cmtItem #cmt_list_com{
+	width: 80%;
+	height: 100px;
+	margin: 0 auto;
+	word-wrap: break-word;
+	word-break: break-all;
+	overflow: hidden;
+	margin-bottom: 5%;
+	background-color:rgba(131,165,180,0);
+	color: black;
+	margin-left:10px;
+}
+ 	
+ 	    
+section #detailContainer .cmt_list .cmtItem #cmt_list_com #cmt_com {
 	white-space : break-spaces;
 }
+
+section #detailContainer .cmt_list .cmtItem #cmt_list_com li{
+	display: inline;
+}
+section #detailContainer .cmt_list .cmtItem:nth-child(4){
+	position:absolute;
+	background-color: steelblue;
+	width: 80px;
+	height: 75%;
+	right: 0%;
+	cursor: pointer;
+}
+section #detailContainer .cmt_list .cmtItem:nth-child(4) #open{
+	position: absolute;
+	top: 40%;
+	right: 18%;
+}
+section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list{
+	position: relative;
+	height: 90%;
+	padding-top: 3%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list li{
+	display: inline;
+}	
+section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list .cmt_list_name{
+	position: absolute;
+	left: 27%;
+	top: 9%;
+	margin-right: 2%;
+}
+section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list #modalStar{
+	position: absolute;
+	color: gold;
+	font-size : 1.2em;
+	right: 20%;
+	top: 8.5%;
+}
+section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list .cmt_list_rating{
+	position: absolute;
+	right: 10%;
+	top: 9%;
+} 
+section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_list .cmt_list_com{
+	display: block;
+	width: 100%;
+	height:78%;
+	white-space: normal;
+	margin-top: 2%;
+	word-break: break-all;
+	overflow: auto;
+}
+  	.blind { position: absolute; overflow: hidden; margin: -1px;padding: 0;width: 1px;height: 1px;border: none;clip: rect(0, 0, 0, 0);}
+.swiper-container {height: 100%;}
+   .swiper-slide {display: flex !important;justify-content: center;align-items: center;font-size: 2rem;}
+   
+    
+    
+
     
 
 
