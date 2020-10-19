@@ -202,7 +202,7 @@ section #detailContainer .result_view .nonListItem h2{
 }
 
 section #detailContainer .result_view .listItem .title {
-	width:100%;
+	width:130px;
    	text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -509,7 +509,7 @@ section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_l
 	      <c:if test="${loginUser != null}">
 	      
 	      <div class="result_view" id="rec_list">
-				<h2>이 웹툰 비슷한 작품</h2>
+				<h2>이 웹툰과 비슷한 작품</h2>
 				<c:choose>
 					<c:when test="${rec_list != null && fn:length(rec_list) != 0}">
 						<c:forEach var="i" begin="0" end="${fn:length(rec_list)-1 }">
@@ -523,7 +523,7 @@ section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_l
 					</c:when>
 					<c:otherwise>
 						<div class="nonListItem">
-							<h2>추천 웹툰이 없습니다.</h2>
+							<h2>아직 충분한 평가가 없어 추천작을 찾을 수 없어요.ㅠㅠ</h2>
 						</div>
 					</c:otherwise>
 				</c:choose>
