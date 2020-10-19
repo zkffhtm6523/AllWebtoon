@@ -110,6 +110,7 @@ public class WebtoonDetailSer extends HttpServlet {
 			    			int u_no = cmtList.get(i).getU_no();
 			    			cmtList.get(i).setU_profile("/images/u_profile/user/"+u_no+"/"+u_profile);
 			    		}
+			    		System.out.println("cmtList: " + cmtList.get(i).getW_no());
 			    		send_cmtList.add(cmtList.get(i));
 		    	  	}
 				}

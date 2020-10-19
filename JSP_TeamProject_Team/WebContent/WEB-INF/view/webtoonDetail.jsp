@@ -13,7 +13,7 @@
 <style>
    @font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
    section{
-   		width:100%;
+   		width:1500px;
    		background-color: #F8F8F8;
    		margin: 0 auto;
    		border-top: 1px solid #EAEAEA;
@@ -170,6 +170,7 @@ section #detailContainer .result_view{
 	padding: 10px;
 	padding-bottom: 10px;
 	position: relative;
+	text-align: center;
 }
 section #detailContainer .result_view > #prevArrIcon{
  	position: absolute;
@@ -292,6 +293,7 @@ section >  #detailContainer > .result_view > h2{
    		height: 80%;
    		border-radius: 20px;
    		margin: 2% auto;
+   		padding-bottom : 25px;
    	}
    	section #detailContainer .cmt_list .cmtItem img {
    		width: 53px;
@@ -324,11 +326,15 @@ section >  #detailContainer > .result_view > h2{
    	}
    	section #detailContainer .cmt_list .cmtItem #cmt_list_com{
    		width: 80%;
-   		height: 150px;
+   		height: 100px;
    		margin: 0 auto;
+   		word-wrap: break-word;
    		word-break: break-all;
    		overflow: hidden;
    		margin-bottom: 5%;
+   		background-color:rgba(131,165,180,0);
+   		color: black;
+   		margin-left:10px;
    	}
    	section #detailContainer .cmt_list .cmtItem #cmt_list_com li{
    		display: inline;
@@ -337,7 +343,7 @@ section >  #detailContainer > .result_view > h2{
    		position:absolute;
    		background-color: steelblue;
    		width: 80px;
-   		height: 85%;
+   		height: 75%;
    		right: 0%;
    		cursor: pointer;
    	}
@@ -390,7 +396,9 @@ section >  #detailContainer > .result_view > h2{
     
     
     
-    
+#cmt_com {
+	white-space : break-spaces;
+}
     
 
 
@@ -475,11 +483,12 @@ section >  #detailContainer > .result_view > h2{
 							<span class="material-icons">grade</span>
 							<li id="cmt_list_rating">${cmtList[i].c_rating}</li>
 						</ul>
-						<div id="cmt_list_com"><xmp>${cmtList[i].c_com}</xmp></div>
+						<div><button id="cmt_list_com" onclick="openModal(${cmtList[i].w_no})"><xmp id="cmt_com">${cmtList[i].c_com}</xmp></button></div>
 					</div>
 				</c:forEach>
 				<c:if test="${fn:length(cmtList) > 3}">
 					<div class="cmtItem" title="더보기" onclick="openModal(${data.w_no})"><button id="open" onclick="openModal(${data.w_no})">+${fn:length(cmtList) - 3}</button></div>
+				</c:if>
 					<div class="modal hidden ">
 				       <div class="modal__overlay" id="modalOverlay"></div>
 				       <div class="modal__content">
@@ -492,7 +501,7 @@ section >  #detailContainer > .result_view > h2{
 						  </div>
 				       </div>
 				    </div>  
-				</c:if>
+				
 			</c:if>
 	      </div>
 	      
@@ -546,9 +555,11 @@ section >  #detailContainer > .result_view > h2{
 			}).then(function(res) {
 				console.log(res.data)
 				for (var i in res.data) {
-					console.log(res.data[i])
-					//makeSwiper_slide 반복문 돌려서 만들기
-					makeSwiper_slide(res.data[i], ajaxModalContainer)
+					if(res.data[i].c_com != null){
+						console.log(res.data[i])
+						//makeSwiper_slide 반복문 돌려서 만들기
+						makeSwiper_slide(res.data[i], ajaxModalContainer)
+					}
 				}
 				//모달창 좌우 버튼 누를 시 반복,
 				var mySwiper = new Swiper('.swiper-container', {
@@ -627,7 +638,7 @@ section >  #detailContainer > .result_view > h2{
       
       
       function alert_login(star){
-    	  alert('로그인하기')
+    	  alert('먼저 로그인 해주세요')
     	  document.getElementById('star_'+star).checked = false
       }
       

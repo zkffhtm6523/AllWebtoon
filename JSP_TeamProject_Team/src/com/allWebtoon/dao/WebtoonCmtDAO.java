@@ -78,7 +78,7 @@ public class WebtoonCmtDAO {
 	public static List<WebtoonCmtDomain> selCmtList(int w_no) {
 		List<WebtoonCmtDomain> list = new ArrayList<WebtoonCmtDomain>();
 
-		String sql = " SELECT A.u_no, A.u_name, A.u_profile, B.c_com, B.c_rating " 
+		String sql = " SELECT B.w_no, A.u_no, A.u_name, A.u_profile, B.c_com, B.c_rating " 
 				+ " FROM t_user A " 
 				+ " INNER JOIN t_comment B "
 				+ " ON A.u_no = B.u_no" 
@@ -102,6 +102,7 @@ public class WebtoonCmtDAO {
 						vo.setC_com(rs.getString("c_com"));
 						vo.setC_rating(rs.getFloat("c_rating"));
 						vo.setU_no(rs.getInt("u_no"));
+						vo.setW_no(rs.getInt("w_no"));
 						list.add(vo);
 					//}
 				}
