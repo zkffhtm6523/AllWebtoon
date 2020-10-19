@@ -9,7 +9,7 @@
 <title>나의 페이지</title>
 <style type="text/css">
 section{
-	width:100%;
+	width:1300px;
 	background-color: #F8F8F8;
 	margin: 0 auto;
 	background-color: #F8F8F8;

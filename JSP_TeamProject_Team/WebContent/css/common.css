@@ -28,7 +28,7 @@ header #topMenu {
 	display:flex;
 	flex-flow: row nowrap;
 	align-items : center;
-	width : 80%; 
+	width : 1300px; 
 	height: 100px;
 	margin: 0px auto;
 	padding-top:20px;
@@ -114,6 +114,11 @@ header #review,#signin,#logout,#login,#myPage{
 	background: #4FA2C7;
 	color: white;
 	text-align:center;
+	margin-right:5px;
+}
+
+header #myPage{
+	margin-left:20px;
 }
 section{
 	flex-grow: 1;

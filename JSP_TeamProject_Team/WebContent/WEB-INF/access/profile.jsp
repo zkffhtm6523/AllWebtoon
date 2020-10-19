@@ -154,26 +154,43 @@
 function chk(){
 	const email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
-	if(frm.password.value.length >= 1 && frm.password.value.length < 5){
-		alert('비밀번호는 5글자 이상이어야합니다.');
-		frm.pw.focus();
+	if(frm.updName.value.length < 1){
+		alert('이름을 입력해주세요');
+		frm.updName.focus();
 		return false;
 	} 
-	if(frm.password.value != frm.password2.value){
-		alert('비밀번호를 확인해주세요'); 
-		frm.pw.focus();
-		return false;
-	} 
-	if(!email.test(frm.updEmail.value)){			//이메일 정규식을 만족하지 않을 경우.
-		alert('이메일을 확인해주세요');
-		frm.email.focus();
-		return false;
-	}
+	
 	if(frm.updBirth.value == '' || frm.updBirth.value == null){
 		alert('생년월일을 확인해주세요');
-		frm.birth.focus();
+		frm.updBirth.focus();
 		return false;
 	}
+	
+	//if(loginUser.u_joinPath ==1 ){
+		if(!email.test(frm.updEmail.value)){			//이메일 정규식을 만족하지 않을 경우.
+			alert('이메일을 확인해주세요');
+			frm.updEmail.focus();
+			return false;
+		}
+		
+		if(frm.password.value != frm.password2.value){
+			alert('비밀번호를 확인해주세요'); 
+			frm.password.focus();
+			return false;
+		} 
+		
+		if(frm.password.value.length >= 1 && frm.password.value.length < 5){
+			alert('비밀번호는 5글자 이상이어야합니다.');
+			frm.password.focus();
+			return false;
+		} 
+	//}
+	
+	
+	alert('업데이트 되었습니다')
+	
+	
+	return true;
 }
 
 </script>
