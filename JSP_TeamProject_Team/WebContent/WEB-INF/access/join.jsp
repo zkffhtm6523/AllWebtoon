@@ -66,6 +66,9 @@ section input[type="submit"]:hover {
 	cursor: pointer;
 	font-weight: bold;
 }
+
+section .snsimg{width: 360px; height: 60px;}
+    section .snsimg:hover{cursor: pointer;}
 </style>
 </head>
 <body>
@@ -73,30 +76,30 @@ section input[type="submit"]:hover {
    		<jsp:include page="../template/header.jsp"></jsp:include>
      	<section>
 	        <div id="frmContainer">
-        		<h1>모두의 웹툰 일원 되기</h1>
+        		<h1>All 웹툰 일원 되기</h1>
 		        <div class="err">${msg}</div>
 	            <form id="frm" action="/join" method="post" onsubmit="return chk()">
 	            	<input type="hidden" name="u_profile" value="${userInfo.u_profile == '' ? '' : userInfo.u_profile}">
 	            	<input type="hidden" name="chkProfile" value="${userInfo.chkProfile == '' ? '' : userInfo.chkProfile}">
 	            	<input type="hidden" name="u_joinPath" value="${userInfo.u_joinPath >= 2 ? userInfo.u_joinPath : 1}">
-	            	
+	           
 	            	<div>
-	            		<c:if test = "=${userInfo.u_id == ''}">
+	            		<c:if test = "${userInfo.u_id == '' || userInfo == null}">
 		            	<span class="name">아이디</span>&nbsp;&nbsp;
 		            	</c:if>
-		            	<input type=${userInfo.u_id == ''? "text" : "hidden"} class="joinList" name="u_id" id="id" placeholder="아이디를 입력해주세요" value="${userInfo.u_id}" ${userInfo.u_id != '' ? 'readonly' : ''} autofocus required >
+		            	<input type=${userInfo.u_id == '' || userInfo == null ? "text" : "hidden"} class="joinList" name="u_id" id="id" placeholder="아이디를 입력해주세요" value="${userInfo.u_id}" ${userInfo.u_id != '' && userInfo != null? 'readonly' : ''} autofocus required >
 	            	</div>
 	            	<div>
-	            		<c:if test = "=${userInfo.u_password == ''}">
+	            		<c:if test = "${userInfo.u_password == '' || userInfo == null}">
 	            		<span class="name">비밀번호</span>&nbsp;&nbsp;
 	            		</c:if>
-	                	<input type=${userInfo.u_password == ''? "password" : "hidden"} class="joinList" name="u_pw" id="pw" placeholder="비밀번호" value="${userInfo.u_password}" required>
+	                	<input type=${userInfo.u_password == '' || userInfo == null? "password" : "hidden"} class="joinList" name="u_pw" id="pw" placeholder="비밀번호" value="${userInfo.u_password}" required>
 					</div>
 					<div>
-						<c:if test = "=${userInfo.u_password == ''}">
+						<c:if test = "${userInfo.u_password == '' || userInfo == null}">
 						<span class="name">비밀번호 확인</span>&nbsp;&nbsp;
 						</c:if>
-	                	<input type=${userInfo.u_password == ''? "password" : "hidden"} class="joinList" name="u_pw2" id="pw2" placeholder="비밀번호 확인" value="${userInfo.u_password}" required>
+	                	<input type=${userInfo.u_password == '' || userInfo == null ? "password" : "hidden"} class="joinList" name="u_pw2" id="pw2" placeholder="비밀번호 확인" value="${userInfo.u_password}" required>
 					</div>
 					
 					<div>
@@ -105,7 +108,7 @@ section input[type="submit"]:hover {
 	                </div>
 	                <div>
 						<span class="name">이메일</span>&nbsp;&nbsp;
-		                <input type="email" class="joinList" name="email" id="email" placeholder="메일" value="${userInfo.u_email}" ${userInfo.u_email != '' ? 'readonly' : ''} required>
+		                <input type="email" class="joinList" name="email" id="email" placeholder="메일" value="${userInfo.u_email}" ${userInfo.u_email != '' && userInfo != null ? 'readonly' : ''} required>
 	                </div>
 	                <div>
 	                	<span class="name">생년월일</span>&nbsp;&nbsp;
@@ -124,6 +127,10 @@ section input[type="submit"]:hover {
 	                <div id="frmBtn">
 	                	<input type="submit" value="회원가입">
 	                </div>
+	                
+	                <div class="snsbtn"><img class="snsimg" src="/images/login_logo/kakao_btn.PNG" id="kakao" onclick="goKakao()"></div>
+            		<div class="snsbtn"><img class="snsimg" src="/images/login_logo/naver_btn.PNG" id="naver" onclick="goNaver('${state}')"></div>
+            		<div class="snsbtn"><img class="snsimg" src="/images/login_logo/google_btn.PNG" id="google" onclick="goGoogle()"></div>  	
 	            </form>
 	        </div>
         </section>
@@ -164,6 +171,34 @@ section input[type="submit"]:hover {
 				frm.birth.focus();
 				return false;
 			}
+		}
+		
+		
+		
+		function goKakao() {
+			location.href = 'https://kauth.kakao.com/oauth/authorize'
+				    		+'?client_id=48c16d63af5493c7ae43a1433ec7760f'
+				           // +'&redirect_uri=http://localhost:8089/login?platNo=1'
+				        	+'&redirect_uri=http://192.168.2.8:8089/login?platNo=1'
+				            +'&response_type=code'
+				            
+		}
+		function goNaver(state) {
+			var encoding = encodeURIComponent('http://localhost:8089/naverAPI')
+			location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
+							+'&client_id=gtb_8Ij5V31vLTCJA7F3'
+							+'&redirect_uri='+encoding
+							+'&state='+state
+		}
+		function goGoogle() {
+			location.href = 'https://accounts.google.com/o/oauth2/auth?'
+				 + 'scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/plus.me+https://www.googleapis.com/auth/userinfo.profile'
+				 + '&approval_prompt=force'
+				 + '&access_type=offline'
+				 + '&response_type=code'
+				 + '&client_id=659641044041-d8d9d26ubldu5veldv2g3cqaqedv6htq.apps.googleusercontent.com'
+				 + '&redirect_uri=http://localhost:8089/googleAPI'
+				 //scope=https://www.googleapis.com/auth/userinfo.email'
 		}
 	</script>
 </body>

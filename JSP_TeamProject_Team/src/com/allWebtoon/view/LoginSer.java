@@ -24,6 +24,7 @@ public class LoginSer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//플랫폼 넘버 구분
 		String platNo = request.getParameter("platNo");
+		
 		//네이버 : 난수 발생용
 		if(platNo == null) {
 			SecureRandom random = new SecureRandom();
@@ -35,6 +36,7 @@ public class LoginSer extends HttpServlet {
 			String access_token = KakaoAPI.getAccessToken(request.getParameter("code"));
 			UserVO userInfo = KakaoAPI.getUserInfo(access_token);
 			int result = UserDAO.selSNSUser(userInfo);
+			
 			if(result == 0) {
 				request.setAttribute("userInfo",userInfo);
 				ViewResolver.accessForward("join", request, response);

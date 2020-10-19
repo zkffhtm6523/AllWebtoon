@@ -130,7 +130,7 @@ public class WebtoonDetailSer extends HttpServlet {
 		      
 		      ////파이썬호출
 		      
-		   /*  System.out.println("w_no: " + w_no);
+		     System.out.println("w_no: " + w_no);
 		     
 		    
 		     
@@ -143,7 +143,7 @@ public class WebtoonDetailSer extends HttpServlet {
 	                    .addSharedModules("sklearn");
 	            Jep jep = new Jep(jepConfig);
 				jep.set("w_no_args", w_no);
-				jep.runScript("/Users/hyeseon/python_test/Python/recommend_toon.py");
+				jep.runScript("E:\\python\\Python\\recommend_toon.py");
 				
 				System.out.println("rec_result: " + jep.getValue("recomment_result"));
 				
@@ -173,7 +173,7 @@ public class WebtoonDetailSer extends HttpServlet {
 				//e.printStackTrace();
 				System.out.println("추천작품이 없습니다.");
 			 }
-		 */
+		 
 	     }
 		 
 		 

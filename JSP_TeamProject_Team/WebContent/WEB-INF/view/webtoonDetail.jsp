@@ -159,6 +159,96 @@
    		color: #0c65c6;
    		font-weight: bold;
    }
+   
+   
+   
+section #detailContainer .result_view{
+ 	width: 80%;
+ 	margin: 20px auto;
+ 	border: 3px solid #EAEAEA;
+	border-radius: 8px;
+	padding: 10px;
+	padding-bottom: 10px;
+	position: relative;
+}
+section #detailContainer .result_view > #prevArrIcon{
+ 	position: absolute;
+ 	top: 50%;
+ 	left: 2%;
+ 	cursor: pointer;
+}
+section #detailContainer .result_view > #nextArrIcon{
+ 	position: absolute;
+ 	top: 50%;
+ 	right: 2%;
+ 	cursor: pointer;
+}
+section #detailContainer .result_view .listItem{
+ 	position: relative;
+ 	display: inline-block;
+ 	vertical-align : top;
+ 	top: 0px;
+ 	margin: 0 auto;
+ 	display: inline-block;
+}
+section #detailContainer .result_view .nonListItem{
+	width: 96%;
+	margin: 0 auto;
+}
+section #detailContainer .result_view .nonListItem h2{
+	text-align: center;
+	font-size: 1.3em;	
+}
+
+section #detailContainer .result_view .listItem .title {
+	width:100%;
+   	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+section #detailContainer .result_view .listItem ul{
+ 	padding-left: 10px;
+ 	padding-right: 10px;
+ 	position: relative;
+ 	list-style-type:none;
+}
+section #detailContainer .result_view .listItem ul :nth-child(3){
+	position:absolute;
+	color: gold;
+	font-size: 1.3em;
+	bottom: 5px;
+	left: 10px;
+}
+section #detailContainer .result_view .listItem ul :nth-child(4){
+ 	position:relative;
+ 	display: inline-block;
+ 	vertical-align: top;
+ 	line-height: 30px;
+
+ 	left: -20px;
+}
+section #detailContainer .result_view .listItem ul :nth-child(5){
+	position:absolute;
+	color: gray;
+	font-size: 1.3em;
+	bottom: 5px;
+	right: 10px;
+}
+section #detailContainer .result_view .listItem ul li a img{
+ 	border-radius: 8px;
+ 	width: 125px; height: 100px;
+}
+
+section >  #detailContainer > .result_view > h2{
+	text-align: left;
+	margin-left: 20px;
+}
+   
+   
+   
+   
+   
    section #detailContainer #comment{text-align: center;}
    section #detailContainer #comment #cmtFrm{
    		margin: 10px;
@@ -186,6 +276,7 @@
    		font-size: 1em;
    		border-radius:10px
    	}
+   	
    	section #detailContainer .cmt_list{
    		width: 90%;
    		margin: 0 auto;
@@ -301,80 +392,7 @@
     
     
     
-    section #detailContainer .result_view{
- 	width: 80%;
- 	margin: 20px auto;
- 	border: 3px solid #EAEAEA;
-	border-radius: 8px;
-	padding: 10px;
-	padding-bottom: 10px;
-	position: relative;
-}
-section #detailContainer .result_view > #prevArrIcon{
- 	position: absolute;
- 	top: 50%;
- 	left: 2%;
- 	cursor: pointer;
-}
-section #detailContainer .result_view > #nextArrIcon{
- 	position: absolute;
- 	top: 50%;
- 	right: 2%;
- 	cursor: pointer;
-}
-section #detailContainer .result_view .listItem{
- 	position: relative;
- 	display: inline-block;
- 	vertical-align : top;
- 	top: 0px;
- 	margin: 0 auto;
- 	display: inline-block;
-}
-section #detailContainer .result_view .nonListItem{
-	width: 96%;
-	margin: 0 auto;
-}
-section #detailContainer .result_view .nonListItem h2{
-	text-align: center;
-	font-size: 1.3em;	
-}
-section #detailContainer .result_view .listItem ul{
- 	padding-left: 10px;
- 	padding-right: 10px;
- 	position: relative;
- 	list-style-type:none;
-}
-section #detailContainer .result_view .listItem ul :nth-child(3){
-	position:absolute;
-	color: gold;
-	font-size: 1.3em;
-	bottom: 5px;
-	left: 10px;
-}
-section #detailContainer .result_view .listItem ul :nth-child(4){
- 	position:relative;
- 	display: inline-block;
- 	vertical-align: top;
- 	line-height: 30px;
 
- 	left: -20px;
-}
-section #detailContainer .result_view .listItem ul :nth-child(5){
-	position:absolute;
-	color: gray;
-	font-size: 1.3em;
-	bottom: 5px;
-	right: 10px;
-}
-section #detailContainer .result_view .listItem ul li a img{
- 	border-radius: 8px;
- 	width: 125px; height: 100px;
-}
-
-section >  #detailContainer > .result_view > h2{
-	text-align: left;
-	margin-left: 20px;
-}
 
 </style>
 <link rel="stylesheet" href="/css/modal.css" />

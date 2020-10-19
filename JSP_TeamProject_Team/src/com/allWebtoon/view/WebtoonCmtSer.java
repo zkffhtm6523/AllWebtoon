@@ -116,7 +116,7 @@ public class WebtoonCmtSer extends HttpServlet {
       param.setU_no(u_no);
       param.setW_no(w_no);
 
-      if(!"".equals(c_com)) {
+      if(!"".equals(c_com) && c_com!=null) {
     	  String filterCcom1 = scriptFilter(c_com);
     	  String filterCcom2 = swearWordFilter(filterCcom1);
     	  

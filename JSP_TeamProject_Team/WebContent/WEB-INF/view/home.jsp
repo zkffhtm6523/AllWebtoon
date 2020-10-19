@@ -10,7 +10,7 @@
 <style type="text/css">
 	/*section 시작*/
 section{
-
+	width:1500px;
 	background-color: #F8F8F8;
 	margin: 0 auto;
 	background-color: #F8F8F8;

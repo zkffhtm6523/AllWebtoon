@@ -42,7 +42,7 @@ public class WebtoonCmtDAO {
 			public void update(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, param.getU_no());
 				ps.setInt(2, param.getW_no());
-				ps.setNString(3, param.getC_com());
+				ps.setString(3, param.getC_com());
 				ps.setFloat(4, param.getC_rating());
 			}
 		});
