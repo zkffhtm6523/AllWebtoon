@@ -49,13 +49,6 @@ public class Naver {
 				for(String w : writers) {
 					webtoonVO.setWriter(w);
 				}
-			/*	if (writ.contains("/")) {
-					wri_s = writ.split("/")[0];
-					wri_d = writ.split("/ ")[1];
-				} else {
-					wri_s = writ;
-					wri_d = writ;
-				}*/
 				story = detail.getElementsByTag("p").first().text();
 				genre = detail.getElementsByClass("genre").first().text().split(", ");
 				for(String g : genre) {
@@ -73,8 +66,6 @@ public class Naver {
 				webtoonVO.setLink("https://comic.naver.com" + u);
 				webtoonVO.setTitle(title);
 				webtoonVO.setThumbnail(img);
-				//webtoonVO.setWri_drawing(wri_d);
-				//webtoonVO.setWri_story(wri_s);
 				webtoonVO.setStory(story);
 
 				//Arraylist 값 저장
@@ -85,6 +76,7 @@ public class Naver {
 		}
 		return list;
 	}
+	
 	// 네이버 웹툰 메인화면에서 각 웹툰 url 추출
 	public static ArrayList<String> gethref(String u) {
 		ArrayList<String> list = new ArrayList<String>();

@@ -15,7 +15,7 @@ import com.allWebtoon.vo.WebtoonCmtVO;
 public class WebtoonCmtDAO {
 	public static int updCmt(WebtoonCmtVO param) {
 		String sql = " UPDATE t_comment " 
-				+ " SET c_com = ? , c_rating = ? " 
+				+ " SET c_com = ? , c_rating = ?, m_dt=now() " 
 				+ " WHERE u_no = ? AND w_no = ? ";
 
 		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
@@ -78,7 +78,7 @@ public class WebtoonCmtDAO {
 	public static List<WebtoonCmtDomain> selCmtList(int w_no) {
 		List<WebtoonCmtDomain> list = new ArrayList<WebtoonCmtDomain>();
 
-		String sql = " SELECT A.u_no, A.u_name, A.u_profile, B.c_com	, B.c_rating " 
+		String sql = " SELECT A.u_no, A.u_name, A.u_profile, B.c_com, B.c_rating " 
 				+ " FROM t_user A " 
 				+ " INNER JOIN t_comment B "
 				+ " ON A.u_no = B.u_no" 
@@ -95,7 +95,7 @@ public class WebtoonCmtDAO {
 			@Override
 			public int executeQuery(ResultSet rs) throws SQLException {
 				while (rs.next()) {
-					if(rs.getString("c_com") != null) {
+					//if(rs.getString("c_com") != null && !"".equals(rs.getNString("c_com"))) {
 						WebtoonCmtDomain vo = new WebtoonCmtDomain();
 						vo.setU_name(rs.getNString("u_name"));
 						vo.setU_profile(rs.getString("u_profile").equals("") ? null : rs.getString("u_profile"));
@@ -103,7 +103,7 @@ public class WebtoonCmtDAO {
 						vo.setC_rating(rs.getFloat("c_rating"));
 						vo.setU_no(rs.getInt("u_no"));
 						list.add(vo);
-					}
+					//}
 				}
 				return 1;
 			}
