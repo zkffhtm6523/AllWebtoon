@@ -329,7 +329,14 @@
                	<div class="startRadio">
 	               	<c:forEach begin="1" end="10" step="1" var="item">
 	                   <label class="startRadio__box">
-	                      <input type="radio" name="star" id="" onclick="score(${item})" ${loginUser == null ? 'disabled':'' }>
+	                   <c:choose>
+	                   <c:when test="${loginUser!=null }">
+	                      <input type="radio" name="star" id="" onclick="score(${item})">
+	                   </c:when>
+	                   <c:otherwise>
+	                      <input type="radio" name="star" id="star_${item}" onclick="alert_login(${item})" >
+	                   </c:otherwise>
+	                   </c:choose>
 	                      <span class="startRadio__img"><span class="blind"></span></span>
 	                   </label>
                 	</c:forEach>
@@ -489,16 +496,18 @@
          console.log('누른 후 ' + cmtFrm.cmtChk.value)
       }
       
+      
+      
+      function alert_login(star){
+    	  alert('로그인하기')
+    	  document.getElementById('star_'+star).checked = false
+      }
+      
       function score(star) { // 별점주기
-    	 if(${loginUser.u_no==null}){
-    		 alert('로그인')
-    		 
-    	 }else{
          console.log('star : ' + star)
          console.log('star type' + typeof star)
          point.value = parseFloat(star)/2
          console.log('point.value : ' + point.value)
-    	 }
       }
    
       function chk() {

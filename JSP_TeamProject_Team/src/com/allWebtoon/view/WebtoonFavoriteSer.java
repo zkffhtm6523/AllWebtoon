@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.allWebtoon.dao.UserDAO;
 import com.allWebtoon.util.MyUtils;
+import com.allWebtoon.vo.UserVO;
 import com.allWebtoon.vo.WebtoonCmtVO;
 import com.google.gson.Gson;
 
@@ -20,6 +21,13 @@ public class WebtoonFavoriteSer extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		UserVO loginUser = MyUtils.getLoginUser(request);
+		if(loginUser == null) {
+			response.sendRedirect("/login");
+			return;
+		}
+		
 		// keep(보고파요) ajax를 위한 servlet
 		int w_no = MyUtils.getIntParameter(request, "w_no");
 

@@ -27,13 +27,16 @@ import com.google.gson.JsonParser;
 @WebServlet("/webtoon/cmt")
 public class WebtoonCmtSer extends HttpServlet {
    private static final long serialVersionUID = 1L;
-       
-   // 댓글 삭제
+   
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	   
-	   int idx = MyUtils.getIntParameter(request, "page");
-	   
 	   UserVO loginUser = MyUtils.getLoginUser(request);
+		if(loginUser == null) {
+			response.sendRedirect("/login");
+			return;
+		}
+	   
+	   int idx = MyUtils.getIntParameter(request, "page");
 	   
 	   //ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
 	   //ArrayList<WebtoonVO> sendarr = new ArrayList<WebtoonVO>();
