@@ -13,7 +13,7 @@
 <style>
    @font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
    section{
-   		width:1500px;
+   		width:1200px;
    		background-color: #F8F8F8;
    		margin: 0 auto;
    		border-top: 1px solid #EAEAEA;
