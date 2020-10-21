@@ -16,6 +16,7 @@ section button {
     display: flex; 
     justify-content: center; 
     align-items: center;
+    z-index: 100;
 }
 .modal__overlay {
     background-color: rgba(0, 0, 0, 0.6);

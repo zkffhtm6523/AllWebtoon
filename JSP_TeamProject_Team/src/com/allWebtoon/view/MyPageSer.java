@@ -30,6 +30,7 @@ public class MyPageSer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idx = MyUtils.getIntParameter(request, "page");
 		String type = request.getParameter("type");
+		String yn_modal = request.getParameter("yn_modal");
 		
 		//System.out.println("type: " + type );
 		  
@@ -110,10 +111,24 @@ public class MyPageSer extends HttpServlet {
 				list = favoriteList;
 			}
 			
+			Gson gson = new Gson();
+			
+			if(yn_modal != null) {
+				
+				String json = gson.toJson(list);
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("application/json");
+				PrintWriter out = response.getWriter();
+				out.print(json);
+				
+				
+				return ;
+			}
+			
 			if(list.size() > idx) {
 				//idx -= 1;
 				//System.out.println("ajax 왔음  ");
-				Gson gson = new Gson();
+				
 				String json = gson.toJson(list.get(idx));
 				
 

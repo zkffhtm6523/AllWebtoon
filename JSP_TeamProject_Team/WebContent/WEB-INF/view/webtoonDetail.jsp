@@ -163,7 +163,7 @@
    
    
 section #detailContainer .result_view{
- 	width: 80%;
+ 	width: 90%;
  	margin: 20px auto;
  	border: 3px solid #EAEAEA;
 	border-radius: 8px;
@@ -574,6 +574,7 @@ section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_l
 				modalOverlay.addEventListener("click", closeModal)
 				})
 		}
+		
 		function makeSwiper_slide(arr, container){
 			//swiper_slide 만들고 클래스 추가
 			var swiper_slide = document.createElement('div')
