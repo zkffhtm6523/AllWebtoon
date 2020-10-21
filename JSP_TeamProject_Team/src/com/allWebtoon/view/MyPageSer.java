@@ -58,8 +58,12 @@ public class MyPageSer extends HttpServlet {
 			List<WebtoonCmtDomain> first_cmtList = new ArrayList<WebtoonCmtDomain>();
 			List<WebtoonCmtDomain> first_favoriteList = new ArrayList<WebtoonCmtDomain>();
 			
-			if(selCmtList.size() != 0) {
-				for (int i = 0; i < (selCmtList.size() > 5 ? 6 : selCmtList.size()); i++) {
+			request.setAttribute("cmtlistSize", selCmtList.size());
+			System.out.println("cmtlistSize: " + selCmtList.size());
+			
+			
+			if(selCmtList.size() != 0) {			
+				for (int i = 0; i < (selCmtList.size() > 5 ? 5 : selCmtList.size()); i++) {
 					first_cmtList.add(selCmtList.get(i));
 				}
 				request.setAttribute("list", first_cmtList);
@@ -90,6 +94,14 @@ public class MyPageSer extends HttpServlet {
 		//ajax 로직
 		//}
 		else {
+			//selCmtList = new ArrayList<WebtoonCmtDomain>();
+			//MyPageDAO.myWebtoon(selCmtList, loginUser.getU_no());
+			
+			System.out.println("cmtListSize: " + selCmtList.size());
+			
+			System.out.println("cmt_idx: "  + idx);
+			//System.out.println("selcmtlist : " + selCmtList.get(idx).getW_title());
+			
 			List<WebtoonCmtDomain> list;
 			
 			if("cmt".equals(type)) {
@@ -98,17 +110,21 @@ public class MyPageSer extends HttpServlet {
 				list = favoriteList;
 			}
 			
-			if(list.size() >= idx) {
-				idx -= 1;
+			if(list.size() > idx) {
+				//idx -= 1;
 				//System.out.println("ajax 왔음  ");
 				Gson gson = new Gson();
 				String json = gson.toJson(list.get(idx));
+				
+
+				System.out.println("cmt_idx: "  + idx);
+				System.out.println("send_list : " + list.get(idx).getW_title());
 				//System.out.println("json : " + json);
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("application/json");
 				PrintWriter out = response.getWriter();
 				out.print(json);
-			}else if(list.size() == idx || list.size() < idx) {
+			}else if(list.size() <= idx) {
 				PrintWriter out = response.getWriter();
 				out.print("0");
 			}
@@ -142,8 +158,8 @@ public class MyPageSer extends HttpServlet {
         	List<WebtoonCmtDomain> list = new ArrayList<WebtoonCmtDomain>();
     		MyPageDAO.myWebtoon(list, u_no);
         	
-    		if(list.size() >= idx) {
-				idx -= 1;
+    		if(list.size() > idx) {
+				//idx -= 1;
 
 	        	Gson gson = new Gson();
 	    		
@@ -155,7 +171,7 @@ public class MyPageSer extends HttpServlet {
 	    		PrintWriter out = response.getWriter();
 	    		out.print(json);
     		
-    		}else if(list.size() == idx || list.size() < idx) {
+    		}else if(list.size() <= idx) {
 				PrintWriter out = response.getWriter();
 				out.print("0");
 			}
