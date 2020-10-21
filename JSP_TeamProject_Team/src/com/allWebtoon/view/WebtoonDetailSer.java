@@ -144,7 +144,8 @@ public class WebtoonDetailSer extends HttpServlet {
 	                    .addSharedModules("sklearn");
 	            Jep jep = new Jep(jepConfig);
 				jep.set("w_no_args", w_no);
-				jep.runScript("E:\\python\\Python\\recommend_toon.py");
+				//jep.runScript("E:\\python\\Python\\recommend_toon.py");
+				jep.runScript("/Users/hyeseon/python_test/Python/recommend_toon.py");
 				
 				System.out.println("rec_result: " + jep.getValue("recomment_result"));
 				

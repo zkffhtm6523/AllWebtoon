@@ -36,8 +36,8 @@ public class GoogleAPI extends HttpServlet {
 		String clientId = "659641044041-d8d9d26ubldu5veldv2g3cqaqedv6htq.apps.googleusercontent.com";
 		String clientSecret = "LxGdpTGyFqWFj3AT1167xbvF";
 		String code = request.getParameter("code");
-		//String redirectURI = "http://localhost:8089/googleAPI";
-		String redirectURI = "http://192.168.2.8:8089/googleAPI";
+		String redirectURI = "http://localhost:8089/googleAPI";
+		//String redirectURI = "http://192.168.2.8:8089/googleAPI";
 		String reqURL = "https://www.googleapis.com/oauth2/v4/token";
 		
 		String query =	"code="+code; 

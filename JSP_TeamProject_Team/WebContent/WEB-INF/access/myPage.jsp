@@ -60,6 +60,15 @@ section #myPageContainer .result_view .listItem{
  	margin: 0 auto;
  	display: inline-block;
 }
+
+section #myPageContainer .result_view .listItem #del_Icon{
+	text-align:right;
+}
+
+section #myPageContainer .result_view .listItem #del_Icon:hover{
+	cursor:pointer;
+	color:red;
+}
 section #myPageContainer .result_view .nonListItem{
 	width: 96%;
 	margin: 0 auto;
@@ -224,9 +233,10 @@ section .name{
 							
 					
 						<c:forEach var="i" begin="0" end="${fn:length(list) <= 5 ? fn:length(list)-1 : 4 }">
-							<div class="listItem">
+							<div class="listItem" id="item_${list[i].w_no}">
 								<ul>
-									<li><a href="/webtoon/detail?w_no=${list[i].w_no}"><img src="${list[i].w_thumbnail}" title="${list[i].w_title}"></a></li>
+									
+									<li><div id="del_Icon" onclick="delWebtoon(${list[i].w_no})">x</div><a href="/webtoon/detail?w_no=${list[i].w_no}"><img src="${list[i].w_thumbnail}" title="${list[i].w_title}"></a></li>
 									<li><div class="title">${list[i].w_title}</div></li>
 									<c:if test="${list[i].c_rating != 0 && list[i].c_rating != null}">
 										<span class="material-icons">grade</span>
@@ -287,6 +297,8 @@ section .name{
 			</div>
 			
 		</div>
+		
+				    
 	</section>
 	<jsp:include page="../template/footer.jsp"/>
 </div>
@@ -319,6 +331,7 @@ function selCmtMinus(type) {
 	}
 }
 function selCmtPlus(type) {
+	console.log("plus : "+(type=='cmt'? cmtIdx+1 : favoriteIdx+1))
 	axios.get('/myPage',{
 		params : {
 			type : type,
@@ -340,16 +353,29 @@ function selCmtPlus(type) {
 		}
 	})
 }
-function makeListItem(result_view, res, delNum, addNum) {
+function makeListItem(result_view, res, delNum, addNum, yn_del) {
+	console.log('yn_del: ' + yn_del)
 	//listItem 만들기 
 	var listItem = document.createElement('div')
 	listItem.classList.add('listItem')
+	if(result_view == cmt_list){
+		listItem.setAttribute('id','item_'+res.data.w_no)
+	}
+	
 	//ul 만들기 
 	var ulList = document.createElement('ul')
 	listItem.append(ulList)
 	//li 만들기 
 	var liImg = document.createElement('li')
 	ulList.append(liImg)
+	
+	if(result_view == cmt_list){
+		var del_div = document.createElement('div')
+		del_div.innerHTML='x'
+		del_div.setAttribute('onclick',"delWebtoon("+res.data.w_no+")")
+		liImg.append(del_div)
+	}
+	
 	//a태그 만들기 
 	var aImg = document.createElement('a')
 	aImg.href = '/webtoon/detail?w_no='+res.data.w_no
@@ -391,7 +417,40 @@ function makeListItem(result_view, res, delNum, addNum) {
 	}
 	
 	result_view.insertBefore(listItem,result_view.children[addNum])
-	result_view.children[delNum].remove();
+	if(yn_del != 'y'){
+		result_view.children[delNum].remove();
+	}
+}
+
+
+//평가 삭제
+
+function delWebtoon(w_no){
+	
+	if(confirm('삭제하시겠습니까?')){
+		console.log('idx : ' + cmtIdx)
+		
+		var data = { 
+				w_no : w_no,
+				idx : (cmtIdx-5 == 0 ? cmtIdx+1 : cmtIdx-5)
+		}
+		
+		axios.post('/myPage', data).then(function(res) {
+			console.log(res.data)
+			
+			console.log('idx : '+ cmtIdx)
+			var div_id = document.getElementById('item_'+w_no)
+			div_id.remove()
+			
+			if(cmtIdx-5 == 0 ){
+				makeListItem(cmt_list, res, 2, 7-1, 'y')
+				cmtIdx++;
+			}else{
+				makeListItem(cmt_list, res, 7-1, 2, 'y')
+				cmtIdx--;
+			}
+		})
+	}
 }
 
 </script>

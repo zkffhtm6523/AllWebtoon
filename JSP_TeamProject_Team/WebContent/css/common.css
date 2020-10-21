@@ -28,7 +28,7 @@ header #topMenu {
 	display:flex;
 	flex-flow: row nowrap;
 	align-items : center;
-	width : 1300px; 
+	width : 1000px; 
 	height: 100px;
 	margin: 0px auto;
 	padding-top:20px;
