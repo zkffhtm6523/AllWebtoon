@@ -31,6 +31,16 @@ section #myPageContainer ul{
  	vertical-align: top;
  	margin: 0px auto;
 }
+
+section #myPageContainer .result_view .show_all {
+	float:right;
+	font-size: 15px;
+	color:grey;
+	cursor:pointer;
+	margin-right:150px;
+	margin-top:10px;
+}
+
 section #myPageContainer .result_view{
  	width: 80%;
  	margin: 20px auto;
@@ -52,7 +62,7 @@ section #myPageContainer .result_view > #nextArrIcon{
  	right: 2%;
  	cursor: pointer;
 }
-section #myPageContainer .result_view .listItem{
+section #myPageContainer .result_view .listItem ,.listItem{
  	position: relative;
  	display: inline-block;
  	vertical-align : top;
@@ -61,11 +71,11 @@ section #myPageContainer .result_view .listItem{
  	display: inline-block;
 }
 
-section #myPageContainer .result_view .listItem #del_Icon{
+section #myPageContainer .result_view .listItem #del_Icon, #del_Icon{
 	text-align:right;
 }
 
-section #myPageContainer .result_view .listItem #del_Icon:hover{
+section #myPageContainer .result_view .listItem #del_Icon:hover ,#del_Icon:hover{
 	cursor:pointer;
 	color:red;
 }
@@ -77,20 +87,22 @@ section #myPageContainer .result_view .nonListItem h2{
 	text-align: center;
 	font-size: 1.3em;	
 }
-section #myPageContainer .result_view .listItem ul{
+section #myPageContainer .result_view .listItem ul, .listItem ul{
  	padding-left: 10px;
  	padding-right: 10px;
  	position: relative;
  	list-style-type:none;
+ 	
 }
-section #myPageContainer .result_view .listItem ul :nth-child(3){
+
+section #myPageContainer .result_view .listItem ul :nth-child(3), .listItem ul :nth-child(3){
 	position:absolute;
 	color: gold;
 	font-size: 1.3em;
 	bottom: 5px;
 	left: 10px;
 }
-section #myPageContainer .result_view .listItem ul :nth-child(4){
+section #myPageContainer .result_view .listItem ul :nth-child(4), .listItem ul :nth-child(4){
  	position:relative;
  	display: inline-block;
  	vertical-align: top;
@@ -98,14 +110,14 @@ section #myPageContainer .result_view .listItem ul :nth-child(4){
 
  	left: -20px;
 }
-section #myPageContainer .result_view .listItem ul :nth-child(5){
+section #myPageContainer .result_view .listItem ul :nth-child(5), .listItem ul :nth-child(5){
 	position:absolute;
 	color: gray;
 	font-size: 1.3em;
 	bottom: 5px;
 	right: 10px;
 }
-section #myPageContainer .result_view .listItem ul li a img{
+section #myPageContainer .result_view .listItem ul li a img, .listItem ul li a img{
  	border-radius: 8px;
  	width: 125px; height: 100px;
 }
@@ -150,7 +162,52 @@ section .name{
     	white-space: nowrap;
 }
 
+       #modal_button {
+            all:unset; 
+            background-color: steelblue; 
+            color: white; 
+            padding: 5px 20px; 
+            border-radius: 5px; 
+            cursor: pointer;
+        }
+        .modal {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            z-index:100;
+        }
+        .modal__overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            width: 100%; 
+            height: 100%; 
+            position: absolute;
+        }
+        .modal__content {
+            background-color: white; 
+            position: relative; 
+            border-radius: 10px; 
+            width: 80%; 
+            height: 80%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+           	overflow:scroll;
+           	padding:50px;
+        	magin:50px;
+        }
+        
+        
+		.modal__content #modal_ul{
+			margin:30px;
+		}
+        .hidden {
+            visibility:hidden;
+        }
 </style>
+
 </head>
 <body>
 <div id="container">
@@ -224,7 +281,7 @@ section .name{
 			
 			
 			<div class="result_view" id="cmt_list">
-				<h2><span id="loginUser">${loginUser.u_name}님</span> 평가 웹툰</h2>
+				<h2><span id="loginUser">${loginUser.u_name}님</span> 평가 웹툰 <span id="cmt_show_all" class="show_all" onclick="show_all('cmt')">전체보기</span></h2>
 				<c:choose>
 					<c:when test="${list != null}">
 						<c:if test="${cmtlistSize > 5 }">
@@ -259,10 +316,9 @@ section .name{
 				</c:choose>
 			</div>
 			
-			
 			<!--  찜한 웹툰 -->
 			<div class="result_view" id="favoritelist">
-				<h2><span id="loginUser">${loginUser.u_name}님</span> 찜한 웹툰</h2>
+				<h2><span id="loginUser">${loginUser.u_name}님</span> 찜한 웹툰 <span id="favorite_show_all" class="show_all" onclick="show_all('favorite')">전체보기</span></h2>
 				<c:choose>
 					<c:when test="${favoritelist != null}">
 					<c:if test="${fn:length(favoritelist) > 5}">
@@ -297,13 +353,132 @@ section .name{
 			
 		</div>
 		
-				    
+		
+		<div class="modal hidden">
+	       <div class="modal__overlay"></div>
+	       <div class="modal__content">
+	       
+	       </div>
+	    </div>  
+		 
 	</section>
 	<jsp:include page="../template/footer.jsp"/>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
+
+	const openButton_cmt = document.getElementById('cmt_show_all')
+	const openButton_favorite = document.getElementById('favorite_show_all')
+	const modal = document.querySelector(".modal")
+	const overlay = modal.querySelector(".modal__overlay")
+	const modal_content = document.querySelector('.modal__content')
+	//const closeBtn = modal.querySelector("button")
+	const openModal = () => {
+	    modal.classList.remove("hidden")
+	}
+	const closeModal = () => {
+	    modal.classList.add("hidden")
+	    location.reload();
+	}
+	//closeBtn.addEventListener("click", closeModal)
+	openButton_cmt.addEventListener("click", openModal)
+	openButton_favorite.addEventListener("click", openModal)
+	//openButton[1].addEventListener("click", openModal)
+	overlay.addEventListener("click", closeModal)
+
+function show_all(type){
+	axios.get('/myPage',{
+		params :{
+			type : type,
+			yn_modal : 'y'
+		}
+	}).then(function(res){
+		console.log(res.data)
+		modal_content.innerHTML = ""
+		
+		res.data.forEach(function (item){
+			
+			var listItem = document.createElement('div')
+			listItem.setAttribute('class','listItem')
+			listItem.setAttribute('id','item_'+item.w_no)
+			var ul = document.createElement('ul')
+			ul.setAttribute('id','modal_ul')
+			var li1 = document.createElement('li')
+			var del_icon = document.createElement('div')
+			del_icon.setAttribute('id','del_Icon')
+			del_icon.setAttribute('onclick','deleteInmodal('+item.w_no+')')
+			del_icon.innerText = 'x'
+			if(type=='cmt'){
+				li1.append(del_icon)
+			}
+			var a = document.createElement('a')
+			a.setAttribute('href',"/webtoon/detail?w_no="+item.w_no)
+			var img = document.createElement('img')
+			img.setAttribute('src',item.w_thumbnail)
+			img.setAttribute('title',item.w_title)
+			a.append(img)
+			li1.append(a)
+			ul.append(li1)
+			var li2 = document.createElement('li')
+			var title = document.createElement('div')
+			title.setAttribute('class','title')
+			title.innerText = item.w_title
+			li2.append(title)
+			ul.append(li2)
+			
+			if(item.c_rating != 0 && item.c_rating != null){
+				var rating_icons = document.createElement('span')
+				rating_icons.setAttribute('class','material-icons')
+				rating_icons.innerText='grade'
+				var li3 = document.createElement('li')
+				li3.innerText=item.c_rating
+				ul.append(rating_icons)
+				ul.append(li3)
+			}
+			
+			if(item.c_com != null && item.c_com != '' && item.c_com != ' '){
+				var cmt_icons = document.createElement('span')
+				cmt_icons.setAttribute('class','material-icons')
+				cmt_icons.innerText='insert_comment'
+				ul.append(cmt_icons)
+			}
+			listItem.append(ul)
+			
+			modal_content.append(listItem)
+			/*
+			modal_content.innerHTML += 
+				
+				'<div class="listItem" id="item_'+item.w_no + '">'
+				+'<ul>'
+				+'<li>'
+			if(type=='cmt'){
+				modal_content.innerHTML += '<div id="del_Icon" onclick="deleteInmodal('+item.w_no+')">x</div>'
+			}
+				
+			modal_content.innerHTML += 
+				
+				'<a href="/webtoon/detail?w_no='+item.w_no+'"><img src="'+item.w_thumbnail+'" title="'+item.w_title+'"></a></li>'
+				+'<li><div class="title">'+item.w_title+'</div></li>'
+				+'<c:if test="'+item.c_rating+' != 0 && '+item.c_rating +'!= null}">'
+				+'	<span class="material-icons">grade</span>'
+				+'	<li>'+item.c_rating+'</li>'
+				+'</c:if>'
+				+'<c:if test="'+item.c_com +'!= null && '+item.c_com +'!= '' && '+item.c_com +'!= ' '}">'
+				+'	<span class="material-icons">insert_comment</span>'
+				+'</c:if>'
+				+'</ul>'
+				+'</div>'*/
+		})
+		
+		
+	})
+}
+	
+function deleteInmodal(w_no){
+	delWebtoon(w_no,'modal')
+	show_all('cmt')
+}
 
 let cmtIdx = 4;
 let favoriteIdx= 4;
@@ -439,7 +614,7 @@ function makeListItem(result_view, res, delNum, addNum, yn_del) {
 
 //평가 삭제
 
-function delWebtoon(w_no){
+function delWebtoon(w_no,modal){
 	
 	if(confirm('삭제하시겠습니까?')){
 		
@@ -449,22 +624,25 @@ function delWebtoon(w_no){
 		}
 		
 		axios.post('/myPage', data).then(function(res) {
-
-			if(cmtIdx-5 < 0 ){
-				makeListItem(cmt_list, res, 2, 7, 'y')
-			}else{
-				makeListItem(cmt_list, res, 7, 2, 'y')
-				cmtIdx--;
+			console.log(modal)
+			if(!modal){
+				if(cmtIdx-5 < 0 ){
+					makeListItem(cmt_list, res, 2, 7, 'y')
+				}else{
+					makeListItem(cmt_list, res, 7, 2, 'y')
+					cmtIdx--;
+				}
+				
 			}
 			
 			var div_id = document.getElementById('item_'+w_no)
 			div_id.remove()
 			
-
-			console.log("length: " + cmt_list.children.length)
-			if(cmt_list.children.length <= 1){
-				cmt_list.innerText = '평가한 웹툰이 없습니다'
-			}
+	
+				//console.log("length: " + cmt_list.children.length)
+				//if(cmt_list.children.length <= 1){
+				//	cmt_list.innerText = '평가한 웹툰이 없습니다'
+				//}
 			
 		})
 	}
