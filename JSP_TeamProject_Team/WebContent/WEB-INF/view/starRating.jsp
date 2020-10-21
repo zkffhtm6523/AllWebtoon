@@ -173,8 +173,12 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 	
 	//스크롤 바닥 감지
 	window.onscroll = function() {
+		
+		console.log(window.innerHeight + window.scrollY)
+		console.log(document.body.scrollHeight)
+		
 	    //window height + window scrollY 값이 document height보다 클 경우,
-	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight-5) {
 	       	
 	    	console.log('index: '+ idx)
 	    	

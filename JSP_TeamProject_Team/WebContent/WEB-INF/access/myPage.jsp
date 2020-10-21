@@ -60,6 +60,15 @@ section #myPageContainer .result_view .listItem{
  	margin: 0 auto;
  	display: inline-block;
 }
+
+section #myPageContainer .result_view .listItem #del_Icon{
+	text-align:right;
+}
+
+section #myPageContainer .result_view .listItem #del_Icon:hover{
+	cursor:pointer;
+	color:red;
+}
 section #myPageContainer .result_view .nonListItem{
 	width: 96%;
 	margin: 0 auto;
@@ -218,15 +227,15 @@ section .name{
 				<h2><span id="loginUser">${loginUser.u_name}님</span> 평가 웹툰</h2>
 				<c:choose>
 					<c:when test="${list != null}">
-					<c:if test="${fn:length(list) > 5}">
+						<c:if test="${cmtlistSize > 5 }">
 							<span class="material-icons" id="prevArrIcon" onclick="selCmtMinus('cmt')">keyboard_arrow_left</span>
 						</c:if>
 							
-					
 						<c:forEach var="i" begin="0" end="${fn:length(list) <= 5 ? fn:length(list)-1 : 4 }">
-							<div class="listItem">
+							<div class="listItem" id="item_${list[i].w_no}">
 								<ul>
-									<li><a href="/webtoon/detail?w_no=${list[i].w_no}"><img src="${list[i].w_thumbnail}" title="${list[i].w_title}"></a></li>
+									
+									<li><div id="del_Icon" onclick="delWebtoon(${list[i].w_no})">x</div><a href="/webtoon/detail?w_no=${list[i].w_no}"><img src="${list[i].w_thumbnail}" title="${list[i].w_title}"></a></li>
 									<li><div class="title">${list[i].w_title}</div></li>
 									<c:if test="${list[i].c_rating != 0 && list[i].c_rating != null}">
 										<span class="material-icons">grade</span>
@@ -238,7 +247,7 @@ section .name{
 								</ul>
 							</div>
 						</c:forEach>
-						<c:if test="${fn:length(list) > 5}">
+						<c:if test="${cmtlistSize > 5}">
 							<span class="material-icons" id="nextArrIcon" onclick="selCmtPlus('cmt')">keyboard_arrow_right</span>
 						</c:if>
 					</c:when>
@@ -287,23 +296,32 @@ section .name{
 			</div>
 			
 		</div>
+		
+				    
 	</section>
 	<jsp:include page="../template/footer.jsp"/>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
-let cmtIdx = 5;
-let favoriteIdx= 5;
+
+let cmtIdx = 4;
+let favoriteIdx= 4;
+
 function selCmtMinus(type) {
-	if((type=='cmt'? cmtIdx-5 : favoriteIdx-5) == 0){
+	if((type=='cmt'? cmtIdx-5 : favoriteIdx-5) < 0){
 		alert('처음입니다')
-	}else if((type=='cmt'? cmtIdx-5 : favoriteIdx-5) >= 1){
+		if(type=='cmt'){
+			cmtIdx=4;
+		}else{
+			favoriteIdx=4;
+		}
+	}else if((type=='cmt'? cmtIdx-5 : favoriteIdx-5) >= 0){
 		console.log('minus : '+(type=='cmt'? cmtIdx-5 : favoriteIdx-5))
 		axios.get('/myPage',{
 			params :{
 				type : type,
-				page : (type=='cmt'? cmtIdx - 5 :favoriteIdx-5)
+				page : (type=='cmt'? cmtIdx-5 :favoriteIdx-5)
 			}
 		}).then(function(res){
 			//각 웹툰별 아이템 박스 만들기(json, delNum, addNum)
@@ -314,17 +332,19 @@ function selCmtMinus(type) {
 				makeListItem(favoritelist, res, 7, 2)
 				favoriteIdx--;
 			}
-			
 		})
 	}
 }
+
 function selCmtPlus(type) {
+	console.log("plus : "+(type=='cmt'? cmtIdx+1 : favoriteIdx+1))
 	axios.get('/myPage',{
 		params : {
 			type : type,
-			page : (type=='cmt'? cmtIdx +1 :favoriteIdx +1 )
+			page : (type=='cmt'? cmtIdx+1 :favoriteIdx+1 )
 		}
 	}).then(function(res) {
+		console.log(res.data)
 		if(res.data == 0){
 			alert('마지막입니다')
 		}else{
@@ -340,58 +360,114 @@ function selCmtPlus(type) {
 		}
 	})
 }
-function makeListItem(result_view, res, delNum, addNum) {
-	//listItem 만들기 
-	var listItem = document.createElement('div')
-	listItem.classList.add('listItem')
-	//ul 만들기 
-	var ulList = document.createElement('ul')
-	listItem.append(ulList)
-	//li 만들기 
-	var liImg = document.createElement('li')
-	ulList.append(liImg)
-	//a태그 만들기 
-	var aImg = document.createElement('a')
-	aImg.href = '/webtoon/detail?w_no='+res.data.w_no
-	liImg.append(aImg)
-	//이미지 태그 만들기 
-	var addImg = document.createElement('img')
-	addImg.src = res.data.w_thumbnail
-	addImg.title = res.data.w_title
-	aImg.append(addImg)
-	//타이틀 만들기 
-	var liTitle = document.createElement('li')
-	liTitle.setAttribute('class','title')
-	liTitle.innerText = res.data.w_title
-	ulList.append(liTitle)
+
+function makeListItem(result_view, res, delNum, addNum, yn_del) {
 	
-	if(res.data.c_rating != 0.0){
-		
-		//starIcon 만들기 
-		var starIcon = document.createElement('span')
-		starIcon.classList.add('material-icons')
-		starIcon.innerHTML = 'grade'
-		ulList.append(starIcon)
-		//평점 li 만들
-		var grade = document.createElement('li')
-		if(res.data.c_rating.toString().indexOf(".") == -1){
-			grade.innerHTML = res.data.c_rating + ".0"
-		}else {
-			grade.innerHTML = res.data.c_rating
+	if(res.data != 0){
+	
+		//listItem 만들기 
+		var listItem = document.createElement('div')
+		listItem.classList.add('listItem')
+		if(result_view == cmt_list){
+			listItem.setAttribute('id','item_'+res.data.w_no)
 		}
-		ulList.append(grade)
+		
+		//ul 만들기 
+		var ulList = document.createElement('ul')
+		listItem.append(ulList)
+		//li 만들기 
+		var liImg = document.createElement('li')
+		ulList.append(liImg)
+		
+		if(result_view == cmt_list){
+			var del_div = document.createElement('div')
+			del_div.innerHTML='x'
+			del_div.setAttribute('onclick',"delWebtoon("+res.data.w_no+")")
+			del_div.setAttribute('id',"del_Icon")
+			liImg.append(del_div)
+		}
+		
+		//a태그 만들기 
+		var aImg = document.createElement('a')
+		aImg.href = '/webtoon/detail?w_no='+res.data.w_no
+		liImg.append(aImg)
+		//이미지 태그 만들기 
+		var addImg = document.createElement('img')
+		addImg.src = res.data.w_thumbnail
+		addImg.title = res.data.w_title
+		aImg.append(addImg)
+		//타이틀 만들기 
+		var liTitle = document.createElement('li')
+		liTitle.setAttribute('class','title')
+		liTitle.innerText = res.data.w_title
+		ulList.append(liTitle)
+		
+		if(res.data.c_rating != 0.0){
+			
+			//starIcon 만들기 
+			var starIcon = document.createElement('span')
+			starIcon.classList.add('material-icons')
+			starIcon.innerHTML = 'grade'
+			ulList.append(starIcon)
+			//평점 li 만들
+			var grade = document.createElement('li')
+			if(res.data.c_rating.toString().indexOf(".") == -1){
+				grade.innerHTML = res.data.c_rating + ".0"
+			}else {
+				grade.innerHTML = res.data.c_rating
+			}
+			ulList.append(grade)
+		
+		}
+		//cmtIcon 만들기
+		if(res.data.c_com != null){
+			var cmtIcon = document.createElement('span')
+			cmtIcon.classList.add('material-icons')
+			cmtIcon.innerHTML = 'insert_comment'
+			ulList.append(cmtIcon)
+		}
 	
-	}
-	//cmtIcon 만들기
-	if(res.data.c_com != null){
-		var cmtIcon = document.createElement('span')
-		cmtIcon.classList.add('material-icons')
-		cmtIcon.innerHTML = 'insert_comment'
-		ulList.append(cmtIcon)
+		result_view.insertBefore(listItem,result_view.children[addNum])
 	}
 	
-	result_view.insertBefore(listItem,result_view.children[addNum])
-	result_view.children[delNum].remove();
+	if(yn_del != 'y'){
+		result_view.children[delNum].remove();
+		
+	}
+}
+
+
+//평가 삭제
+
+function delWebtoon(w_no){
+	
+	if(confirm('삭제하시겠습니까?')){
+		
+		var data = { 
+				w_no : w_no,
+				idx : (cmtIdx-5 < 0 ? cmtIdx : cmtIdx-5)
+		}
+		
+		axios.post('/myPage', data).then(function(res) {
+
+			if(cmtIdx-5 < 0 ){
+				makeListItem(cmt_list, res, 2, 7, 'y')
+			}else{
+				makeListItem(cmt_list, res, 7, 2, 'y')
+				cmtIdx--;
+			}
+			
+			var div_id = document.getElementById('item_'+w_no)
+			div_id.remove()
+			
+
+			console.log("length: " + cmt_list.children.length)
+			if(cmt_list.children.length <= 1){
+				cmt_list.innerText = '평가한 웹툰이 없습니다'
+			}
+			
+		})
+	}
 }
 
 </script>

@@ -93,7 +93,7 @@
 	//스크롤 바닥 감지
 	window.onscroll = function() {
 	    //window height + window scrollY 값이 document height보다 클 경우,
-	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight-10) {
 	    	//실행할 로직 (콘텐츠 추가)
 	       	
 	    	console.log('index: '+ idx)

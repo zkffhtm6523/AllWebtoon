@@ -11,12 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
+
 import com.allWebtoon.dao.MyPageDAO;
+import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
 import com.allWebtoon.vo.WebtoonCmtDomain;
+import com.allWebtoon.vo.WebtoonCmtVO;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @WebServlet("/myPage")
 public class MyPageSer extends HttpServlet {
@@ -52,8 +58,12 @@ public class MyPageSer extends HttpServlet {
 			List<WebtoonCmtDomain> first_cmtList = new ArrayList<WebtoonCmtDomain>();
 			List<WebtoonCmtDomain> first_favoriteList = new ArrayList<WebtoonCmtDomain>();
 			
-			if(selCmtList.size() != 0) {
-				for (int i = 0; i < (selCmtList.size() > 5 ? 6 : selCmtList.size()); i++) {
+			request.setAttribute("cmtlistSize", selCmtList.size());
+			System.out.println("cmtlistSize: " + selCmtList.size());
+			
+			
+			if(selCmtList.size() != 0) {			
+				for (int i = 0; i < (selCmtList.size() > 5 ? 5 : selCmtList.size()); i++) {
 					first_cmtList.add(selCmtList.get(i));
 				}
 				request.setAttribute("list", first_cmtList);
@@ -84,6 +94,14 @@ public class MyPageSer extends HttpServlet {
 		//ajax 로직
 		//}
 		else {
+			//selCmtList = new ArrayList<WebtoonCmtDomain>();
+			//MyPageDAO.myWebtoon(selCmtList, loginUser.getU_no());
+			
+			System.out.println("cmtListSize: " + selCmtList.size());
+			
+			System.out.println("cmt_idx: "  + idx);
+			//System.out.println("selcmtlist : " + selCmtList.get(idx).getW_title());
+			
 			List<WebtoonCmtDomain> list;
 			
 			if("cmt".equals(type)) {
@@ -92,17 +110,21 @@ public class MyPageSer extends HttpServlet {
 				list = favoriteList;
 			}
 			
-			if(list.size() >= idx) {
-				idx -= 1;
+			if(list.size() > idx) {
+				//idx -= 1;
 				//System.out.println("ajax 왔음  ");
 				Gson gson = new Gson();
 				String json = gson.toJson(list.get(idx));
+				
+
+				System.out.println("cmt_idx: "  + idx);
+				System.out.println("send_list : " + list.get(idx).getW_title());
 				//System.out.println("json : " + json);
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("application/json");
 				PrintWriter out = response.getWriter();
 				out.print(json);
-			}else if(list.size() == idx || list.size() < idx) {
+			}else if(list.size() <= idx) {
 				PrintWriter out = response.getWriter();
 				out.print("0");
 			}
@@ -110,6 +132,54 @@ public class MyPageSer extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int u_no = MyUtils.getLoginUserPk(request);
+		String body = IOUtils.toString(request.getReader());
+  	  	JsonParser parser = new JsonParser();
+        JsonObject object = (JsonObject) parser.parse(body);
+        
+        System.out.println("body : " + object);
+        
+        String strW_no = object.get("w_no").toString();
+        String strIdx = object.get("idx").toString();
+        int idx = MyUtils.parseStrToInt(strIdx);
+        
+        System.out.println("idx : "  + idx);
+        int w_no = MyUtils.parseStrToInt(strW_no);
+        
+        WebtoonCmtVO vo = new WebtoonCmtVO();
+        vo.setW_no(w_no);
+        vo.setU_no(u_no);
+        
+        int result = WebtoonCmtDAO.delCmt(vo);
+        
+        if(result == 1) {
+        	
+        	List<WebtoonCmtDomain> list = new ArrayList<WebtoonCmtDomain>();
+    		MyPageDAO.myWebtoon(list, u_no);
+        	
+    		if(list.size() > idx) {
+				//idx -= 1;
+
+	        	Gson gson = new Gson();
+	    		
+	    		String json = gson.toJson(list.get(idx));
+	    		
+	    		
+	    		response.setCharacterEncoding("UTF-8");
+	    		response.setContentType("application/json");
+	    		PrintWriter out = response.getWriter();
+	    		out.print(json);
+    		
+    		}else if(list.size() <= idx) {
+				PrintWriter out = response.getWriter();
+				out.print("0");
+			}
+        	System.out.println("삭제 완료!");
+        }
+        
+        
+        
 	}
 
 }
