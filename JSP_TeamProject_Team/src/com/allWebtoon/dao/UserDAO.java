@@ -111,6 +111,7 @@ public class UserDAO {
 			public int executeQuery(ResultSet rs) throws SQLException {
 				
 				if(rs.next()) {					//레코드가 있음
+					
 					String dbPw = rs.getNString("u_password");
 					String salt = rs.getString("u_salt");
 					if(param.getU_birth() == null && dbPw.equals(SecurityUtils.getEncrypt(param.getU_password(), salt))) {	//로그인 성공(비밀번호 맞을 경우)

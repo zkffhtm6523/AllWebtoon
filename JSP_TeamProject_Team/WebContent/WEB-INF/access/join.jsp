@@ -87,41 +87,41 @@ section .snsimg{width: 360px; height: 60px;}
 	            		<c:if test = "${userInfo.u_id == '' || userInfo == null}">
 		            	<span class="name">아이디</span>&nbsp;&nbsp;
 		            	</c:if>
-		            	<input type=${userInfo.u_id == '' || userInfo == null ? "text" : "hidden"} class="joinList" name="u_id" id="id" placeholder="아이디를 입력해주세요" value="${userInfo.u_id}" ${userInfo.u_id != '' && userInfo != null? 'readonly' : ''} autofocus required >
+		            	<input type=${userInfo.u_id == '' || userInfo == null ? "text" : "hidden"} class="joinList" name="u_id" id="id" placeholder="아이디를 입력해주세요" value="${userInfo.u_id == null ? data.u_id : userInfo.u_id}" ${userInfo.u_id != '' && userInfo != null? 'readonly' : ''} autofocus required >
 	            	</div>
 	            	<div>
 	            		<c:if test = "${userInfo.u_password == '' || userInfo == null}">
 	            		<span class="name">비밀번호</span>&nbsp;&nbsp;
 	            		</c:if>
-	                	<input type=${userInfo.u_password == '' || userInfo == null? "password" : "hidden"} class="joinList" name="u_pw" id="pw" placeholder="비밀번호" value="${userInfo.u_password}" required>
+	                	<input type=${userInfo.u_password == '' || userInfo == null? "password" : "hidden"} class="joinList" name="u_pw" id="pw" placeholder="비밀번호" value="${userInfo.u_password == null ? data.u_password : userInfo.u_password}" required>
 					</div>
 					<div>
 						<c:if test = "${userInfo.u_password == '' || userInfo == null}">
 						<span class="name">비밀번호 확인</span>&nbsp;&nbsp;
 						</c:if>
-	                	<input type=${userInfo.u_password == '' || userInfo == null ? "password" : "hidden"} class="joinList" name="u_pw2" id="pw2" placeholder="비밀번호 확인" value="${userInfo.u_password}" required>
+	                	<input type=${userInfo.u_password == '' || userInfo == null ? "password" : "hidden"} class="joinList" name="u_pw2" id="pw2" placeholder="비밀번호 확인" value="${userInfo.u_password == null ? data.u_password : userInfo.u_password}" required>
 					</div>
 					
 					<div>
 						<span class="name">이름</span>&nbsp;&nbsp;
-		                <input type="text" class="joinList" name="name" id="name" placeholder="이름" value="${userInfo.u_name}" required>
+		                <input type="text" class="joinList" name="name" id="name" placeholder="이름" value="${userInfo.u_name == null ? data.u_name : userInfo.u_name}" required>
 	                </div>
 	                <div>
 						<span class="name">이메일</span>&nbsp;&nbsp;
-		                <input type="email" class="joinList" name="email" id="email" placeholder="메일" value="${userInfo.u_email}" ${userInfo.u_email != '' && userInfo != null ? 'readonly' : ''} required>
+		                <input type="email" class="joinList" name="email" id="email" placeholder="메일" value="${userInfo.u_email == null ? data.u_email : userInfo.u_email}" ${userInfo.u_email != '' && userInfo != null ? 'readonly' : ''} required>
 	                </div>
 	                <div>
 	                	<span class="name">생년월일</span>&nbsp;&nbsp;
-	              	    <input type="date" class="joinList" name="birth" id="birth" required>
+	              	    <input type="date" class="joinList" name="birth" id="birth" value="${data.u_birth }" required>
 	                </div>
 	                <div class="genderBox">
 	                	<span class="name">성별</span>&nbsp;&nbsp;
 		                <div class="genderGroup">
 			                <label for="gender_male">남자</label>
-			                <input type="radio" class="gender" name="gender" value="male" id="gender_male" required>
+			                <input type="radio" class="gender" name="gender" value="male" id="gender_male" ${data.gender_name == 'male' ? 'checked':'' } required>
 			                &nbsp;&nbsp;&nbsp;&nbsp;
 			                <label for="gender_female">여자</label>
-			                <input type="radio" class="gender" name="gender" value="female" id="gender_female">
+			                <input type="radio" class="gender" name="gender" value="female" id="gender_female" ${data.gender_name == 'female' ? 'checked':'' }>
 		                </div>
 	                </div>
 	                <div id="frmBtn">
