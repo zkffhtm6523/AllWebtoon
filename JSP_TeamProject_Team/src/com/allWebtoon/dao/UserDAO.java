@@ -237,9 +237,9 @@ public class UserDAO {
 	
 	public static int insFavorite(WebtoonCmtVO param) {
 		String sql = " INSERT INTO t_webtoon_favorite "
-				+ " (w_no, u_no, r_dt) "
+				+ " (w_no, u_no) "
 				+ " VALUES "
-				+ " (?, ?, now()) ";
+				+ " (?, ?) ";
 		
 		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
 			

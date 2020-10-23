@@ -60,10 +60,9 @@ public class MyPageSer extends HttpServlet {
 			List<WebtoonCmtDomain> first_favoriteList = new ArrayList<WebtoonCmtDomain>();
 			
 			request.setAttribute("cmtlistSize", selCmtList.size());
-			System.out.println("cmtlistSize: " + selCmtList.size());
 			
-			
-			if(selCmtList.size() != 0) {			
+			if(selCmtList.size() != 0) {
+				System.out.println("selCmtList size가 0일까?");
 				for (int i = 0; i < (selCmtList.size() > 5 ? 5 : selCmtList.size()); i++) {
 					first_cmtList.add(selCmtList.get(i));
 				}
@@ -75,9 +74,7 @@ public class MyPageSer extends HttpServlet {
 				}
 				request.setAttribute("favoritelist", first_favoriteList);
 			}
-			
 			ViewResolver.accessForward("myPage", request, response);
-		
 		}
 		
 	/*	if(selCmtList.size() == 0 && idx == 0) {
@@ -98,9 +95,6 @@ public class MyPageSer extends HttpServlet {
 			//selCmtList = new ArrayList<WebtoonCmtDomain>();
 			//MyPageDAO.myWebtoon(selCmtList, loginUser.getU_no());
 			
-			System.out.println("cmtListSize: " + selCmtList.size());
-			
-			System.out.println("cmt_idx: "  + idx);
 			//System.out.println("selcmtlist : " + selCmtList.get(idx).getW_title());
 			
 			List<WebtoonCmtDomain> list;
@@ -120,21 +114,13 @@ public class MyPageSer extends HttpServlet {
 				response.setContentType("application/json");
 				PrintWriter out = response.getWriter();
 				out.print(json);
-				
-				
 				return ;
 			}
 			
 			if(list.size() > idx) {
 				//idx -= 1;
-				//System.out.println("ajax 왔음  ");
 				
 				String json = gson.toJson(list.get(idx));
-				
-
-				System.out.println("cmt_idx: "  + idx);
-				System.out.println("send_list : " + list.get(idx).getW_title());
-				//System.out.println("json : " + json);
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("application/json");
 				PrintWriter out = response.getWriter();

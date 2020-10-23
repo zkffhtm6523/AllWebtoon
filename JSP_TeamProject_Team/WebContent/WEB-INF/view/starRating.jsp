@@ -16,7 +16,7 @@ section{
  		text-align: center;
  	}
 section #listBlock {width:90%; margin:0 auto;}  
-section .itembox {width:20%; margin:30px 60px; display: inline-block; position:relative;}
+section .itembox {width:210px; margin:30px 60px; display: inline-block; position:relative;}
 section dl {position:relative;}
 section dt {position:absolute; bottom:60px; left:50%; white-space:nowrap; transform:translate(-50%,-50%);
 		width:100%;
@@ -79,9 +79,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 			</dl>
 		</div>
 	</c:forEach>
-	
 	</div>
-	
 </section>
 <jsp:include page="../template/footer.jsp"/>
 </div>
@@ -273,13 +271,10 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		        console.log('scrollHight: ' + document.body.scrollHeight)*/
 		        
 		        idx++
-		        
 	    	})
-		        
-		         
 	    	})
 	    }
-	};
+	}
 </script>
 </body>
 </html>

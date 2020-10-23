@@ -174,10 +174,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 //				System.out.println("추천작품이 없습니다.");
 //			 }
 //		
-		      	
 	     }
-		 
-		 
 		 ViewResolver.viewForward("webtoonDetail", request, response);
 		 
 	    
