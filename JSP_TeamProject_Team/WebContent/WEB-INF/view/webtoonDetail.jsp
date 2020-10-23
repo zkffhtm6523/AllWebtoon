@@ -13,7 +13,7 @@
 <style>
    @font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
    section{
-   		width:1200px;
+   		width:100%;
    		background-color: #F8F8F8;
    		margin: 0 auto;
    		border-top: 1px solid #EAEAEA;
@@ -21,8 +21,8 @@
    section a {text-decoration: none; color: black;}
    section ul {list-style-type: none;}
    section #detailContainer {
-   		width: 80%;
-		margin: 30px auto;
+   		width: 1000px;
+		margin: 30px auto;	
    }
    section #detailContainer #webtoonContainer #webtoonSummary{
    		width: 80%;
@@ -250,7 +250,6 @@ section >  #detailContainer > .result_view > h2{
 section #detailContainer #comment{text-align: center;}
 section #detailContainer #comment #cmtFrm{
 		margin: 10px;
-		border-bottom: 1px solid darkgray;
 }
  section #detailContainer #comment #cmtFrm #cmt{
  		border-radius: 20px;
@@ -276,6 +275,7 @@ section #detailContainer #comment #cmtFrm{
  	}
  	
  	section #detailContainer .cmt_list{
+ 		border-top: 1px solid darkgray;
  		width: 90%;
  		margin: 0 auto;
  		vertical-align:top;
@@ -347,7 +347,7 @@ section #detailContainer .cmt_list .cmtItem:nth-child(4){
 	background-color: steelblue;
 	width: 80px;
 	height: 75%;
-	right: 0%;
+	right: -1%;
 	cursor: pointer;
 }
 section #detailContainer .cmt_list .cmtItem:nth-child(4) #open{
@@ -395,13 +395,9 @@ section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_l
   	.blind { position: absolute; overflow: hidden; margin: -1px;padding: 0;width: 1px;height: 1px;border: none;clip: rect(0, 0, 0, 0);}
 .swiper-container {height: 100%;}
    .swiper-slide {display: flex !important;justify-content: center;align-items: center;font-size: 2rem;}
-   
-    
-    
-
-    
-
-
+.modal__content #modal_ul{
+	margin-bottom: 10px;
+}
 </style>
 <link rel="stylesheet" href="/css/modal.css" />
 <link rel="stylesheet" href="/css/swiper-bundle.min.css">
@@ -448,9 +444,7 @@ section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_l
 	                   </label>
                 	</c:forEach>
                   </div>
-                  <c:if test="${loginUser != null }">
-                  평균 별점 : ${aveScore} (${ numScore}명)
-                  </c:if>
+                  <c:if test="${loginUser != null }">평균 별점 : ${aveScore} (${ numScore}명)</c:if>
                </li>
             </ul>
             </div>
@@ -458,6 +452,28 @@ section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_l
 		         <div id="tosite"><a href="${data.w_link }" target="_blank">보러가기</a></div>
              </div>
 	      </div>
+	      <c:if test="${loginUser != null}">
+	      <div class="result_view" id="rec_list">
+				<h2>이 웹툰과 비슷한 작품</h2>
+				<c:choose>
+					<c:when test="${rec_list != null && fn:length(rec_list) != 0}">
+						<c:forEach var="i" begin="0" end="${fn:length(rec_list)-1 }">
+							<div class="listItem">
+								<ul>
+									<li><a href="/webtoon/detail?w_no=${rec_list[i].w_no}"><img src="${rec_list[i].w_thumbnail}" title="${rec_list[i].w_title}"></a></li>
+									<li class="title">${rec_list[i].w_title}</li>
+								</ul>
+							</div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<div class="nonListItem">
+							<h2>아직 충분한 평가가 없어 추천작을 찾을 수 없어요.ㅠㅠ</h2>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			</c:if>
 	      <!-- 댓글 부분 -->
 	      <div id="comment">
 	         <form action="/webtoon/cmt" method="post" id="cmtFrm" name="cmtFrm" onsubmit="return chk()">
@@ -473,8 +489,8 @@ section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_l
 	         </form>
 	      </div>
 	      <!-- 다른 사람들의 댓글 -->
+	      <c:if test="${fn:length(cmtList) > 0}">
 	      <div class="cmt_list">
-	      	<c:if test="${fn:length(cmtList) > 0}">
 				<c:forEach var="i" begin="0" end="${fn:length(cmtList) > 3 ? 2 : fn:length(cmtList) - 1}">
 					<div class="cmtItem">
 						<ul id="cmt_list">
@@ -501,41 +517,13 @@ section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_l
 						  </div>
 				       </div>
 				    </div>  
-				
+	      	</div>
 			</c:if>
-	      </div>
-	      
-	      
-	      <c:if test="${loginUser != null}">
-	      
-	      <div class="result_view" id="rec_list">
-				<h2>이 웹툰과 비슷한 작품</h2>
-				<c:choose>
-					<c:when test="${rec_list != null && fn:length(rec_list) != 0}">
-						<c:forEach var="i" begin="0" end="${fn:length(rec_list)-1 }">
-							<div class="listItem">
-								<ul>
-									<li><a href="/webtoon/detail?w_no=${rec_list[i].w_no}"><img src="${rec_list[i].w_thumbnail}" title="${rec_list[i].w_title}"></a></li>
-									<li class="title">${rec_list[i].w_title}</li>
-								</ul>
-							</div>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<div class="nonListItem">
-							<h2>아직 충분한 평가가 없어 추천작을 찾을 수 없어요.ㅠㅠ</h2>
-						</div>
-					</c:otherwise>
-				</c:choose>
-			</div>
-			</c:if>
-	      
 	      </div>
       </section>
       <jsp:include page="../template/footer.jsp"/>
    </div>
    <!-- Scripts -->
-	<script src="/js/modal.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script>

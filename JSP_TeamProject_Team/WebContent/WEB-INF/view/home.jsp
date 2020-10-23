@@ -10,12 +10,13 @@
 <style type="text/css">
 	/*section 시작*/
 section{
-	width:1300px;
-	background-color: #F8F8F8;
-	margin: 0 auto;
 	background-color: #F8F8F8;
 	border-top: 1px solid #EAEAEA;
 	text-align: center;
+}
+section #sec_container{
+	width: 1300px;
+	margin: 0 auto;
 }
 section .indexBlock {
 	position: relative;
@@ -58,12 +59,14 @@ section  #nextArrIcon{right: 2%;}
 section .material-icons:hover{cursor: pointer;}
 
 </style>
-<title>모두의 웹툰</title>
+<title>All 웹툰</title>
 </head>
 <body>
 <div id="container">
 		<jsp:include page="../template/header.jsp"/>
-		<section></section>
+		<section>
+			<div id="sec_container"></div>
+		</section>
 		<jsp:include page="../template/footer.jsp"/>
 </div>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -161,13 +164,10 @@ section .material-icons:hover{cursor: pointer;}
     	}
 	    
 	  	function makeImage(list, title, result, genre){
-			//컨테이너 안 섹션 태그 받아오기   
-		    let section = document.querySelector('section')
 		    //추천별 블록 만들기
 		    let indexBlock = document.createElement('div')
 		    indexBlock.classList.add('indexBlock')
-		    section.append(indexBlock)
-		    
+		    sec_container.append(indexBlock)
 	    	//추천별 블록->타이틀+구분선
 		    let secTitle = document.createElement('h1')
 		    secTitle.append(title)

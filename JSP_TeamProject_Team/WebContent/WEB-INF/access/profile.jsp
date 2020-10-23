@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Profile</title>
+<title>나의 프로필</title>
 <style type="text/css">
 	section{
 		width:100%;

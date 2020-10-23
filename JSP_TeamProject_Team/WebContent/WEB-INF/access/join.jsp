@@ -173,15 +173,12 @@ section .snsimg{width: 360px; height: 60px;}
 			}
 		}
 		
-		
-		
 		function goKakao() {
 			location.href = 'https://kauth.kakao.com/oauth/authorize'
 				    		+'?client_id=48c16d63af5493c7ae43a1433ec7760f'
 				            +'&redirect_uri=http://localhost:8089/login?platNo=1'
 				        	//+'&redirect_uri=http://192.168.2.8:8089/login?platNo=1'
 				            +'&response_type=code'
-				            
 		}
 		function goNaver(state) {
 			var encoding = encodeURIComponent('http://localhost:8089/naverAPI')
@@ -198,7 +195,6 @@ section .snsimg{width: 360px; height: 60px;}
 				 + '&response_type=code'
 				 + '&client_id=659641044041-d8d9d26ubldu5veldv2g3cqaqedv6htq.apps.googleusercontent.com'
 				 + '&redirect_uri=http://localhost:8089/googleAPI'
-				 //scope=https://www.googleapis.com/auth/userinfo.email'
 		}
 	</script>
 </body>

@@ -45,7 +45,6 @@ public class NaverAPI extends HttpServlet {
 		apiURL.append("&code=" + code);
 		apiURL.append("&state=" + state);
 		String access_token = "";
-		String refresh_token = ""; //나중에 이용합시다
 				
 		try { 
 			  URL url = new URL(apiURL.toString());
@@ -75,7 +74,6 @@ public class NaverAPI extends HttpServlet {
 	    		JSONObject jsonObj = (JSONObject)obj;
 	    			        
 	    		access_token = (String)jsonObj.get("access_token");
-	    		refresh_token = (String)jsonObj.get("refresh_token");
 		      }
 		    } catch (Exception e) {
 		      System.out.println(e);
@@ -109,7 +107,6 @@ public class NaverAPI extends HttpServlet {
 				String gender = property.getAsJsonObject().get("gender").getAsString();
 				String email = property.getAsJsonObject().get("email").getAsString();
 				String name = property.getAsJsonObject().get("name").getAsString();
-				String birthday = property.getAsJsonObject().get("birthday").getAsString();
 				
 				UserVO userInfo = new UserVO();
 				userInfo.setU_id(user_id);

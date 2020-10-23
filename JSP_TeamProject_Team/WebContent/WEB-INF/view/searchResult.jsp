@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-<title>모두의 웹툰(검색 결과)</title>
+<title>All 웹툰(검색 결과)</title>
 <style type="text/css">
     section{
 	width:100%;
@@ -19,7 +19,7 @@
     section img{width: 180px; border-radius: 5%;}
     section .content hr{width: 100%;}
     section .aboveContainer h2{margin-top: 0px; width: 100%; margin-left: 20px;}
-    section .webtoonContainer {margin: 50px auto; padding: 5px;}
+    section .webtoonContainer {margin: 50px auto; padding: 5px; margin-top: 20px;}
     section ul {list-style-type: none; 
     clear: both; margin: 0 auto;padding: 0;}
     section ul li:nth-child(1) {float: left; padding: 30px; padding-top: 0px;}

@@ -19,7 +19,7 @@ body{
 }
 
 header {
-	width: 100%; 
+	width: 1300px; 
 	height:120px;
 	margin: 0 auto;
 }
@@ -51,7 +51,7 @@ header h1 {
 	felx: 1 1 auto;
 }
 header h1 img{
-	width: 250px;
+	width: 200px;
 }
 header #centerMenu {
 	flex: 5 1 auto;

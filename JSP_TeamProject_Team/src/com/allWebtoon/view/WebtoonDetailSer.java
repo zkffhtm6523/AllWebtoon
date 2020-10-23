@@ -1,7 +1,6 @@
 package com.allWebtoon.view;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +25,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import jep.*;
-
 @WebServlet("/webtoon/detail")
 public class WebtoonDetailSer extends HttpServlet {
    private static final long serialVersionUID = 1L;
 
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       // 웹툰 정보 뿌리기 - 시작
       int w_no = MyUtils.getIntParameter(request, "w_no");
       int ajaxChk = MyUtils.getIntParameter(request, "ajaxChk");
@@ -114,78 +111,64 @@ public class WebtoonDetailSer extends HttpServlet {
 			    		send_cmtList.add(cmtList.get(i));
 		    	  	}
 				}
-		      
-		      
-		      System.out.println("listsize: " + cmtList.size());
-		      for(WebtoonCmtDomain cmtlist: cmtList) {
-		    	  System.out.println(cmtlist.getW_title());
-		      }
 		      	request.setAttribute("aveScore", Math.round(sumScore/(float)numScore*10)/10.0);		//평균 평점은 소수점 이하 한자리까지만.
 		      	request.setAttribute("numScore", numScore);
 		      	request.setAttribute("cmtList", send_cmtList); 
-		      
-		      // ---------------------------------------------------
-	      
-	      
-	      
-		      
 		      ////파이썬호출
 		      
-		     System.out.println("w_no: " + w_no);
-		     
-		    
-		     
-			 try {
-				List<WebtoonVO> list = new ArrayList<WebtoonVO>();
-				JepConfig jepConfig = new JepConfig().addSharedModules("numpy")
-	                    .addSharedModules("pandas")
-	                    .addSharedModules("scipy") 
-	                    .addSharedModules("tensorflow")
-	                    .addSharedModules("sklearn");
-	            Jep jep = new Jep(jepConfig);
-				jep.set("w_no_args", w_no);
-				//jep.runScript("E:\\python\\Python\\recommend_toon.py");
-				jep.runScript("/Users/hyeseon/python_test/Python/recommend_toon.py");
-				
-				System.out.println("rec_result: " + jep.getValue("recomment_result"));
-				
-				List arr = (List) jep.getValue("recomment_result");
-				
-				System.out.println("이 작품과 비슷한 작품 " );
-				
-				for(int i=0; i<arr.size(); i++) {
-					
-					String rec_wno = ((List) arr.get(i)).get(0).toString();
-							
-					list.add(WebtoonListDAO.selrecommendWebtoon(Integer.parseInt(rec_wno)));
-				}
-				
-				for(WebtoonVO s : list) {
-					System.out.println(s.getW_no());
-					System.out.println(s.getW_title());
-					System.out.println(s.getW_thumbnail());
-				}
-				
-				jep.close();
-				
-	
-				request.setAttribute("rec_list", list);
-				
-			 } catch (JepException e) {
-				//e.printStackTrace();
-				System.out.println("추천작품이 없습니다.");
-			 }
-		 
+//		     System.out.println("w_no: " + w_no);
+//		     
+//		    
+//		     
+//			 try {
+//				List<WebtoonVO> list = new ArrayList<WebtoonVO>();
+//				JepConfig jepConfig = new JepConfig().addSharedModules("numpy")
+//	                    .addSharedModules("pandas")
+//	                    .addSharedModules("scipy") 
+//	                    .addSharedModules("tensorflow")
+//	                    .addSharedModules("sklearn");
+//	            Jep jep = new Jep(jepConfig);
+//				jep.set("w_no_args", w_no);
+//				//jep.runScript("E:\\python\\Python\\recommend_toon.py");
+//				jep.runScript("D:\\프로그래밍\\Python\\Allwebtoon\\recommend_toon.py");
+//				
+//				System.out.println("rec_result: " + jep.getValue("recomment_result"));
+//				
+//				List arr = (List) jep.getValue("recomment_result");
+//				
+//				System.out.println("이 작품과 비슷한 작품 " );
+//				
+//				for(int i=0; i<arr.size(); i++) {
+//					
+//					String rec_wno = ((List) arr.get(i)).get(0).toString();
+//							
+//					list.add(WebtoonListDAO.selrecommendWebtoon(Integer.parseInt(rec_wno)));
+//				}
+//				
+//				for(WebtoonVO s : list) {
+//					System.out.println(s.getW_no());
+//					System.out.println(s.getW_title());
+//					System.out.println(s.getW_thumbnail());
+//				}
+//				
+//				jep.close();
+//				
+//	
+//				request.setAttribute("rec_list", list);
+//				
+//			 } catch (JepException e) {
+//				//e.printStackTrace();
+//				System.out.println("추천작품이 없습니다.");
+//			 }
+//		
 	     }
-		 
-		 
 		 ViewResolver.viewForward("webtoonDetail", request, response);
 		 
 	    
       }
       
    }
-   
+  
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	   String body = IOUtils.toString(request.getReader());
  	   JsonParser parser = new JsonParser();
