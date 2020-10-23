@@ -58,7 +58,7 @@ section  #nextArrIcon{right: 2%;}
 section .material-icons:hover{cursor: pointer;}
 
 </style>
-<title>모두의 웹툰</title>
+<title>All 웹툰</title>
 </head>
 <body>
 <div id="container">

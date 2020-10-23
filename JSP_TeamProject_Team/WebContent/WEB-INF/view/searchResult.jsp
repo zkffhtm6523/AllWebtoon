@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-<title>모두의 웹툰(검색 결과)</title>
+<title>All 웹툰(검색 결과)</title>
 <style type="text/css">
     section{
 	width:100%;
