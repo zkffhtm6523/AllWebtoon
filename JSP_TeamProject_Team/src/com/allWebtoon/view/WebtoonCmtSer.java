@@ -125,7 +125,6 @@ public class WebtoonCmtSer extends HttpServlet {
       param.setC_rating(c_rating);
      // vo.setU_id(loginUser.getU_id());
       
-      System.out.println("cmtChk: " + cmtChk);
       int result;
       switch(cmtChk) {
       case "0": // 등록

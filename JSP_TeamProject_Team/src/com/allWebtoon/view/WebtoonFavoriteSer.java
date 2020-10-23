@@ -38,7 +38,6 @@ public class WebtoonFavoriteSer extends HttpServlet {
 		param.setW_no(w_no);
 		int result = 0;
 		String proc_type = request.getParameter("proc_type");
-		System.out.println("proc_type : "+proc_type);
 		switch (proc_type) {
 		case "ins":
 			result = UserDAO.insFavorite(param);

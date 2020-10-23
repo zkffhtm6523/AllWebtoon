@@ -62,7 +62,6 @@ public class MyPageSer extends HttpServlet {
 			request.setAttribute("cmtlistSize", selCmtList.size());
 			
 			if(selCmtList.size() != 0) {
-				System.out.println("selCmtList size가 0일까?");
 				for (int i = 0; i < (selCmtList.size() > 5 ? 5 : selCmtList.size()); i++) {
 					first_cmtList.add(selCmtList.get(i));
 				}
@@ -176,7 +175,6 @@ public class MyPageSer extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				out.print("0");
 			}
-        	System.out.println("삭제 완료!");
         }
         
         

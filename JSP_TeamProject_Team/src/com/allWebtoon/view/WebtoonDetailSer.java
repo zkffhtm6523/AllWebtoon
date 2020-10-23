@@ -29,7 +29,6 @@ import com.google.gson.JsonParser;
 public class WebtoonDetailSer extends HttpServlet {
    private static final long serialVersionUID = 1L;
 
-@SuppressWarnings("deprecation")
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       // 웹툰 정보 뿌리기 - 시작
       int w_no = MyUtils.getIntParameter(request, "w_no");
@@ -112,21 +111,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			    		send_cmtList.add(cmtList.get(i));
 		    	  	}
 				}
-		      
-		      
-		      System.out.println("listsize: " + cmtList.size());
-		      for(WebtoonCmtDomain cmtlist: cmtList) {
-		    	  System.out.println(cmtlist.getW_title());
-		      }
 		      	request.setAttribute("aveScore", Math.round(sumScore/(float)numScore*10)/10.0);		//평균 평점은 소수점 이하 한자리까지만.
 		      	request.setAttribute("numScore", numScore);
 		      	request.setAttribute("cmtList", send_cmtList); 
-		      
-		      // ---------------------------------------------------
-	      
-	      
-	      
-		      
 		      ////파이썬호출
 		      
 //		     System.out.println("w_no: " + w_no);
