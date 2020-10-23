@@ -59,6 +59,7 @@ public class Lezhin {
 				if(stop==1) {
 					continue;
 				}
+				System.out.println("title : "+title);
 				webtoonVO.setTitle(title);
 				//작가 정보 받아오기
 				JSONArray authors = (JSONArray) data.get("authors");

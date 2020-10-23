@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import org.json.simple.parser.ParseException;
 
 public class InsertWebtoon {
-	public static int a = 5;
-
 	public static void main(String[] args) throws UnsupportedEncodingException, IOException, ParseException {
 		ArrayList<CrawWebtoonVO> list = new ArrayList<CrawWebtoonVO>();
 		// 1. 레진 데이터 DB 담기
-//		list = Lezhin.getLezhin(list);
-//		for (int i = 0; i < list.size(); i++) {
-//			CrawWebtoonDAO.insWebtoonList(list.get(i));
-//		}
+		list = Lezhin.getLezhin(list);
+		for (int i = 0; i < list.size(); i++) {
+			CrawWebtoonDAO.insWebtoonList(list.get(i));
+		}
 //		레진 값 담기 완료(레진 웹 사이트 136개 확인 완료 및 DB 값 확인 완료)
 
 		// 2. 네이버 데이터 DB 담기
@@ -55,49 +53,5 @@ public class InsertWebtoon {
 //		}
 		// 5-3. 데이터베이스 t_platform의 5번 코미코 -> 탑툰으로 변경
 		// update t_platform set plat_name = '탑툰' where plat_no = 5;
-		int b = 2;
-		String s = "zz";
-		System.out.println(s.hashCode());
-		b = cal(b, s);
-		b = cal(b, s);
-		System.out.printf("%d, %d %s\n", a, b, s);
-		Child a = new Child();
-		a.one();
-	}
-
-	static int cal(int b, String s) {
-		if (b < a) {
-			a -= 3;
-			s += "z";
-			System.out.println(s.hashCode());
-			return b;
-		} else {
-			b += 3;
-			s += "s";
-			System.out.println(s.hashCode());
-			return b;
-		}
-	}
-
 }
-class Parent {
-	public void one() {
-		System.out.print("1");
-		two();
-	}
-	
-	public void two() {
-		System.out.print("2");
-	}
-}
-
-class Child extends Parent {
-	public void one() {
-		super.one();
-		System.out.print("3");
-	}
-	
-	public void two() {
-		System.out.print("4");
-	}
 }
