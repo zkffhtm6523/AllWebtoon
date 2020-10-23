@@ -173,7 +173,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 //				//e.printStackTrace();
 //				System.out.println("추천작품이 없습니다.");
 //			 }
-//		 
+//		
+		      	
 	     }
 		 
 		 
@@ -183,7 +184,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
       }
       
    }
-   
+  
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	   String body = IOUtils.toString(request.getReader());
  	   JsonParser parser = new JsonParser();
