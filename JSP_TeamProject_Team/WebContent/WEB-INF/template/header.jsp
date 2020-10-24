@@ -9,7 +9,7 @@
 </head>
 <header>
 	<div id="topMenu">
-		<h1><img alt="모두의 웹툰" src="/images/logo2.png" id="logo" onclick="goHome()" title="모두의 웹툰"></h1>
+		<h1><img alt="모두의 웹툰" src="/images/logo.png" id="logo" onclick="goHome()" title="모두의 웹툰"></h1>
 <!--  	<div id="centerMenu">
 		<input type="search" id="search" placeholder="웹툰, 작가를 검색하세요" onkeydown="moveToResult()" title="검색어 입력">
 	</div>-->
