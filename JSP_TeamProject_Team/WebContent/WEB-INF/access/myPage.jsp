@@ -9,7 +9,7 @@
 <title>나의 페이지</title>
 <style type="text/css">
 section{
-	width:1300px;
+	width:100%;
 	background-color: #F8F8F8;
 	margin: 0 auto;
 	background-color: #F8F8F8;
@@ -17,7 +17,7 @@ section{
 	text-align: center;
 }
 section #myPageContainer{
-	width: 90%;
+	width: 1300px;	
 	margin: 30px auto;
 }
 section #myPageContainer .printImage{
@@ -188,20 +188,23 @@ section .name{
             position: absolute;
         }
         .modal__content {
-            background-color: white; 
+            background-color: #F8F8F8; 
             position: relative; 
             border-radius: 10px; 
             width: 80%; 
             height: 80%;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-           	overflow:scroll;
+           	overflow:auto;
            	padding:50px;
         	magin:50px;
         }
-        
-        
 		.modal__content #modal_ul{
-			margin:30px;
+			margin:15px 10px;
+		}
+		.modal__content hr{
+			width: 1000px;
+			color: #EAEAEA;
+			border-width: 2px;
 		}
         .hidden {
             visibility:hidden;
@@ -350,17 +353,11 @@ section .name{
 					</c:otherwise>
 				</c:choose>
 			</div>
-			
 		</div>
-		
-		
 		<div class="modal hidden">
 	       <div class="modal__overlay"></div>
-	       <div class="modal__content">
-	       
-	       </div>
+	       <div class="modal__content"></div>
 	    </div>  
-		 
 	</section>
 	<jsp:include page="../template/footer.jsp"/>
 </div>
@@ -395,7 +392,17 @@ function show_all(type){
 		}
 	}).then(function(res){
 		console.log(res.data)
-		modal_content.innerHTML = ""
+		modal_content.innerHTML = ""	
+		var h1_user = document.createElement('h1')
+		var loginUserTxt = loginUser[0].innerText
+		var span_user = document.createElement('span')
+		span_user.id = 'loginUser'
+		span_user.innerText = loginUserTxt
+		h1_user.append(span_user)
+		h1_user.append(' 평가 웹툰')
+		modal_content.append(h1_user)
+		var hr = document.createElement('hr')
+		modal_content.append(hr)
 		
 		res.data.forEach(function (item){
 			

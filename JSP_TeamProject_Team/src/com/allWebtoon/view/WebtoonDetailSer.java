@@ -29,7 +29,7 @@ import com.google.gson.JsonParser;
 public class WebtoonDetailSer extends HttpServlet {
    private static final long serialVersionUID = 1L;
 
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       // 웹툰 정보 뿌리기 - 시작
       int w_no = MyUtils.getIntParameter(request, "w_no");
       int ajaxChk = MyUtils.getIntParameter(request, "ajaxChk");
@@ -111,21 +111,9 @@ public class WebtoonDetailSer extends HttpServlet {
 			    		send_cmtList.add(cmtList.get(i));
 		    	  	}
 				}
-		      
-		      
-		      System.out.println("listsize: " + cmtList.size());
-		      for(WebtoonCmtDomain cmtlist: cmtList) {
-		    	  System.out.println(cmtlist.getW_title());
-		      }
 		      	request.setAttribute("aveScore", Math.round(sumScore/(float)numScore*10)/10.0);		//평균 평점은 소수점 이하 한자리까지만.
 		      	request.setAttribute("numScore", numScore);
 		      	request.setAttribute("cmtList", send_cmtList); 
-		      
-		      // ---------------------------------------------------
-	      
-	      
-	      
-		      
 		      ////파이썬호출
 		      
 //		     System.out.println("w_no: " + w_no);
@@ -142,7 +130,7 @@ public class WebtoonDetailSer extends HttpServlet {
 //	            Jep jep = new Jep(jepConfig);
 //				jep.set("w_no_args", w_no);
 //				//jep.runScript("E:\\python\\Python\\recommend_toon.py");
-//				jep.runScript("/Users/hyeseon/python_test/Python/recommend_toon.py");
+//				jep.runScript("D:\\프로그래밍\\Python\\Allwebtoon\\recommend_toon.py");
 //				
 //				System.out.println("rec_result: " + jep.getValue("recomment_result"));
 //				
@@ -172,17 +160,15 @@ public class WebtoonDetailSer extends HttpServlet {
 //				//e.printStackTrace();
 //				System.out.println("추천작품이 없습니다.");
 //			 }
-		 
+//		
 	     }
-		 
-		 
 		 ViewResolver.viewForward("webtoonDetail", request, response);
 		 
 	    
       }
       
    }
-   
+  
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	   String body = IOUtils.toString(request.getReader());
  	   JsonParser parser = new JsonParser();

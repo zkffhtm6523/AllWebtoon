@@ -92,11 +92,11 @@ public class MyPageDAO {
 		String sql = 
 				" select b.w_no, b.w_title, b.w_thumbnail, c.c_com, format(C.c_rating,1) as c_rating from t_webtoon_favorite A "
 				+" inner join t_webtoon B "
-				+ " on a.w_no = b.w_no "
+				+" on a.w_no = b.w_no "
 				+" left join t_comment C "
-				+" on b.w_no = c.w_no and c.u_no=? "
+				+" on b.w_no = c.w_no and c.u_no = ? "
 				+" where a.u_no=? "
-				+ " order by a.r_dt desc";
+				+" order by a.r_dt desc ";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			
