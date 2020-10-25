@@ -22,16 +22,16 @@
  
 <h2 id="3">3. 사용기술</h2>
  - IDE<br>
- <img src="https://user-images.githubusercontent.com/39155839/96409876-f5fa3100-1220-11eb-8424-4ae63207094c.jpg" width="324px" height="155px" title="이클립스" alt="eclipse"></img>
+ <img src="https://user-images.githubusercontent.com/39155839/96409876-f5fa3100-1220-11eb-8424-4ae63207094c.jpg" width="2520px" height="180px" title="이클립스" alt="eclipse"></img>
  - DB<br>
- <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBLVn5%2FbtqCQ31hFxc%2FOWrBnpuGJiMMQg9JnJAz3K%2Fimg.png" width="346px" height="210px" title="MySQL" alt="MySQL"></img>
+ <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBLVn5%2FbtqCQ31hFxc%2FOWrBnpuGJiMMQg9JnJAz3K%2Fimg.png" width="250px" height="180px" title="MySQL" alt="MySQL"></img>
  - Server<br>
- <img src="https://user-images.githubusercontent.com/39155839/96410394-cd266b80-1221-11eb-8cc1-355ce5642ce6.png" width="305px" height="165px" title="아파치 톰켓" alt="Apache Tomcat"></img>
+ <img src="https://user-images.githubusercontent.com/39155839/96410394-cd266b80-1221-11eb-8cc1-355ce5642ce6.png" width="250px" height="180px" title="아파치 톰켓" alt="Apache Tomcat"></img>
  - Language & Other<br>
- <img src="https://www.logicbig.com/tutorials/misc/jackson/images/jackson.png" widht="310px" height="290px" title="JSON" alt="Jackson & JSON"></img>
- <img src="https://user-images.githubusercontent.com/39155839/96410197-7a4cb400-1221-11eb-9801-d1731636a39c.png" widht="378px" height="189px" title="Gson" alt="Gson"></img>
- <img src="https://user-images.githubusercontent.com/39155839/96410198-7ae54a80-1221-11eb-91e7-b36fe8943a11.jpg" widht="298px" height="169px" title="JDK" alt="JDK"></img>
- <img src="https://user-images.githubusercontent.com/39155839/96420264-4036de80-1230-11eb-9555-3309ea641db7.png" widht="378px" height="234px" title="JSP" alt="JSP"></img>
+ <img src="https://www.logicbig.com/tutorials/misc/jackson/images/jackson.png" widht="250px" height="180px" title="JSON" alt="Jackson & JSON"></img>
+ <img src="https://user-images.githubusercontent.com/39155839/96410197-7a4cb400-1221-11eb-9801-d1731636a39c.png" widht="250px" height="180px" title="Gson" alt="Gson"></img>
+ <img src="https://user-images.githubusercontent.com/39155839/96410198-7ae54a80-1221-11eb-91e7-b36fe8943a11.jpg" widht="250px" height="180px" title="JDK" alt="JDK"></img>
+ <img src="https://user-images.githubusercontent.com/39155839/96420264-4036de80-1230-11eb-9555-3309ea641db7.png" widht="250px" height="180px" title="JSP" alt="JSP"></img>
  
 <h2 id="4">4. 개발진</h2>
 <table>
@@ -41,7 +41,7 @@
     <td>정혜선()</td>
   </tr>
   <tr>
-    <th><img src="https://github.com/truespring/Team_Project/blob/master/%ED%8C%80%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%82%AC%EC%A7%84/%EA%B9%80%EB%8F%84%EB%B9%88.jpg?raw=true" width="250px" height="210px" title="김도빈" alt="김도빈"></img></th>
-    <th><img src="https://github.com/truespring/Team_Project/blob/master/%ED%8C%80%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%82%AC%EC%A7%84/%EC%84%9D%EA%B7%9C%ED%99%98.jpg?raw=true" width="250px" height="210px" title="석규환" alt="석규환"></img></th>
+    <th><img src="https://github.com/truespring/Team_Project/blob/master/%ED%8C%80%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%82%AC%EC%A7%84/%EA%B9%80%EB%8F%84%EB%B9%88.jpg?raw=true" width="200px" height="150px" title="김도빈" alt="김도빈"></img></th>
+    <th><img src="https://github.com/truespring/Team_Project/blob/master/%ED%8C%80%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%82%AC%EC%A7%84/%EC%84%9D%EA%B7%9C%ED%99%98.jpg?raw=true" width="200px" height="150px" title="석규환" alt="석규환"></img></th>
     <th><img src="" width="" height="" title="" alt=""></img></th>
   </tr>
