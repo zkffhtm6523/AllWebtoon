@@ -30,13 +30,10 @@
 <table>
   <tr>
     <td>김도빈()</td>
-    <th></th>
-  </tr>
-  <tr>
     <td>석규환(true_spring_@naver.com)</td>
-    <th></th>
+    <td>정혜선()</td>
   </tr>
   <tr>
-    <td>정혜선()</td>
+    <th></th>
     <th></th>
   </tr>
