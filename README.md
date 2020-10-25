@@ -21,14 +21,14 @@
  - 추천 목록, 찜 목록, 조회한 목록, 평가 남긴 목록 확인
  
 ### 3.사용기술
- - IDE
+ - IDE<br>
  <img src="https://user-images.githubusercontent.com/39155839/96409876-f5fa3100-1220-11eb-8424-4ae63207094c.jpg" width="324px" height="155px" title="이클립스" alt="eclipse"></img>
- - DB
+ - DB<br>
  <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBLVn5%2FbtqCQ31hFxc%2FOWrBnpuGJiMMQg9JnJAz3K%2Fimg.png" width="346px" height="210px" title="MySQL" alt="MySQL"></img>
- - Server
+ - Server<br>
  <img src="https://user-images.githubusercontent.com/39155839/96410394-cd266b80-1221-11eb-8cc1-355ce5642ce6.png" width="305px" height="165px" title="아파치 톰켓" alt="Apache Tomcat"></img>
- - Language & Other
- <img src="https://user-images.githubusercontent.com/39155839/96410196-7a4cb400-1221-11eb-9738-06751a73a1d2.png" widht="378px" height="149px" title="JSON" alt="JSON"></img>
+ - Language & Other<br>
+ <img src="https://www.logicbig.com/tutorials/misc/jackson/images/jackson.png" widht="378px" height="149px" title="JSON" alt="Jackson & JSON"></img>
  <img src="https://user-images.githubusercontent.com/39155839/96410197-7a4cb400-1221-11eb-9801-d1731636a39c.png" widht="378px" height="189px" title="Gson" alt="Gson"></img>
  <img src="https://user-images.githubusercontent.com/39155839/96410198-7ae54a80-1221-11eb-91e7-b36fe8943a11.jpg" widht="298px" height="169px" title="JDK" alt="JDK"></img>
  <img src="https://user-images.githubusercontent.com/39155839/96420264-4036de80-1230-11eb-9555-3309ea641db7.png" widht="378px" height="234px" title="JSP" alt="JSP"></img>
