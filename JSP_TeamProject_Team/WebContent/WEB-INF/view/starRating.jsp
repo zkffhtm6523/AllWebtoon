@@ -172,8 +172,8 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 	//스크롤 바닥 감지
 	window.onscroll = function() {
 		
-		console.log(window.innerHeight + window.scrollY)
-		console.log(document.body.scrollHeight)
+		//console.log(window.innerHeight + window.scrollY)
+		//console.log(document.body.scrollHeight)
 		
 	    //window height + window scrollY 값이 document height보다 클 경우,
 	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight-5) {
@@ -185,9 +185,10 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 	    			page : idx
 	    		}
 	    	}).then(function(res) {
-	    		console.log(res.data)
+	    		//console.log(res.data)
 	    
 	    	res.data.forEach(function (item){
+	    		//console.log('index : ' + idx)
 	    		var itembox = document.createElement('div')
 		         itembox.setAttribute('class','itembox')
 		         itembox.setAttribute('id','itembox_'+idx)

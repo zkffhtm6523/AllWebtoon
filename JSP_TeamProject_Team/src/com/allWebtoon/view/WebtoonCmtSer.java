@@ -9,11 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
+import com.allWebtoon.util.Const;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
@@ -30,7 +32,10 @@ public class WebtoonCmtSer extends HttpServlet {
    
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	   
+	   HttpSession hs = request.getSession();
+	   
 	   UserVO loginUser = MyUtils.getLoginUser(request);
+	   
 		if(loginUser == null) {
 			response.sendRedirect("/login");
 			return;
@@ -38,30 +43,33 @@ public class WebtoonCmtSer extends HttpServlet {
 	   
 	   int idx = MyUtils.getIntParameter(request, "page");
 	   
-	   //ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
-	   //ArrayList<WebtoonVO> sendarr = new ArrayList<WebtoonVO>();
-
 	   
 	   ArrayList<WebtoonVO> list = new ArrayList<WebtoonVO>();
 	   ArrayList<WebtoonVO> sendarr = new ArrayList<WebtoonVO>();
-	   
 	   ArrayList<WebtoonCmtVO> cmt_list = new ArrayList<WebtoonCmtVO>();
 	   
-		list = WebtoonListDAO.selRandomWebtoonList(list,0,0,"");
-		cmt_list = WebtoonListDAO.selCmtList(cmt_list, loginUser.getU_no());
+		
+	   cmt_list = WebtoonListDAO.selCmtList(cmt_list, loginUser.getU_no());
 		
 	   if(idx == 0) {
-	
-		for(int i=0; i<50; i++) {
-			sendarr.add(list.get(i));
-		}
-		
-		request.setAttribute("list", sendarr);
-		request.setAttribute("cmt_list", cmt_list);
-		
-		ViewResolver.viewForward("starRating", request, response);
-	   
+	    
+		    list = WebtoonListDAO.selRandomWebtoonList(list,0,0,"");
+		    
+			hs.setAttribute("rating_list",list);
+			
+			for(int i=0; i<50; i++) {
+				sendarr.add(list.get(i));
+			}
+			
+			request.setAttribute("list", sendarr);
+			request.setAttribute("cmt_list", cmt_list);
+			
+			ViewResolver.viewForward("starRating", request, response);
+		   
 	   } else {
+		   
+		   list = (ArrayList<WebtoonVO>)hs.getAttribute("rating_list");
+		   
 		   for(int i=idx; i<(idx+50); i++){
 			   sendarr.add(list.get(i));
 		   }
@@ -75,8 +83,6 @@ public class WebtoonCmtSer extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.print(json);
 	   }
-		
-		
 		
    }
    
