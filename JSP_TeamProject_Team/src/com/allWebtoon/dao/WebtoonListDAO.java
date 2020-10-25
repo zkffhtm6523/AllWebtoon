@@ -332,7 +332,8 @@ public class WebtoonListDAO {
 					+ " ON A.w_no = B.w_no "
 					+ " INNER JOIN t_genre C "
 					+ " ON B.genre_no = C.genre_no "
-					+ " WHERE C.genre_name = ? ";
+					+ " WHERE C.genre_name = ? ORDER BY A.u_no ";
+			
 			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 				
 				@Override
@@ -342,32 +343,49 @@ public class WebtoonListDAO {
 				@Override
 				public int executeQuery(ResultSet rs) throws SQLException {
 					List<WebtoonCmtDomain> tempList = new ArrayList<WebtoonCmtDomain>();
+					int idx = 0;
 					while (rs.next()) {
 						WebtoonCmtDomain tempVo = new WebtoonCmtDomain();
 						tempVo.setU_no(rs.getInt("u_no"));
 						tempVo.setW_no(rs.getInt("w_no"));
 						tempVo.setC_rating(rs.getFloat("c_rating"));
 						tempList.add(tempVo);
+						idx++;
 					}
-					
-					
-					
-					
+					Integer category = null;
+					WebtoonCmtDomain tempVo = null;
 					
 					for (int i = 0; i < tempList.size(); i++) {
-						if(!webtoonList.contains(tempList.get(i).getU_no())) {
+						if(category == null || (category != null &&
+								!category.equals(tempList.get(i).getU_no()))) {
+							//앞의 u_no가 바뀔때만 생성
+							category = tempList.get(i).getU_no();
+							//완료
 							WebtoonCmtDomain vo = new WebtoonCmtDomain();
 							vo.setU_no(tempList.get(i).getU_no());
+							
+							List<WebtoonCmtVO> w_list = new ArrayList<WebtoonCmtVO>();
+							vo.setW_list(w_list);
+							tempVo = vo;
 							webtoonList.add(vo);
-						}else {
-						List<WebtoonCmtVO> w_list = new ArrayList<WebtoonCmtVO>();
-						WebtoonCmtVO w_param = new WebtoonCmtVO();
-						w_list.add(w_param);
-						w_param.setW_no(tempList.get(i).getW_no());
-						w_param.setC_rating(tempList.get(i).getC_rating());
-//						vo.setW_list(w_list);
-						
+							
+							WebtoonCmtVO w_param = new WebtoonCmtVO();
+							w_param.setW_no(tempList.get(i).getW_no());
+							w_param.setC_rating(tempList.get(i).getC_rating());
+							w_list.add(w_param);
+							tempVo.setW_list(w_list);
+							if(i == tempList.size()-1) {
+								break;
+							}else if(tempList.get(i).getU_no() != tempList.get(i+1).getU_no()){
+								continue;
+							}else {
+								i++;
+							}
 						}
+						WebtoonCmtVO w_param1 = new WebtoonCmtVO();
+						w_param1.setW_no(tempList.get(i).getW_no());
+						w_param1.setC_rating(tempList.get(i).getC_rating());
+						tempVo.getW_list().add(w_param1);
 					}
 					return 1;
 				}

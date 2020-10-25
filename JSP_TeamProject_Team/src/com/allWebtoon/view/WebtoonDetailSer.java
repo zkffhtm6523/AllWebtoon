@@ -109,7 +109,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		    			int u_no = cmtList.get(i).getU_no();
 		    			cmtList.get(i).setU_profile("/images/u_profile/user/"+u_no+"/"+u_profile);
 		    		}
-		    		System.out.println("cmtList: " + cmtList.get(i).getW_no());
 		    		send_cmtList.add(cmtList.get(i));
 	    	  	}
 			}
@@ -117,24 +116,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			request.setAttribute("numScore", numScore);
 			request.setAttribute("cmtList", send_cmtList); 
 		     
-		      	//추천 로직 만들기
-//		      	GenericDataModel model =  Mahout_Recommend.parsingDataModel(
-//		      			WebtoonListDAO.selDataModel(data.getGenre_name()));
-//		      	
-//				System.out.println("이 작품과 비슷한 작품 " );
-//		      	for(int i=0; i<arr.size(); i++) {
-//					
-//					String rec_wno = ((List) arr.get(i)).get(0).toString();
-//							
-//					list.add(WebtoonListDAO.selrecommendWebtoon(Integer.parseInt(rec_wno)));
-//				}
-//				
-//				for(WebtoonVO s : list) {
-//					System.out.println(s.getW_no());
-//					System.out.println(s.getW_title());
-//					System.out.println(s.getW_thumbnail());
-//				}
-//				
+	      	//추천 로직 만들기
+	      	GenericDataModel model =  Mahout_Recommend.parsingDataModel(
+	      			WebtoonListDAO.selDataModel(data.getGenre_name()));
+	      	List<WebtoonVO> recomList = Mahout_Recommend.getRecommendList(model, loginUser_u_no, 5); 
+	      	request.setAttribute("rec_list", recomList);
 	     }
 		 ViewResolver.viewForward("webtoonDetail", request, response);
       }
