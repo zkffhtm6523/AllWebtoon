@@ -118,9 +118,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			request.setAttribute("cmtList", send_cmtList); 
 		     
 		      	//추천 로직 만들기
-		      	GenericDataModel model =  Mahout_Recommend.parsingDataModel(
-		      			WebtoonListDAO.selDataModel(data.getGenre_name()));
-		      	
+//		      	GenericDataModel model =  Mahout_Recommend.parsingDataModel(
+//		      			WebtoonListDAO.selDataModel(data.getGenre_name()));
+//		      	
 //				System.out.println("이 작품과 비슷한 작품 " );
 //		      	for(int i=0; i<arr.size(); i++) {
 //					
