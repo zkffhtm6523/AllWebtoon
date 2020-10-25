@@ -128,14 +128,14 @@ public class WebtoonListDAO {
 		  + " where w_title LIKE ? or genre_name LIKE ? or w_writer LIKE ? or plat_name LIKE ? "
 		  + " group by w_no ";*/
 				
-			" select a.w_no, a.w_title,CASE WHEN char_length(a.w_story) > 100 THEN concat(left(a.w_story, 100), '...') ELSE a.w_story END as w_story, "
-			+ "	a.w_thumbnail, a.w_link, a.plat_no, a.genre_name, group_concat(a.w_writer separator ', ') as w_writer, "
-			+ "	a.plat_name from view_webtoon A ";
+			" select A.w_no, A.w_title,CASE WHEN char_length(A.w_story) > 100 THEN concat(left(A.w_story, 100), '...') ELSE A.w_story END as w_story, "
+			+ "	A.w_thumbnail, A.w_link, A.plat_no, A.genre_name, group_concat(A.w_writer separator ', ') as w_writer, "
+			+ "	A.plat_name from view_webtoon A ";
 
 			if(kind.equals("writer")) {
 				sql += " inner join t_w_writer B "
-				+ " on a.w_no = b.w_no "
-				+ " where b.w_writer = ? ";
+				+ " on A.w_no = B.w_no "
+				+ " where B.w_writer = ? ";
 			} else if(kind.equals("genre")) {
 				sql += " where genre_name like ? ";
 			}
@@ -143,7 +143,7 @@ public class WebtoonListDAO {
 				sql += " where w_title LIKE ? or w_writer LIKE ? or plat_name LIKE ? ";
 			}
 			
-		sql += " group by a.w_no ";
+		sql += " group by A.w_no ";
 
 		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			@Override
@@ -184,12 +184,12 @@ public class WebtoonListDAO {
 		public static WebtoonVO webtoonDetail(int w_no, int u_no) {
 			WebtoonVO vo = new WebtoonVO();
 			String sql = 
-					" select a.w_no,w_thumbnail, w_title,CASE WHEN char_length(w_story) > 100 THEN concat(left(w_story, 100), '...') ELSE w_story END as w_story, "
-					+" w_link, plat_name, group_concat(w_writer separator ', ') as w_writer, genre_name, CASE WHEN b.w_no IS NULL then 0 ELSE 1 END AS is_favorite "
-					+" from view_webtoon a "
+					" select A.w_no,w_thumbnail, w_title,CASE WHEN char_length(w_story) > 100 THEN concat(left(w_story, 100), '...') ELSE w_story END as w_story, "
+					+" w_link, plat_name, group_concat(w_writer separator ', ') as w_writer, genre_name, CASE WHEN B.w_no IS NULL then 0 ELSE 1 END AS is_favorite "
+					+" from view_webtoon A "
 					+" LEFT JOIN t_webtoon_favorite B " 
-					+" ON A.w_no = b.w_no and b.u_no=? "
-					+" where a.w_no=? "
+					+" ON A.w_no = B.w_no and B.u_no=? "
+					+" where A.w_no=? "
 					+" group by w_no ";
 
 			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
@@ -293,12 +293,11 @@ public class WebtoonListDAO {
 				}
 			});
 		}
-		
+		//추천 시 사용하는 것
 		public static WebtoonVO selrecommendWebtoon(int w_no) {
 			String sql = 
 					" select w_no, w_title, w_thumbnail from t_webtoon "
 					+" where w_no=? ";
-			
 			
 			WebtoonVO vo = new WebtoonVO();
 			
@@ -325,4 +324,55 @@ public class WebtoonListDAO {
 			
 			return vo;
 		}
+		//데이터 모델 변환용
+		public static List<WebtoonCmtDomain> selDataModel(String genre_name){
+			List<WebtoonCmtDomain> webtoonList = new ArrayList<WebtoonCmtDomain>();
+			String sql = " SELECT A.u_no, A.w_no, A.c_rating FROM t_comment A "
+					+ " INNER JOIN t_w_genre B "
+					+ " ON A.w_no = B.w_no "
+					+ " INNER JOIN t_genre C "
+					+ " ON B.genre_no = C.genre_no "
+					+ " WHERE C.genre_name = ? ";
+			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+				
+				@Override
+				public void prepared(PreparedStatement ps) throws SQLException {
+					ps.setString(1, genre_name);
+				}
+				@Override
+				public int executeQuery(ResultSet rs) throws SQLException {
+					List<WebtoonCmtDomain> tempList = new ArrayList<WebtoonCmtDomain>();
+					while (rs.next()) {
+						WebtoonCmtDomain tempVo = new WebtoonCmtDomain();
+						tempVo.setU_no(rs.getInt("u_no"));
+						tempVo.setW_no(rs.getInt("w_no"));
+						tempVo.setC_rating(rs.getFloat("c_rating"));
+						tempList.add(tempVo);
+					}
+					
+					
+					
+					
+					
+					for (int i = 0; i < tempList.size(); i++) {
+						if(!webtoonList.contains(tempList.get(i).getU_no())) {
+							WebtoonCmtDomain vo = new WebtoonCmtDomain();
+							vo.setU_no(tempList.get(i).getU_no());
+							webtoonList.add(vo);
+						}else {
+						List<WebtoonCmtVO> w_list = new ArrayList<WebtoonCmtVO>();
+						WebtoonCmtVO w_param = new WebtoonCmtVO();
+						w_list.add(w_param);
+						w_param.setW_no(tempList.get(i).getW_no());
+						w_param.setC_rating(tempList.get(i).getC_rating());
+//						vo.setW_list(w_list);
+						
+						}
+					}
+					return 1;
+				}
+			});
+			return webtoonList;
+		}
 }
+		

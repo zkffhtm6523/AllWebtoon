@@ -231,7 +231,7 @@ section .name{
 			</c:choose>
 			<ul>
 				<li>
-					<span class="name">성별</span>&nbsp;
+					<span class="name">이름</span>&nbsp;
 				 	${loginUser.u_name}
 				 </li>
 				<li>

@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.mahout.cf.taste.impl.model.GenericDataModel;
 
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
+import com.allWebtoon.mahout.Mahout_Recommend;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
@@ -67,7 +69,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	      UserVO loginUser = MyUtils.getLoginUser(request);
 	      
 	      if(loginUser != null) {
-	    	      // 최근 조회 목록 로직--------------------------
+    	      // 최근 조회 목록 로직--------------------------
 	    	 int result = 0;
 	    	 try {
 	    		 	//최근 조회 웹툰 있으면 result = 1이 들어가지고
@@ -87,58 +89,40 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	         request.setAttribute("myCmt", param);
 	         // ---------------------------------------
 	      
-		      // 모든 댓글 뿌리기 --------------------------------
-		      List<WebtoonCmtDomain> cmtList = WebtoonCmtDAO.selCmtList(w_no);
-		      List<WebtoonCmtDomain> send_cmtList = new ArrayList<WebtoonCmtDomain>();
-		      float sumScore =0;					//누적 점수  
-		      int numScore =0;					//평가한 사람 수   
-		      for (int i = 0; i < cmtList.size(); i++) {
-		    	  	sumScore += cmtList.get(i).getC_rating();
-		    	  	numScore++;
+	         // 모든 댓글 뿌리기 --------------------------------
+			List<WebtoonCmtDomain> cmtList = WebtoonCmtDAO.selCmtList(w_no);
+			List<WebtoonCmtDomain> send_cmtList = new ArrayList<WebtoonCmtDomain>();
+			float sumScore =0;					//누적 점수  
+			int numScore =0;					//평가한 사람 수   
+			for (int i = 0; i < cmtList.size(); i++) {
+				sumScore += cmtList.get(i).getC_rating();
+				numScore++;
 		    	  	
-		    	  	if(cmtList.get(i).getC_com() != null && !"".equals(cmtList.get(i).getC_com())) {		//comment가 있는 것만.
-			    		String u_profile = cmtList.get(i).getU_profile();
+	    	  	if(cmtList.get(i).getC_com() != null && !"".equals(cmtList.get(i).getC_com())) {		//comment가 있는 것만.
+		    		String u_profile = cmtList.get(i).getU_profile();
 			    		
-			    		if(u_profile == null) {
-			    			cmtList.get(i).setU_profile("/images/u_profile/default_image.jpg");
-			    		}else if("http".equals(u_profile.substring(0, 4))){
-			    			cmtList.get(i).setU_profile(u_profile);
-			    		}else {
-			    			int u_no = cmtList.get(i).getU_no();
-			    			cmtList.get(i).setU_profile("/images/u_profile/user/"+u_no+"/"+u_profile);
-			    		}
-			    		System.out.println("cmtList: " + cmtList.get(i).getW_no());
-			    		send_cmtList.add(cmtList.get(i));
-		    	  	}
-				}
-		      	request.setAttribute("aveScore", Math.round(sumScore/(float)numScore*10)/10.0);		//평균 평점은 소수점 이하 한자리까지만.
-		      	request.setAttribute("numScore", numScore);
-		      	request.setAttribute("cmtList", send_cmtList); 
-		      ////파이썬호출
-		      
-//		     System.out.println("w_no: " + w_no);
-//		     
-//		    
-//		     
-//			 try {
-//				List<WebtoonVO> list = new ArrayList<WebtoonVO>();
-//				JepConfig jepConfig = new JepConfig().addSharedModules("numpy")
-//	                    .addSharedModules("pandas")
-//	                    .addSharedModules("scipy") 
-//	                    .addSharedModules("tensorflow")
-//	                    .addSharedModules("sklearn");
-//	            Jep jep = new Jep(jepConfig);
-//				jep.set("w_no_args", w_no);
-//				//jep.runScript("E:\\python\\Python\\recommend_toon.py");
-//				jep.runScript("D:\\프로그래밍\\Python\\Allwebtoon\\recommend_toon.py");
-//				
-//				System.out.println("rec_result: " + jep.getValue("recomment_result"));
-//				
-//				List arr = (List) jep.getValue("recomment_result");
-//				
+		    		if(u_profile == null) {
+		    			cmtList.get(i).setU_profile("/images/u_profile/default_image.jpg");
+		    		}else if("http".equals(u_profile.substring(0, 4))){
+		    			cmtList.get(i).setU_profile(u_profile);
+		    		}else {
+		    			int u_no = cmtList.get(i).getU_no();
+		    			cmtList.get(i).setU_profile("/images/u_profile/user/"+u_no+"/"+u_profile);
+		    		}
+		    		System.out.println("cmtList: " + cmtList.get(i).getW_no());
+		    		send_cmtList.add(cmtList.get(i));
+	    	  	}
+			}
+			request.setAttribute("aveScore", Math.round(sumScore/(float)numScore*10)/10.0);		//평균 평점은 소수점 이하 한자리까지만.
+			request.setAttribute("numScore", numScore);
+			request.setAttribute("cmtList", send_cmtList); 
+		     
+		      	//추천 로직 만들기
+//		      	GenericDataModel model =  Mahout_Recommend.parsingDataModel(
+//		      			WebtoonListDAO.selDataModel(data.getGenre_name()));
+//		      	
 //				System.out.println("이 작품과 비슷한 작품 " );
-//				
-//				for(int i=0; i<arr.size(); i++) {
+//		      	for(int i=0; i<arr.size(); i++) {
 //					
 //					String rec_wno = ((List) arr.get(i)).get(0).toString();
 //							
@@ -151,22 +135,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 //					System.out.println(s.getW_thumbnail());
 //				}
 //				
-//				jep.close();
-//				
-//	
-//				request.setAttribute("rec_list", list);
-//				
-//			 } catch (JepException e) {
-//				//e.printStackTrace();
-//				System.out.println("추천작품이 없습니다.");
-//			 }
-//		
 	     }
 		 ViewResolver.viewForward("webtoonDetail", request, response);
-		 
-	    
       }
-      
    }
   
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

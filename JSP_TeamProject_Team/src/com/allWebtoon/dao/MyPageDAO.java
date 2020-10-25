@@ -23,7 +23,7 @@ public class MyPageDAO {
 				+ " INNER JOIN t_comment B " 
 				+ " ON A.w_no = B.w_no " 
 				+ " INNER JOIN t_user C " 
-				+ " ON B.u_no = c.u_no " 
+				+ " ON B.u_no = C.u_no " 
 				+ " WHERE B.u_no = ? "
 				+ " ORDER BY B.m_dt desc";
 		
@@ -54,13 +54,13 @@ public class MyPageDAO {
 	
 	public static int selRecentlyWebtoon(List<WebtoonCmtDomain> list, int u_no) {
 		String sql = 
-				" select a.w_no, a.w_title, a.w_thumbnail, B.c_com, format(B.c_rating,1) as c_rating, c.w_no, c.u_no " 
+				" select A.w_no, A.w_title, A.w_thumbnail, B.c_com, format(B.c_rating,1) as c_rating, C.w_no, C.u_no " 
 				+" from t_webtoon A "
 				+" left join t_comment B "
-				+" on a.w_no = B.w_no and B.u_no = ? "
+				+" on A.w_no = B.w_no and B.u_no = ? "
 				+" inner join t_selwebtoon C "
-				+" on a.w_no = c.w_no "
-				+" where c.u_no = ? "
+				+" on A.w_no = C.w_no "
+				+" where C.u_no = ? "
 				+" order by C.r_dt desc limit 5 ";
 	
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
@@ -90,13 +90,13 @@ public class MyPageDAO {
 	
 	public static int selfavoriteWebtoon(List<WebtoonCmtDomain> list, int u_no) {
 		String sql = 
-				" select b.w_no, b.w_title, b.w_thumbnail, c.c_com, format(C.c_rating,1) as c_rating from t_webtoon_favorite A "
+				" select B.w_no, B.w_title, B.w_thumbnail, C.c_com, format(C.c_rating,1) as c_rating from t_webtoon_favorite A "
 				+" inner join t_webtoon B "
-				+" on a.w_no = b.w_no "
+				+" on A.w_no = B.w_no "
 				+" left join t_comment C "
-				+" on b.w_no = c.w_no and c.u_no = ? "
-				+" where a.u_no=? "
-				+" order by a.r_dt desc ";
+				+" on B.w_no = C.w_no and C.u_no = ? "
+				+" where A.u_no=? "
+				+" order by A.r_dt desc ";
 		
 		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 			
