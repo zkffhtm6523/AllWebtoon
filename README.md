@@ -28,7 +28,7 @@
  - Server<br>
  <img src="https://user-images.githubusercontent.com/39155839/96410394-cd266b80-1221-11eb-8cc1-355ce5642ce6.png" width="305px" height="165px" title="아파치 톰켓" alt="Apache Tomcat"></img>
  - Language & Other<br>
- <img src="https://www.logicbig.com/tutorials/misc/jackson/images/jackson.png" widht="378px" height="149px" title="JSON" alt="Jackson & JSON"></img>
+ <img src="https://www.logicbig.com/tutorials/misc/jackson/images/jackson.png" widht="310px" height="290px" title="JSON" alt="Jackson & JSON"></img>
  <img src="https://user-images.githubusercontent.com/39155839/96410197-7a4cb400-1221-11eb-9801-d1731636a39c.png" widht="378px" height="189px" title="Gson" alt="Gson"></img>
  <img src="https://user-images.githubusercontent.com/39155839/96410198-7ae54a80-1221-11eb-91e7-b36fe8943a11.jpg" widht="298px" height="169px" title="JDK" alt="JDK"></img>
  <img src="https://user-images.githubusercontent.com/39155839/96420264-4036de80-1230-11eb-9555-3309ea641db7.png" widht="378px" height="234px" title="JSP" alt="JSP"></img>
