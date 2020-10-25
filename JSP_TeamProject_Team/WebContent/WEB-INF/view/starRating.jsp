@@ -46,7 +46,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 <jsp:include page="../template/header.jsp"/>
 <section>
 	<div id="listBlock">
-	<c:forEach items="${list}" var="item" begin="0" end="11" varStatus="status">
+	<c:forEach items="${list}" var="item" begin="0" end="${list.size() -1 }" varStatus="status">
 		<div class="itembox" id="itembox_${status.index }">
 			<dl>
 				<dt title="${list[status.index].w_title }">${list[status.index].w_title }</dt>
@@ -167,7 +167,7 @@ section .startRadio__img { display: block; position: absolute;right: 0; width: 5
 		cmtlist.push(obj)
 	</c:forEach>
 
-	var idx = 12
+	var idx = 50
 	
 	//스크롤 바닥 감지
 	window.onscroll = function() {

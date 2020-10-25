@@ -52,7 +52,7 @@ public class WebtoonCmtSer extends HttpServlet {
 		
 	   if(idx == 0) {
 	
-		for(int i=0; i<12; i++) {
+		for(int i=0; i<50; i++) {
 			sendarr.add(list.get(i));
 		}
 		
@@ -62,7 +62,7 @@ public class WebtoonCmtSer extends HttpServlet {
 		ViewResolver.viewForward("starRating", request, response);
 	   
 	   } else {
-		   for(int i=idx; i<(idx+12); i++){
+		   for(int i=idx; i<(idx+50); i++){
 			   sendarr.add(list.get(i));
 		   }
 		   

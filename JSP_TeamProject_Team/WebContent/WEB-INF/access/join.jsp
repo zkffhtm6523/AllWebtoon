@@ -141,21 +141,25 @@ section .snsimg{width: 360px; height: 60px;}
 		function chk(){
 			const korean = /[^가-힣]/	;				//한글 정규식 : /[가-힣]/ : 한글이 들어가있으면 true반환. ^(not)붙여서 한글만 있는경우 false 반환
 			const email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-			if(frm.id.value.length < 5) {
-				alert('아이디는 5글자 이상이어야합니다.');
-				frm.id.focus();
-				return false;
-			} 
-			if(frm.pw.value.length < 5){
-				alert('비밀번호는 5글자 이상이어야합니다.');
-				frm.pw.focus();
-				return false;
-			} 
-			if(frm.pw.value != frm.pw2.value){
-				alert('비밀번호를 확인해주세요'); 
-				frm.pw.focus();
-				return false;
-			} 
+			
+			if(${userInfo.u_joinPath == 1}){
+				if(frm.id.value.length < 5) {
+					alert('아이디는 5글자 이상이어야합니다.');
+					frm.id.focus();
+					return false;
+				} 
+				if(frm.pw.value.length < 5){
+					alert('비밀번호는 5글자 이상이어야합니다.');
+					frm.pw.focus();
+					return false;
+				} 
+				if(frm.pw.value != frm.pw2.value){
+					alert('비밀번호를 확인해주세요'); 
+					frm.pw.focus();
+					return false;
+				} 
+			}
+			
 			if(korean.test(frm.nm.value)){				//한글 정규식을 만족하지 않을 경우.(이름에 한글이 아닌 문자가 있을 경우)
 				alert('이름을 다시 입력해주세요');
 				frm.nm.focus();
@@ -176,6 +180,7 @@ section .snsimg{width: 360px; height: 60px;}
 		function goKakao() {
 			location.href = 'https://kauth.kakao.com/oauth/authorize'
 			    		+'?client_id=48c16d63af5493c7ae43a1433ec7760f'
+			    		//+'&redirect_uri=http://localhost:8090/login?platNo=1'
 			            +'&redirect_uri=http://101.101.219.238:8080/login?platNo=1'
 			        	//+'&redirect_uri=http://192.168.2.8:8089/login?platNo=1'
 			            +'&response_type=code'
