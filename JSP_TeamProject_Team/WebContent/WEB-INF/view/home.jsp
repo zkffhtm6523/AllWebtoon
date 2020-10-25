@@ -13,9 +13,10 @@ section{
 	background-color: #F8F8F8;
 	border-top: 1px solid #EAEAEA;
 	text-align: center;
+	width:100%;
 }
 section #sec_container{
-	width: 1300px;
+	width: 100%;
 	margin: 0 auto;
 }
 section .indexBlock {

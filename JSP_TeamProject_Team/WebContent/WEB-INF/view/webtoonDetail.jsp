@@ -646,7 +646,7 @@ section #detailContainer .cmt_list .modal .modal__content .swiper-wrapper .cmt_l
             alert('별점을 입력해 주세요')
             return false
          } 
-         alert('댓글이 등록되었습니다')
+         alert('평가가 등록되었습니다')
       }
       
       function login_chk(){

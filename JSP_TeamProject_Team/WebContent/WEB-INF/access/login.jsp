@@ -100,6 +100,7 @@
 		    		+'?client_id=48c16d63af5493c7ae43a1433ec7760f'
 		            +'&redirect_uri=http://101.101.219.238:8080/login?platNo=1'
 		        	//+'&redirect_uri=http://192.168.2.8:8089/login?platNo=1'
+		        	//+'&redirect_uri=http://localhost:8090/login?platNo=1'
 		            +'&response_type=code'
 	}
 	function goNaver(state) {
