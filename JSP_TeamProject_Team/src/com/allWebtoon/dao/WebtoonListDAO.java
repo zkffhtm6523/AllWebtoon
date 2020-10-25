@@ -293,12 +293,11 @@ public class WebtoonListDAO {
 				}
 			});
 		}
-		
+		//추천 시 사용하는 것
 		public static WebtoonVO selrecommendWebtoon(int w_no) {
 			String sql = 
 					" select w_no, w_title, w_thumbnail from t_webtoon "
 					+" where w_no=? ";
-			
 			
 			WebtoonVO vo = new WebtoonVO();
 			
@@ -325,4 +324,55 @@ public class WebtoonListDAO {
 			
 			return vo;
 		}
+		//데이터 모델 변환용
+		public static List<WebtoonCmtDomain> selDataModel(String genre_name){
+			List<WebtoonCmtDomain> webtoonList = new ArrayList<WebtoonCmtDomain>();
+			String sql = " SELECT A.u_no, A.w_no, A.c_rating FROM t_comment A "
+					+ " INNER JOIN t_w_genre B "
+					+ " ON A.w_no = B.w_no "
+					+ " INNER JOIN t_genre C "
+					+ " ON B.genre_no = C.genre_no "
+					+ " WHERE C.genre_name = ? ";
+			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+				
+				@Override
+				public void prepared(PreparedStatement ps) throws SQLException {
+					ps.setString(1, genre_name);
+				}
+				@Override
+				public int executeQuery(ResultSet rs) throws SQLException {
+					List<WebtoonCmtDomain> tempList = new ArrayList<WebtoonCmtDomain>();
+					while (rs.next()) {
+						WebtoonCmtDomain tempVo = new WebtoonCmtDomain();
+						tempVo.setU_no(rs.getInt("u_no"));
+						tempVo.setW_no(rs.getInt("w_no"));
+						tempVo.setC_rating(rs.getFloat("c_rating"));
+						tempList.add(tempVo);
+					}
+					
+					
+					
+					
+					
+					for (int i = 0; i < tempList.size(); i++) {
+						if(!webtoonList.contains(tempList.get(i).getU_no())) {
+							WebtoonCmtDomain vo = new WebtoonCmtDomain();
+							vo.setU_no(tempList.get(i).getU_no());
+							webtoonList.add(vo);
+						}else {
+						List<WebtoonCmtVO> w_list = new ArrayList<WebtoonCmtVO>();
+						WebtoonCmtVO w_param = new WebtoonCmtVO();
+						w_list.add(w_param);
+						w_param.setW_no(tempList.get(i).getW_no());
+						w_param.setC_rating(tempList.get(i).getC_rating());
+//						vo.setW_list(w_list);
+						
+						}
+					}
+					return 1;
+				}
+			});
+			return webtoonList;
+		}
 }
+		

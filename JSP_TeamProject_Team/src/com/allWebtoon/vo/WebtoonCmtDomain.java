@@ -1,5 +1,7 @@
 package com.allWebtoon.vo;
 
+import java.util.List;
+
 public class WebtoonCmtDomain extends WebtoonCmtVO {
 	private String u_profile;
 	private String u_name;
@@ -7,6 +9,7 @@ public class WebtoonCmtDomain extends WebtoonCmtVO {
 	private String w_title;
 	private String w_writer;
 	private int w_seq;
+	private List<WebtoonCmtVO> w_list;
 	
 	public int getW_seq() {
 		return w_seq;
@@ -43,5 +46,11 @@ public class WebtoonCmtDomain extends WebtoonCmtVO {
 	}
 	public void setU_name(String u_name) {
 		this.u_name = u_name;
+	}
+	public List<WebtoonCmtVO> getW_list() {
+		return w_list;
+	}
+	public void setW_list(List<WebtoonCmtVO> w_list) {
+		this.w_list = w_list;
 	}
 }
