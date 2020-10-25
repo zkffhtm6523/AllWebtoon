@@ -22,7 +22,7 @@
  
 <h2 id="3">3. 사용기술</h2>
  - IDE<br>
- <img src="https://user-images.githubusercontent.com/39155839/96409876-f5fa3100-1220-11eb-8424-4ae63207094c.jpg" width="2520px" height="180px" title="이클립스" alt="eclipse"></img>
+ <img src="https://user-images.githubusercontent.com/39155839/96409876-f5fa3100-1220-11eb-8424-4ae63207094c.jpg" width="250px" height="180px" title="이클립스" alt="eclipse"></img>
  - DB<br>
  <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBLVn5%2FbtqCQ31hFxc%2FOWrBnpuGJiMMQg9JnJAz3K%2Fimg.png" width="250px" height="180px" title="MySQL" alt="MySQL"></img>
  - Server<br>
