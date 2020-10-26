@@ -12,8 +12,8 @@ public class DbCon {
 //		String dbURL = "jdbc:mysql://101.101.219.238:3306/webtoon_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
 		String dbID = "root";
 		//String dbPassword = "koreait2020";		
-		//String dbPassword = "root";	
-		String dbPassword = "Root1234!";	
+		String dbPassword = "root";	
+//		String dbPassword = "Root1234!";	
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = DriverManager.getConnection(dbURL,dbID,dbPassword);
 		return conn;
