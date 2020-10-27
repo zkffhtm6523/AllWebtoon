@@ -48,7 +48,7 @@
   <tr>
     <td>김도빈(zkffhtm6523@naver.com)</td>
     <td>석규환(true_spring_@naver.com)</td>
-    <td>정혜선()</td>
+    <td>정혜선(tjs531@naver.com)</td>
   </tr>
   <tr>
     <th><img src="https://github.com/truespring/Team_Project/blob/master/%ED%8C%80%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%82%AC%EC%A7%84/%EA%B9%80%EB%8F%84%EB%B9%88.jpg?raw=true" width="200px" height="150px" title="김도빈" alt="김도빈"></img></th>
