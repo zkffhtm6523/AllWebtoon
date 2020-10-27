@@ -68,7 +68,7 @@ function moveToJoin() {
 
 //홈으로 가기
 function goHome() {
-	location.href = '/home'
+	location.href = '/'
   }
 //마이 페이지로 넘어가기
 function moveToMyPage() {
