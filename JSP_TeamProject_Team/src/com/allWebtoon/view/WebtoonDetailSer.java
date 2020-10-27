@@ -2,6 +2,7 @@ package com.allWebtoon.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.mahout.cf.taste.impl.model.GenericDataModel;
+import org.apache.mahout.cf.taste.model.DataModel;
+import org.apache.mahout.cf.taste.model.JDBCDataModel;
 
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
@@ -118,8 +121,16 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		     
 	      	//추천 로직 만들기
 	      	GenericDataModel model =  Mahout_Recommend.parsingDataModel(
-	      			WebtoonListDAO.selDataModel(data.getGenre_name()));
-	      	List<WebtoonVO> recomList = Mahout_Recommend.getRecommendList(model, loginUser_u_no, 5); 
+	      				WebtoonListDAO.selDataModel(data.getGenre_name()));
+			/*DataModel model = null;
+			try {
+				model = Mahout_Recommend.parsingDataModel();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+	      	//List<WebtoonVO> recomList = Mahout_Recommend.getRecommendList(model, loginUser_u_no, 5); 
+	      	List<WebtoonVO> recomList = Mahout_Recommend.getRecommendList(model, w_no, loginUser_u_no, 5); 
 	      	request.setAttribute("rec_list", recomList);
 	     }
 		 ViewResolver.viewForward("webtoonDetail", request, response);

@@ -332,13 +332,14 @@ public class WebtoonListDAO {
 					+ " ON A.w_no = B.w_no "
 					+ " INNER JOIN t_genre C "
 					+ " ON B.genre_no = C.genre_no "
-					+ " WHERE C.genre_name = ? ORDER BY A.u_no ";
+					//+ " WHERE C.genre_name = ? 
+					+ " ORDER BY A.u_no ";
 			
 			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 				
 				@Override
 				public void prepared(PreparedStatement ps) throws SQLException {
-					ps.setString(1, genre_name);
+					//ps.setString(1, genre_name);
 				}
 				@Override
 				public int executeQuery(ResultSet rs) throws SQLException {
@@ -350,6 +351,7 @@ public class WebtoonListDAO {
 						tempVo.setW_no(rs.getInt("w_no"));
 						tempVo.setC_rating(rs.getFloat("c_rating"));
 						tempList.add(tempVo);
+						//webtoonList.add(tempVo);
 						idx++;
 					}
 					Integer category = null;
@@ -387,9 +389,11 @@ public class WebtoonListDAO {
 						w_param1.setC_rating(tempList.get(i).getC_rating());
 						tempVo.getW_list().add(w_param1);
 					}
+					
 					return 1;
 				}
 			});
+			
 			return webtoonList;
 		}
 }
