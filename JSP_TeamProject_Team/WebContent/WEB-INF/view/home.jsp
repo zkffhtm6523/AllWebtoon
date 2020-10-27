@@ -21,7 +21,7 @@ section #sec_container{
 }
 section .indexBlock {
 	position: relative;
-	width:85%;
+	width:1160px;
 	margin:20px auto;
 }
 section .indexBlock h1{

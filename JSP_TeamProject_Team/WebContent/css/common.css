@@ -14,8 +14,9 @@ body{
 #container {
 	display:flex;
 	flex-direction:column;
-	width: 1450px;
+	width: 1650px;
 	height: 100%;
+	margin: 0 auto;
 }
 
 header {
@@ -124,10 +125,10 @@ section{
 	flex-grow: 1;
 }
 /*최상단으로 가는 버튼*/
-section > a > #arrow_upward{
+section  > a > #arrow_upward{
 	position: fixed;
 	bottom: 10%;
-	right: 5%;
+	right: 100px;
 	font-size: 3em;
 	font-weight: bold;
 	color: gray;
@@ -135,7 +136,7 @@ section > a > #arrow_upward{
 section > a > #arrow_downward{
 	position: fixed;
 	bottom: 5%;
-	right: 5%;
+	right: 100px;
 	font-size: 3em;
 	font-weight: bold;
 	color: gray;
