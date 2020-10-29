@@ -4,72 +4,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회원가입</title>
-<style>
-section{
-	width:100%;
-	background-color: #F8F8F8;
-	margin: 0 auto;
-	border-top: 1px solid #EAEAEA;
-	text-align: center;
-}
-section #frmContainer{
-	margin: 30px auto;
-	text-align: center;
-}
-section > h1 {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 2em;
-}
-section .name{
-	color: gray; 
-	font-weight: gray;
-	font-weight: bold;
-	width: 100px;
-	display: inline-block;
-	text-align: left;
-}
-section .joinList{
-	width: 250px;
-	height: 41px;
-	background: #FFFFFF;
-	padding-left: 30px; 
-	padding-right:20px;
-	border: 1px solid #4FA2C7;
-	box-sizing: border-box;
-	border-radius: 10px;
-	margin: 5px auto;
-}
-section .genderBox{
-}
-section .genderGroup{
-	display: inline-block;
-	line-height:50px;
-	width: 250px;
-	height: 41px;
-}
-section input[type="submit"]{
-	font-family: 'GmarketSansMedium', serif;
-	border: none;
-	border-radius: 10px;
-	color: black;
-	padding: 15px;
-	padding-left: 30px;
-	padding-right: 30px;
-	background-color: lightgray;
-	margin: 20px auto;
-}
-section input[type="submit"]:hover {
-	cursor: pointer;
-	font-weight: bold;
-}
-
-section .snsimg{width: 360px; height: 60px;}
-    section .snsimg:hover{cursor: pointer;}
-</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="/css/access/join.css" rel="stylesheet" type="text/css" media="all" />
+	<title>회원가입</title>
 </head>
 <body>
 	<div id="container">

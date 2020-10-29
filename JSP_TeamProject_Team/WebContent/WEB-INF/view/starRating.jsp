@@ -4,42 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-<style>
-body, div, dl, dd, p, form, input {margin:0; padding:0;}
-section{
-		width:100%;
-		background-color: #F8F8F8;
-		margin: 0 auto;
- 		border-top: 1px solid #EAEAEA;
- 		text-align: center;
- 	}
-section #listBlock {width:90%; margin:0 auto;}  
-section .itembox {width:210px; margin:30px 60px; display: inline-block; position:relative;}
-section dl {position:relative;}
-section dt {position:absolute; bottom:60px; left:50%; white-space:nowrap; transform:translate(-50%,-50%);
-		width:100%;
-   		text-overflow: ellipsis;
-    	overflow: hidden;
-    	white-space: nowrap;
-}
-section .writer {width:100%;
-   		text-overflow: ellipsis;
-    	overflow: hidden;
-    	white-space: nowrap;}
-section img {width:170px; height:170px; margin-bottom:30px; border-radius:30%;}
-section .startRadio {display: inline-block; overflow: hidden; height: 40px;}
-section .startRadio:after { content: ""; display: block; position: relative; z-index: 10; height: 40px;
-        background: url('/images/star_Radio.png');
-        repeat-x 0 0; background-size: contain; pointer-events: none;}
-section .startRadio__box { position: relative; z-index: 1; float: left; width: 20px; height: 40px;cursor: pointer;}
-section .startRadio input { opacity: 0 !important; height: 0 !important;width: 0 !important;position: absolute !important;}
-section .startRadio input:checked + .startRadio__img { background-color: #ffd700;}
-section .startRadio__img { display: block; position: absolute;right: 0; width: 500px;height: 40px;pointer-events: none;} 
-
-</style>
-<title>평가하기</title>
+	<meta charset="UTF-8">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+	<link href="/css/view/starRating.css" rel="stylesheet" type="text/css" media="all" />
+	<title>평가하기</title>
 </head>
 <body>
 <div id="container">

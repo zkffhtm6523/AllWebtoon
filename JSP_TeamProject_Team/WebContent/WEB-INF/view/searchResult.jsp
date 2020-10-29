@@ -4,55 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-<title>All 웹툰(검색 결과)</title>
-<style type="text/css">
-    section{
-	width:100%;
-	background-color: #F8F8F8;
-	margin: 0 auto;
-	background-color: #F8F8F8;
-	border-top: 1px solid #EAEAEA;
-}
-    section .content{width: 70%; margin: 30px auto;}
-    section img{width: 180px; border-radius: 5%;}
-    section .content hr{width: 100%;}
-    section .aboveContainer h2{margin-top: 0px; width: 100%; margin-left: 20px;}
-    section .webtoonContainer {margin: 50px auto; padding: 5px; margin-top: 20px;}
-    section ul {list-style-type: none; 
-    clear: both; margin: 0 auto;padding: 0;}
-    section ul li:nth-child(1) {float: left; padding: 30px; padding-top: 0px;}
-    section ul li img{ 
-    	border-radius: 10%;
-	    transform: scale(1.1);
-	    -webkit-transform: scale(1.1);
-	    -moz-transform: scale(1.1);
-	    -ms-transform: scale(1.1);
-	    -o-transform: scale(1.1);
-	    transition: all 0.2s ease-in-out;
-	    margin-right: 20px;
-	    margin-top: 5px;	
-	}
-    section ul li img:hover {cursor: pointer;
-	    transform: scale(1.2);
-	    -webkit-transform: scale(1.2);
-	    -moz-transform: scale(1.2);
-	    -ms-transform: scale(1.2);
-	    -o-transform: scale(1.2);}
-	section ul li a{color: #0c65c6; text-decoration: none;}
-    section ul li:nth-child(2) {font-weight: bold; font-size: 1.2em; padding-top: 1px;}
-    section ul li:nth-child(3) {line-height: 25px; }
-    section ul li:not(:first-child){margin-top: 15px;}
-    section ul li .list{color: gray; font-weight: gray; font-weight: bold; margin-right:10px;}
-    section ul .thumbnail{width: 180px; height: 160px; margin-top: 10px;}
-    section ul #writer {
-    width:500px;
-   	text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    }
-</style>
+	<meta charset="UTF-8">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+	<link href="/css/view/searchResult.css" rel="stylesheet" type="text/css" media="all" />
+	<title>All 웹툰(검색 결과)</title>
 </head>
 <body>
 <div id="container">
