@@ -1,4 +1,4 @@
-package com.allWebtoon.mahout;
+package com.allWebtoon.recommend;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
