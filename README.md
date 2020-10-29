@@ -7,7 +7,7 @@
 2. <a href="#2">주요기능</a><br>
 3. <a href="#3">사용기술</a><br>
 4. <a href="#4">개발진</a><br>
-5. <a href="https://github.com/zkffhtm6523/AllWebtoon_doc">자료 보관소</a>
+5. <a href="https://github.com/zkffhtm6523/AllWebtoon_doc">자료 보관소(바로 가기)</a>
 
 ### <h2 id="1">1. 개요</h2>
 * 다양한 플랫폼과 수 많은 웹툰이 존재하는 요즘, 나에게 맞는 웹툰은 무엇일까? 수 많은 웹툰을 한 곳에 모아놓고 평가하고 추천해주는 웹 서비스를 개발하여 사용자들에게 편의성을 제공한다.
