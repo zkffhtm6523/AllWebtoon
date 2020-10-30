@@ -1,4 +1,4 @@
-package com.allWebtoon.view;
+package com.allWebtoon.access;
 
 import java.io.File;
 import java.io.IOException;

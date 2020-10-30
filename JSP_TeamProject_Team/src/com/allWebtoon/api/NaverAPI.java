@@ -3,7 +3,9 @@ package com.allWebtoon.api;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -31,10 +33,69 @@ import com.google.gson.JsonParser;
 public class NaverAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String clientId = "gtb_8Ij5V31vLTCJA7F3";
-		String clientSecret = "8dYiJWFqmT"; 
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
+		
+		String access_token = getAccessToken(code, state);
+		UserVO userInfo = getUserInfo(access_token);
+		
+		int db_result = UserDAO.selSNSUser(userInfo);
+		
+		if(db_result == 0) {
+			request.setAttribute("userInfo",userInfo);
+			ViewResolver.accessForward("join", request, response);
+			return;
+		}else if(db_result == 2) {
+			String msg = "비밀번호가 틀렸습니다.";
+			request.setAttribute("msg",msg);
+			request.setAttribute("user_id", userInfo.getU_name());
+			ViewResolver.accessForward("login", request, response);
+			return;
+		}
+		
+		HttpSession hs = request.getSession();
+		hs.setAttribute(Const.LOGIN_USER, userInfo);
+				
+		response.sendRedirect("/");
+	}
+	public static UserVO getUserInfo(String access_token) throws IOException {
+		String apiurl = "https://openapi.naver.com/v1/nid/me";
+		URL url = new URL(apiurl);
+		HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		con.setRequestMethod("POST");
+		con.setRequestProperty("Authorization", "Bearer " + access_token);
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		
+		String line = "";
+        String result = "";
+        
+        while ((line = br.readLine()) != null) {result += line;}
+        
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(result);
+		
+		JsonObject property = element.getAsJsonObject().get("response").getAsJsonObject();
+		String user_id = property.getAsJsonObject().get("id").getAsString();
+		String profile_img = property.getAsJsonObject().get("profile_image").getAsString();
+		String gender = property.getAsJsonObject().get("gender").getAsString();
+		String email = property.getAsJsonObject().get("email").getAsString();
+		String name = property.getAsJsonObject().get("name").getAsString();
+		
+		UserVO userInfo = new UserVO();
+		userInfo.setU_id(user_id);
+        userInfo.setU_password(user_id);
+		userInfo.setU_name(name);
+		userInfo.setU_profile(profile_img);
+		userInfo.setU_email(email);
+		userInfo.setGender_name(gender.equals("M") ? "남성" : "여성");
+		userInfo.setU_joinPath(3);
+		userInfo.setChkProfile(userInfo.getU_profile().substring(0, 4));
+		return userInfo;
+	}
+	public static String getAccessToken(String code, String state) throws UnsupportedEncodingException {
+		String clientId = "gtb_8Ij5V31vLTCJA7F3";
+		String clientSecret = "8dYiJWFqmT"; 
 		String redirectURI = URLEncoder.encode("http://101.101.219.238:8080/naverAPI","UTF-8");
 				
 		StringBuffer apiURL = new StringBuffer();
@@ -76,74 +137,7 @@ public class NaverAPI extends HttpServlet {
 	    		access_token = (String)jsonObj.get("access_token");
 		      }
 		    } catch (Exception e) {
-		      System.out.println(e);
 		    }
-		if(access_token != null) { // access_token을 잘 받아왔다면
-			try {
-				String apiurl = "https://openapi.naver.com/v1/nid/me";
-				URL url = new URL(apiurl);
-				HttpURLConnection con = (HttpURLConnection)url.openConnection();
-				con.setRequestMethod("POST");
-				con.setRequestProperty("Authorization", "Bearer " + access_token);
-				
-				int responseCode = con.getResponseCode();
-				
-				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				
-				String line = "";
-		        String result = "";
-		        
-		        while ((line = br.readLine()) != null) {
-		            result += line;
-		        }
-		        
-				JsonParser parser = new JsonParser();
-				JsonElement element = parser.parse(result);
-				
-				JsonObject property = element.getAsJsonObject().get("response").getAsJsonObject();
-				System.out.println("properties : "+property);
-				String user_id = property.getAsJsonObject().get("id").getAsString();
-				String profile_img = property.getAsJsonObject().get("profile_image").getAsString();
-				String gender = property.getAsJsonObject().get("gender").getAsString();
-				String email = property.getAsJsonObject().get("email").getAsString();
-				String name = property.getAsJsonObject().get("name").getAsString();
-				
-				UserVO userInfo = new UserVO();
-				userInfo.setU_id(user_id);
-		        userInfo.setU_password(user_id);
-				userInfo.setU_name(name);
-				userInfo.setU_profile(profile_img);
-				userInfo.setU_email(email);
-				userInfo.setGender_name(gender.equals("M") ? "남성" : "여성");
-				userInfo.setU_joinPath(3);
-				userInfo.setChkProfile(userInfo.getU_profile().substring(0, 4));
-				int db_result = UserDAO.selSNSUser(userInfo);
-				
-				if(db_result == 0) {
-					request.setAttribute("userInfo",userInfo);
-					ViewResolver.accessForward("join", request, response);
-					return;
-				}else if(db_result == 2) {
-					String msg = "비밀번호가 틀렸습니다.";
-					request.setAttribute("msg",msg);
-					request.setAttribute("user_id", userInfo.getU_name());
-					ViewResolver.accessForward("login", request, response);
-					return;
-				}
-				
-				HttpSession hs = request.getSession();
-				hs.setAttribute(Const.LOGIN_USER,userInfo);
-				
-		    } catch (Exception e) {
-		    	e.printStackTrace();
-		    }
-		}	
-		response.sendRedirect("/home");
-		
+		return access_token;
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-
 }

@@ -1,0 +1,65 @@
+@charset "UTF-8";
+section{
+	width:100%;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+	background-color: #F8F8F8;
+ 	border-top: 1px solid #EAEAEA;
+ 	text-align: center;
+}
+section h1 {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 2em;
+}
+section .login_win {
+    text-align: center; padding: 20px; margin: 10px;
+}
+section #frm{
+	width: 400px;
+	margin: 0 auto;
+}
+section #user_id, #user_pw {
+    width: 300px;
+    height: 30px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-top:15px;
+    margin: 10px auto;
+    border-radius: 8px;
+    border : 1px solid #4FA2C7;
+}
+section #login_btn{
+    width: 358px;
+	padding: 20px;
+	margin: 5px auto;
+	border: none;
+    color: white;
+    background-color: #ccb2e5;
+    border-radius: 8px;
+    font-size: 1.05em;
+}
+section #join_btn{
+	width: 358px;
+	padding: 20px;
+	margin: 5px auto;
+	border: none;
+	background-color: #4FA2C7;
+	border-radius: 8px;
+	font-size: 1.05em;
+	color: white;
+}
+section #join_btn:hover, #login_btn:hover{
+	cursor: pointer;
+}
+section a{
+	text-decoration: none;
+	color: #0c65c6;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+section .newPw{
+	margin: 20px auto;
+}
+section .snsimg{width: 360px; height: 60px;}
+section .snsimg:hover{cursor: pointer;}
