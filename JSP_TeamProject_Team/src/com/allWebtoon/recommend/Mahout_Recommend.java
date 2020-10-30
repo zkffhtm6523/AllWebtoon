@@ -1,4 +1,4 @@
-package com.allWebtoon.mahout;
+package com.allWebtoon.recommend;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -143,7 +143,7 @@ public class Mahout_Recommend {
 		
 		
 		for (int i = 0; i < webtoonList.size(); i++) {
-			//System.out.println("--------u_no : "+webtoonList.get(i).getU_no()+"--------");
+			System.out.println("--------u_no : "+webtoonList.get(i).getU_no()+"--------");
 			List<Preference> prefsList = Lists.newArrayList();
 			for (int j = 0; j < webtoonList.get(i).getW_list().size(); j++) {
 				prefsList.add(new GenericPreference(
@@ -151,8 +151,8 @@ public class Mahout_Recommend {
 						webtoonList.get(i).getW_list().get(j).getW_no(),
 						webtoonList.get(i).getW_list().get(j).getC_rating())
 				);
-				//System.out.print("w_no : "+webtoonList.get(i).getW_list().get(j).getW_no());
-				//System.out.println("/ c_crating : "+webtoonList.get(i).getW_list().get(j).getC_rating());
+				System.out.print("w_no : "+webtoonList.get(i).getW_list().get(j).getW_no());
+				System.out.println("/ c_crating : "+webtoonList.get(i).getW_list().get(j).getC_rating());
 			}
 			result.put(webtoonList.get(i).getU_no(), new GenericUserPreferenceArray(prefsList));
 		}

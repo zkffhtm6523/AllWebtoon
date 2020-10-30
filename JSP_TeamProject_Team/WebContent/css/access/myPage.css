@@ -1,0 +1,234 @@
+@charset "UTF-8";
+section {
+	width: 100%;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+	background-color: #F8F8F8;
+	border-top: 1px solid #EAEAEA;
+	text-align: center;
+}
+
+section #myPageContainer {
+	width: 1300px;
+	margin: 30px auto;
+}
+
+section #myPageContainer .printImage {
+	width: 80%;
+	margin: 20px auto;
+	border: 3px solid #EAEAEA;
+	border-radius: 8px;
+	padding: 10px;
+}
+
+section #myPageContainer ul {
+	vertical-align: top;
+	margin: 0px auto;
+}
+
+section #myPageContainer .result_view .show_all {
+	float: right;
+	font-size: 15px;
+	color: grey;
+	cursor: pointer;
+	margin-right: 150px;
+	margin-top: 10px;
+}
+
+section #myPageContainer .result_view {
+	width: 80%;
+	margin: 20px auto;
+	border: 3px solid #EAEAEA;
+	border-radius: 8px;
+	padding: 10px;
+	padding-bottom: 10px;
+	position: relative;
+}
+
+section #myPageContainer .result_view>#prevArrIcon {
+	position: absolute;
+	top: 50%;
+	left: 2%;
+	cursor: pointer;
+}
+
+section #myPageContainer .result_view>#nextArrIcon {
+	position: absolute;
+	top: 50%;
+	right: 2%;
+	cursor: pointer;
+}
+
+section #myPageContainer .result_view .listItem, .listItem {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	top: 0px;
+	margin: 0 auto;
+	display: inline-block;
+}
+
+section #myPageContainer .result_view .listItem #del_Icon, #del_Icon {
+	text-align: right;
+}
+
+section #myPageContainer .result_view .listItem #del_Icon:hover,
+	#del_Icon:hover {
+	cursor: pointer;
+	color: red;
+}
+
+section #myPageContainer .result_view .nonListItem {
+	width: 96%;
+	margin: 0 auto;
+}
+
+section #myPageContainer .result_view .nonListItem h2 {
+	text-align: center;
+	font-size: 1.3em;
+}
+
+section #myPageContainer .result_view .listItem ul, .listItem ul {
+	padding-left: 10px;
+	padding-right: 10px;
+	position: relative;
+	list-style-type: none;
+}
+
+section #myPageContainer .result_view .listItem ul :nth-child(3),
+	.listItem ul :nth-child(3) {
+	position: absolute;
+	color: gold;
+	font-size: 1.3em;
+	bottom: 5px;
+	left: 10px;
+}
+
+section #myPageContainer .result_view .listItem ul :nth-child(4),
+	.listItem ul :nth-child(4) {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	line-height: 30px;
+	left: -20px;
+}
+
+section #myPageContainer .result_view .listItem ul :nth-child(5),
+	.listItem ul :nth-child(5) {
+	position: absolute;
+	color: gray;
+	font-size: 1.3em;
+	bottom: 5px;
+	right: 10px;
+}
+
+section #myPageContainer .result_view .listItem ul li a img, .listItem ul li a img
+	{
+	border-radius: 8px;
+	width: 125px;
+	height: 100px;
+}
+
+section .profileImg {
+	width: 160px;
+	height: 160px;
+	border-radius: 50%;
+	object-fit: cover;
+	overflow: hidden;
+	line-height: 30px;
+}
+
+section>#myPageContainer>.result_view>h2 {
+	text-align: left;
+	margin-left: 20px;
+}
+
+section .name {
+	color: gray;
+	font-weight: gray;
+	font-weight: bold;
+	width: 75px;
+	display: inline-block;
+	text-align: left;
+}
+
+section #myPageContainer .printImage ul {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	top: 8px;
+	list-style-type: none;
+	text-align: left;
+}
+
+section #myPageContainer .printImage ul li {
+	margin: 15px auto;
+}
+
+#loginUser {
+	color: gray;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+.title {
+	width: 125px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+#modal_button {
+	all: unset;
+	background-color: steelblue;
+	color: white;
+	padding: 5px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+}
+
+.modal__overlay {
+	background-color: rgba(0, 0, 0, 0.6);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+.modal__content {
+	background-color: #F8F8F8;
+	position: relative;
+	border-radius: 10px;
+	width: 80%;
+	height: 80%;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px
+		rgba(0, 0, 0, 0.23);
+	overflow: auto;
+	padding: 50px;
+	magin: 50px;
+}
+
+.modal__content #modal_ul {
+	margin: 15px 10px;
+}
+
+.modal__content hr {
+	width: 1000px;
+	color: #EAEAEA;
+	border-width: 2px;
+}
+
+.hidden {
+	visibility: hidden;
+}

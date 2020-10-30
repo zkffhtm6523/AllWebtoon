@@ -19,7 +19,7 @@ import org.apache.mahout.cf.taste.model.JDBCDataModel;
 
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
-import com.allWebtoon.mahout.Mahout_Recommend;
+import com.allWebtoon.recommend.Mahout_Recommend;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;

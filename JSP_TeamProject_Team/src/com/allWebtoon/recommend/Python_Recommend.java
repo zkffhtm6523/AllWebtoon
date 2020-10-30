@@ -1,4 +1,4 @@
-package com.allWebtoon.mahout;
+package com.allWebtoon.recommend;
 
 public class Python_Recommend {
 	public static void main(String[] args) {

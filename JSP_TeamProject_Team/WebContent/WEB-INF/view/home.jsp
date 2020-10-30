@@ -6,68 +6,14 @@
 <head>
 	<meta charset="UTF-8">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+	<link href="/css/view/home.css" rel="stylesheet" type="text/css" media="all" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style type="text/css">
-	/*section 시작*/
-section{
-	background-color: #F8F8F8;
-	border-top: 1px solid #EAEAEA;
-	text-align: center;
-	width:100%;
-}
-section #sec_container{
-	width: 100%;
-	margin: 0 auto;
-}
-section .indexBlock {
-	position: relative;
-	width:1160px;
-	margin:20px auto;
-}
-section .indexBlock h1{
-	position: relative;
-	top:10%;
-	left: -35%;
-	display: inline-block;
-}
-section .indexBlock hr{
- 	width: 85%;
- 	margin-right: 8%;
-}
-section .indexBlock #sel_gerne{
-	position: absolute;
-	width: 120px;
-	padding: 5px;
-	border-radius: 5px;
-	border:none;
-	right:10%;
-	background-color: #4FA2C7;
-	color: white;
-	margin: 25px auto;
-}
-section img{width: 100%; height:80%; border-radius: 5%;}
-section .imgBlock{display: inline-block; width: 15%; text-align: center;
-	    height: 180px;
-	    vertical-align: top;
-	    margin: 10px auto;
-	    margin-left: 1%;
-	    margin-right: 1%;}
-section .imgBlock:hover{cursor: pointer;}
-section .listBlock{vertical-align: top;}
-section .indexBlock .material-icons{width: 50px; height: 30px; position: absolute; top: 58%;}
-section  #prevArrIcon{left: 2%;}
-section  #nextArrIcon{right: 2%;}
-section .material-icons:hover{cursor: pointer;}
-
-</style>
-<title>All 웹툰</title>
+	<title>All 웹툰</title>
 </head>
 <body>
 <div id="container">
 		<jsp:include page="../template/header.jsp"/>
-		<section>
-			<div id="sec_container"></div>
-		</section>
+		<section><div id="sec_container"></div></section>
 		<jsp:include page="../template/footer.jsp"/>
 </div>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

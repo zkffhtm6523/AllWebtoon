@@ -3,76 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>나의 프로필</title>
-<style type="text/css">
-	section{
-		width:100%;
-		background-color: #F8F8F8;
-		margin: 0 auto;
- 		border-top: 1px solid #EAEAEA;
- 		text-align: center;
- 	}
- 	section .frmContainer{margin: 15px auto; text-align: center;}
- 	section .profileImg{width: 240px; height:220px; border-radius: 50%; object-fit: cover; overflow: hidden;}
- 	section .name{
- 		color: gray; 
- 		font-weight: gray;
- 		font-weight: bold;
- 		width: 75px;
- 		display: inline-block;
- 		text-align: left;
- 	}
- 	section .updList{
- 		width: 250px;
- 		height: 41px;
- 		background: #FFFFFF;
- 		padding-left: 30px; 
-		padding-right:20px;
-		border: 1px solid #4FA2C7;
-		box-sizing: border-box;
-		border-radius: 10px;
-		margin: 5px auto;
-	}
-	section .updList[type="search"]{
-		font-family: 'GmarketSansMedium', serif;
-		line-height: normal;
-		padding-top: 6px;
-	}
-	section .updList:hover{cursor: pointer;}
-	section .imgFile[type="file"]{
-		font-family: 'GmarketSansMedium', serif ;
-		width:254px;
-		height:30px;
-		text-align: center;
-		margin: 5px auto;
-	}
-	section input[type="submit"]{
-		font-family: 'GmarketSansMedium', serif;
-		border: none;
-		border-radius: 10px;
-		color: black;
-		padding: 15px;
-		padding-left: 30px;
-		padding-right: 30px;
-		background-color: lightgray;
-	}
-	section .box-file-input label{
-		font-family: 'GmarketSansMedium', serif ;
-	    display:inline-block;
-	    background: #4FA2C7
-	}
-	section #btnBox{
-		margin: 30px auto;
-		margin-top: 15px;
-	}
-	section #frmBtn{
-		font-size: 1.05em;
-	}
-	section #frmBtn:hover {
-		cursor: pointer;
-	}
-</style>
+	<meta charset="UTF-8">
+	<link href="/css/access/profile.css" rel="stylesheet" type="text/css" media="all" />
+	<title>나의 프로필</title>
 </head>
 <body>
 <div id	="container">
