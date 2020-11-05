@@ -140,7 +140,7 @@
 	//스크롤 바닥 감지
 	window.onscroll = function() {
 	    //window height + window scrollY 값이 document height보다 클 경우,
-	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight-5) {
+	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
 	       	
 	    	axios.get('/webtoon/cmt', {
 	    		params : {
