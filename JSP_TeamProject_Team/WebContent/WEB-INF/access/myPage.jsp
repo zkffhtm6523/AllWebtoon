@@ -428,26 +428,18 @@ function delWebtoon(w_no,modal){
 		}
 		
 		axios.post('/myPage', data).then(function(res) {
-			console.log(modal)
+			//팝업창안에서 이루어지는 삭제가 아니라면.
 			if(!modal){
+				//삭제된 아이템 전 후 아이템 끌어오기.
 				if(cmtIdx-5 < 0 ){
 					makeListItem(cmt_list, res, 2, 7, 'y')
 				}else{
 					makeListItem(cmt_list, res, 7, 2, 'y')
 					cmtIdx--;
 				}
-				
 			}
-			
 			var div_id = document.getElementById('item_'+w_no)
 			div_id.remove()
-			
-	
-				//console.log("length: " + cmt_list.children.length)
-				//if(cmt_list.children.length <= 1){
-				//	cmt_list.innerText = '평가한 웹툰이 없습니다'
-				//}
-			
 		})
 	}
 }

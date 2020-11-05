@@ -135,114 +135,103 @@
 		cmtlist.push(obj)
 	</c:forEach>
 
-	var idx = 50
+	var idx = ${list.size()}
 	
 	//스크롤 바닥 감지
 	window.onscroll = function() {
-		
-		//console.log(window.innerHeight + window.scrollY)
-		//console.log(document.body.scrollHeight)
-		
 	    //window height + window scrollY 값이 document height보다 클 경우,
-	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight-5) {
+	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
 	       	
-	    	console.log('index: '+ idx)
-	    	
 	    	axios.get('/webtoon/cmt', {
 	    		params : {
 	    			page : idx
 	    		}
 	    	}).then(function(res) {
-	    		//console.log(res.data)
-	    
-	    	res.data.forEach(function (item){
-	    		//console.log('index : ' + idx)
-	    		var itembox = document.createElement('div')
-		         itembox.setAttribute('class','itembox')
-		         itembox.setAttribute('id','itembox_'+idx)
-		         var dl = document.createElement('dl')
-		         var title = document.createElement('dt')
-		         title.setAttribute('title',item.w_title)
-		         var imgbox = document.createElement('dd')
-		         var img = document.createElement('img')
-		         img.title = item.w_title
-		         img.setAttribute('src',item.w_thumbnail)
-		         imgbox.append(img)
-		         var writer = document.createElement('dd')
-		         writer.setAttribute('class','writer')
-		         writer.setAttribute('title',item.w_writer)
-		         title.append(item.w_title)
-		         writer.append(item.w_writer)
-		         
-		         var star = document.createElement('dd')
-		         var startRadio = document.createElement('startRadio')
-		         startRadio.setAttribute('class','startRadio')
-		         
-		        for(var rating_item=1; rating_item<=10; rating_item++){
-	    			var label = document.createElement('label')
-		         	label.setAttribute('class','startRadio__box')
-		         	var input = document.createElement('input')
-		         	input.setAttribute('type','radio')
-		         	input.setAttribute('name','start'+idx)
-		         	input.setAttribute('onclick','score('+rating_item+','+idx+','+ item.w_no + ')')
-		         	input.setAttribute('id','star_'+idx+'_'+rating_item)
-		         	
-		         	
-		        	for(var i=0; i<cmtlist.length; i++){
-		        		//t_comment에 저장된 내 평점이 있고 라디오버튼 위치가 점수와 같으면  
-			         	 if(cmtlist[i].w_no == item.w_no && cmtlist[i].c_rating * 2 == rating_item ){		
-			         		//해당 라디오버튼 체크  
-			         		input.checked = true;
-			         	}
-		         	}
-		         	
-		         	var startRadio__img = document.createElement('span')
-		         	startRadio__img.setAttribute('class','startRadio__img')
-		         	var blind = document.createElement('span')
-		         	blind.setAttribute('class','blind')
-		         	startRadio__img.append(blind)
-		         	label.append(input)
-		         	label.append(startRadio__img)
-		         	startRadio.append(label)
-		         
-		         }
-		        
-		         var c_rating = document.createElement('input')
-		         c_rating.setAttribute('type','hidden')
-		         c_rating.setAttribute('name','c_rating')
-		         c_rating.setAttribute('class','point')
-		         c_rating.setAttribute('id','c_rating_'+idx)
-		         
-		         for(var i=0; i<cmtlist.length; i++){
-		        	 //평점테이블에 기록이 있다면  
-		         	 if(cmtlist[i].w_no == item.w_no){
-		         		c_rating.setAttribute('value',cmtlist[i].c_rating)
-		         	}
-	         	}
-		         
-		         startRadio.append(c_rating)
-		         
-		         star.append(startRadio)
-		         
-		         dl.append(title)
-		         dl.append(imgbox)
-		         dl.append(writer)
-		         dl.append(star)
-		         
-		         itembox.append(dl)
-		       
-		        listBlock.append(itembox)
-		        
-		       /* console.log("innerHeight : " + window.innerHeight)
-		        console.log("scrollY: " + window.scrollY)     
-		        console.log("offsetHeight: " + document.body.offsetHeight)
-		        console.log('scrollTop: ' + document.body.scrollTop)
-		        console.log('scrollHight: ' + document.body.scrollHeight)*/
-		        
-		        idx++
-	    	})
+		    	res.data.forEach(function (item){
+	    			makecontent(item)
+			        idx++
+	    		})
 	    	})
 	    }
+	}
+	
+	function makecontent(item){
+		var itembox = document.createElement('div')
+        itembox.setAttribute('class','itembox')
+        itembox.setAttribute('id','itembox_'+idx)
+        var dl = document.createElement('dl')
+        var title = document.createElement('dt')
+        title.setAttribute('title',item.w_title)
+        var imgbox = document.createElement('dd')
+        var img = document.createElement('img')
+        img.title = item.w_title
+        img.setAttribute('src',item.w_thumbnail)
+        imgbox.append(img)
+        var writer = document.createElement('dd')
+        writer.setAttribute('class','writer')
+        writer.setAttribute('title',item.w_writer)
+        title.append(item.w_title)
+        writer.append(item.w_writer)
+        
+        var star = document.createElement('dd')
+        var startRadio = document.createElement('startRadio')
+        startRadio.setAttribute('class','startRadio')
+        
+       for(var rating_item=1; rating_item<=10; rating_item++){
+			var label = document.createElement('label')
+        	label.setAttribute('class','startRadio__box')
+        	var input = document.createElement('input')
+        	input.setAttribute('type','radio')
+        	input.setAttribute('name','start'+idx)
+        	input.setAttribute('onclick','score('+rating_item+','+idx+','+ item.w_no + ')')
+        	input.setAttribute('id','star_'+idx+'_'+rating_item)
+        	
+        	
+       	for(var i=0; i<cmtlist.length; i++){
+       		//t_comment에 저장된 내 평점이 있고 라디오버튼 위치가 점수와 같으면  
+	         	 if(cmtlist[i].w_no == item.w_no && cmtlist[i].c_rating * 2 == rating_item ){		
+	         		//해당 라디오버튼 체크  
+	         		input.checked = true;
+	         	}
+        	}
+        	
+        	var startRadio__img = document.createElement('span')
+        	startRadio__img.setAttribute('class','startRadio__img')
+        	var blind = document.createElement('span')
+        	blind.setAttribute('class','blind')
+        	startRadio__img.append(blind)
+        	label.append(input)
+        	label.append(startRadio__img)
+        	startRadio.append(label)
+        
+        }
+       
+        var c_rating = document.createElement('input')
+        c_rating.setAttribute('type','hidden')
+        c_rating.setAttribute('name','c_rating')
+        c_rating.setAttribute('class','point')
+        c_rating.setAttribute('id','c_rating_'+idx)
+        
+        for(var i=0; i<cmtlist.length; i++){
+       	 //평점테이블에 기록이 있다면  
+        	 if(cmtlist[i].w_no == item.w_no){
+        		c_rating.setAttribute('value',cmtlist[i].c_rating)
+        	}
+    	}
+        
+        startRadio.append(c_rating)
+        
+        star.append(startRadio)
+        
+        dl.append(title)
+        dl.append(imgbox)
+        dl.append(writer)
+        dl.append(star)
+        
+        itembox.append(dl)
+      
+       listBlock.append(itembox)
+       
 	}
 </script>
 </body>

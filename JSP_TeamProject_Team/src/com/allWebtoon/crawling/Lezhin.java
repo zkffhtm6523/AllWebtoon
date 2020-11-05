@@ -24,14 +24,13 @@ public class Lezhin {
 		
 		HttpURLConnection huc = (HttpURLConnection) url.openConnection();
 		huc.setRequestMethod("GET");
+		//레진의 경우 언어가 영어로 설정되어 있어 헤더에 지역 정보를 포함해줘야 함.  
 		huc.setRequestProperty("x-lz-locale", "ko-KR");
 		huc.connect();
 		
 		InputStreamReader isr = new InputStreamReader(huc.getInputStream(), "UTF-8");
 		JSONObject object = (JSONObject) JSONValue.parse(isr);
 		
-		//CartoonVO 담을 배열 생성
-
 		JSONObject gata = (JSONObject) object.get("data");
 		JSONArray bodyArray = (JSONArray) gata.get("inventoryList");
 
@@ -40,84 +39,60 @@ public class Lezhin {
 			JSONArray items = (JSONArray) (((JSONObject) bodyArray.get(i)).get("items"));
 			// 요일마다 작품
 			for (int z = 0; z < items.size(); z++) {
-				//중복제거용 변수
-				int stop=0;
+				//웹툰 중복으로 저장되는 것 방지하기 위한 변수
+				boolean stop=false;
 				JSONObject data = (JSONObject) items.get(z);
 				//CartoonVO 객체 생성
 				CrawWebtoonVO webtoonVO = new CrawWebtoonVO();
-				//0. 플랫폼 저장(1:네이버,2:다음,3:카카오,4:레진,5:코미코)
-				webtoonVO.setPlatform(4);
-				//1. Title 저장
+				
+				//1. Title 추출
 				String title = data.get("title").toString();
 				
-				//중복 제거 로직
+				//중복 제거 로직 (기존 list에 같은 타이틀이 있으면 건너뛰기)
 				for(CrawWebtoonVO vo : list) {
 					if(vo.getTitle().equals(title)) {
-						stop=1;
+						stop=true;
+						break;
 					}
 				}
-				if(stop==1) {
+				if(stop) {
 					continue;
 				}
-				System.out.println("title : "+title);
-				webtoonVO.setTitle(title);
-				//작가 정보 받아오기
+				
+				//작가 정보 추출
 				JSONArray authors = (JSONArray) data.get("authors");
-				// 작가 정보 형변환 및 저장
-				for(Object a : authors) {
-					webtoonVO.setWriter(((JSONObject)a).get("name").toString());
-				}
-				//String au_name = ((JSONObject) authors.get(0)).get("name").toString();
-				// 2.스토리 작가 저장
-				//webtoonVO.setWriter(au_name);
-
-			/*	try {
-					// 그림작가 이름
-					String dra_name = ((JSONObject) authors.get(1)).get("name").toString();
-					if (dra_name.equals("레진코믹스")) {
-						//3. 그림 작가 저장
-						webtoonVO.setWri_drawing(au_name);
-					} else {
-						webtoonVO.setWri_drawing(dra_name);
-					}
-				} catch (Exception e) {
-					webtoonVO.setWri_drawing(au_name);
-				}*/
 				// 장르
 				JSONArray genres = (JSONArray) data.get("genres");
-				int genre_no=0;
-
-				for(Object g : genres) {
-					genre_no = getGenreNo(g.toString());
-					System.out.println("genre_no : " + genre_no);
-					if(genre_no != 0) {
-						webtoonVO.setGenre(genre_no);
-					}
-					
-				}
-				
-			/*	for (int g = 0; g < genres.size(); g++) {
-					String n = genres.get(g).toString();
-					//4. 장르 저장
-					webtoonVO.setGenre(n);
-				}*/
-
 				// 웹툰 상세페이지 이동링크
 				String link = "https://www.lezhin.com" + data.get("targetUrl").toString();
-				// 5. 장르 저장
-				webtoonVO.setLink(link);
-
-				// 링크 이용해서 상세페이지로 가서 스토리 뽑아오기
+				// 링크 이용해서 상세페이지로 가서 스토리 추출
 				String story = getStory(link);
-				// 6. 스토리 저장
-				webtoonVO.setStory(story);
-
 				// 썸네일
 				JSONArray im = (JSONArray) data.get("mediaList");
 				String img = "https://cdn.lezhin.com/v2" + ((JSONObject) im.get(0)).get("url").toString();
-				// 7. 이미지 저장
+				
+				
+				//VO에 작가 정보 형변환 및 저장
+				for(Object a : authors) {
+					webtoonVO.setWriter(((JSONObject)a).get("name").toString());
+				}
+
+				//장르 저장
+				int genre_no=0;
+				for(Object g : genres) {
+					genre_no = getGenreNo(g.toString());
+					if(genre_no != 0) {
+						webtoonVO.setGenre(genre_no);
+					}
+				}
+
+				//0. 플랫폼 저장(1:네이버,2:다음,3:카카오,4:레진,5:코미코)
+				webtoonVO.setPlatform(4);	
+				webtoonVO.setLink(link);
+				webtoonVO.setStory(story);
+				webtoonVO.setTitle(title);
 				webtoonVO.setThumbnail(img);
-					
+
 				list.add(webtoonVO);
 			}
 		}

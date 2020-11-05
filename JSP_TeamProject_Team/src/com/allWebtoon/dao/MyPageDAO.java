@@ -13,6 +13,7 @@ import com.allWebtoon.vo.WebtoonVO;
 
 public class MyPageDAO {
 
+	//내가 평가한 웹툰 리스트
 	public static int myWebtoon(List<WebtoonCmtDomain> list, int u_no) {
 		String sql = 
 				  " SELECT A.w_thumbnail,"

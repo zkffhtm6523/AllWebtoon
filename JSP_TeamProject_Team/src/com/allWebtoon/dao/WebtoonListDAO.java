@@ -293,7 +293,8 @@ public class WebtoonListDAO {
 				}
 			});
 		}
-		//추천 시 사용하는 것
+		
+		//추천 시 사용
 		public static WebtoonVO selrecommendWebtoon(int w_no) {
 			String sql = 
 					" select w_no, w_title, w_thumbnail from t_webtoon "
@@ -311,12 +312,9 @@ public class WebtoonListDAO {
 				@Override
 				public int executeQuery(ResultSet rs) throws SQLException {
 					while(rs.next()) {
-						//
 						vo.setW_no(rs.getInt("w_no"));
 						vo.setW_title(rs.getString("w_title"));
 						vo.setW_thumbnail(rs.getString("w_thumbnail"));
-						
-						//list.add(vo);
 					}
 					return 1;
 				}
