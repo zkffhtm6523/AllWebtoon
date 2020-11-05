@@ -35,6 +35,8 @@ public class WebtoonCmtSer extends HttpServlet {
 	   HttpSession hs = request.getSession();
 	   
 	   UserVO loginUser = MyUtils.getLoginUser(request);
+	   final int count=50;
+	   
 	   
 		if(loginUser == null) {
 			response.sendRedirect("/login");
@@ -52,12 +54,11 @@ public class WebtoonCmtSer extends HttpServlet {
 	   cmt_list = WebtoonListDAO.selCmtList(cmt_list, loginUser.getU_no());
 		
 	   if(idx == 0) {
-	    
 		    list = WebtoonListDAO.selRandomWebtoonList(list,0,0,"");
 		    
 			hs.setAttribute("rating_list",list);
 			
-			for(int i=0; i<50; i++) {
+			for(int i=0; i<count; i++) {
 				sendarr.add(list.get(i));
 			}
 			
@@ -70,14 +71,12 @@ public class WebtoonCmtSer extends HttpServlet {
 		   
 		   list = (ArrayList<WebtoonVO>)hs.getAttribute("rating_list");
 		   
-		   for(int i=idx; i<(idx+50); i++){
+		   for(int i=idx; i<(idx+count); i++){
 			   sendarr.add(list.get(i));
 		   }
 		   
 		   	Gson gson = new Gson();
-			
 			String json = gson.toJson(sendarr);
-			
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/json");
 			PrintWriter out = response.getWriter();

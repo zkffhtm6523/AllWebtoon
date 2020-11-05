@@ -36,87 +36,82 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 
-	var data = []
-		
-	var idx = ${count}+1
 	
-	console.log(idx)
+	
 	//최상단 가기 버튼
 	makeArrowUpward()
 	//최하단 가기 버튼
 	makeArrowDownward()
+	
+	//초기 list.size()를 가져올 첫 index로 설정
+	var idx = ${result.size()}
+	
 	//스크롤 바닥 감지
 	window.onscroll = function() {
 	    //window height + window scrollY 값이 document height보다 클 경우,
 	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight-10) {
-	    	//실행할 로직 (콘텐츠 추가)
-	       	
-	    	console.log('index: '+ idx)
-	    	
-	    	axios.get('/searchResult?result=${keyword}&writer=${param.writer}&genre=${param.genre}&page=' +idx
-	    			/*{
-	    		params : {
-	    			page : idx
-	    		}		
-	    	}*/).then(function(res) {
-	    		console.log(res.data)
+	    	axios.get('/searchResult?result=${keyword}&writer='
+	    			+'${param.writer}&genre=${param.genre}&page=' +idx
+	    		).then(function(res) {
 	    
-	    	res.data.forEach(function (item){
-	    		
-	    		var div = document.createElement('div')
-	    		div.setAttribute('class','webtoonContainer')
-	    		var ul = document.createElement('ul')
-	    		ul.setAttribute('class','itemRow')
-	    		var img_li = document.createElement('li')
-	    		var img = document.createElement('img')
-	    		img.setAttribute('class','thumbnail')
-	    		img.setAttribute('src',item.w_thumbnail)
-	    		img.setAttribute('onclick','moveToDetail('+item.w_no+')')
-	    		img_li.append(img)
-	    		var a_li = document.createElement('li')
-	    		var a = document.createElement('a')
-	    		a.setAttribute('href','/webtoon/detail?w_no='+item.w_no)
-	    		a_li.append(a)
-	    		a.append(item.w_title)
-	    		var story_li = document.createElement('li')
-	    		var story_span = document.createElement('span')
-	    		story_span.setAttribute('class','list')
-	    		story_span.setAttribute('id','ctnt')
-	    		story_span.append('내용')
-	    		story_li.append(story_span)
-	    		story_li.append(item.w_story)
-	    		var writer_li = document.createElement('li')
-	    		var writer_span = document.createElement('span')
-	    		writer_span.setAttribute('class','list')
-	    		writer_span.append('작가')
-	    		writer_li.append(writer_span)
-	    		writer_li.append(item.w_writer)
-	    		
-	    		var	genre_li = document.createElement('li')
-	    		var genre_span = document.createElement('span')
-	    		genre_span.setAttribute('class','list')
-	    		genre_span.append('장르')
-	    		genre_li.append(genre_span)
-	    		
-	    		genre_li.append(item.genre_name)
-	    		
-	    		ul.append(img_li)
-	    		ul.append(a_li)
-	    		ul.append(story_li)
-	    		ul.append(writer_li)
-	    		ul.append(genre_li)
-	    		
-	    		div.append(ul)
-	    		
-	    		webtoon_content.append(div)
-	    		
-	    		idx++
-	    		
-	    	})
-		        
+	    		res.data.forEach(function (item){
+	    			makecontent(item)
+	    			idx++
+	    		})    
 	    	})
 	    }
 	};
+	
+	function makecontent(item){
+		var div = document.createElement('div')
+		div.setAttribute('class','webtoonContainer')
+		var ul = document.createElement('ul')
+		ul.setAttribute('class','itemRow')
+		var img_li = document.createElement('li')
+		var img = document.createElement('img')
+		img.setAttribute('class','thumbnail')
+		img.setAttribute('src',item.w_thumbnail)
+		img.setAttribute('onclick','moveToDetail('+item.w_no+')')
+		img_li.append(img)
+		var a_li = document.createElement('li')
+		var a = document.createElement('a')
+		a.setAttribute('href','/webtoon/detail?w_no='+item.w_no)
+		a_li.append(a)
+		a.append(item.w_title)
+		var story_li = document.createElement('li')
+		var story_span = document.createElement('span')
+		story_span.setAttribute('class','list')
+		story_span.setAttribute('id','ctnt')
+		story_span.append('내용')
+		story_li.append(story_span)
+		story_li.append(item.w_story)
+		var writer_li = document.createElement('li')
+		var writer_span = document.createElement('span')
+		writer_span.setAttribute('class','list')
+		writer_span.append('작가')
+		writer_li.append(writer_span)
+		writer_li.append(item.w_writer)
+		
+		var	genre_li = document.createElement('li')
+		var genre_span = document.createElement('span')
+		genre_span.setAttribute('class','list')
+		genre_span.append('장르')
+		genre_li.append(genre_span)
+		
+		genre_li.append(item.genre_name)
+		
+		ul.append(img_li)
+		ul.append(a_li)
+		ul.append(story_li)
+		ul.append(writer_li)
+		ul.append(genre_li)
+		
+		div.append(ul)
+		
+		webtoon_content.append(div)
+	}
+	
+	
 	function makeArrowUpward() {
 		var arrowUpward = document.createElement('span')
 		arrowUpward.classList.add('material-icons')
