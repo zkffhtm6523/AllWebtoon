@@ -6,12 +6,8 @@ import java.util.List;
 import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.vo.WebtoonVO;
 
-import jep.Jep;
-import jep.JepConfig;
-import jep.JepException;
-
 public class Python_Recommend {
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		 ////파이썬호출
 		 try {
@@ -49,5 +45,5 @@ public class Python_Recommend {
 			System.out.println("추천작품이 없습니다.");
 		 }
 	
-	}
+	}*/
 }
