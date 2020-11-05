@@ -63,33 +63,22 @@ public class SearchResultSer extends HttpServlet {
 			list =  WebtoonListDAO.selSearchList(vo,"all");
 		}
 		
+		//ajax 통신으로 받아온 index값이 존재하지 않으면(초기화면)
 		if(index == 0) {
-			for(int i=0; i<count; i++) {
-				if(i==list.size()) {
-					break;
-				}
+			for(int i=0; i<list.size() && i<count; i++) {
 				resultarr.add(list.get(i));
 			}
 			request.setAttribute("result", resultarr);
-			request.setAttribute("count", count);
 			request.setAttribute("keyword", searchKeyword);
-			//request.setAttribute("data", vo);
 			
 			ViewResolver.viewForward("searchResult", request, response);
 		} else {
-			
-			for(int i=index; i<(index+count); i++) {
-				if(i>=list.size()) {
-					break;
-				}
+			for(int i=index; i<(index+count) && i<list.size(); i++) {
 				resultarr.add(list.get(i));
-				
 			}
 			
 			Gson gson = new Gson();
-			
 			String json = gson.toJson(resultarr);
-			
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/json");
 			PrintWriter out = response.getWriter();
