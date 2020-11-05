@@ -138,9 +138,7 @@ public class Mahout_Recommend {
 	
 	//2차원 배열 필요([u_no, [w_no][c_rating])
 	public static GenericDataModel parsingDataModel(List<WebtoonCmtDomain> webtoonList) {
-
 		FastByIDMap<PreferenceArray> result = new FastByIDMap<PreferenceArray>();
-		
 		
 		for (int i = 0; i < webtoonList.size(); i++) {
 			System.out.println("--------u_no : "+webtoonList.get(i).getU_no()+"--------");
@@ -156,13 +154,9 @@ public class Mahout_Recommend {
 			}
 			result.put(webtoonList.get(i).getU_no(), new GenericUserPreferenceArray(prefsList));
 		}
-		
-		
 		return new GenericDataModel(result); 
 		
 	}
-
-	
 	//Mysql에서 테이블 가져와서 DataModel로 변
 	public static DataModel parsingDataModel() throws SQLException {
 		

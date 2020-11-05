@@ -32,8 +32,8 @@
 	function goKakao() {
 		location.href = 'https://kauth.kakao.com/oauth/authorize'
 		    		+'?client_id=48c16d63af5493c7ae43a1433ec7760f'
-		            //+'&redirect_uri=http://allwebtoon.xyz/login?platNo=1'
-		            +'&redirect_uri=http://localhost:8089/kakaoAPI'
+		            +'&redirect_uri=http://allwebtoon.xyz/kakaoAPI'
+		            //+'&redirect_uri=http://localhost:8089/kakaoAPI'
 		            +'&response_type=code'
 	}
 	function goNaver(state) {
