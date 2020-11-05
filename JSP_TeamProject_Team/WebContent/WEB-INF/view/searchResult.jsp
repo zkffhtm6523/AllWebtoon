@@ -49,16 +49,18 @@
 	//스크롤 바닥 감지
 	window.onscroll = function() {
 	    //window height + window scrollY 값이 document height보다 클 경우,
-	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight-10) {
+	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
 	    	axios.get('/searchResult?result=${keyword}&writer='
 	    			+'${param.writer}&genre=${param.genre}&page=' +idx
 	    		).then(function(res) {
 	    
-	    		res.data.forEach(function (item){
-	    			makecontent(item)
-	    			idx++
+		    		res.data.forEach(function (item){
+		    			makecontent(item)
+	    				//idx++
 	    		})    
 	    	})
+	    	
+	    	idx += ${count}
 	    }
 	};
 	

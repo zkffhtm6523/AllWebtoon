@@ -51,6 +51,8 @@ public class JdbcTemplate {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("SQL 제외 에러");
+		}finally {
+			DbCon.closeCon(con, ps, rs);
 		}
 		return result;
 	}
