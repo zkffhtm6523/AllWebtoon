@@ -135,17 +135,14 @@ public class MyPageSer extends HttpServlet {
 		
 		int u_no = MyUtils.getLoginUserPk(request);
 		String body = IOUtils.toString(request.getReader());
-  	  	JsonParser parser = new JsonParser();
+  	  	
+		
+		JsonParser parser = new JsonParser();
         JsonObject object = (JsonObject) parser.parse(body);
-        
-        System.out.println("body : " + object);
-        
         String strW_no = object.get("w_no").toString();
         String strIdx = object.get("idx").toString();
-        int idx = MyUtils.parseStrToInt(strIdx);
-        
-        System.out.println("idx : "  + idx);
         int w_no = MyUtils.parseStrToInt(strW_no);
+        int idx = MyUtils.parseStrToInt(strIdx);
         
         WebtoonCmtVO vo = new WebtoonCmtVO();
         vo.setW_no(w_no);
@@ -154,31 +151,20 @@ public class MyPageSer extends HttpServlet {
         int result = WebtoonCmtDAO.delCmt(vo);
         
         if(result == 1) {
-        	
         	List<WebtoonCmtDomain> list = new ArrayList<WebtoonCmtDomain>();
-    		MyPageDAO.myWebtoon(list, u_no);
+        	MyPageDAO.myWebtoon(list, u_no);
         	
     		if(list.size() > idx) {
-				//idx -= 1;
-
 	        	Gson gson = new Gson();
-	    		
 	    		String json = gson.toJson(list.get(idx));
-	    		
-	    		
 	    		response.setCharacterEncoding("UTF-8");
 	    		response.setContentType("application/json");
 	    		PrintWriter out = response.getWriter();
 	    		out.print(json);
-    		
-    		}else if(list.size() <= idx) {
+    		}else {
 				PrintWriter out = response.getWriter();
 				out.print("0");
 			}
         }
-        
-        
-        
 	}
-
 }

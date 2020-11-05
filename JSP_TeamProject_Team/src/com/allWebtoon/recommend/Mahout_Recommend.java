@@ -72,47 +72,52 @@ public class Mahout_Recommend {
 	//ItemBasedRecommend
 	public static List<WebtoonVO> getRecommendList(DataModel dataModel, int w_no, int u_no, int getList_length){
 		List<WebtoonVO> recommendList = new ArrayList<WebtoonVO>();
+		
 		try {
+			
+			//long itemId = (long)w_no;
+			long itemId=2;
+			
 			//피어슨 상관관계 : 사람들이 준 평점을 분석해 아이템 간의 유사도를 측정해줌. + 가중치 
 			ItemSimilarity itemSimilarity = new PearsonCorrelationSimilarity(dataModel, Weighting.WEIGHTED);
 			
-			
-			//타니모토 계수 : 나와 평가한 작품의 교집합이 큰 사용자가 평가한 작품 중,내가 보지 않은 것을 추천. (평가한 작품의 교집합을 찾지만 별점이 반영되지는 않을듯. ) : 0~1 
+			//타니모토 계수 : 나와 평가한 작품의 교집합이 큰 사용자가 평가한 작품 중,내가 보지 않은 것을 추천. 
+			//(평가한 작품의 교집합을 찾지만 별점이 반영되지는 않는다) : 0~1 
 			//TanimotoCoefficientSimilarity itemSimilarity = new TanimotoCoefficientSimilarity(dataModel);					
 			
 			//로그우도 유사도 : 타니모토계수와 유사. 선호도 고려하지 않고 공통된 아이템 수 활용.
 			//ItemSimilarity itemSimilarity = new LogLikelihoodSimilarity(dataModel);		
 			
 			ItemBasedRecommender recommender = new GenericItemBasedRecommender(dataModel, itemSimilarity);
-			
-			long itemId = (long)w_no;
-			//long itemId = 2;
-		    
-			String input_genre = WebtoonListDAO.webtoonDetail((int)itemId, u_no).getGenre_name();		
-			String[] input_genres = input_genre.split(", ");											//선택한 작품의 장르배열
-			
-			
 			List<RecommendedItem> recommendations = recommender.mostSimilarItems(itemId, getList_length+20);
 			
+			
+			String input_genre = WebtoonListDAO.webtoonDetail((int)itemId, u_no).getGenre_name();
+			//선택한 작품의 장르배열
+			String[] input_genres = input_genre.split(", ");											
+			
 			double[][] result = new double[recommendations.size()][2];
+			
+			for(RecommendedItem recommendation : recommendations){
+				System.out.println(recommendation);
+			}
 		    for(RecommendedItem recommendation : recommendations){
 		    	
-		    	double cor = recommendation.getValue();						//cor: 기존 유사도에 장르 가중치를 포함할 유사도 
-		    	String genre = WebtoonListDAO.webtoonDetail((int)recommendation.getItemID(), u_no).getGenre_name();
-		    	String[] genres = genre.split(", ");						//각 작품의 장르 배열 
+		    	//cor: 기존 유사도에 장르 가중치를 포함할 유사도 
+		    	double cor = recommendation.getValue();						
+		    	String genre = WebtoonListDAO.webtoonDetail(
+		    							(int)recommendation.getItemID(), u_no).getGenre_name();
+		    	//각 작품의 장르 배열 
+		    	String[] genres = genre.split(", ");						
 		    	
 		    	for(String input_g : input_genres) {
-		    		if(Arrays.asList(genres).contains(input_g)) {			//genres 배열 안에 input_g 가 있다면 (같은 장르라면) 
-		    			cor += 0.1;											//0.1씩 가중치 올림
+		    		//genres 배열 안에 같은 장르가 있다면 가중치 추가
+		    		if(Arrays.asList(genres).contains(input_g)) {			
+		    			cor += 0.1;								
 		    		}
 		    	}
-		    	
 		    	result[recommendations.indexOf(recommendation)][0] = recommendation.getItemID();
 		    	result[recommendations.indexOf(recommendation)][1] = cor;
-		    	
-			    //recommendList.add(WebtoonListDAO.selrecommendWebtoon((int) recommendation.getItemID()));
-		    	
-			    //System.out.println(itemId + "," + recommendation.getItemID() + " , " + recommendation.getValue() + " , 가중치 적용: " + cor) ;
 		    }
 		    
 		    //result 배열 유사도 기준 내림차순 정렬 
@@ -121,13 +126,13 @@ public class Mahout_Recommend {
 		    });
 
 		    for(int i=0; i<result.length; i++) {
-		    	if(i < getList_length && result[i][1] > 0) {				//현재 recommendList에 들어간 갯수가 getList_length보다 작고 유사도가 0보다 큰 경우에만 추가. 
+		    	//현재 recommendList에 들어간 갯수가 getList_length보다 작고 유사도가 0보다 큰 경우에만 추가. 
+		    	//if(i < getList_length && result[i][1] > 0) {	
+		    	if(i < getList_length) {			
 		    		recommendList.add(WebtoonListDAO.selrecommendWebtoon((int)result[i][0]));
 		    		System.out.println("result : "  + result[i][0] + " , " + result[i][1]);
 		    	}
 		    }
-		    
-		    
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -149,15 +154,14 @@ public class Mahout_Recommend {
 						webtoonList.get(i).getW_list().get(j).getW_no(),
 						webtoonList.get(i).getW_list().get(j).getC_rating())
 				);
-				System.out.print("w_no : "+webtoonList.get(i).getW_list().get(j).getW_no());
-				System.out.println("/ c_crating : "+webtoonList.get(i).getW_list().get(j).getC_rating());
+				//System.out.print("w_no : "+webtoonList.get(i).getW_list().get(j).getW_no());
+				//System.out.println("/ c_crating : "+webtoonList.get(i).getW_list().get(j).getC_rating());
 			}
 			result.put(webtoonList.get(i).getU_no(), new GenericUserPreferenceArray(prefsList));
 		}
 		return new GenericDataModel(result); 
-		
 	}
-	//Mysql에서 테이블 가져와서 DataModel로 변
+	//Mysql에서 테이블 가져와서 DataModel로 변환
 	public static DataModel parsingDataModel() throws SQLException {
 		
 		MysqlDataSource dataSource = new MysqlDataSource();
