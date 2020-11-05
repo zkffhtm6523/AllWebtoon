@@ -451,6 +451,5 @@ function delWebtoon(w_no,modal){
 		})
 	}
 }
-}
 </script>
 </html>
