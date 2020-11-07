@@ -65,82 +65,69 @@
 	                <div id="frmBtn">
 	                	<input type="submit" value="회원가입">
 	                </div>
-	                
-	                <div class="snsbtn"><img class="snsimg" src="/images/login_logo/kakao_btn.PNG" id="kakao" onclick="goKakao()"></div>
-            		<div class="snsbtn"><img class="snsimg" src="/images/login_logo/naver_btn.PNG" id="naver" onclick="goNaver('${state}')"></div>
-            		<div class="snsbtn"><img class="snsimg" src="/images/login_logo/google_btn.PNG" id="google" onclick="goGoogle()"></div>  	
+	                <div class="snsTitle">
+	                	<h3>SNS 회원가입</h3>
+	                </div>
+	                <div class="snsbtn">
+		                <img class="snsimg" src="/images/login_logo/kakao_smallBtn.png" id="kakao" title="카카오 회원가입" onclick="goKakao()">
+	            		<img class="snsimg" src="/images/login_logo/naver_smallBtn.png" id="naver" title="네이버 회원가입" onclick="goNaver()">
+	            		<img class="snsimg" src="/images/login_logo/google_smallBtn.png" id="google" title="구글 회원가입" onclick="goGoogle()">
+            		</div>  	
 	            </form>
 	        </div>
         </section>
         <jsp:include page="../template/footer.jsp"/>
 	</div>
-    <script>
-    var check_count = document.getElementsByName('gender').length;
-		function chk(){
-			const korean = /[^가-힣]/	;				//한글 정규식 : /[가-힣]/ : 한글이 들어가있으면 true반환. ^(not)붙여서 한글만 있는경우 false 반환
-			const email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-			
-			if(${userInfo.u_joinPath == 1}){
-				if(frm.id.value.length < 5) {
-					alert('아이디는 5글자 이상이어야합니다.');
-					frm.id.focus();
-					return false;
-				} 
-				if(frm.pw.value.length < 5){
-					alert('비밀번호는 5글자 이상이어야합니다.');
-					frm.pw.focus();
-					return false;
-				} 
-				if(frm.pw.value != frm.pw2.value){
-					alert('비밀번호를 확인해주세요'); 
-					frm.pw.focus();
-					return false;
-				} 
-			}
-			
-			if(korean.test(frm.nm.value)){				//한글 정규식을 만족하지 않을 경우.(이름에 한글이 아닌 문자가 있을 경우)
-				alert('이름을 다시 입력해주세요');
-				frm.nm.focus();
+<script>
+	var check_count = document.getElementsByName('gender').length;
+	function chk(){
+		const korean = /[^가-힣]/	;				//한글 정규식 : /[가-힣]/ : 한글이 들어가있으면 true반환. ^(not)붙여서 한글만 있는경우 false 반환
+		const email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		
+		if(${userInfo.u_joinPath == 1}){
+			if(frm.id.value.length < 5) {
+				alert('아이디는 5글자 이상이어야합니다.');
+				frm.id.focus();
 				return false;
 			} 
-			if(!email.test(frm.email.value)){			//이메일 정규식을 만족하지 않을 경우.
-				alert('이메일을 확인해주세요');
-				frm.email.focus();
+			if(frm.pw.value.length < 5){
+				alert('비밀번호는 5글자 이상이어야합니다.');
+				frm.pw.focus();
 				return false;
-			}
-			if(frm.birth.value == '' || frm.birth.value == null){
-				alert('생년월일을 확인해주세요');
-				frm.birth.focus();
+			} 	
+			if(frm.pw.value != frm.pw2.value){
+				alert('비밀번호를 확인해주세요'); 
+				frm.pw.focus();
 				return false;
-			}
+			} 
 		}
 		
-		function goKakao() {
-			location.href = 'https://kauth.kakao.com/oauth/authorize'
-			    		+'?client_id=48c16d63af5493c7ae43a1433ec7760f'
-			    		//+'&redirect_uri=http://localhost:8090/login?platNo=1'
-			            +'&redirect_uri=http://101.101.219.238:8080/login?platNo=1'
-			        	//+'&redirect_uri=http://192.168.2.8:8089/login?platNo=1'
-			            +'&response_type=code'
+		if(korean.test(frm.nm.value)){				//한글 정규식을 만족하지 않을 경우.(이름에 한글이 아닌 문자가 있을 경우)
+			alert('이름을 다시 입력해주세요');
+			frm.nm.focus();
+			return false;
+		} 
+		if(!email.test(frm.email.value)){			//이메일 정규식을 만족하지 않을 경우.
+			alert('이메일을 확인해주세요');
+			frm.email.focus();
+			return false;
 		}
-		function goNaver(state) {
-			var encoding = encodeURIComponent('http://101.101.219.238:8080/naverAPI')
-			location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
-							+'&client_id=gtb_8Ij5V31vLTCJA7F3'
-							+'&redirect_uri='+encoding
-							+'&state='+state
+		if(frm.birth.value == '' || frm.birth.value == null){
+			alert('생년월일을 확인해주세요');
+			frm.birth.focus();
+			return false;
 		}
-		function goGoogle() {
-			location.href = 'https://accounts.google.com/o/oauth2/auth?'
-				 + 'scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/plus.me+https://www.googleapis.com/auth/userinfo.profile'
-				 + '&approval_prompt=force'
-				 + '&access_type=offline'
-				 + '&response_type=code'
-				 + '&client_id=659641044041-d8d9d26ubldu5veldv2g3cqaqedv6htq.apps.googleusercontent.com'
-				 + '&redirect_uri=http://101.101.219.238:8080/googleAPI'
-				 //scope=https://www.googleapis.com/auth/userinfo.email'
-		}
-
-	</script>
+	}
+	
+	function goKakao() {
+		location.href = "/SNSController?snsPlatform=kakao"
+	}
+	function goNaver() {
+		location.href = "/SNSController?snsPlatform=naver"
+	}
+	function goGoogle() {
+		location.href = "/SNSController?snsPlatform=google"
+	}
+</script>
 </body>
 </html>
