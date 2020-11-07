@@ -20,6 +20,7 @@ import org.apache.mahout.cf.taste.model.JDBCDataModel;
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.recommend.Mahout_Recommend;
+import com.allWebtoon.recommend.Python_Recommend;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
@@ -132,6 +133,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	      	//List<WebtoonVO> recomList = Mahout_Recommend.getRecommendList(model, loginUser_u_no, 5); 
 	      	List<WebtoonVO> recomList = Mahout_Recommend.getRecommendList(model, w_no, loginUser_u_no, 5); 
 	      	request.setAttribute("rec_list", recomList);
+	      	//request.setAttribute("pythonList", Python_Recommend.getRecommendList(w_no));
 	     }
 		 ViewResolver.viewForward("webtoonDetail", request, response);
       }

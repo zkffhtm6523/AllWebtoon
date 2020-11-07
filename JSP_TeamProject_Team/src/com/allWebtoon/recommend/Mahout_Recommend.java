@@ -89,7 +89,7 @@ public class Mahout_Recommend {
 			//ItemSimilarity itemSimilarity = new LogLikelihoodSimilarity(dataModel);		
 			
 			ItemBasedRecommender recommender = new GenericItemBasedRecommender(dataModel, itemSimilarity);
-			List<RecommendedItem> recommendations = recommender.mostSimilarItems(itemId, getList_length+20);
+			List<RecommendedItem> recommendations = recommender.mostSimilarItems(itemId, getList_length+16);
 			
 			
 			String input_genre = WebtoonListDAO.webtoonDetail((int)itemId, u_no).getGenre_name();
@@ -163,7 +163,6 @@ public class Mahout_Recommend {
 	}
 	//Mysql에서 테이블 가져와서 DataModel로 변환
 	public static DataModel parsingDataModel() throws SQLException {
-		
 		MysqlDataSource dataSource = new MysqlDataSource();
 		dataSource.setServerName("localhost");
 		dataSource.setUser("root");
@@ -172,7 +171,6 @@ public class Mahout_Recommend {
 		dataSource.setServerTimezone("UTC");
 		DataModel model = new MySQLJDBCDataModel(dataSource,
 				"t_comment", "u_no", "w_no", "c_rating", null);
-
 		return model;
 	}
 }
