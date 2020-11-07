@@ -96,7 +96,7 @@ public class NaverAPI extends HttpServlet {
 	public static String getAccessToken(String code, String state) throws UnsupportedEncodingException {
 		String clientId = "gtb_8Ij5V31vLTCJA7F3";
 		String clientSecret = "8dYiJWFqmT"; 
-		String redirectURI = URLEncoder.encode("http://101.101.219.238:8080/naverAPI","UTF-8");
+		String redirectURI = URLEncoder.encode("http://allwebtoon.xyz/naverAPI","UTF-8");
 				
 		StringBuffer apiURL = new StringBuffer();
 		apiURL.append("https://nid.naver.com/oauth2.0/token?grant_type=authorization_code");
