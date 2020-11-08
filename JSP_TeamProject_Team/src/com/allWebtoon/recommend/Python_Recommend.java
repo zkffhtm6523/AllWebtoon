@@ -6,12 +6,7 @@ import java.util.List;
 import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.vo.WebtoonVO;
 
-import jep.Jep;
-import jep.JepConfig;
-import jep.JepException;
-
 public class Python_Recommend {
-	
 	@SuppressWarnings("deprecation")
 	public static List<WebtoonVO> getRecommendList(int w_no){
 		List<WebtoonVO> list = new ArrayList<WebtoonVO>();

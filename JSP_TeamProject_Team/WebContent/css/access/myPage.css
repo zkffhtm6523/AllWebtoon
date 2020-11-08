@@ -1,16 +1,13 @@
 @charset "UTF-8";
-section {
-	width: 100%;
-	background-color: #F8F8F8;
+
+section #myPageContainer {
+	width: 1200px;
+	height: 100%;
+	padding-top: 20px;
 	margin: 0 auto;
 	background-color: #F8F8F8;
 	border-top: 1px solid #EAEAEA;
-	text-align: center;
-}
-
-section #myPageContainer {
-	width: 1300px;
-	margin: 30px auto;
+	padding-bottom: 5px;
 }
 
 section #myPageContainer .printImage {

@@ -76,7 +76,6 @@ public class Mahout_Recommend {
 		try {
 			
 			long itemId = (long)w_no;
-			//long itemId=2;
 			
 			//피어슨 상관관계 : 사람들이 준 평점을 분석해 아이템 간의 유사도를 측정해줌. + 가중치 
 			ItemSimilarity itemSimilarity = new PearsonCorrelationSimilarity(dataModel, Weighting.WEIGHTED);

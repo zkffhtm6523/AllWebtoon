@@ -35,9 +35,9 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
-
-	
-	
+	function moveToDetail(w_no) {
+		location.href = '/webtoon/detail?w_no='+w_no
+	}
 	//최상단 가기 버튼
 	makeArrowUpward()
 	//최하단 가기 버튼
@@ -59,7 +59,6 @@
 	    			//idx++
 	    		})
 	    	})
-	    	
 		    idx += ${count}
 	    }
 	};
@@ -143,10 +142,6 @@
 		let section = document.querySelector('section')
 		section.append(a)
 	}
-	
-   function moveToDetail(w_no) {
-   	location.href = '/webtoon/detail?w_no='+w_no
-   }
 </script>
 </body>
 </html>

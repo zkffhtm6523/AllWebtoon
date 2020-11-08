@@ -21,15 +21,15 @@
 	      <div id="detailContainer">
 	      	<div id="webtoonContainer">
 	      		<div id="webtoonSummary">
-            	<div id="thumbnail"><img src="${data.w_thumbnail }"></div>
+            	<div id="thumbnail" title="${data.w_title}"><img src="${data.w_thumbnail }"></div>
             	<ul>
-               <li id="platform"><a href="/searchResult?result=${data.w_plat_name }">${data.w_plat_name }</a></li>
+               <li id="platform"><a href="/searchResult?result=${data.w_plat_name }" title="${data.w_plat_name}">${data.w_plat_name }</a></li>
                <li id="writer">작가 : 
                <c:forEach items="${writers}" var="item">
-               	<a href="/searchResult?result=${item}&writer=y">${item}</a>
+               	<a href="/searchResult?result=${item}&writer=y" title="${item}">${item}</a>
                </c:forEach>
                </li>
-               <li id="title"><a href="/searchResult?result=${data.w_title }">${data.w_title }</a></li>
+               <li id="title"><a href="/searchResult?result=${data.w_title }" title="${data.w_title}">${data.w_title }</a></li>
 					<c:if test="${loginUser != null}">
 					<span id="favorite_title">찜</span>
 					<span id="favorite" class="material-icons" onclick="toggleFavorite()" title="찜하기">
@@ -37,11 +37,11 @@
 					<c:if test="${data.is_favorite == 0 }">favorite_border</c:if>
 					</span>
 					</c:if>
-               <li id="genre"><a href="/searchResult?result=${data.genre_name }">${data.genre_name }</a>
+               <li id="genre"><a href="/searchResult?result=${data.genre_name }" title="${data.genre_name}">${data.genre_name }</a>
 			   </li>
                <li>
                <li id="starGrade">
-               	<div class="startRadio">
+               	<div class="startRadio" title="별점을 줘볼까요?">
 	               	<c:forEach begin="1" end="10" step="1" var="item">
 	                   <label class="startRadio__box">
 	                   <c:choose>
@@ -94,7 +94,7 @@
 	               <!-- 댓글 남기기 -->
             	<input type="text" id="cmt" name="c_com" placeholder="댓글을 남겨주세요(100자 이내)" maxlength="100" value="${myCmt.c_com }" onclick="login_chk()" ${loginUser.u_no==null? 'readonly' : '' }>
 		            <!-- 완료 후 보내기 -->
-	            <input type="submit" id="cmt_btn" value="${myCmt.c_rating == '' || loginUser == null ? '등록하기' : '수정하기' }">
+	            <input type="submit" id="cmt_btn" value="${myCmt.c_rating == '' || loginUser == null ? '등록하기' : '수정하기'}">
 	            <div><input type="hidden" name="w_no" value="${data.w_no}"></div>
 	            <div><input type="hidden" name="genre_name" value="${data.genre_name }"></div>
 	            <input type="hidden" id="u_no" name="u_no" value="${loginUser.u_name }">
@@ -138,6 +138,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script>
+		var cmt_btn = document.getElementById('cmt_btn')
+		cmt_btn.setAttribute('value', '${myCmt.c_rating == '' || loginUser == null ? '등록하기' : '수정하기'}')
+		cmt_btn.setAttribute('title', '${myCmt.c_rating == '' || loginUser == null ? '등록하기' : '수정하기'}')
+	
+	// 댓글 모달 구현 부
 		var openButton = document.getElementById("open")
 		var modal = document.querySelector(".modal")
 		const closeModal = () => {

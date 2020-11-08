@@ -6,7 +6,15 @@ section {
 	border-top: 1px solid #EAEAEA;
 	text-align: center;
 }
-
+section #sec_container{
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+	padding-top: 20px;
+	background-color: #F8F8F8;
+	border-top: 1px solid #EAEAEA;
+	padding-bottom: 5px;
+}
 section #frmContainer {
 	margin: 30px auto;
 	text-align: center;

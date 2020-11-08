@@ -13,6 +13,7 @@
 	<div id="container">
    		<jsp:include page="../template/header.jsp"></jsp:include>
      	<section>
+     		<div id="sec_container">
 	        <div id="frmContainer">
         		<h1>All 웹툰 일원 되기</h1>
 		        <div class="err">${msg}</div>
@@ -75,6 +76,7 @@
             		</div>  	
 	            </form>
 	        </div>
+	        </div>
         </section>
         <jsp:include page="../template/footer.jsp"/>
 	</div>
@@ -101,7 +103,6 @@
 				return false;
 			} 
 		}
-		
 		if(korean.test(frm.nm.value)){				//한글 정규식을 만족하지 않을 경우.(이름에 한글이 아닌 문자가 있을 경우)
 			alert('이름을 다시 입력해주세요');
 			frm.nm.focus();

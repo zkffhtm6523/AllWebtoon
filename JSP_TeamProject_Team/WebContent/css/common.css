@@ -11,6 +11,9 @@ html, body{
 }
 body{
 }
+button, input {
+	outline: none;
+}
 #container {
 	display:flex;
 	flex-direction:column;
@@ -124,6 +127,14 @@ header #myPage{
 section{
 	flex-grow: 1;
 }
+section {
+	width: 100%;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+	background-color: #F8F8F8;
+	border-top: 1px solid #EAEAEA;
+	text-align: center;
+}
 /*최상단으로 가는 버튼*/
 section  > a > #arrow_upward{
 	position: fixed;
@@ -140,6 +151,16 @@ section > a > #arrow_downward{
 	font-size: 3em;
 	font-weight: bold;
 	color: gray;
+}
+/* 섹션 안에 감싸는 sec_container */
+section #sec_container{
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+	padding-top: 20px;
+	background-color: #F8F8F8;
+	border-top: 1px solid #EAEAEA;
+	padding-bottom: 5px;
 }
 footer {
 	width:100%;
