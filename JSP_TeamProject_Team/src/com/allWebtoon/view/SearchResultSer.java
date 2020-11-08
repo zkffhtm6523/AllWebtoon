@@ -70,6 +70,7 @@ public class SearchResultSer extends HttpServlet {
 			}
 			request.setAttribute("result", resultarr);
 			request.setAttribute("keyword", searchKeyword);
+			request.setAttribute("count", count);
 			
 			ViewResolver.viewForward("searchResult", request, response);
 		} else {

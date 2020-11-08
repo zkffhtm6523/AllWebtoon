@@ -21,7 +21,7 @@
 			<c:forEach items="${result}" var="item">
 			<div class="webtoonContainer">
 				<ul class="itemRow">
-		           <li><img class="thumbnail" src="${item.w_thumbnail}" onclick="moveToDetail('${item.w_no}')"></li>
+		           <li><img class="thumbnail" src=" ${item.w_thumbnail}" onclick="moveToDetail(${item.w_no})"></li>
 		           <li><a href="/webtoon/detail?w_no=${item.w_no}">${item.w_title }</a></li>
 		           <li><span class="list" id="ctnt">내용</span>${item.w_story }</li>
 		           <li id="writer"><span class="list">작가</span>${item.w_writer}</li>
@@ -52,14 +52,14 @@
 	    if((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
 	    	axios.get('/searchResult?result=${keyword}&writer='
 	    			+'${param.writer}&genre=${param.genre}&page=' +idx
-	    		).then(function(res) {
+	    	).then(function(res) {
 	    
-		    		res.data.forEach(function (item){
-		    			makecontent(item)
-	    				//idx++
-	    		})    
+		    	res.data.forEach(function (item){
+		    		makecontent(item)
+	    			//idx++
+	    		})
 	    	})
-	    	//idx += ${count}
+		    idx += ${count}
 	    }
 	};
 	
@@ -127,6 +127,7 @@
 		let section = document.querySelector('section')
 		section.append(a)
 	}
+	
 	function makeArrowDownward() {
 		var arrowDownward = document.createElement('span')
 		arrowDownward.classList.add('material-icons')
@@ -141,7 +142,6 @@
 		let section = document.querySelector('section')
 		section.append(a)
 	}
-   
 </script>
 </body>
 </html>
