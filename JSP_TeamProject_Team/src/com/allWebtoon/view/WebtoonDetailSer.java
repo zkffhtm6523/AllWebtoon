@@ -132,8 +132,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			}*/
 	      	//List<WebtoonVO> recomList = Mahout_Recommend.getRecommendList(model, loginUser_u_no, 5); 
 	      	List<WebtoonVO> recomList = Mahout_Recommend.getRecommendList(model, w_no, loginUser_u_no, 5); 
-	      	request.setAttribute("rec_list", recomList);
-	      	//request.setAttribute("pythonList", Python_Recommend.getRecommendList(w_no));
+	      	//request.setAttribute("rec_list", recomList);
+	      	request.setAttribute("pythonList", Python_Recommend.getRecommendList(w_no));
 	     }
 		 ViewResolver.viewForward("webtoonDetail", request, response);
       }

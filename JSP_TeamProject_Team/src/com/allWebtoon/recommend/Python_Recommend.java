@@ -11,6 +11,7 @@ import jep.JepConfig;
 import jep.JepException;
 
 public class Python_Recommend {
+	
 	@SuppressWarnings("deprecation")
 	public static List<WebtoonVO> getRecommendList(int w_no){
 		List<WebtoonVO> list = new ArrayList<WebtoonVO>();

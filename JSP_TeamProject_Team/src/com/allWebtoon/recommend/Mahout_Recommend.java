@@ -75,8 +75,8 @@ public class Mahout_Recommend {
 		
 		try {
 			
-			//long itemId = (long)w_no;
-			long itemId=2;
+			long itemId = (long)w_no;
+			//long itemId=2;
 			
 			//피어슨 상관관계 : 사람들이 준 평점을 분석해 아이템 간의 유사도를 측정해줌. + 가중치 
 			ItemSimilarity itemSimilarity = new PearsonCorrelationSimilarity(dataModel, Weighting.WEIGHTED);
@@ -127,7 +127,6 @@ public class Mahout_Recommend {
 
 		    for(int i=0; i<result.length; i++) {
 		    	//현재 recommendList에 들어간 갯수가 getList_length보다 작고 유사도가 0보다 큰 경우에만 추가. 
-		    	//if(i < getList_length && result[i][1] > 0) {	
 		    	if(i < getList_length) {			
 		    		recommendList.add(WebtoonListDAO.selrecommendWebtoon((int)result[i][0]));
 		    		System.out.println("result : "  + result[i][0] + " , " + result[i][1]);
@@ -146,7 +145,7 @@ public class Mahout_Recommend {
 		FastByIDMap<PreferenceArray> result = new FastByIDMap<PreferenceArray>();
 		
 		for (int i = 0; i < webtoonList.size(); i++) {
-			System.out.println("--------u_no : "+webtoonList.get(i).getU_no()+"--------");
+			//System.out.println("--------u_no : "+webtoonList.get(i).getU_no()+"--------");
 			List<Preference> prefsList = Lists.newArrayList();
 			for (int j = 0; j < webtoonList.get(i).getW_list().size(); j++) {
 				prefsList.add(new GenericPreference(
