@@ -53,7 +53,7 @@ public class GoogleAPI extends HttpServlet {
 		}
 		HttpSession hs = request.getSession();
 		hs.setAttribute(Const.LOGIN_USER,userInfo);
-		response.sendRedirect("/home");
+		response.sendRedirect("/");
 	}
 	public static UserVO getUserInfo(String result) {
 		JsonParser parser = new JsonParser();
@@ -75,14 +75,12 @@ public class GoogleAPI extends HttpServlet {
 		return userInfo;
 	}
 	private String getAccessToken(String code) throws ServletException, IOException {
-		String clientId = "659641044041-d8d9d26ubldu5veldv2g3cqaqedv6htq.apps.googleusercontent.com";
-		String clientSecret = "LxGdpTGyFqWFj3AT1167xbvF";
-		String redirectURI = "http://allwebtoon.xyz/googleAPI";
 		String reqURL = "https://www.googleapis.com/oauth2/v4/token";
 		String query =	"code="+code; 
-		query += "&client_id="+clientId;
-		query += "&client_secret=" +clientSecret;
-		query += "&redirect_uri=" +redirectURI;
+		
+		query += "&"+SNSInfo.getGoogleClientId();
+		query += "&"+SNSInfo.getGoogleClientSecret();
+		query += "&redirect_uri=" +SNSInfo.getGoogleRedirectUri();
 		query += "&grant_type=authorization_code";
 
 		URL url = new URL(reqURL);

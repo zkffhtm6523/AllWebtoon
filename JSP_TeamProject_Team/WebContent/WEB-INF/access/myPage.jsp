@@ -154,7 +154,7 @@
 		<div class="modal hidden">
 	       <div class="modal__overlay"></div>
 	       <div class="modal__content"></div>
-	    </div>  
+	    </div>
 	</section>
 	<jsp:include page="../template/footer.jsp"/>
 </div>

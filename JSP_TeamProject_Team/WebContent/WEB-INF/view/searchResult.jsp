@@ -21,7 +21,7 @@
 			<c:forEach items="${result}" var="item">
 			<div class="webtoonContainer">
 				<ul class="itemRow">
-		           <li><img class="thumbnail" src=" ${item.w_thumbnail}" onclick="moveToDetail(${item.w_no	})"></li>
+		           <li><img class="thumbnail" src="${item.w_thumbnail}" onclick="moveToDetail('${item.w_no}')"></li>
 		           <li><a href="/webtoon/detail?w_no=${item.w_no}">${item.w_title }</a></li>
 		           <li><span class="list" id="ctnt">내용</span>${item.w_story }</li>
 		           <li id="writer"><span class="list">작가</span>${item.w_writer}</li>
@@ -35,9 +35,9 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
-
-	
-	
+	function moveToDetail(w_no) {
+		location.href = '/webtoon/detail?w_no='+w_no
+	}
 	//최상단 가기 버튼
 	makeArrowUpward()
 	//최하단 가기 버튼
@@ -59,8 +59,7 @@
 	    				//idx++
 	    		})    
 	    	})
-	    	
-	    	idx += ${count}
+	    	//idx += ${count}
 	    }
 	};
 	
@@ -142,9 +141,7 @@
 		let section = document.querySelector('section')
 		section.append(a)
 	}
-   function moveToDetail(w_no) {
-   	location.href = '/webtoon/detail?w_no='+w_no
-   }
+   
 </script>
 </body>
 </html>

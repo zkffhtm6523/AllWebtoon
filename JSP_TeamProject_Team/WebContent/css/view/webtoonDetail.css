@@ -1,16 +1,15 @@
 @charset "UTF-8";
-@font-face {font-family: 'GmarketSansMedium';src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight: normal;font-style: normal;}
-   section{
-   		width:100%;
-   		background-color: #F8F8F8;
-   		margin: 0 auto;
-   		border-top: 1px solid #EAEAEA;
-   	}
    section a {text-decoration: none; color: black;}
    section ul {list-style-type: none;}
    section #detailContainer {
-   		width: 1000px;
-		margin: 30px auto;	
+   		width: 1200px;
+		height: 100%;
+		margin: 0 auto;
+		padding-top: 30px;
+		background-color: #F8F8F8;
+		border-top: 1px solid #EAEAEA;
+		padding-bottom: 5px;
+		text-align: left;	
    }
    section #detailContainer #webtoonContainer #webtoonSummary{
    		width: 80%;
@@ -151,7 +150,7 @@
    
    
 section #detailContainer .result_view{
- 	width: 90%;
+ 	width: 1000px;
  	margin: 20px auto;
  	border: 3px solid #EAEAEA;
 	border-radius: 8px;

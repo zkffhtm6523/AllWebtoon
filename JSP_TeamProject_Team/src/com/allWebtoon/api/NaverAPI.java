@@ -58,50 +58,13 @@ public class NaverAPI extends HttpServlet {
 				
 		response.sendRedirect("/");
 	}
-	public static UserVO getUserInfo(String access_token) throws IOException {
-		String apiurl = "https://openapi.naver.com/v1/nid/me";
-		URL url = new URL(apiurl);
-		HttpURLConnection con = (HttpURLConnection)url.openConnection();
-		con.setRequestMethod("POST");
-		con.setRequestProperty("Authorization", "Bearer " + access_token);
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		
-		String line = "";
-        String result = "";
-        
-        while ((line = br.readLine()) != null) {result += line;}
-        
-		JsonParser parser = new JsonParser();
-		JsonElement element = parser.parse(result);
-		
-		JsonObject property = element.getAsJsonObject().get("response").getAsJsonObject();
-		String user_id = property.getAsJsonObject().get("id").getAsString();
-		String profile_img = property.getAsJsonObject().get("profile_image").getAsString();
-		String gender = property.getAsJsonObject().get("gender").getAsString();
-		String email = property.getAsJsonObject().get("email").getAsString();
-		String name = property.getAsJsonObject().get("name").getAsString();
-		
-		UserVO userInfo = new UserVO();
-		userInfo.setU_id(user_id);
-        userInfo.setU_password(user_id);
-		userInfo.setU_name(name);
-		userInfo.setU_profile(profile_img);
-		userInfo.setU_email(email);
-		userInfo.setGender_name(gender.equals("M") ? "남성" : "여성");
-		userInfo.setU_joinPath(3);
-		userInfo.setChkProfile(userInfo.getU_profile().substring(0, 4));
-		return userInfo;
-	}
 	public static String getAccessToken(String code, String state) throws UnsupportedEncodingException {
-		String clientId = "gtb_8Ij5V31vLTCJA7F3";
-		String clientSecret = "8dYiJWFqmT"; 
-		String redirectURI = URLEncoder.encode("http://allwebtoon.xyz/naverAPI","UTF-8");
+		String redirectURI = URLEncoder.encode(SNSInfo.getNaverRedirectUri(),"UTF-8");
 				
 		StringBuffer apiURL = new StringBuffer();
 		apiURL.append("https://nid.naver.com/oauth2.0/token?grant_type=authorization_code");
-		apiURL.append("&client_id=" + clientId);
-		apiURL.append("&client_secret=" + clientSecret);
+		apiURL.append("&"+SNSInfo.getNaverClientId());
+		apiURL.append("&"+SNSInfo.getNaverClientSecret());
 		apiURL.append("&redirect_uri=" + redirectURI);
 		apiURL.append("&code=" + code);
 		apiURL.append("&state=" + state);
@@ -140,4 +103,40 @@ public class NaverAPI extends HttpServlet {
 		    }
 		return access_token;
 	}
+	public static UserVO getUserInfo(String access_token) throws IOException {
+		String apiurl = "https://openapi.naver.com/v1/nid/me";
+		URL url = new URL(apiurl);
+		HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		con.setRequestMethod("POST");
+		con.setRequestProperty("Authorization", "Bearer " + access_token);
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		
+		String line = "";
+        String result = "";
+        
+        while ((line = br.readLine()) != null) {result += line;}
+        
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(result);
+		
+		JsonObject property = element.getAsJsonObject().get("response").getAsJsonObject();
+		String user_id = property.getAsJsonObject().get("id").getAsString();
+		String profile_img = property.getAsJsonObject().get("profile_image").getAsString();
+		String gender = property.getAsJsonObject().get("gender").getAsString();
+		String email = property.getAsJsonObject().get("email").getAsString();
+		String name = property.getAsJsonObject().get("name").getAsString();
+		
+		UserVO userInfo = new UserVO();
+		userInfo.setU_id(user_id);
+        userInfo.setU_password(user_id);
+		userInfo.setU_name(name);
+		userInfo.setU_profile(profile_img);
+		userInfo.setU_email(email);
+		userInfo.setGender_name(gender.equals("M") ? "남성" : "여성");
+		userInfo.setU_joinPath(3);
+		userInfo.setChkProfile(userInfo.getU_profile().substring(0, 4));
+		return userInfo;
+	}
+	
 }

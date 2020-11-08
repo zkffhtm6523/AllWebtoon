@@ -4,18 +4,23 @@ section {
 	width: 100%;
 	background-color: #F8F8F8;
 	margin: 0 auto;
+	background-color: #F8F8F8;
 	border-top: 1px solid #EAEAEA;
 	text-align: center;
 }
-
 section #frmContainer {
 	margin: 30px auto;
 	text-align: center;
 }
-
-section>h1 {
+section #frmContainer #frm{
+	margin-top: 60px;
+}
+section #frmContainer #frm div{
+	margin-top: 10px;
+}
+section h1 {
 	text-align: center;
-	margin-top: 40px;
+	margin: 40px auto;
 	font-size: 2em;
 }
 
@@ -41,14 +46,12 @@ section .joinList {
 }
 
 section .genderBox {
-	
+	height: 40px;
 }
 
 section .genderGroup {
 	display: inline-block;
-	line-height: 50px;
 	width: 250px;
-	height: 41px;
 }
 
 section .btn {

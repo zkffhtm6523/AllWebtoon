@@ -6,7 +6,15 @@ section {
 	border-top: 1px solid #EAEAEA;
 	text-align: center;
 }
-
+section #sec_container{
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+	padding-top: 20px;
+	background-color: #F8F8F8;
+	border-top: 1px solid #EAEAEA;
+	padding-bottom: 5px;
+}
 section #frmContainer {
 	margin: 30px auto;
 	text-align: center;
@@ -66,12 +74,29 @@ section input[type="submit"]:hover {
 	cursor: pointer;
 	font-weight: bold;
 }
-
-section .snsimg {
-	width: 360px;
-	height: 60px;
+section #frmContainer .snsTitle{
+	width: 400px;
+	height: 45px;
+    margin: 20px auto;
+    border-bottom: 1px solid lightgray;	
 }
-
+section #frmContainer .snsTitle h3{
+	width: 400px;
+    margin: 20px auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+section .snsimg {
+	width: 60px;
+	height: 60px;
+	margin: 0px 20px 0px 20px;
+	transition: all 0.2s ease-in-out;
+}
+section .snsbtn{
+	height: 80px;
+}
 section .snsimg:hover {
+	width: 70px;
+	height: 70px;
 	cursor: pointer;
 }

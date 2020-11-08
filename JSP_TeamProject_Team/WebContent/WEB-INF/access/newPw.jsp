@@ -11,6 +11,7 @@
 	<div id="container">
    		<jsp:include page="../template/header.jsp"></jsp:include>
      	<section>
+     		<div id="sec_container">
 	        <div id="frmContainer">
         		<h1>모두의 웹툰 일원 되기</h1>
 		        <div class="err">${msg}</div>
@@ -47,6 +48,7 @@
 		                <div id="newPwbtn"></div>
 	                </div>
 	            </form>
+	        </div>
 	        </div>
         </section>
         <jsp:include page="../template/footer.jsp"/>

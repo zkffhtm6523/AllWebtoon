@@ -6,13 +6,21 @@ section{
 	width:100%;
 }
 section #sec_container{
-	width: 100%;
+	width: 1200px;
 	margin: 0 auto;
+	padding-top: 20px;
+	background-color: #F8F8F8;
+	border-top: 1px solid #EAEAEA;
+	padding-bottom: 5px;
 }
+
 section .indexBlock {
 	position: relative;
 	width:1160px;
 	margin:20px auto;
+}
+section #sec_container .indexBlock:nth-child(1){
+	margin-top: 0px;
 }
 section .indexBlock h1{
 	position: relative;
@@ -37,7 +45,7 @@ section .indexBlock #sel_gerne{
 }
 section img{width: 100%; height:80%; border-radius: 5%;}
 section .imgBlock{display: inline-block; width: 15%; text-align: center;
-	    height: 180px;
+	    height: 200px;
 	    vertical-align: top;
 	    margin: 10px auto;
 	    margin-left: 1%;
