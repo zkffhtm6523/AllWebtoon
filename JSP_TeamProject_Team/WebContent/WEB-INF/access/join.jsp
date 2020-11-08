@@ -119,12 +119,12 @@
 			location.href = 'https://kauth.kakao.com/oauth/authorize'
 			    		+'?client_id=48c16d63af5493c7ae43a1433ec7760f'
 			    		//+'&redirect_uri=http://localhost:8090/login?platNo=1'
-			            +'&redirect_uri=http://101.101.219.238:8080/login?platNo=1'
+			            +'&redirect_uri=http://allwebtoon.xyz/kakaoAPI'
 			        	//+'&redirect_uri=http://192.168.2.8:8089/login?platNo=1'
 			            +'&response_type=code'
 		}
 		function goNaver(state) {
-			var encoding = encodeURIComponent('http://101.101.219.238:8080/naverAPI')
+			var encoding = encodeURIComponent('http://allwebtoon.xyz/naverAPI')
 			location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
 							+'&client_id=gtb_8Ij5V31vLTCJA7F3'
 							+'&redirect_uri='+encoding
@@ -137,8 +137,7 @@
 				 + '&access_type=offline'
 				 + '&response_type=code'
 				 + '&client_id=659641044041-d8d9d26ubldu5veldv2g3cqaqedv6htq.apps.googleusercontent.com'
-				 + '&redirect_uri=http://101.101.219.238:8080/googleAPI'
-				 //scope=https://www.googleapis.com/auth/userinfo.email'
+				 + '&redirect_uri=http://allwebtoon.xyz/googleAPI'
 		}
 
 	</script>
