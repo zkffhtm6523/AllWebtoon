@@ -11,6 +11,9 @@ html, body{
 }
 body{
 }
+button, input {
+	outline: none;
+}
 #container {
 	display:flex;
 	flex-direction:column;
