@@ -84,23 +84,6 @@
 						</div>
 					</c:otherwise>
 				</c:choose>
-				<c:choose>
-					<c:when test="${pythonList != null && fn:length(pythonList) != 0}">
-						<c:forEach var="i" begin="0" end="${fn:length(pythonList)-1 }">
-							<div class="listItem">
-								<ul>
-									<li><a href="/webtoon/detail?w_no=${pythonList[i].w_no}"><img src="${pythonList[i].w_thumbnail}" title="${pythonList[i].w_title}"></a></li>
-									<li class="title">${pythonList[i].w_title}</li>
-								</ul>
-							</div>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<div class="nonListItem">
-							<h2>아직 충분한 평가가 없어 추천작을 찾을 수 없어요.ㅠㅠ</h2>
-						</div>
-					</c:otherwise>
-				</c:choose>
 			</div>
 			</c:if>
 	      <!-- 댓글 부분 -->

@@ -20,7 +20,7 @@ body{
 }
 
 header {
-	width: 1300px; 
+	width: 1200px; 
 	height:120px;
 	margin: 0 auto;
 }
@@ -145,6 +145,12 @@ footer {
 	width:100%;
 	padding: 0;
 	background-color: #4FA2C7;
+}
+footer #footer_container{
+	width: 1200px;
+    margin: 0 auto;
+    background-color: #4FA2C7;
+    padding: 20px 0 5px 0;
 }
 footer #footer_container_icon{
 	width: 150px;

@@ -19,9 +19,9 @@
                 <input id="login_btn" type="submit" value="로그인">
             </form>
 	        <a href="/join"><button id="join_btn" class="">회원가입</button></a>
-            <div class="snsbtn"><img class="snsimg" src="/images/login_logo/kakao_btn.PNG" id="kakao" onclick="goKakao()"></div>
-            <div class="snsbtn"><img class="snsimg" src="/images/login_logo/naver_btn.PNG" id="naver" onclick="goNaver('${state}')"></div>
-            <div class="snsbtn"><img class="snsimg" src="/images/login_logo/google_btn.PNG" id="google" onclick="goGoogle()"></div>  	
+            <div class="snsbtn"><img class="snsimg" src="/images/login_logo/kakao_bigBtn.png" id="kakao" onclick="goKakao()"></div>
+            <div class="snsbtn"><img class="snsimg" src="/images/login_logo/naver_bigBtn.png" id="naver" onclick="goNaver()"></div>
+            <div class="snsbtn"><img class="snsimg" src="/images/login_logo/google_bigB	tn.png" id="google" onclick="goGoogle()"></div>  	
         	<div class="newPw"><a href="/newPw">비밀번호를 잊으셨나요?</a></div>
         </div>
     </section>
@@ -30,27 +30,13 @@
 </body>
 <script type="text/javascript">
 	function goKakao() {
-		location.href = 'https://kauth.kakao.com/oauth/authorize'
-		    		+'?client_id=48c16d63af5493c7ae43a1433ec7760f'
-		            +'&redirect_uri=http://allwebtoon.xyz/kakaoAPI'
-		            //+'&redirect_uri=http://localhost:8089/kakaoAPI'
-		            +'&response_type=code'
+		location.href = "/SNSController?snsPlatform=kakao"
 	}
-	function goNaver(state) {
-		var encoding = encodeURIComponent('http://allwebtoon.xyz/naverAPI')
-		location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
-						+'&client_id=gtb_8Ij5V31vLTCJA7F3'
-						+'&redirect_uri='+encoding
-						+'&state='+state
+	function goNaver() {
+		location.href = "/SNSController?snsPlatform=naver"
 	}
 	function goGoogle() {
-		location.href = 'https://accounts.google.com/o/oauth2/auth?'
-			 + 'scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/plus.me+https://www.googleapis.com/auth/userinfo.profile'
-			 + '&approval_prompt=force'
-			 + '&access_type=offline'
-			 + '&response_type=code'
-			 + '&client_id=659641044041-d8d9d26ubldu5veldv2g3cqaqedv6htq.apps.googleusercontent.com'
-			 + '&redirect_uri=http://allwebtoon.xyz/googleAPI'
+		location.href = "/SNSController?snsPlatform=google"
 	}
 </script>
 </html>

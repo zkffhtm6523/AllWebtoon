@@ -68,9 +68,8 @@ public class KakaoAPI extends HttpServlet {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
-			sb.append("&client_id=48c16d63af5493c7ae43a1433ec7760f");
-			sb.append("&redirect_uri=http://allwebtoon.xyz/kakaoAPI");
-			//sb.append("&redirect_uri=http://localhost:8089/kakaoAPI");
+			sb.append("&"+SNSInfo.getKakaoClientId());
+			sb.append("&redirect_uri="+SNSInfo.getKakaoRedirectUri());
 			sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
