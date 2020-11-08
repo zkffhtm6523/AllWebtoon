@@ -2,7 +2,6 @@ package com.allWebtoon.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.mahout.cf.taste.impl.model.GenericDataModel;
-import org.apache.mahout.cf.taste.model.DataModel;
-import org.apache.mahout.cf.taste.model.JDBCDataModel;
 
 import com.allWebtoon.dao.WebtoonCmtDAO;
 import com.allWebtoon.dao.WebtoonListDAO;
 import com.allWebtoon.recommend.Mahout_Recommend;
-import com.allWebtoon.recommend.Python_Recommend;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
