@@ -1,11 +1,4 @@
 @charset "UTF-8";
-section {
-	width: 100%;
-	background-color: #F8F8F8;
-	margin: 0 auto;
-	border-top: 1px solid #EAEAEA;
-	text-align: center;
-}
 
 section .frmContainer {
 	margin: 15px auto;

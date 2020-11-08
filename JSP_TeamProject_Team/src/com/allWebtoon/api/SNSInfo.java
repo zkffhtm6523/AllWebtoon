@@ -6,11 +6,14 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 
 public class SNSInfo {
+	//이거만 바꾸면 됨  
+	private static final String HOST_URI = "http://allwebtoon.xyz";
+	//private static final String HOST_URI = "http://localhost:8089";
+	
 	//REDIRECT_URI
-	private static final String KAKAO_REDIRECT_URI = "http://allwebtoon.xyz/kakaoAPI";
-	//private static final String KAKAO_REDIRECT_URI = "http://localhost:8089/kakaoAPI";
-	private static final String GOOGLE_REDIRECT_URI = "http://allwebtoon.xyz/googleAPI";
-	private static final String NAVER_REDIRECT_URI = "http://allwebtoon.xyz/naverAPI";
+	private static final String KAKAO_REDIRECT_URI = HOST_URI + "/kakaoAPI";
+	private static final String GOOGLE_REDIRECT_URI = HOST_URI + "/googleAPI";
+	private static final String NAVER_REDIRECT_URI = HOST_URI + "/naverAPI";
 	
 	//공통 정보
 	private static final String RESPONSE_TYPE = "&response_type=code";

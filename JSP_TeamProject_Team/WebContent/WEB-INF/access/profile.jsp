@@ -11,6 +11,7 @@
 <div id	="container">
 	<jsp:include page="../template/header.jsp"/>
 	<section>
+		<div id="sec_container">
 		<h1>프로필 변경</h1>
 		<div class="printImage">
 			<c:choose>
@@ -77,6 +78,7 @@
 					<input type="submit" value="업데이트" id="frmBtn">
 				</div>
 			</form>
+		</div>
 		</div>
 	</section>
 	<jsp:include page="../template/footer.jsp"/>

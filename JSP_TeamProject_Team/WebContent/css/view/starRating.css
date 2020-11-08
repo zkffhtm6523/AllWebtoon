@@ -14,13 +14,18 @@ section {
 }
 
 section #listBlock {
-	width: 90%;
+	width: 1200px;
+	height: 100%;
 	margin: 0 auto;
+	padding-top: 20px;
+	background-color: #F8F8F8;
+	border-top: 1px solid #EAEAEA;
+	padding-bottom: 5px;
 }
 
 section .itembox {
 	width: 210px;
-	margin: 30px 60px;
+	margin: 30px 40px;
 	display: inline-block;
 	position: relative;
 }
@@ -49,8 +54,8 @@ section .writer {
 }
 
 section img {
-	width: 170px;
-	height: 170px;
+	width: 180px;
+	height: 180px;
 	margin-bottom: 30px;
 	border-radius: 30%;
 }
