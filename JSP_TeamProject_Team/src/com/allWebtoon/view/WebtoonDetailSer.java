@@ -118,7 +118,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		     
 	      	//추천 로직 만들기
 	      	GenericDataModel model =  Mahout_Recommend.parsingDataModel(
-	      				WebtoonListDAO.selDataModel(data.getGenre_name()));
+	      				WebtoonListDAO.selDataModel());
 			/*DataModel model = null;
 			try {
 				model = Mahout_Recommend.parsingDataModel();
@@ -128,20 +128,10 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			}*/
 	      	//List<WebtoonVO> recomList = Mahout_Recommend.getRecommendList(model, loginUser_u_no, 5); 
 	      	List<WebtoonVO> recomList = Mahout_Recommend.getRecommendList(model, w_no, loginUser_u_no, 5); 
-	      	//request.setAttribute("rec_list", recomList);
+	      	request.setAttribute("rec_list", recomList);
 	      	//request.setAttribute("pythonList", Python_Recommend.getRecommendList(w_no));
 	     }
 		 ViewResolver.viewForward("webtoonDetail", request, response);
       }
    }
-  
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	   String body = IOUtils.toString(request.getReader());
- 	   JsonParser parser = new JsonParser();
-       JsonObject object = (JsonObject) parser.parse(body);
-       
-       int w_no = Integer.parseInt(object.get("w_no").toString());
-       String proc_type = object.get("proc_type").toString();
-   }
-
 }

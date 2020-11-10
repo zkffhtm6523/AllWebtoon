@@ -7,8 +7,8 @@ import java.security.SecureRandom;
 
 public class SNSInfo {
 	//이거만 바꾸면 됨  
-	private static final String HOST_URI = "http://allwebtoon.xyz";
-	//private static final String HOST_URI = "http://localhost:8089";
+	//private static final String HOST_URI = "http://allwebtoon.xyz";
+	private static final String HOST_URI = "http://localhost:8089";
 	
 	//REDIRECT_URI
 	private static final String KAKAO_REDIRECT_URI = HOST_URI + "/kakaoAPI";
