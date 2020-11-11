@@ -88,7 +88,7 @@
 			</c:if>
 	      <!-- 댓글 부분 -->
 	      <div id="comment">
-	         <form action="/webtoon/cmt" method="post" id="cmtFrm" name="cmtFrm" onsubmit="return chk()">
+	         <form action="/webtoon/cmt" method="`" id="cmtFrm" name="cmtFrm" onsubmit="return chk()">
 	            <input type="hidden" id="point" name="c_rating" value="${cmtFrm.u_no.value == '' ? '0.0' : myCmt.c_rating }" required>
 	            <input type="hidden" id="cmtChk" name="cmtChk" value=${myCmt.c_rating == 0.0 ? "0" : "1" }>
 	               <!-- 댓글 남기기 -->
@@ -134,7 +134,7 @@
 	      </div>
       </section>
       <jsp:include page="../template/footer.jsp"/>
-   </div>
+    </div>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script>
