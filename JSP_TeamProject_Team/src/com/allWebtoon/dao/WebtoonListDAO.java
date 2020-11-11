@@ -323,7 +323,7 @@ public class WebtoonListDAO {
 			return vo;
 		}
 		//데이터 모델 변환용
-		public static List<WebtoonCmtDomain> selDataModel(String genre_name){
+		public static List<WebtoonCmtDomain> selDataModel(){
 			List<WebtoonCmtDomain> webtoonList = new ArrayList<WebtoonCmtDomain>();
 			String sql = " SELECT A.u_no, A.w_no, A.c_rating FROM t_comment A "
 					+ " INNER JOIN t_w_genre B "
@@ -331,7 +331,7 @@ public class WebtoonListDAO {
 					+ " INNER JOIN t_genre C "
 					+ " ON B.genre_no = C.genre_no "
 					//+ " WHERE C.genre_name = ? 
-					+ " ORDER BY A.u_no ";
+					+ " ORDER BY A.u_no, A.w_no ";
 			
 			JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
 				

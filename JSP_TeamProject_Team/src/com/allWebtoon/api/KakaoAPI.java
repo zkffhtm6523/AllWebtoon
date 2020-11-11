@@ -28,29 +28,26 @@ public class KakaoAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String access_token = getAccessToken(request.getParameter("code"));
-		UserVO userInfo;
-		try {
-			userInfo = getUserInfo(access_token);
-			int result = UserDAO.selSNSUser(userInfo);
-			if(result == 0) {
-				request.setAttribute("userInfo",userInfo);
-				ViewResolver.accessForward("join", request, response);
-				return;
-			}
-			//에러처리
-			if(result == 2) {		
-				String msg = "비밀번호가 틀렸습니다.";
-				request.setAttribute("msg",msg);
-			}
-			request.setAttribute("u_id", userInfo.getU_name());
-			HttpSession hs = request.getSession();
-			hs.setAttribute(Const.LOGIN_USER,userInfo);
-			
-			response.sendRedirect("/");
+		UserVO userInfo = getUserInfo(access_token);
+		
+		int db_result = UserDAO.selSNSUser(userInfo);
+		
+		if(db_result == 0) {
+			request.setAttribute("userInfo",userInfo);
+			ViewResolver.accessForward("join", request, response);
 			return;
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+		//에러처리
+		if(db_result == 2) {		
+			String msg = "비밀번호가 틀렸습니다.";
+			request.setAttribute("msg",msg);
+			ViewResolver.accessForward("login", request, response);
+			return;
+		}
+		HttpSession hs = request.getSession();
+		hs.setAttribute(Const.LOGIN_USER,userInfo);
+		
+		response.sendRedirect("/");
 	}
 	public static String getAccessToken(String authorize_code) {
 		String access_Token = "";
@@ -94,55 +91,48 @@ public class KakaoAPI extends HttpServlet {
         } 
         return access_Token;
 	}
-	public static UserVO getUserInfo (String access_Token) throws Exception {
+	public static UserVO getUserInfo (String access_Token) throws IOException {
 	    UserVO param = new UserVO();
 	    String reqURL = "https://kapi.kakao.com/v2/user/me";
-	    try {
-	        URL url = new URL(reqURL);
-	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	        conn.setRequestMethod("POST");
-	        
-	        //요청에 필요한 Header에 포함될 내용
-	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-	        
-	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	        
-	        String line = "", result = "";
-	        
-	        while ((line = br.readLine()) != null) {
-	            result += line;
-	        }
-	        JsonParser parser = new JsonParser();
-	        JsonElement element = parser.parse(result);
-	        
-	        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-	        
-	        String user_id = element.getAsJsonObject().get("id").getAsString();
-	        String nickname = "", gender ="", profile_image ="", email = "";
+        URL url = new URL(reqURL);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        
+        String line = "", result = "";
+        
+        while ((line = br.readLine()) != null) {result += line;}
+        
+        JsonParser parser = new JsonParser();
+        JsonElement element = parser.parse(result);
+        
+        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+        
+        String user_id = element.getAsJsonObject().get("id").getAsString();
+        String nickname = "", gender ="", profile_image ="", email = "";
 
-	        nickname = properties.getAsJsonObject().get("nickname").getAsString();
-	        gender = kakao_account.getAsJsonObject().get("gender").getAsString();
-	        email = kakao_account.getAsJsonObject().get("email").getAsString();
-	        profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
-	        
-	        param.setU_id(user_id);
-	        param.setU_password(user_id);
-	        param.setU_joinPath(2);
-	       
-	        
-	        if(!"".equals(email)) {param.setU_email(email);}
-	        if(!"".equals(nickname)) {param.setU_name(nickname);}
-	        if(!"".equals(profile_image)) {
-	        	param.setU_profile(profile_image);
-	        	param.setChkProfile(param.getU_profile().substring(0, 4));
-	        }  
-	        if(!"".equals(gender)) {
-	        	param.setGender_name(gender.equals("male") ? "남성" : "여성");
-	        }
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+        nickname = properties.getAsJsonObject().get("nickname").getAsString();
+        gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+        email = kakao_account.getAsJsonObject().get("email").getAsString();
+        profile_image = properties.getAsJsonObject().get("profile_image").getAsString();
+        
+        param.setU_id(user_id);
+        param.setU_password(user_id);
+        param.setU_joinPath(2);
+       
+        
+        if(!"".equals(email)) {param.setU_email(email);}
+        if(!"".equals(nickname)) {param.setU_name(nickname);}
+        if(!"".equals(profile_image)) {
+        	param.setU_profile(profile_image);
+        	param.setChkProfile(param.getU_profile().substring(0, 4));
+        }  
+        if(!"".equals(gender)) {
+        	param.setGender_name(gender.equals("male") ? "남성" : "여성");
+        }
 	    return param;
 	}
 }

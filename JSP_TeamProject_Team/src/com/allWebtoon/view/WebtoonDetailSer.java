@@ -118,7 +118,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		     
 	      	//추천 로직 만들기
 	      	GenericDataModel model =  Mahout_Recommend.parsingDataModel(
-	      				WebtoonListDAO.selDataModel(data.getGenre_name()));
+	      				WebtoonListDAO.selDataModel());
 			/*DataModel model = null;
 			try {
 				model = Mahout_Recommend.parsingDataModel();

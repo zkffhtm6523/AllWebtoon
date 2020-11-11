@@ -47,12 +47,13 @@ public class GoogleAPI extends HttpServlet {
 		}else if(db_result == 2) {
 			String msg = "비밀번호가 틀렸습니다.";
 			request.setAttribute("msg",msg);
-			request.setAttribute("user_id", userInfo.getU_name());
 			ViewResolver.accessForward("login", request, response);
 			return;
 		}
+		
 		HttpSession hs = request.getSession();
 		hs.setAttribute(Const.LOGIN_USER,userInfo);
+		
 		response.sendRedirect("/");
 	}
 	public static UserVO getUserInfo(String result) {
