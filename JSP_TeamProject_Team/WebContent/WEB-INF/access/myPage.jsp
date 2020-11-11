@@ -152,12 +152,9 @@
 			</div>
 			<!--  추천 웹툰 -->
 			<div class="result_view" id="recommendlist">
-				<h2><span id="loginUser">${loginUser.u_name}님</span> 추천 웹툰 <span id="recommend_show_all" class="show_all" onclick="show_all('recommend')">전체보기</span></h2>
+				<h2><span id="loginUser">${loginUser.u_name}님</span> 추천 웹툰</h2>
 				<c:choose>
 					<c:when test="${recommendlist != null}">
-					<c:if test="${fn:length(recommendlist) > 5}">
-							<span class="material-icons" id="prevArrIcon" onclick="selRecMinus()">keyboard_arrow_left</span>
-					</c:if>
 						<c:forEach var="i" begin="0" end="${fn:length(recommendlist) <= 5 ? fn:length(recommendlist)-1 : 4 }">
 							<div class="listItem">
 								<ul>
@@ -166,9 +163,6 @@
 								</ul>
 							</div>
 						</c:forEach>
-						<c:if test="${fn:length(recommendlist) > 5}">
-							<span class="material-icons" id="nextArrIcon" onclick="selRecPlus()">keyboard_arrow_right</span>
-						</c:if>
 					</c:when>
 					<c:otherwise>
 						<div class="nonListItem">
