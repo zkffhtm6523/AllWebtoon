@@ -133,6 +133,7 @@ public class NaverAPI extends HttpServlet {
 		userInfo.setU_profile(profile_img);
 		userInfo.setU_email(email);
 		userInfo.setGender_name(gender.equals("M") ? "남성" : "여성");
+		System.out.println(userInfo.getGender_name());
 		userInfo.setU_joinPath(3);
 		userInfo.setChkProfile(userInfo.getU_profile().substring(0, 4));
 		return userInfo;
