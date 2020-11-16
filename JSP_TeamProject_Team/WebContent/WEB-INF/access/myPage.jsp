@@ -50,35 +50,28 @@
 				</li>
 			</ul>
 			</div>
-			<!-- 조회한 웹툰 -->
-			<div class="result_view" id="view_list">
-				<h2><span id="loginUser">${loginUser.u_name}님</span> 최근 조회 웹툰</h2>
+			
+			<!--  추천 웹툰 -->
+			<div class="result_view" id="recommendlist">
+				<h2><span id="loginUser">${loginUser.u_name}님</span> 추천 웹툰</h2>
 				<c:choose>
-					<c:when test="${recentWebtoon != null}">
-						<c:forEach var="i" begin="0" end="${fn:length(recentWebtoon) <= 5 ? fn:length(recentWebtoon)-1 : 4 }">
+					<c:when test="${recommendlist != null}">
+						<c:forEach var="i" begin="0" end="${fn:length(recommendlist) <= 5 ? fn:length(recommendlist)-1 : 4 }">
 							<div class="listItem">
 								<ul>
-									<li><a href="/webtoon/detail?w_no=${recentWebtoon[i].w_no}"><img src="${recentWebtoon[i].w_thumbnail}" title="${recentWebtoon[i].w_title}"></a></li>
-									<li class="title">${recentWebtoon[i].w_title}</li>
-									<c:if test="${recentWebtoon[i].c_rating != 0}">
-										<span class="material-icons">grade</span>
-										<li>${recentWebtoon[i].c_rating}</li>
-									</c:if>
-									<c:if test="${recentWebtoon[i].c_com != null}">
-										<span class="material-icons">insert_comment</span>
-									</c:if>
+									<li><a href="/webtoon/detail?w_no=${recommendlist[i].w_no}"><img src="${recommendlist[i].w_thumbnail}" title="${favoritelist[i].w_title}"></a></li>
+									<li class="title">${recommendlist[i].w_title}</li>
 								</ul>
 							</div>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
 						<div class="nonListItem">
-							<h2>조회한 웹툰이 없습니다.</h2>
+							<h2>추천 웹툰이 없습니다. 평가하기 페이지에서 충분한 평점을 부탁드려요~</h2>
 						</div>
 					</c:otherwise>
 				</c:choose>
 			</div>
-			
 			
 			<div class="result_view" id="cmt_list">
 				<h2><span id="loginUser">${loginUser.u_name}님</span> 평가 웹툰 <span id="cmt_show_all" class="show_all" onclick="show_all('cmt')">전체보기</span></h2>
@@ -150,29 +143,30 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<!--  추천 웹툰 -->
-			<div class="result_view" id="recommendlist">
-				<h2><span id="loginUser">${loginUser.u_name}님</span> 추천 웹툰 <span id="recommend_show_all" class="show_all" onclick="show_all('recommend')">전체보기</span></h2>
+			<!-- 조회한 웹툰 -->
+			<div class="result_view" id="view_list">
+				<h2><span id="loginUser">${loginUser.u_name}님</span> 최근 조회 웹툰</h2>
 				<c:choose>
-					<c:when test="${recommendlist != null}">
-					<c:if test="${fn:length(recommendlist) > 5}">
-							<span class="material-icons" id="prevArrIcon" onclick="selRecMinus()">keyboard_arrow_left</span>
-					</c:if>
-						<c:forEach var="i" begin="0" end="${fn:length(recommendlist) <= 5 ? fn:length(recommendlist)-1 : 4 }">
+					<c:when test="${recentWebtoon != null}">
+						<c:forEach var="i" begin="0" end="${fn:length(recentWebtoon) <= 5 ? fn:length(recentWebtoon)-1 : 4 }">
 							<div class="listItem">
 								<ul>
-									<li><a href="/webtoon/detail?w_no=${recommendlist[i].w_no}"><img src="${recommendlist[i].w_thumbnail}" title="${favoritelist[i].w_title}"></a></li>
-									<li class="title">${recommendlist[i].w_title}</li>
+									<li><a href="/webtoon/detail?w_no=${recentWebtoon[i].w_no}"><img src="${recentWebtoon[i].w_thumbnail}" title="${recentWebtoon[i].w_title}"></a></li>
+									<li class="title">${recentWebtoon[i].w_title}</li>
+									<c:if test="${recentWebtoon[i].c_rating != 0}">
+										<span class="material-icons">grade</span>
+										<li>${recentWebtoon[i].c_rating}</li>
+									</c:if>
+									<c:if test="${recentWebtoon[i].c_com != null}">
+										<span class="material-icons">insert_comment</span>
+									</c:if>
 								</ul>
 							</div>
 						</c:forEach>
-						<c:if test="${fn:length(recommendlist) > 5}">
-							<span class="material-icons" id="nextArrIcon" onclick="selRecPlus()">keyboard_arrow_right</span>
-						</c:if>
 					</c:when>
 					<c:otherwise>
 						<div class="nonListItem">
-							<h2>추천 웹툰이 없습니다. 평가하기 페이지에서 충분한 평점을 부탁드려요~</h2>
+							<h2>조회한 웹툰이 없습니다.</h2>
 						</div>
 					</c:otherwise>
 				</c:choose>

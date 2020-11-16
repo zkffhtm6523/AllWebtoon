@@ -86,10 +86,6 @@ public class SearchResultSer extends HttpServlet {
 			out.print(json);
 		}
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-	
 	
 	//스크립트 필터
  	private String scriptFilter(final String ctnt) {
