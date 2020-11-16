@@ -45,7 +45,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 public class Mahout_Recommend {
 	public static List<WebtoonVO> getUserBasedRecommend(DataModel model, int u_no, int getList_length){
 		List<WebtoonVO> recommendList = new ArrayList<WebtoonVO>();
-        //유저 기준 유사성
+        //사용자 기반 추천 시스템
 		UserSimilarity similarity;
 		try {
 			//타니모토 계수
