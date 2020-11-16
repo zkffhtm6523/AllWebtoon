@@ -13,6 +13,27 @@ import com.allWebtoon.vo.WebtoonCmtDomain;
 import com.allWebtoon.vo.WebtoonCmtVO;
 
 public class WebtoonCmtDAO {
+	//footer에서 평점 갯수 가져오기
+	public static int selCntRating() {
+		String sql = " SELECT COUNT(*) AS CNT FROM t_comment ";
+		return JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+			
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {
+			}
+			
+			@Override
+			public int executeQuery(ResultSet rs) throws SQLException {
+				int cnt = 0;
+				if(rs.next()) {
+					cnt = rs.getInt("CNT");
+				}
+				return cnt;
+			}
+		});
+	}
+	
+	//detail페이지에서 댓글, 평점 수정
 	public static int updCmt(WebtoonCmtVO param) {
 		String sql = " UPDATE t_comment " 
 				+ " SET c_com = ? , c_rating = ?, m_dt=now() " 

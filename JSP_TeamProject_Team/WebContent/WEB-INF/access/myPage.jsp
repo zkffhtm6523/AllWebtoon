@@ -201,13 +201,6 @@
 	openButton_favorite.addEventListener("click", openModal)
 	//openButton[1].addEventListener("click", openModal)
 	overlay.addEventListener("click", closeModal)
-function selRecMinus() {
-	
-}
-
-function selRecPlus() {
-	
-}
 function show_all(type){
 	axios.get('/myPage',{
 		params :{

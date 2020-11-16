@@ -171,6 +171,21 @@ footer #footer_container{
     background-color: #4FA2C7;
     padding: 20px 0 5px 0;
 }
+
+footer #footer_cnt_rating{
+	text-align: center;
+	color: white;
+	font-size: 1.2rem;
+	font-weight: bold;
+	letter-spacing: 8px;
+}
+footer #footer_star{
+	color: gold;
+	font-size: 1.3em;
+}
+footer #footer_cnt_rating_span{
+	color: mediumvioletred;
+}
 footer #footer_container_icon{
 	width: 150px;
 	margin: 10px auto;	
