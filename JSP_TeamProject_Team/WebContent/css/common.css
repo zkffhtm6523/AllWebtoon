@@ -150,6 +150,30 @@ section > a > #arrow_downward{
 	font-weight: bold;
 	color: gray;
 }
+
+@media screen and (max-width: 1800px){
+	section  > a > #arrow_upward , section > a > #arrow_downward{
+		transition: all 0.5s ease-in-out;
+	}
+}
+@media screen and (max-width: 1500px){
+	section  > a > #arrow_upward , section > a > #arrow_downward{
+		right: 3%;
+		transition: all 0.5s ease-in-out;
+	}
+}
+@media screen and (max-width: 1400px){
+	section  > a > #arrow_upward , section > a > #arrow_downward{
+		right: 15px;
+		transition: all 0.5s ease-in-out;
+	}
+}
+@media screen and (max-width: 1200px){
+	section  > a > #arrow_upward , section > a > #arrow_downward{
+		display: none;
+		transition: all 0.5s ease-in-out;
+	}
+}
 /* 섹션 안에 감싸는 sec_container */
 section #sec_container{
 	width: 1200px;
