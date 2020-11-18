@@ -48,7 +48,6 @@ public class NaverAPI extends HttpServlet {
 		}else if(db_result == 2) {
 			String msg = "비밀번호가 틀렸습니다.";
 			request.setAttribute("msg",msg);
-			request.setAttribute("user_id", userInfo.getU_name());
 			ViewResolver.accessForward("login", request, response);
 			return;
 		}
@@ -134,6 +133,7 @@ public class NaverAPI extends HttpServlet {
 		userInfo.setU_profile(profile_img);
 		userInfo.setU_email(email);
 		userInfo.setGender_name(gender.equals("M") ? "남성" : "여성");
+		System.out.println(userInfo.getGender_name());
 		userInfo.setU_joinPath(3);
 		userInfo.setChkProfile(userInfo.getU_profile().substring(0, 4));
 		return userInfo;

@@ -51,16 +51,16 @@
 	                </div>
 	                <div>
 	                	<span class="name">생년월일</span>&nbsp;&nbsp;
-	              	    <input type="date" class="joinList" name="birth" id="birth" value="${data.u_birth }" required>
+	              	    <input type="date" class="joinList" name="birth" id="birth" required>
 	                </div>
 	                <div class="genderBox">
 	                	<span class="name">성별</span>&nbsp;&nbsp;
 		                <div class="genderGroup">
 			                <label for="gender_male">남자</label>
-			                <input type="radio" class="gender" name="gender" value="male" id="gender_male" ${data.gender_name == 'male' ? 'checked':'' } required>
+			                <input type="radio" class="gender" name="gender" value="male" id="gender_male" ${userInfo.gender_name eq '남성' ? 'checked':''} required>
 			                &nbsp;&nbsp;&nbsp;&nbsp;
 			                <label for="gender_female">여자</label>
-			                <input type="radio" class="gender" name="gender" value="female" id="gender_female" ${data.gender_name == 'female' ? 'checked':'' }>
+			                <input type="radio" class="gender" name="gender" value="female" id="gender_female" ${userInfo.gender_name eq '여성' ? 'checked':''}>
 		                </div>
 	                </div>
 	                <div id="frmBtn">

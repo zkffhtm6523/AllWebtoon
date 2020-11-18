@@ -21,4 +21,14 @@
     <filter-name>setCharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TemplateSer</display-name>
+    <servlet-name>TemplateSer</servlet-name>
+    <servlet-class>com.allWebtoon.view.MyPageSer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TemplateSer</servlet-name>
+    <url-pattern>/TemplateSer</url-pattern>
+  </servlet-mapping>
 </web-app>

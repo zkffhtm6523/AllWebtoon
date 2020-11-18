@@ -27,6 +27,8 @@ section .indexBlock h1{
 	top:10%;
 	left: -35%;
 	display: inline-block;
+	width: 200px;
+	text-align: left;
 }
 section .indexBlock hr{
  	width: 85%;

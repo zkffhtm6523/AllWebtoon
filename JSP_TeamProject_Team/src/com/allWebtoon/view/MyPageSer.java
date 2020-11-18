@@ -2,6 +2,7 @@ package com.allWebtoon.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.mahout.cf.taste.impl.model.GenericDataModel;
+import org.apache.mahout.cf.taste.model.DataModel;
 
 import com.allWebtoon.dao.MyPageDAO;
 import com.allWebtoon.dao.WebtoonCmtDAO;
+import com.allWebtoon.dao.WebtoonListDAO;
+import com.allWebtoon.recommend.Mahout_Recommend;
 import com.allWebtoon.util.MyUtils;
 import com.allWebtoon.util.ViewResolver;
 import com.allWebtoon.vo.UserVO;
 import com.allWebtoon.vo.WebtoonCmtDomain;
 import com.allWebtoon.vo.WebtoonCmtVO;
+import com.allWebtoon.vo.WebtoonVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -31,16 +37,13 @@ public class MyPageSer extends HttpServlet {
 		int idx = MyUtils.getIntParameter(request, "page");
 		String type = request.getParameter("type");
 		String yn_modal = request.getParameter("yn_modal");
-		
-		//System.out.println("type: " + type );
-		  
 		//로그인 체크
 		UserVO loginUser = MyUtils.getLoginUser(request);
 		if(loginUser == null) {
 			response.sendRedirect("/login");
 			return;
 		}
-
+		//최근 조회 웹툰
 		List<WebtoonCmtDomain> selRecentList = new ArrayList<WebtoonCmtDomain>();
 		MyPageDAO.selRecentlyWebtoon(selRecentList, loginUser.getU_no());
 		if(selRecentList.size() > 0) {
@@ -53,7 +56,14 @@ public class MyPageSer extends HttpServlet {
 		//찜한 웹툰  
 		List<WebtoonCmtDomain> favoriteList = new ArrayList<WebtoonCmtDomain>();
 		MyPageDAO.selfavoriteWebtoon(favoriteList, loginUser.getU_no());
-		
+
+		//추천 로직 만들기
+     	GenericDataModel model =  Mahout_Recommend.parsingDataModel(WebtoonListDAO.selDataModel());
+      	List<WebtoonVO> recomList = Mahout_Recommend.getUserBasedRecommend(model, loginUser.getU_no(), 5);
+      	if(recomList.size() > 0) {
+      		request.setAttribute("recommendlist", recomList);
+      	}
+      	
 		if(type == null) {
 
 			List<WebtoonCmtDomain> first_cmtList = new ArrayList<WebtoonCmtDomain>();
@@ -75,39 +85,15 @@ public class MyPageSer extends HttpServlet {
 			}
 			ViewResolver.accessForward("myPage", request, response);
 		}
-		
-	/*	if(selCmtList.size() == 0 && idx == 0) {
-			ViewResolver.accessForward("myPage", request, response);
-			return;
-		}else if(selCmtList.size() >= 1 && idx == 0) {
-			System.out.println("여긴가");
-			List<WebtoonCmtDomain> firstList = new ArrayList<WebtoonCmtDomain>();
-			for (int i = 0; i < selCmtList.size(); i++) {
-				firstList.add(selCmtList.get(i));
-			}
-			request.setAttribute("list", firstList);
-			
-			ViewResolver.accessForward("myPage", request, response);*/
-		//ajax 로직
-		//}
 		else {
-			//selCmtList = new ArrayList<WebtoonCmtDomain>();
-			//MyPageDAO.myWebtoon(selCmtList, loginUser.getU_no());
-			
-			//System.out.println("selcmtlist : " + selCmtList.get(idx).getW_title());
-			
 			List<WebtoonCmtDomain> list;
-			
 			if("cmt".equals(type)) {
 				list = selCmtList;
 			}else {
 				list = favoriteList;
 			}
-			
 			Gson gson = new Gson();
-			
 			if(yn_modal != null) {
-				
 				String json = gson.toJson(list);
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("application/json");
@@ -115,10 +101,7 @@ public class MyPageSer extends HttpServlet {
 				out.print(json);
 				return ;
 			}
-			
 			if(list.size() > idx) {
-				//idx -= 1;
-				
 				String json = gson.toJson(list.get(idx));
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("application/json");

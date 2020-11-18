@@ -127,18 +127,13 @@
 					var data = { 
 						genre : select.options[select.selectedIndex].text
 					}
-						
-					console.log("장르: " + data.genre)
 					axios.post('/home', data).then(function(res) {
-						console.log(res)
 						result = data.genre
 						list = []
 						
 						listBlock.innerHTML = ""
 						
 						res.data.forEach(function (item){
-							console.log(item.w_title)
-							
 							list.push(item)
 						})
 						
@@ -223,7 +218,6 @@
 		         chk++;
 		         index++;
 		    }
-		    console.log('index : '+index)
 		    //우측 화살표 아이콘 만들기
 		    var icons2 = document.createElement('span')
 		    icons2.classList.add('material-icons')
@@ -254,7 +248,6 @@
 		    	 }
 		    })		   
 		    listBlock.append(icons2)
-		    console.log('마지막')
 	    }
     	//웹툰 상세페이지 가기
 	  	function moveToDetail(w_no) {

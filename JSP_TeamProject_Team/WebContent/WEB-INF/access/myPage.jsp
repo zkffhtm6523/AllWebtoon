@@ -50,35 +50,28 @@
 				</li>
 			</ul>
 			</div>
-			<!-- 조회한 웹툰 -->
-			<div class="result_view" id="view_list">
-				<h2><span id="loginUser">${loginUser.u_name}님</span> 최근 조회 웹툰</h2>
+			
+			<!--  추천 웹툰 -->
+			<div class="result_view" id="recommendlist">
+				<h2><span id="loginUser">${loginUser.u_name}님</span> 추천 웹툰</h2>
 				<c:choose>
-					<c:when test="${recentWebtoon != null}">
-						<c:forEach var="i" begin="0" end="${fn:length(recentWebtoon) <= 5 ? fn:length(recentWebtoon)-1 : 4 }">
+					<c:when test="${recommendlist != null}">
+						<c:forEach var="i" begin="0" end="${fn:length(recommendlist) <= 5 ? fn:length(recommendlist)-1 : 4 }">
 							<div class="listItem">
 								<ul>
-									<li><a href="/webtoon/detail?w_no=${recentWebtoon[i].w_no}"><img src="${recentWebtoon[i].w_thumbnail}" title="${recentWebtoon[i].w_title}"></a></li>
-									<li class="title">${recentWebtoon[i].w_title}</li>
-									<c:if test="${recentWebtoon[i].c_rating != 0}">
-										<span class="material-icons">grade</span>
-										<li>${recentWebtoon[i].c_rating}</li>
-									</c:if>
-									<c:if test="${recentWebtoon[i].c_com != null}">
-										<span class="material-icons">insert_comment</span>
-									</c:if>
+									<li><a href="/webtoon/detail?w_no=${recommendlist[i].w_no}"><img src="${recommendlist[i].w_thumbnail}" title="${favoritelist[i].w_title}"></a></li>
+									<li class="title">${recommendlist[i].w_title}</li>
 								</ul>
 							</div>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
 						<div class="nonListItem">
-							<h2>조회한 웹툰이 없습니다.</h2>
+							<h2>추천 웹툰이 없습니다. 평가하기 페이지에서 충분한 평점을 부탁드려요~</h2>
 						</div>
 					</c:otherwise>
 				</c:choose>
 			</div>
-			
 			
 			<div class="result_view" id="cmt_list">
 				<h2><span id="loginUser">${loginUser.u_name}님</span> 평가 웹툰 <span id="cmt_show_all" class="show_all" onclick="show_all('cmt')">전체보기</span></h2>
@@ -150,6 +143,34 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
+			<!-- 조회한 웹툰 -->
+			<div class="result_view" id="view_list">
+				<h2><span id="loginUser">${loginUser.u_name}님</span> 최근 조회 웹툰</h2>
+				<c:choose>
+					<c:when test="${recentWebtoon != null}">
+						<c:forEach var="i" begin="0" end="${fn:length(recentWebtoon) <= 5 ? fn:length(recentWebtoon)-1 : 4 }">
+							<div class="listItem">
+								<ul>
+									<li><a href="/webtoon/detail?w_no=${recentWebtoon[i].w_no}"><img src="${recentWebtoon[i].w_thumbnail}" title="${recentWebtoon[i].w_title}"></a></li>
+									<li class="title">${recentWebtoon[i].w_title}</li>
+									<c:if test="${recentWebtoon[i].c_rating != 0}">
+										<span class="material-icons">grade</span>
+										<li>${recentWebtoon[i].c_rating}</li>
+									</c:if>
+									<c:if test="${recentWebtoon[i].c_com != null}">
+										<span class="material-icons">insert_comment</span>
+									</c:if>
+								</ul>
+							</div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<div class="nonListItem">
+							<h2>조회한 웹툰이 없습니다.</h2>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 		<div class="modal hidden">
 	       <div class="modal__overlay"></div>
@@ -180,7 +201,6 @@
 	openButton_favorite.addEventListener("click", openModal)
 	//openButton[1].addEventListener("click", openModal)
 	overlay.addEventListener("click", closeModal)
-
 function show_all(type){
 	axios.get('/myPage',{
 		params :{
@@ -250,32 +270,7 @@ function show_all(type){
 			listItem.append(ul)
 			
 			modal_content.append(listItem)
-			/*
-			modal_content.innerHTML += 
-				
-				'<div class="listItem" id="item_'+item.w_no + '">'
-				+'<ul>'
-				+'<li>'
-			if(type=='cmt'){
-				modal_content.innerHTML += '<div id="del_Icon" onclick="deleteInmodal('+item.w_no+')">x</div>'
-			}
-				
-			modal_content.innerHTML += 
-				
-				'<a href="/webtoon/detail?w_no='+item.w_no+'"><img src="'+item.w_thumbnail+'" title="'+item.w_title+'"></a></li>'
-				+'<li><div class="title">'+item.w_title+'</div></li>'
-				+'<c:if test="'+item.c_rating+' != 0 && '+item.c_rating +'!= null}">'
-				+'	<span class="material-icons">grade</span>'
-				+'	<li>'+item.c_rating+'</li>'
-				+'</c:if>'
-				+'<c:if test="'+item.c_com +'!= null && '+item.c_com +'!= '' && '+item.c_com +'!= ' '}">'
-				+'	<span class="material-icons">insert_comment</span>'
-				+'</c:if>'
-				+'</ul>'
-				+'</div>'*/
 		})
-		
-		
 	})
 }
 	

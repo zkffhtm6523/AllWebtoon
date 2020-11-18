@@ -9,8 +9,6 @@ html, body{
 	width: 100%;
 	height: 100%;
 }
-body{
-}
 button, input {
 	outline: none;
 }
@@ -139,7 +137,7 @@ section {
 section  > a > #arrow_upward{
 	position: fixed;
 	bottom: 10%;
-	right: 100px;
+	right: 10%;
 	font-size: 3em;
 	font-weight: bold;
 	color: gray;
@@ -147,10 +145,28 @@ section  > a > #arrow_upward{
 section > a > #arrow_downward{
 	position: fixed;
 	bottom: 5%;
-	right: 100px;
+	right: 10%;
 	font-size: 3em;
 	font-weight: bold;
 	color: gray;
+}
+
+@media screen and (max-width: 1800px){
+	section  > a > #arrow_upward , section > a > #arrow_downward{
+		transition: all 0.5s ease-in-out;
+	}
+}
+@media screen and (max-width: 1600px){
+	section  > a > #arrow_upward , section > a > #arrow_downward{
+		right: 3%;
+		transition: all 0.5s ease-in-out;
+	}
+}
+@media screen and (max-width: 1200px){
+	section  > a > #arrow_upward , section > a > #arrow_downward{
+		display: none;
+		transition: all 0.5s ease-in-out;
+	}
 }
 /* 섹션 안에 감싸는 sec_container */
 section #sec_container{
@@ -172,6 +188,21 @@ footer #footer_container{
     margin: 0 auto;
     background-color: #4FA2C7;
     padding: 20px 0 5px 0;
+}
+
+footer #footer_cnt_rating{
+	text-align: center;
+	color: white;
+	font-size: 1.2rem;
+	font-weight: bold;
+	letter-spacing: 8px;
+}
+footer #footer_star{
+	color: gold;
+	font-size: 1.3em;
+}
+footer #footer_cnt_rating_span{
+	color: mediumvioletred;
 }
 footer #footer_container_icon{
 	width: 150px;
